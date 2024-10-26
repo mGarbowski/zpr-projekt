@@ -20,7 +20,7 @@ z zawartością http://staff.elka.pw.edu.pl/~rbiedrzy/ZPR/index.html.
 Projekt będzie składać się z aplikacji desktopowej przedstawiającej wizualizację przebiegu symulacji
 ewolucji pojazdów 2D oraz interfejsu użytkownika do konfigurowania parametrów symulacji.
 
-Ewolucja pojazdów będzie przeprowadzona, korzystając z algorytmu ewolucyjnego. Wizualizowane będą przebiegi kolejnych
+Ewolucja pojazdów będzie przeprowadzona korzystając z algorytmu ewolucyjnego. Wizualizowane będą przebiegi kolejnych
 iteracji. Użytkownik aplikacji będzie mógł ustawić parametry algorytmu (np. siłę mutacji) i wybrać warianty składowych
 algorytmu ewolucyjnego (schemat reprodukcji, schemat selekcji, ...).
 
@@ -49,7 +49,6 @@ Co pokolenie generowana jest nowa trasa. Do generowania terenu planujemy użyć 
 * Przedstawienie wyników po zakończonej ewolucji
   * wyświetlenie modelu najlepszego pojazdu i jego parametrów (genomu)
 
-\newpage
 
 ## Lista zadań
 | Grupa                              | Zadanie                                                                                      | Czas [h] |
