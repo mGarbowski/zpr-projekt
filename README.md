@@ -1,7 +1,3 @@
-<!---
-pandoc dokumentacja-wstepna.md -o Garbowski_Łuszczek.pdf -V geometry:margin=1in
--->
-
 # Ewolucja Pojazdów
 Zaawansowane programowanie w C++ - projekt, semestr 2024Z.
 

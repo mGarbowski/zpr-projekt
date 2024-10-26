@@ -1,3 +1,7 @@
+<!---
+pandoc dokumentacja-wstepna.md -o Garbowski_Łuszczek.pdf -V geometry:margin=1in
+-->
+
 # Dokumentacja wstępna
 * Mikołaj Garbowski
 * Michał Łuszczek
