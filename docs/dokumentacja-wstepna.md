@@ -49,6 +49,7 @@ Co pokolenie generowana jest nowa trasa. Do generowania terenu planujemy użyć 
 * Przedstawienie wyników po zakończonej ewolucji
   * wyświetlenie modelu najlepszego pojazdu i jego parametrów (genomu)
 
+\newpage
 
 ## Lista zadań
 | Grupa                              | Zadanie                                                                                      | Czas [h] |
