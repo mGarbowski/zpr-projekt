@@ -22,7 +22,7 @@ ewolucji pojazdów 2D oraz interfejsu użytkownika do konfigurowania parametrów
 
 Ewolucja pojazdów będzie przeprowadzona, korzystając z algorytmu ewolucyjnego. Wizualizowane będą przebiegi kolejnych
 iteracji. Użytkownik aplikacji będzie mógł ustawić parametry algorytmu (np. siłę mutacji) i wybrać warianty składowych
-algorytmu ewolucyjnego (schemat reprodukcji, schemat selekcji).
+algorytmu ewolucyjnego (schemat reprodukcji, schemat selekcji, ...).
 
 Funkcja celu będzie wyliczana na podstawie przejechanej odległości i czasu.
 Samochód będzie składać się z kadłuba zbudowanego z trójkątów o wspólnym centralnym wierzchołku oraz 2 kół o osiach
