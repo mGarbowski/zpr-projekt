@@ -31,6 +31,29 @@ z zawartością http://staff.elka.pw.edu.pl/~rbiedrzy/ZPR/index.html.
   * Dokumentacja końcowa to opis prac o objętości 3 stron A4 oraz dokumentacja wygenerowana z kodu.
 
 ## Użyte biblioteki
-TODO
+* [Box2D - silnik fizyczny](https://box2d.org/)
+* [ImGui - graficzny interfejs użytkownika](https://github.com/ocornut/imgui)
+* [SFML - obsługa grafiki](https://www.sfml-dev.org/)
+* [ImGui-SFML - biblioteka łącząca SFML z ImGui](https://github.com/SFML/imgui-sfml)
+
+## Zasoby
+* [Szablon projektu](https://github.com/micromouseonline/cmake-sfml-imgui-project)
 
 ## Instrukcja budowania i uruchomienia
+
+### Instalowanie zależności w Ubuntu
+TODO
+
+### Budowanie i uruchomienie aplikacji
+W głównym katalogu (tym samym co README.md)
+
+```shell
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+```
+
+Uruchomienie aplikacji
+
+```shell
+./bin/Debug/evolution
+```

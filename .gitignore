@@ -1,1 +1,10 @@
+cmake-build-*
+build
+out
+.cache
 .idea
+.vs
+.vscode
+imgui.ini
+bin
+build
