@@ -34,11 +34,11 @@ public:
 private:
   b2Vec2 getDimensions(b2BodyId bodyId) const;
 
-  b2WorldId worldId;
-  b2BodyId groundId;
-  b2BodyId bodyId;
-  float timeStep;
-  int subStepCount;
+  b2WorldId world_id_;
+  b2BodyId ground_id_;
+  b2BodyId body_id_;
+  float time_step_;
+  int sub_step_count_;
 };
 
 

@@ -8,7 +8,7 @@
 #include <cassert>
 #include <vector>
 
-Simulation::Simulation() : timeStep(1.0f / 60.0f), subStepCount(4) {
+Simulation::Simulation() : time_step_(1.0f / 60.0f), sub_step_count_(4) {
   b2WorldDef world_def = b2DefaultWorldDef();
   world_def.gravity = b2Vec2{0.0f, -10.0f};
   this->worldId = b2CreateWorld(&world_def);
@@ -31,7 +31,7 @@ Simulation::Simulation() : timeStep(1.0f / 60.0f), subStepCount(4) {
   b2CreatePolygonShape(bodyId, &shape_def, &dynamic_box);
 }
 Simulation::~Simulation() { b2DestroyWorld(worldId); }
-void Simulation::step() { b2World_Step(worldId, timeStep, subStepCount); }
+void Simulation::step() { b2World_Step(worldId, time_step_, sub_step_count_); }
 b2Vec2 Simulation::getBodyPosition() const {
   return b2Body_GetPosition(bodyId);
 }
