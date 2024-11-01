@@ -1,37 +1,36 @@
 #define IMGUI_DEFINE_MATH_OPERATORS
-#include "simulation/Simulation.h"
-
 #include <SFML/Graphics.hpp>
 #include <box2d/box2d.h>
 #include <imgui-SFML.h>
 #include <imgui.h>
 #include <iostream>
-#include <string>
+
+#include "simulation/Simulation.h"
 
 const int WINDOW_WIDTH = 1600;
 const int WINDOW_HEIGHT = 1000;
 
-
 void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Color bodyColor) {
-    b2Vec2 ground_pos = simulation.getGroundPosition();
-    b2Vec2 ground_size = simulation.getGroundDimensions();
-    b2Vec2 body_pos = simulation.getBodyPosition();
-    b2Vec2 body_size = simulation.getBodyDimensions();
+  b2Vec2 ground_pos = simulation.getGroundPosition();
+  b2Vec2 ground_size = simulation.getGroundDimensions();
+  b2Vec2 body_pos = simulation.getBodyPosition();
+  b2Vec2 body_size = simulation.getBodyDimensions();
 
-    const float SCALE = 30.0f;
+  const float SCALE = 30.0f;
 
-    sf::RectangleShape ground(sf::Vector2f(ground_size.x * SCALE, ground_size.y * SCALE));
-    ground.setOrigin(ground_size.x * SCALE / 2, ground_size.y * SCALE / 2);
-    ground.setPosition(ground_pos.x * SCALE + WINDOW_WIDTH / 2, WINDOW_HEIGHT/2 - ground_pos.y * SCALE);
-    ground.setFillColor(sf::Color::Green);
+  sf::RectangleShape ground(sf::Vector2f(ground_size.x * SCALE, ground_size.y * SCALE));
+  ground.setOrigin(ground_size.x * SCALE / 2, ground_size.y * SCALE / 2);
+  ground.setPosition(ground_pos.x * SCALE + WINDOW_WIDTH / 2,
+                     WINDOW_HEIGHT / 2 - ground_pos.y * SCALE);
+  ground.setFillColor(sf::Color::Green);
 
-    sf::RectangleShape body(sf::Vector2f(body_size.x * SCALE, body_size.y * SCALE));
-    body.setOrigin(body_size.x * SCALE / 2, body_size.y * SCALE / 2);
-    body.setPosition(body_pos.x * SCALE + WINDOW_WIDTH / 2, WINDOW_HEIGHT/2 - body_pos.y * SCALE);
-    body.setFillColor(bodyColor);
+  sf::RectangleShape body(sf::Vector2f(body_size.x * SCALE, body_size.y * SCALE));
+  body.setOrigin(body_size.x * SCALE / 2, body_size.y * SCALE / 2);
+  body.setPosition(body_pos.x * SCALE + WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - body_pos.y * SCALE);
+  body.setFillColor(bodyColor);
 
-    window.draw(ground);
-    window.draw(body);
+  window.draw(ground);
+  window.draw(body);
 }
 
 int main() {
@@ -39,7 +38,8 @@ int main() {
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
 
-  auto window = sf::RenderWindow{{WINDOW_WIDTH, WINDOW_HEIGHT}, "Box2D with ImGui and SFML", sf::Style::Default, settings};
+  auto window = sf::RenderWindow{
+      {WINDOW_WIDTH, WINDOW_HEIGHT}, "Box2D with ImGui and SFML", sf::Style::Default, settings};
   if (!ImGui::SFML::Init(window)) {
     std::cerr << "Failed to initialize ImGui with SFML." << std::endl;
     window.close();
@@ -66,7 +66,7 @@ int main() {
     ImGui::SFML::Update(window, delta_time);
 
     ImGui::Begin("Control Panel");
-    static float color[3] = { body_color.r / 255.0f, body_color.g / 255.0f, body_color.b / 255.0f };
+    static float color[3] = {body_color.r / 255.0f, body_color.g / 255.0f, body_color.b / 255.0f};
     if (ImGui::ColorEdit3("Body Color", color)) {
       body_color.r = static_cast<sf::Uint8>(color[0] * 255);
       body_color.g = static_cast<sf::Uint8>(color[1] * 255);

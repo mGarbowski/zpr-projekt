@@ -7,15 +7,14 @@
 
 #include <box2d/box2d.h>
 
-
 class Simulation {
-public:
+ public:
   Simulation();
 
-  Simulation(const Simulation &other) = delete;
-  Simulation(Simulation &&other) noexcept = delete;
-  Simulation &operator=(const Simulation &other) = delete;
-  Simulation &operator=(Simulation &&other) noexcept = delete;
+  Simulation(const Simulation& other) = delete;
+  Simulation(Simulation&& other) noexcept = delete;
+  Simulation& operator=(const Simulation& other) = delete;
+  Simulation& operator=(Simulation&& other) noexcept = delete;
 
   ~Simulation();
 
@@ -31,7 +30,7 @@ public:
 
   void kickBox() const;
 
-private:
+ private:
   b2Vec2 getDimensions(b2BodyId bodyId) const;
 
   b2WorldId world_id_;
@@ -41,6 +40,4 @@ private:
   int sub_step_count_;
 };
 
-
-
-#endif //SIMULATION_H
+#endif  // SIMULATION_H
