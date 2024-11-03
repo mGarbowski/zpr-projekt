@@ -53,19 +53,13 @@ set(BOX2D_BUILD_UNIT_TESTS OFF CACHE BOOL "Disable Box2D unit tests")
 set(BOX2D_BUILD_TESTBED OFF CACHE BOOL "Disable Box2D testbed")
 FetchContent_MakeAvailable(box2d)
 
-
-
-add_executable(${PROJECT_NAME}
-        src/main.cpp
-        src/simulation/Simulation.cc
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG main
 )
+FetchContent_MakeAvailable(googletest)
 
-
-target_link_libraries(${PROJECT_NAME} PRIVATE
-        sfml-graphics
-        ImGui-SFML::ImGui-SFML
-        box2d
-)
 
 # For debugging
 message(STATUS "----------------------------------------------------")
@@ -75,3 +69,6 @@ message(STATUS "CMAKE_INSTALL_PREFIX is set to: ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "CMAKE_ARCHIVE_OUTPUT_DIRECTORY is set to: ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
 message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY is set to: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 message(STATUS "----------------------------------------------------")
+
+add_subdirectory(src/simulation)
+add_subdirectory(src/app)
