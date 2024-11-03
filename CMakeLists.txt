@@ -11,6 +11,8 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 include(cmake/compiler-flags.cmake)
 set(CMAKE_CXX_STANDARD 17)
 
+enable_testing()
+
 # For overriding options for box2d
 if(POLICY CMP0077)
     cmake_policy(SET CMP0077 NEW)
@@ -73,4 +75,6 @@ add_subdirectory(src/simulation)
 add_subdirectory(src/tests/simulation)
 add_subdirectory(src/road)
 add_subdirectory(src/tests/road)
+add_subdirectory(src/evolution)
+add_subdirectory(src/tests/evolution)
 add_subdirectory(src/app)
