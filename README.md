@@ -55,5 +55,17 @@ cmake --build build
 Uruchomienie aplikacji
 
 ```shell
-./bin/Debug/evolution
+./bin/Debug/app
+```
+
+Uruchomienie wszystkich testów
+
+```shell
+ctest --test-dir build
+```
+
+Uruchomienie pojedynczego zestawu testów
+
+```shell
+./bin/Debug/evolution_tests
 ```
