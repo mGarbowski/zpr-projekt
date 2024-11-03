@@ -71,4 +71,6 @@ message(STATUS "----------------------------------------------------")
 
 add_subdirectory(src/simulation)
 add_subdirectory(src/tests/simulation)
+add_subdirectory(src/road)
+add_subdirectory(src/tests/road)
 add_subdirectory(src/app)
