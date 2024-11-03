@@ -55,8 +55,7 @@ FetchContent_MakeAvailable(box2d)
 
 FetchContent_Declare(
         googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG main
+        URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
 )
 FetchContent_MakeAvailable(googletest)
 
@@ -71,4 +70,5 @@ message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY is set to: ${CMAKE_RUNTIME_OUTPUT
 message(STATUS "----------------------------------------------------")
 
 add_subdirectory(src/simulation)
+add_subdirectory(src/tests/simulation)
 add_subdirectory(src/app)
