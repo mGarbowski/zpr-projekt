@@ -57,6 +57,7 @@ FetchContent_MakeAvailable(box2d)
 
 add_executable(${PROJECT_NAME}
         src/main.cpp
+        src/simulation/Simulation.cc
 )
 
 
