@@ -10,17 +10,6 @@
 #include <stdexcept>
 #include <vector>
 
-Simulation::Simulation() : Simulation({0, 10}, {2, 2}, {0, -10}, {50, 20}) {}
-
-Simulation::Simulation(Position box_pos, Size box_size, Position ground_pos, Size ground_size)
-    : time_step_(1.0f / 60.0f), sub_step_count_(4) {
-  b2WorldDef world_def = b2DefaultWorldDef();
-  world_def.gravity = b2Vec2{0.0f, -10.0f};
-  world_id_ = b2CreateWorld(&world_def);
-  ground_id_ = createStaticRectangle(world_id_, ground_pos, ground_size);
-  auto body_id = createDynamicRectangle(world_id_, box_pos, box_size, 1, 0.3);
-  boxes_.push_back(body_id);
-}
 
 Simulation::Simulation(std::vector<Rect> boxes, Rect ground)
     : time_step_(1.0f / 60.0f), sub_step_count_(4) {

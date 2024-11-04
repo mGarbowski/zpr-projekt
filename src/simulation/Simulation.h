@@ -14,8 +14,6 @@
 
 class Simulation {
  public:
-  Simulation();
-  Simulation(Position box_pos, Size box_size, Position ground_pos, Size ground_size);
   Simulation(std::vector<Rect> boxes, Rect ground);
 
   Simulation(const Simulation& other) = delete;
