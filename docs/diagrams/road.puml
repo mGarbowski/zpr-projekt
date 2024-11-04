@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/class-diagram
+package road {
+    class Point {
+        +x: float
+        +y: float
+    }
+
+    abstract class RoadGenerator {
+        +makeRoad(): vector<Point>
+    }
+
+    class ConstantRoadGenerator {
+        -road: vector<Point>
+        +ConstantRoadGenerator(road: vector<Point>)
+    }
+
+    class PerlinNoiseRoadGenerator
+    class SimplexNoiseRoadGenerator
+
+    RoadGenerator <|-- ConstantRoadGenerator
+    RoadGenerator <|-- PerlinNoiseRoadGenerator
+    RoadGenerator <|-- SimplexNoiseRoadGenerator
+}
+@enduml

@@ -1,0 +1,85 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package evolution {
+    class Point {
+        +x: float
+        +y: float
+    }
+
+    class Genome {
+        -vertices_: array<Point, 8>
+        -rear_wheel_radius_: float
+        -front_wheel_radius_: float
+        -rear_wheel_density_: float
+        -front_wheel_density_: float
+
+        +{static} fromVector(const vector<float>& params): Genome
+        + vector<float> toVector() const
+    }
+
+    class Specimen {
+        -genome_: Genome
+        -rating_: float
+    }
+
+    class Evolution
+
+    abstract class ReproductionScheme {
+        +virtual Population nextPopulation(const Population& population) const = 0
+    }
+
+    class RouletteReproduction
+
+    class TournamentReproduction {
+        -tournament_size_: int
+    }
+
+    abstract class MutationScheme {
+        +virtual Specimen mutate(const Specimen& specimen) const = 0
+    }
+
+    class GaussMutation {
+        -vertex_coord_mutation_strength_: float
+        -wheel_radius_mutation_strength_: float
+        -wheel_density_mutation_strength_: float
+    }
+
+    abstract class CrossoverScheme {
+        +virtual crossover(const Genome& genome) const = 0:
+    }
+
+    class OnePointCrossover {
+        -probability: float
+    }
+    class TwoPointCrossover {
+        -probability: float
+    }
+
+    abstract class SuccessionScheme {
+        +virtual vector<Specimen> nextPopulation() const = 0
+    }
+
+    class GenerationSuccession
+
+    class ElitistSuccession {
+        -elite_size: int
+    }
+
+    Evolution *-- ReproductionScheme
+    Evolution *-- MutationScheme
+    Evolution *-- CrossoverScheme
+    Evolution *-- SuccessionScheme
+
+    ReproductionScheme <|-- RouletteReproduction
+    ReproductionScheme <|-- TournamentReproduction
+
+    MutationScheme <|-- GaussMutation
+
+    CrossoverScheme <|-- OnePointCrossover
+    CrossoverScheme <|-- TwoPointCrossover
+
+    SuccessionScheme <|-- GenerationSuccession
+    SuccessionScheme <|-- ElitistSuccession
+}
+@enduml

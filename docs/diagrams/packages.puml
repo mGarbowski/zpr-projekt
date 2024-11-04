@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+component app
+component evolution
+component road
+component simulation
+component box2d <<external>>
+component SFML <<external>>
+component ImGUI <<external>>
+
+skinparam component {
+    backgroundColor<<external>> DarkGray
+}
+
+app ..> evolution: use
+app ..> simulation: use
+app ..> road: use
+app ..> SFML: use
+app ..> ImGUI: use
+
+simulation ..> box2d: use
+
+
+
+@enduml
