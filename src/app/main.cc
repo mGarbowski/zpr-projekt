@@ -7,8 +7,8 @@
 
 #include "Simulation.h"
 
-const int WINDOW_WIDTH = 1600;
-const int WINDOW_HEIGHT = 1000;
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 800;
 
 void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Color bodyColor) {
   b2Vec2 ground_pos = simulation.getGroundPosition();
@@ -16,21 +16,22 @@ void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::
   b2Vec2 body_pos = simulation.getBodyPosition();
   b2Vec2 body_size = simulation.getBodyDimensions();
 
-  const float SCALE = 30.0f;
-
-  sf::RectangleShape ground(sf::Vector2f(ground_size.x * SCALE, ground_size.y * SCALE));
-  ground.setOrigin(ground_size.x * SCALE / 2, ground_size.y * SCALE / 2);
-  ground.setPosition(ground_pos.x * SCALE + WINDOW_WIDTH / 2,
-                     WINDOW_HEIGHT / 2 - ground_pos.y * SCALE);
+  sf::RectangleShape ground(sf::Vector2f(ground_size.x, ground_size.y));
+  ground.setOrigin(ground_size.x, ground_size.y);
+  ground.setPosition(ground_pos.x, ground_pos.y);
   ground.setFillColor(sf::Color::Green);
 
-  sf::RectangleShape body(sf::Vector2f(body_size.x * SCALE, body_size.y * SCALE));
-  body.setOrigin(body_size.x * SCALE / 2, body_size.y * SCALE / 2);
-  body.setPosition(body_pos.x * SCALE + WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - body_pos.y * SCALE);
+  sf::RectangleShape body(sf::Vector2f(body_size.x, body_size.y));
+  body.setOrigin(body_size.x, body_size.y);
+  body.setPosition(body_pos.x, body_pos.y);
   body.setFillColor(bodyColor);
 
-  window.draw(ground);
-  window.draw(body);
+  sf::Transform transform;
+  transform.translate(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+  transform.scale(30.0f, -30.0f);
+
+  window.draw(ground, transform);
+  window.draw(body, transform);
 }
 
 int main() {
