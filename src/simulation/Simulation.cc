@@ -16,7 +16,8 @@ Simulation::Simulation(Position box_pos, Size box_size, Position ground_pos, Siz
   world_def.gravity = b2Vec2{0.0f, -10.0f};
   world_id_ = b2CreateWorld(&world_def);
   ground_id_ = createStaticRectangle(world_id_, ground_pos, ground_size);
-  body_id_ = createDynamicRectangle(world_id_, box_pos, box_size, 1, 0.3);
+  auto body_id = createDynamicRectangle(world_id_, box_pos, box_size, 1, 0.3);
+  boxes_.push_back(body_id);
 }
 
 Simulation::~Simulation() {
@@ -28,7 +29,7 @@ void Simulation::step() {
 }
 
 Position Simulation::getBodyPosition() const {
-  return getPosition(body_id_);
+  return getPosition(boxes_[0]);
 }
 
 Position Simulation::getGroundPosition() const {
@@ -40,12 +41,12 @@ Size Simulation::getGroundDimensions() const {
 }
 
 Size Simulation::getBodyDimensions() const {
-  return getDimensions(body_id_);
+  return getDimensions(boxes_[0]);
 }
 
 void Simulation::kickBox() const {
   auto [x, y] = getBodyPosition();
-  b2Body_ApplyForce(body_id_, {100.0f, 5000.0f}, {x, y}, true);
+  b2Body_ApplyForce(boxes_[0], {100.0f, 5000.0f}, {x, y}, true);
 }
 b2BodyId Simulation::createStaticRectangle(b2WorldId world_id, Position position, Size size) {
   auto body_def = b2DefaultBodyDef();

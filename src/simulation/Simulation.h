@@ -6,6 +6,7 @@
 #define SIMULATION_H
 
 #include <box2d/box2d.h>
+#include <vector>
 
 #include "Position.h"
 #include "Size.h"
@@ -43,7 +44,7 @@ class Simulation {
 
   b2WorldId world_id_;
   b2BodyId ground_id_;
-  b2BodyId body_id_;
+  std::vector<b2BodyId> boxes_;
   float time_step_;
   int sub_step_count_;
 
