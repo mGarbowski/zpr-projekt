@@ -5,7 +5,7 @@
 #include <imgui.h>
 #include <iostream>
 
-#include "simulation/Simulation.h"
+#include "Simulation.h"
 
 const int WINDOW_WIDTH = 1600;
 const int WINDOW_HEIGHT = 1000;

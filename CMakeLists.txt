@@ -11,6 +11,8 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 include(cmake/compiler-flags.cmake)
 set(CMAKE_CXX_STANDARD 17)
 
+enable_testing()
+
 # For overriding options for box2d
 if(POLICY CMP0077)
     cmake_policy(SET CMP0077 NEW)
@@ -53,19 +55,12 @@ set(BOX2D_BUILD_UNIT_TESTS OFF CACHE BOOL "Disable Box2D unit tests")
 set(BOX2D_BUILD_TESTBED OFF CACHE BOOL "Disable Box2D testbed")
 FetchContent_MakeAvailable(box2d)
 
-
-
-add_executable(${PROJECT_NAME}
-        src/main.cpp
-        src/simulation/Simulation.cc
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
 )
+FetchContent_MakeAvailable(googletest)
 
-
-target_link_libraries(${PROJECT_NAME} PRIVATE
-        sfml-graphics
-        ImGui-SFML::ImGui-SFML
-        box2d
-)
 
 # For debugging
 message(STATUS "----------------------------------------------------")
@@ -75,3 +70,11 @@ message(STATUS "CMAKE_INSTALL_PREFIX is set to: ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "CMAKE_ARCHIVE_OUTPUT_DIRECTORY is set to: ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
 message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY is set to: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 message(STATUS "----------------------------------------------------")
+
+add_subdirectory(src/simulation)
+add_subdirectory(src/tests/simulation)
+add_subdirectory(src/road)
+add_subdirectory(src/tests/road)
+add_subdirectory(src/evolution)
+add_subdirectory(src/tests/evolution)
+add_subdirectory(src/app)
