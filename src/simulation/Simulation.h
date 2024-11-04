@@ -6,6 +6,9 @@
 #define SIMULATION_H
 
 #include <box2d/box2d.h>
+#include <memory>
+
+#include "Rectangle.h"
 
 class Simulation {
  public:
@@ -38,6 +41,7 @@ class Simulation {
   b2BodyId body_id_;
   float time_step_;
   int sub_step_count_;
+
 };
 
 #endif  // SIMULATION_H

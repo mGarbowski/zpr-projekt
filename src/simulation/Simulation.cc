@@ -12,23 +12,8 @@ Simulation::Simulation() : time_step_(1.0f / 60.0f), sub_step_count_(4) {
   b2WorldDef world_def = b2DefaultWorldDef();
   world_def.gravity = b2Vec2{0.0f, -10.0f};
   world_id_ = b2CreateWorld(&world_def);
-
-  b2BodyDef ground_body_def = b2DefaultBodyDef();
-  ground_body_def.position = b2Vec2{0.0f, -10.0f};
-  ground_id_ = b2CreateBody(world_id_, &ground_body_def);
-  b2Polygon ground_box = b2MakeBox(50.0f, 10.0f);
-  b2ShapeDef ground_shape_def = b2DefaultShapeDef();
-  b2CreatePolygonShape(ground_id_, &ground_shape_def, &ground_box);
-
-  b2BodyDef body_def = b2DefaultBodyDef();
-  body_def.type = b2_dynamicBody;
-  body_def.position = b2Vec2{0.0f, 10.0f};
-  body_id_ = b2CreateBody(world_id_, &body_def);
-  b2Polygon dynamic_box = b2MakeBox(1.0f, 1.0f);
-  b2ShapeDef shape_def = b2DefaultShapeDef();
-  shape_def.density = 1.0f;
-  shape_def.friction = 0.3f;
-  b2CreatePolygonShape(body_id_, &shape_def, &dynamic_box);
+  ground_id_ = makeStaticRectangle(world_id_, {0, -10}, {50, 20});
+  body_id_ = makeDynamicRectangle(world_id_, {0, 10}, {2, 2}, 1, 0.3);
 }
 
 Simulation::~Simulation() {

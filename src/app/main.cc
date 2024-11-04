@@ -17,12 +17,12 @@ void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::
   b2Vec2 body_size = simulation.getBodyDimensions();
 
   sf::RectangleShape ground(sf::Vector2f(ground_size.x, ground_size.y));
-  ground.setOrigin(ground_size.x, ground_size.y);
+  ground.setOrigin(ground_size.x/2, ground_size.y/2);
   ground.setPosition(ground_pos.x, ground_pos.y);
   ground.setFillColor(sf::Color::Green);
 
   sf::RectangleShape body(sf::Vector2f(body_size.x, body_size.y));
-  body.setOrigin(body_size.x, body_size.y);
+  body.setOrigin(body_size.x/2, body_size.y/2);
   body.setPosition(body_pos.x, body_pos.y);
   body.setFillColor(bodyColor);
 

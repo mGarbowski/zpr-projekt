@@ -10,19 +10,7 @@
 #include "Position.h"
 #include "Size.h"
 
-class Rectangle {
- public:
-  Rectangle(b2WorldId world_id, Position position, Size size);
-  ~Rectangle();
-
-  b2BodyId bodyId() const;
-  Position position() const {return position_; };
-
- private:
-  b2WorldId world_id_;
-  b2BodyId body_id_;
-  Position position_;
-  Size size_;
-};
+b2BodyId makeStaticRectangle(b2WorldId world_id, Position position, Size size);
+b2BodyId makeDynamicRectangle(b2WorldId world_id, Position position, Size size, float density, float friction);
 
 #endif  // RECTANGLE_H

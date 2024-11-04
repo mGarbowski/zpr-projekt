@@ -3,18 +3,31 @@
 //
 
 #include "Rectangle.h"
-Rectangle::Rectangle(b2WorldId world_id, Position position, Size size)
-    : world_id_(world_id), position_(position), size_(size) {
+
+b2BodyId makeStaticRectangle(const b2WorldId world_id, const Position position, const Size size) {
   auto body_def = b2DefaultBodyDef();
   body_def.position = {position.x, position.y};
-  body_id_ = b2CreateBody(world_id_, &body_def);
+  const auto body_id = b2CreateBody(world_id, &body_def);
+
   const b2Polygon box = b2MakeBox(size.width / 2, size.height / 2);
   const b2ShapeDef ground_shape_def = b2DefaultShapeDef();
-  b2CreatePolygonShape(body_id_, &ground_shape_def, &box);
+  b2CreatePolygonShape(body_id, &ground_shape_def, &box);
+
+  return body_id;
 }
-Rectangle::~Rectangle() {
-  b2DestroyBody(body_id_);
-}
-b2BodyId Rectangle::bodyId() const {
-  return body_id_;
+b2BodyId makeDynamicRectangle(b2WorldId world_id, Position position, Size size, float density,
+                              float friction) {
+  auto body_def = b2DefaultBodyDef();
+  body_def.position = {position.x, position.y};
+  body_def.type = b2_dynamicBody;
+  const auto body_id = b2CreateBody(world_id, &body_def);
+
+  const b2Polygon box = b2MakeBox(size.width / 2, size.height / 2);
+  b2ShapeDef ground_shape_def = b2DefaultShapeDef();
+  ground_shape_def.density = density;
+  ground_shape_def.friction = friction;
+
+  b2CreatePolygonShape(body_id, &ground_shape_def, &box);
+
+  return body_id;
 }
