@@ -13,6 +13,7 @@
 class Simulation {
  public:
   Simulation();
+  Simulation(Position box_pos, Size box_size, Position ground_pos, Size ground_size);
 
   Simulation(const Simulation& other) = delete;
   Simulation(Simulation&& other) noexcept = delete;

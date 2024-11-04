@@ -34,7 +34,8 @@ sf::Transform box2dToSFML() {
   return transform;
 }
 
-void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Transform transform, sf::Color bodyColor) {
+void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Transform transform,
+                    sf::Color bodyColor) {
   auto ground_pos = simulation.getGroundPosition();
   auto ground_size = simulation.getGroundDimensions();
   auto body_pos = simulation.getBodyPosition();
@@ -80,7 +81,11 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-  Simulation sim;
+  Position box_pos = {0, 0};
+  Size box_size = {2, 2};
+  Position ground_pos = {0, -10};
+  Size ground_size = {20, 1};
+  Simulation sim(box_pos, box_size, ground_pos, ground_size);
   sf::Color body_color = sf::Color::Blue;
 
   while (window.isOpen()) {

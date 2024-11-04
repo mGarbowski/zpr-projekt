@@ -8,12 +8,15 @@
 #include <cassert>
 #include <vector>
 
-Simulation::Simulation() : time_step_(1.0f / 60.0f), sub_step_count_(4) {
+Simulation::Simulation() : Simulation({0, 10}, {2, 2}, {0, -10}, {50, 20}) {}
+
+Simulation::Simulation(Position box_pos, Size box_size, Position ground_pos, Size ground_size)
+    : time_step_(1.0f / 60.0f), sub_step_count_(4) {
   b2WorldDef world_def = b2DefaultWorldDef();
   world_def.gravity = b2Vec2{0.0f, -10.0f};
   world_id_ = b2CreateWorld(&world_def);
-  ground_id_ = createStaticRectangle(world_id_, {0, -10}, {50, 20});
-  body_id_ = createDynamicRectangle(world_id_, {0, 10}, {2, 2}, 1, 0.3);
+  ground_id_ = createStaticRectangle(world_id_, ground_pos, ground_size);
+  body_id_ = createDynamicRectangle(world_id_, box_pos, box_size, 1, 0.3);
 }
 
 Simulation::~Simulation() {
@@ -41,8 +44,8 @@ Size Simulation::getBodyDimensions() const {
 }
 
 void Simulation::kickBox() const {
-  auto [x,y] = getBodyPosition();
-  b2Body_ApplyForce(body_id_, {100.0f, 5000.0f}, {x,y}, true);
+  auto [x, y] = getBodyPosition();
+  b2Body_ApplyForce(body_id_, {100.0f, 5000.0f}, {x, y}, true);
 }
 b2BodyId Simulation::createStaticRectangle(b2WorldId world_id, Position position, Size size) {
   auto body_def = b2DefaultBodyDef();
