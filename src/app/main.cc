@@ -34,6 +34,20 @@ void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::
   window.draw(body, transform);
 }
 
+void debugPanel(const Simulation &sim) {
+  const b2Vec2 ground_pos = sim.getGroundPosition();
+  const b2Vec2 ground_size = sim.getGroundDimensions();
+  const b2Vec2 body_pos = sim.getBodyPosition();
+  const b2Vec2 body_size = sim.getBodyDimensions();
+
+  ImGui::Begin("Simulation");
+  ImGui::Text("Ground x: %.2f y: %.2f", ground_pos.x, ground_pos.y);
+  ImGui::Text("Ground width: %.2f height: %.2f", ground_size.x, ground_size.y);
+  ImGui::Text("Box x: %.2f y: %.2f", body_pos.x, body_pos.y);
+  ImGui::Text("Box width: %.2f height: %.2f", body_size.x, body_size.y);
+  ImGui::End();
+}
+
 int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
@@ -77,6 +91,8 @@ int main() {
       sim.kickBox();
     }
     ImGui::End();
+
+    debugPanel(sim);
 
     window.clear();
     drawSimulation(window, sim, body_color);
