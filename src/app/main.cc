@@ -21,32 +21,30 @@ sf::Vector2f asVector(const Position& position) {
 sf::RectangleShape createRectangle(const Position& position, const Size& size,
                                    const sf::Color color) {
   sf::RectangleShape rectangle(asVector(size));
+  rectangle.setOrigin(size.width / 2, size.height / 2);
   rectangle.setPosition(asVector(position));
   rectangle.setFillColor(color);
+  return rectangle;
 }
 
-void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Color bodyColor) {
+sf::Transform box2dToSFML() {
+  sf::Transform transform;
+  transform.translate(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+  transform.scale(30.0f, -30.0f);
+  return transform;
+}
+
+void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Transform transform, sf::Color bodyColor) {
   auto ground_pos = simulation.getGroundPosition();
   auto ground_size = simulation.getGroundDimensions();
   auto body_pos = simulation.getBodyPosition();
   auto body_size = simulation.getBodyDimensions();
 
-  sf::RectangleShape ground(sf::Vector2f(ground_size.width, ground_size.height));
-  ground.setOrigin(ground_size.width / 2, ground_size.height / 2);
-  ground.setPosition(ground_pos.x, ground_pos.y);
-  ground.setFillColor(sf::Color::Green);
-
-  sf::RectangleShape body(sf::Vector2f(body_size.width, body_size.height));
-  body.setOrigin(body_size.width / 2, body_size.height / 2);
-  body.setPosition(body_pos.x, body_pos.y);
-  body.setFillColor(bodyColor);
-
-  sf::Transform transform;
-  transform.translate(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-  transform.scale(30.0f, -30.0f);
+  auto ground = createRectangle(ground_pos, ground_size, sf::Color::Green);
+  auto box = createRectangle(body_pos, body_size, bodyColor);
 
   window.draw(ground, transform);
-  window.draw(body, transform);
+  window.draw(box, transform);
 }
 
 void debugPanel(const Simulation& sim) {
@@ -67,6 +65,7 @@ int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
+  const auto transform = box2dToSFML();
 
   auto window = sf::RenderWindow{
       {WINDOW_WIDTH, WINDOW_HEIGHT}, "Box2D with ImGui and SFML", sf::Style::Default, settings};
@@ -110,7 +109,7 @@ int main() {
     debugPanel(sim);
 
     window.clear();
-    drawSimulation(window, sim, body_color);
+    drawSimulation(window, sim, transform, body_color);
     ImGui::SFML::Render(window);
     window.display();
 
