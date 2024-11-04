@@ -50,19 +50,17 @@ void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::
 }
 
 void debugPanel(const Simulation& sim) {
-  const auto ground_pos = sim.getGroundPosition();
-  const auto ground_size = sim.getGroundDimensions();
-  const auto body_pos = sim.getBodyPosition();
-  const auto body_size = sim.getBodyDimensions();
+  const auto ground = sim.getGroundRect();
 
   ImGui::Begin("Simulation");
-  ImGui::Text("Ground x: %.2f y: %.2f", ground_pos.x, ground_pos.y);
-  ImGui::Text("Ground width: %.2f height: %.2f", ground_size.width, ground_size.height);
-  ImGui::Text("Box x: %.2f y: %.2f", body_pos.x, body_pos.y);
-  ImGui::Text("Box width: %.2f height: %.2f", body_size.width, body_size.height);
+  ImGui::Text("Ground x: %.2f y: %.2f", ground.pos().x, ground.pos().y);
+  ImGui::Text("Ground width: %.2f height: %.2f", ground.size().width, ground.size().height);
+  for (const auto& box : sim.getBoxes()) {
+    ImGui::Text("Box width: %.2f height: %.2f", box.size().width, box.size().height);
+    ImGui::Text("Box x: %.2f y: %.2f", box.pos().x, box.pos().y);
+  }
   ImGui::End();
 }
-
 int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
@@ -84,8 +82,8 @@ int main() {
 
   Size box_size = {2, 2};
   std::vector<Rect> boxes = {
-    {{0, 10}, box_size},
-    {{1, 15}, box_size},
+      {{0, 10}, box_size},
+      {{1, 15}, box_size},
   };
   Position ground_pos = {0, -10};
   Size ground_size = {20, 1};
