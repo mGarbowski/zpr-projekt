@@ -7,8 +7,8 @@
 
 #include "Simulation.h"
 
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 800;
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 800;
 
 sf::Vector2f asVector(const Size& size) {
   return sf::Vector2f(size.width, size.height);
@@ -36,13 +36,13 @@ sf::Transform box2dToSFML() {
 }
 
 void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Transform transform,
-                    sf::Color bodyColor) {
+                    sf::Color body_color) {
   const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
   auto boxes = simulation.getBoxes();
   window.draw(ground, transform);
 
   std::for_each(boxes.begin(), boxes.end(), [&](const auto& box) {
-    auto rectangle = createRectangle(box, bodyColor);
+    auto rectangle = createRectangle(box, body_color);
     window.draw(rectangle, transform);
   });
 }

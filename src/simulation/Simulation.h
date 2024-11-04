@@ -35,7 +35,8 @@ class Simulation {
 
  private:
   static b2BodyId createStaticRectangle(b2WorldId world_id, Position position, Size size);
-  static b2BodyId createDynamicRectangle(b2WorldId world_id, Position position, Size size, float density, float friction);
+  static b2BodyId createDynamicRectangle(b2WorldId world_id, Position position, Size size,
+                                         float density, float friction);
 
   Size getDimensions(b2BodyId body_id) const;
   Position getPosition(b2BodyId body_id) const;
@@ -45,7 +46,6 @@ class Simulation {
   std::vector<b2BodyId> boxes_;
   float time_step_;
   int sub_step_count_;
-
 };
 
 #endif  // SIMULATION_H
