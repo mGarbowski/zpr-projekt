@@ -3,6 +3,7 @@ set(SIMULATION_SOURCES
         Simulation.h
         Size.h
         Position.h
+        Rect.h
 )
 add_library(simulation ${SIMULATION_SOURCES})
 target_link_libraries(simulation evolution box2d)
