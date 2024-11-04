@@ -81,7 +81,9 @@ int main() {
   Size box_size = {2, 2};
   std::vector<Rect> boxes = {
       {{0, 10}, box_size},
-      {{1, 15}, box_size},
+      {{0, 15}, box_size},
+      {{1, 20}, box_size},
+      {{-1, 20}, box_size},
   };
   Position ground_pos = {0, -10};
   Size ground_size = {20, 1};
