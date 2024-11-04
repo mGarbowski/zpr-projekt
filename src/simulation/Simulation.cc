@@ -12,8 +12,8 @@ Simulation::Simulation() : time_step_(1.0f / 60.0f), sub_step_count_(4) {
   b2WorldDef world_def = b2DefaultWorldDef();
   world_def.gravity = b2Vec2{0.0f, -10.0f};
   world_id_ = b2CreateWorld(&world_def);
-  ground_id_ = makeStaticRectangle(world_id_, {0, -10}, {50, 20});
-  body_id_ = makeDynamicRectangle(world_id_, {0, 10}, {2, 2}, 1, 0.3);
+  ground_id_ = createStaticRectangle(world_id_, {0, -10}, {50, 20});
+  body_id_ = createDynamicRectangle(world_id_, {0, 10}, {2, 2}, 1, 0.3);
 }
 
 Simulation::~Simulation() {
@@ -24,27 +24,55 @@ void Simulation::step() {
   b2World_Step(world_id_, time_step_, sub_step_count_);
 }
 
-b2Vec2 Simulation::getBodyPosition() const {
-  return b2Body_GetPosition(body_id_);
+Position Simulation::getBodyPosition() const {
+  return getPosition(body_id_);
 }
 
-b2Vec2 Simulation::getGroundPosition() const {
-  return b2Body_GetPosition(ground_id_);
+Position Simulation::getGroundPosition() const {
+  return getPosition(ground_id_);
 }
 
-b2Vec2 Simulation::getGroundDimensions() const {
+Size Simulation::getGroundDimensions() const {
   return getDimensions(ground_id_);
 }
 
-b2Vec2 Simulation::getBodyDimensions() const {
+Size Simulation::getBodyDimensions() const {
   return getDimensions(body_id_);
 }
 
 void Simulation::kickBox() const {
-  b2Body_ApplyForce(body_id_, {100.0f, 5000.0f}, getBodyPosition(), true);
+  auto [x,y] = getBodyPosition();
+  b2Body_ApplyForce(body_id_, {100.0f, 5000.0f}, {x,y}, true);
+}
+b2BodyId Simulation::createStaticRectangle(b2WorldId world_id, Position position, Size size) {
+  auto body_def = b2DefaultBodyDef();
+  body_def.position = {position.x, position.y};
+  const auto body_id = b2CreateBody(world_id, &body_def);
+
+  const b2Polygon box = b2MakeBox(size.width / 2, size.height / 2);
+  const b2ShapeDef ground_shape_def = b2DefaultShapeDef();
+  b2CreatePolygonShape(body_id, &ground_shape_def, &box);
+
+  return body_id;
+}
+b2BodyId Simulation::createDynamicRectangle(b2WorldId world_id, Position position, Size size,
+                                            float density, float friction) {
+  auto body_def = b2DefaultBodyDef();
+  body_def.position = {position.x, position.y};
+  body_def.type = b2_dynamicBody;
+  const auto body_id = b2CreateBody(world_id, &body_def);
+
+  const b2Polygon box = b2MakeBox(size.width / 2, size.height / 2);
+  b2ShapeDef ground_shape_def = b2DefaultShapeDef();
+  ground_shape_def.density = density;
+  ground_shape_def.friction = friction;
+
+  b2CreatePolygonShape(body_id, &ground_shape_def, &box);
+
+  return body_id;
 }
 
-b2Vec2 Simulation::getDimensions(b2BodyId bodyId) const {
+Size Simulation::getDimensions(b2BodyId bodyId) const {
   std::vector<b2ShapeId> shape_ids(5);
   auto n_shapes = b2Body_GetShapes(bodyId, shape_ids.data(), shape_ids.size());
   assert(n_shapes == 1);
@@ -55,4 +83,8 @@ b2Vec2 Simulation::getDimensions(b2BodyId bodyId) const {
   auto width = polygon.vertices[1].x * 2;
   auto height = polygon.vertices[2].y * 2;
   return {width, height};
+}
+Position Simulation::getPosition(b2BodyId body_id) const {
+  auto [x, y] = b2Body_GetPosition(body_id);
+  return {x, y};
 }

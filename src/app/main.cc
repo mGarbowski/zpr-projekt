@@ -10,19 +10,34 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 800;
 
-void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Color bodyColor) {
-  b2Vec2 ground_pos = simulation.getGroundPosition();
-  b2Vec2 ground_size = simulation.getGroundDimensions();
-  b2Vec2 body_pos = simulation.getBodyPosition();
-  b2Vec2 body_size = simulation.getBodyDimensions();
+sf::Vector2f asVector(const Size& size) {
+  return sf::Vector2f(size.width, size.height);
+}
 
-  sf::RectangleShape ground(sf::Vector2f(ground_size.x, ground_size.y));
-  ground.setOrigin(ground_size.x/2, ground_size.y/2);
+sf::Vector2f asVector(const Position& position) {
+  return sf::Vector2f(position.x, position.y);
+}
+
+sf::RectangleShape createRectangle(const Position& position, const Size& size,
+                                   const sf::Color color) {
+  sf::RectangleShape rectangle(asVector(size));
+  rectangle.setPosition(asVector(position));
+  rectangle.setFillColor(color);
+}
+
+void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Color bodyColor) {
+  auto ground_pos = simulation.getGroundPosition();
+  auto ground_size = simulation.getGroundDimensions();
+  auto body_pos = simulation.getBodyPosition();
+  auto body_size = simulation.getBodyDimensions();
+
+  sf::RectangleShape ground(sf::Vector2f(ground_size.width, ground_size.height));
+  ground.setOrigin(ground_size.width / 2, ground_size.height / 2);
   ground.setPosition(ground_pos.x, ground_pos.y);
   ground.setFillColor(sf::Color::Green);
 
-  sf::RectangleShape body(sf::Vector2f(body_size.x, body_size.y));
-  body.setOrigin(body_size.x/2, body_size.y/2);
+  sf::RectangleShape body(sf::Vector2f(body_size.width, body_size.height));
+  body.setOrigin(body_size.width / 2, body_size.height / 2);
   body.setPosition(body_pos.x, body_pos.y);
   body.setFillColor(bodyColor);
 
@@ -34,17 +49,17 @@ void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::
   window.draw(body, transform);
 }
 
-void debugPanel(const Simulation &sim) {
-  const b2Vec2 ground_pos = sim.getGroundPosition();
-  const b2Vec2 ground_size = sim.getGroundDimensions();
-  const b2Vec2 body_pos = sim.getBodyPosition();
-  const b2Vec2 body_size = sim.getBodyDimensions();
+void debugPanel(const Simulation& sim) {
+  const auto ground_pos = sim.getGroundPosition();
+  const auto ground_size = sim.getGroundDimensions();
+  const auto body_pos = sim.getBodyPosition();
+  const auto body_size = sim.getBodyDimensions();
 
   ImGui::Begin("Simulation");
   ImGui::Text("Ground x: %.2f y: %.2f", ground_pos.x, ground_pos.y);
-  ImGui::Text("Ground width: %.2f height: %.2f", ground_size.x, ground_size.y);
+  ImGui::Text("Ground width: %.2f height: %.2f", ground_size.width, ground_size.height);
   ImGui::Text("Box x: %.2f y: %.2f", body_pos.x, body_pos.y);
-  ImGui::Text("Box width: %.2f height: %.2f", body_size.x, body_size.y);
+  ImGui::Text("Box width: %.2f height: %.2f", body_size.width, body_size.height);
   ImGui::End();
 }
 
@@ -98,6 +113,8 @@ int main() {
     drawSimulation(window, sim, body_color);
     ImGui::SFML::Render(window);
     window.display();
+
+    sf::sleep(sf::milliseconds(3));
   }
 
   ImGui::SFML::Shutdown();

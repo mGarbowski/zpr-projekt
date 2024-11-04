@@ -6,9 +6,9 @@
 #define SIMULATION_H
 
 #include <box2d/box2d.h>
-#include <memory>
 
-#include "Rectangle.h"
+#include "Position.h"
+#include "Size.h"
 
 class Simulation {
  public:
@@ -23,18 +23,22 @@ class Simulation {
 
   void step();
 
-  b2Vec2 getBodyPosition() const;
+  Position getBodyPosition() const;
 
-  b2Vec2 getGroundPosition() const;
+  Position getGroundPosition() const;
 
-  b2Vec2 getGroundDimensions() const;
+  Size getGroundDimensions() const;
 
-  b2Vec2 getBodyDimensions() const;
+  Size getBodyDimensions() const;
 
   void kickBox() const;
 
  private:
-  b2Vec2 getDimensions(b2BodyId bodyId) const;
+  static b2BodyId createStaticRectangle(b2WorldId world_id, Position position, Size size);
+  static b2BodyId createDynamicRectangle(b2WorldId world_id, Position position, Size size, float density, float friction);
+
+  Size getDimensions(b2BodyId body_id) const;
+  Position getPosition(b2BodyId body_id) const;
 
   b2WorldId world_id_;
   b2BodyId ground_id_;

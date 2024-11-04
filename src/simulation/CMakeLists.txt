@@ -1,8 +1,6 @@
 set(SIMULATION_SOURCES
         Simulation.cc
         Simulation.h
-        Rectangle.h
-        Rectangle.cc
         Size.h
         Position.h
 )
