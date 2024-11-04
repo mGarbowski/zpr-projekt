@@ -38,14 +38,15 @@ void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::
                     sf::Color bodyColor) {
   auto ground_pos = simulation.getGroundPosition();
   auto ground_size = simulation.getGroundDimensions();
-  auto body_pos = simulation.getBodyPosition();
-  auto body_size = simulation.getBodyDimensions();
 
   auto ground = createRectangle(ground_pos, ground_size, sf::Color::Green);
-  auto box = createRectangle(body_pos, body_size, bodyColor);
+  auto boxes = simulation.getBoxes();
 
   window.draw(ground, transform);
-  window.draw(box, transform);
+  std::for_each(boxes.begin(), boxes.end(), [&](const auto& box) {
+    auto rectangle = createRectangle(box.pos(), box.size(), bodyColor);
+    window.draw(rectangle, transform);
+  });
 }
 
 void debugPanel(const Simulation& sim) {
@@ -81,11 +82,15 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-  Position box_pos = {0, 0};
   Size box_size = {2, 2};
+  std::vector<Rect> boxes = {
+    {{0, 10}, box_size},
+    {{1, 15}, box_size},
+  };
   Position ground_pos = {0, -10};
   Size ground_size = {20, 1};
-  Simulation sim(box_pos, box_size, ground_pos, ground_size);
+  auto ground = Rect(ground_pos, ground_size);
+  Simulation sim(boxes, ground);
   sf::Color body_color = sf::Color::Blue;
 
   while (window.isOpen()) {
@@ -108,6 +113,7 @@ int main() {
     }
     if (ImGui::Button("Kick")) {
       sim.kickBox();
+      std::cout << "Kicked" << std::endl;
     }
     ImGui::End();
 

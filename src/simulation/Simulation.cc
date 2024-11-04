@@ -4,8 +4,10 @@
 
 #include "Simulation.h"
 
+#include <algorithm>
 #include <box2d/box2d.h>
 #include <cassert>
+#include <stdexcept>
 #include <vector>
 
 Simulation::Simulation() : Simulation({0, 10}, {2, 2}, {0, -10}, {50, 20}) {}
@@ -18,6 +20,18 @@ Simulation::Simulation(Position box_pos, Size box_size, Position ground_pos, Siz
   ground_id_ = createStaticRectangle(world_id_, ground_pos, ground_size);
   auto body_id = createDynamicRectangle(world_id_, box_pos, box_size, 1, 0.3);
   boxes_.push_back(body_id);
+}
+
+Simulation::Simulation(std::vector<Rect> boxes, Rect ground)
+    : time_step_(1.0f / 60.0f), sub_step_count_(4) {
+  b2WorldDef world_def = b2DefaultWorldDef();
+  world_def.gravity = b2Vec2{0.0f, -10.0f};
+  world_id_ = b2CreateWorld(&world_def);
+  ground_id_ = createStaticRectangle(world_id_, ground.pos(), ground.size());
+  for (const auto& box : boxes) {
+    auto body_id = createDynamicRectangle(world_id_, box.pos(), box.size(), 1, 0.3);
+    boxes_.push_back(body_id);
+  }
 }
 
 Simulation::~Simulation() {
@@ -42,6 +56,21 @@ Size Simulation::getGroundDimensions() const {
 
 Size Simulation::getBodyDimensions() const {
   return getDimensions(boxes_[0]);
+}
+std::vector<Rect> Simulation::getBoxes() const {
+  std::vector<Rect> result(boxes_.size());
+  std::transform(boxes_.begin(), boxes_.end(), result.begin(), [this](const auto& id) {
+    return Rect{getPosition(id), getDimensions(id)};
+  });
+  return result;
+}
+Rect Simulation::getBox(const size_t index) const {
+  if (index >= boxes_.size()) {
+    throw std::runtime_error("Index out of bounds");
+  }
+
+  const auto id = boxes_[index];
+  return {getPosition(id), getDimensions(id)};
 }
 
 void Simulation::kickBox() const {

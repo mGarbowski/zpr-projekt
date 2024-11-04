@@ -9,12 +9,14 @@
 #include <vector>
 
 #include "Position.h"
+#include "Rect.h"
 #include "Size.h"
 
 class Simulation {
  public:
   Simulation();
   Simulation(Position box_pos, Size box_size, Position ground_pos, Size ground_size);
+  Simulation(std::vector<Rect> boxes, Rect ground);
 
   Simulation(const Simulation& other) = delete;
   Simulation(Simulation&& other) noexcept = delete;
@@ -32,6 +34,9 @@ class Simulation {
   Size getGroundDimensions() const;
 
   Size getBodyDimensions() const;
+
+  std::vector<Rect> getBoxes() const;
+  Rect getBox(size_t index) const;
 
   void kickBox() const;
 
