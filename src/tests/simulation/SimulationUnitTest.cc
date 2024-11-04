@@ -1,19 +1,16 @@
 #include <gtest/gtest.h>
 
 #include "Simulation.h"
-#include "Evolution.h"
 
 namespace SimulationUnitTest {
   TEST(SimulationUnitTest, firstTest) {
-    Simulation sim;
+
+    Rect box = {{0, 10}, {2, 2}};
+    Rect ground = {{0, 0}, {20, 1}};
+    Simulation sim({box}, ground);
     for (size_t i = 0; i < 1000; ++i) {
       sim.step();
     }
-    EXPECT_NEAR(sim.getBodyPosition().y, 1.0, 0.01);
-  }
-
-  TEST(SimulationEvolution, testUsingLinkedLibrary) {
-    Evolution ev;
-    EXPECT_EQ(ev.add(2, 2), 4);
+    EXPECT_NEAR(sim.getBox(0).pos().y, 1.5, 0.01);
   }
 }

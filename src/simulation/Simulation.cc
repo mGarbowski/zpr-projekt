@@ -46,6 +46,10 @@ Size Simulation::getGroundDimensions() const {
 Size Simulation::getBodyDimensions() const {
   return getDimensions(boxes_[0]);
 }
+Rect Simulation::getGroundRect() const {
+  return {getPosition(ground_id_), getDimensions(ground_id_)};
+}
+
 std::vector<Rect> Simulation::getBoxes() const {
   std::vector<Rect> result(boxes_.size());
   std::transform(boxes_.begin(), boxes_.end(), result.begin(), [this](const auto& id) {

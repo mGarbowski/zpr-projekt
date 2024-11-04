@@ -33,6 +33,8 @@ class Simulation {
 
   Size getBodyDimensions() const;
 
+  Rect getGroundRect() const;
+
   std::vector<Rect> getBoxes() const;
   Rect getBox(size_t index) const;
 
