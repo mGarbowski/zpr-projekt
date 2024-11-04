@@ -31,21 +31,6 @@ void Simulation::step() {
   b2World_Step(world_id_, time_step_, sub_step_count_);
 }
 
-Position Simulation::getBodyPosition() const {
-  return getPosition(boxes_[0]);
-}
-
-Position Simulation::getGroundPosition() const {
-  return getPosition(ground_id_);
-}
-
-Size Simulation::getGroundDimensions() const {
-  return getDimensions(ground_id_);
-}
-
-Size Simulation::getBodyDimensions() const {
-  return getDimensions(boxes_[0]);
-}
 Rect Simulation::getGroundRect() const {
   return {getPosition(ground_id_), getDimensions(ground_id_)};
 }
@@ -67,7 +52,7 @@ Rect Simulation::getBox(const size_t index) const {
 }
 
 void Simulation::kickBox() const {
-  auto [x, y] = getBodyPosition();
+  auto [x, y] = getBox(0).pos();
   b2Body_ApplyForce(boxes_[0], {100.0f, 5000.0f}, {x, y}, true);
 }
 b2BodyId Simulation::createStaticRectangle(b2WorldId world_id, Position position, Size size) {

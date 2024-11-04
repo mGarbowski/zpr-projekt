@@ -18,8 +18,9 @@ sf::Vector2f asVector(const Position& position) {
   return sf::Vector2f(position.x, position.y);
 }
 
-sf::RectangleShape createRectangle(const Position& position, const Size& size,
-                                   const sf::Color color) {
+sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
+  const Position& position = rect.pos();
+  const Size& size = rect.size();
   sf::RectangleShape rectangle(asVector(size));
   rectangle.setOrigin(size.width / 2, size.height / 2);
   rectangle.setPosition(asVector(position));
@@ -36,15 +37,12 @@ sf::Transform box2dToSFML() {
 
 void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Transform transform,
                     sf::Color bodyColor) {
-  auto ground_pos = simulation.getGroundPosition();
-  auto ground_size = simulation.getGroundDimensions();
-
-  auto ground = createRectangle(ground_pos, ground_size, sf::Color::Green);
+  const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
   auto boxes = simulation.getBoxes();
-
   window.draw(ground, transform);
+
   std::for_each(boxes.begin(), boxes.end(), [&](const auto& box) {
-    auto rectangle = createRectangle(box.pos(), box.size(), bodyColor);
+    auto rectangle = createRectangle(box, bodyColor);
     window.draw(rectangle, transform);
   });
 }

@@ -25,17 +25,10 @@ class Simulation {
 
   void step();
 
-  Position getBodyPosition() const;
-
-  Position getGroundPosition() const;
-
-  Size getGroundDimensions() const;
-
-  Size getBodyDimensions() const;
-
   Rect getGroundRect() const;
 
   std::vector<Rect> getBoxes() const;
+
   Rect getBox(size_t index) const;
 
   void kickBox() const;
