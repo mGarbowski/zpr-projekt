@@ -59,6 +59,25 @@ void debugPanel(const Simulation& sim) {
   }
   ImGui::End();
 }
+
+void controlPanel(sf::Color& body_color, const Simulation& sim) {
+  ImGui::Begin("Control Panel");
+
+  if (float color[3] = {body_color.r / 255.0f, body_color.g / 255.0f, body_color.b / 255.0f};
+      ImGui::ColorEdit3("Body Color", color)) {
+    body_color.r = static_cast<sf::Uint8>(color[0] * 255);
+    body_color.g = static_cast<sf::Uint8>(color[1] * 255);
+    body_color.b = static_cast<sf::Uint8>(color[2] * 255);
+  }
+
+  if (ImGui::Button("Kick")) {
+    sim.kickBox();
+    std::cout << "Kicked" << std::endl;
+  }
+
+  ImGui::End();
+}
+
 int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
@@ -102,19 +121,7 @@ int main() {
     sim.step();
     ImGui::SFML::Update(window, delta_time);
 
-    ImGui::Begin("Control Panel");
-    static float color[3] = {body_color.r / 255.0f, body_color.g / 255.0f, body_color.b / 255.0f};
-    if (ImGui::ColorEdit3("Body Color", color)) {
-      body_color.r = static_cast<sf::Uint8>(color[0] * 255);
-      body_color.g = static_cast<sf::Uint8>(color[1] * 255);
-      body_color.b = static_cast<sf::Uint8>(color[2] * 255);
-    }
-    if (ImGui::Button("Kick")) {
-      sim.kickBox();
-      std::cout << "Kicked" << std::endl;
-    }
-    ImGui::End();
-
+    controlPanel(body_color, sim);
     debugPanel(sim);
 
     window.clear();
