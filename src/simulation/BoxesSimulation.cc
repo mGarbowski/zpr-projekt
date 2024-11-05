@@ -2,7 +2,7 @@
 // Created by mgarbowski on 11/1/24.
 //
 
-#include "Simulation.h"
+#include "BoxesSimulation.h"
 
 #include <algorithm>
 #include <box2d/box2d.h>
@@ -11,7 +11,7 @@
 #include <vector>
 
 
-Simulation::Simulation(std::vector<Rect> boxes, Rect ground)
+BoxesSimulation::BoxesSimulation(std::vector<Rect> boxes, Rect ground)
     : time_step_(1.0f / 60.0f), sub_step_count_(4) {
   b2WorldDef world_def = b2DefaultWorldDef();
   world_def.gravity = b2Vec2{0.0f, -10.0f};
@@ -23,26 +23,26 @@ Simulation::Simulation(std::vector<Rect> boxes, Rect ground)
   }
 }
 
-Simulation::~Simulation() {
+BoxesSimulation::~BoxesSimulation() {
   b2DestroyWorld(world_id_);
 }
 
-void Simulation::step() {
+void BoxesSimulation::step() {
   b2World_Step(world_id_, time_step_, sub_step_count_);
 }
 
-Rect Simulation::getGroundRect() const {
+Rect BoxesSimulation::getGroundRect() const {
   return {getPosition(ground_id_), getDimensions(ground_id_)};
 }
 
-std::vector<Rect> Simulation::getBoxes() const {
+std::vector<Rect> BoxesSimulation::getBoxes() const {
   std::vector<Rect> result(boxes_.size());
   std::transform(boxes_.begin(), boxes_.end(), result.begin(), [this](const auto& id) {
     return Rect{getPosition(id), getDimensions(id)};
   });
   return result;
 }
-Rect Simulation::getBox(const size_t index) const {
+Rect BoxesSimulation::getBox(const size_t index) const {
   if (index >= boxes_.size()) {
     throw std::runtime_error("Index out of bounds");
   }
@@ -51,11 +51,11 @@ Rect Simulation::getBox(const size_t index) const {
   return {getPosition(id), getDimensions(id)};
 }
 
-void Simulation::kickBox() const {
+void BoxesSimulation::kickBox() const {
   auto [x, y] = getBox(0).pos();
   b2Body_ApplyForce(boxes_[0], {100.0f, 5000.0f}, {x, y}, true);
 }
-b2BodyId Simulation::createStaticRectangle(b2WorldId world_id, Position position, Size size) {
+b2BodyId BoxesSimulation::createStaticRectangle(b2WorldId world_id, Position position, Size size) {
   auto body_def = b2DefaultBodyDef();
   body_def.position = {position.x, position.y};
   const auto body_id = b2CreateBody(world_id, &body_def);
@@ -66,7 +66,7 @@ b2BodyId Simulation::createStaticRectangle(b2WorldId world_id, Position position
 
   return body_id;
 }
-b2BodyId Simulation::createDynamicRectangle(b2WorldId world_id, Position position, Size size,
+b2BodyId BoxesSimulation::createDynamicRectangle(b2WorldId world_id, Position position, Size size,
                                             float density, float friction) {
   auto body_def = b2DefaultBodyDef();
   body_def.position = {position.x, position.y};
@@ -83,9 +83,9 @@ b2BodyId Simulation::createDynamicRectangle(b2WorldId world_id, Position positio
   return body_id;
 }
 
-Size Simulation::getDimensions(b2BodyId bodyId) const {
+Size BoxesSimulation::getDimensions(b2BodyId body_id) const {
   std::vector<b2ShapeId> shape_ids(5);
-  auto n_shapes = b2Body_GetShapes(bodyId, shape_ids.data(), shape_ids.size());
+  auto n_shapes = b2Body_GetShapes(body_id, shape_ids.data(), shape_ids.size());
   assert(n_shapes == 1);
 
   auto polygon = b2Shape_GetPolygon(shape_ids[0]);
@@ -95,7 +95,7 @@ Size Simulation::getDimensions(b2BodyId bodyId) const {
   auto height = polygon.vertices[2].y * 2;
   return {width, height};
 }
-Position Simulation::getPosition(b2BodyId body_id) const {
+Position BoxesSimulation::getPosition(b2BodyId body_id) const {
   auto [x, y] = b2Body_GetPosition(body_id);
   return {x, y};
 }

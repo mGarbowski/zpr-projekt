@@ -5,7 +5,7 @@
 #include <imgui.h>
 #include <iostream>
 
-#include "Simulation.h"
+#include "BoxesSimulation.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
@@ -35,7 +35,7 @@ sf::Transform box2dToSFML() {
   return transform;
 }
 
-void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Transform transform,
+void drawSimulation(sf::RenderWindow& window, const BoxesSimulation& simulation, sf::Transform transform,
                     sf::Color body_color) {
   const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
   auto boxes = simulation.getBoxes();
@@ -47,7 +47,7 @@ void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::
   });
 }
 
-void debugPanel(const Simulation& sim) {
+void debugPanel(const BoxesSimulation& sim) {
   const auto ground = sim.getGroundRect();
 
   ImGui::Begin("Simulation");
@@ -60,7 +60,7 @@ void debugPanel(const Simulation& sim) {
   ImGui::End();
 }
 
-void controlPanel(sf::Color& body_color, const Simulation& sim) {
+void controlPanel(sf::Color& body_color, const BoxesSimulation& sim) {
   ImGui::Begin("Control Panel");
 
   if (float color[3] = {body_color.r / 255.0f, body_color.g / 255.0f, body_color.b / 255.0f};
@@ -107,7 +107,7 @@ int main() {
   Position ground_pos = {0, -10};
   Size ground_size = {20, 1};
   auto ground = Rect(ground_pos, ground_size);
-  Simulation sim(boxes, ground);
+  BoxesSimulation sim(boxes, ground);
   sf::Color body_color = sf::Color::Blue;
 
   while (window.isOpen()) {

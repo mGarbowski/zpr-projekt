@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 
-#include "Simulation.h"
+#include "BoxesSimulation.h"
 
 namespace SimulationUnitTest {
   TEST(SimulationUnitTest, firstTest) {
 
     Rect box = {{0, 10}, {2, 2}};
     Rect ground = {{0, 0}, {20, 1}};
-    Simulation sim({box}, ground);
+    BoxesSimulation sim({box}, ground);
     for (size_t i = 0; i < 1000; ++i) {
       sim.step();
     }

@@ -12,16 +12,16 @@
 #include "Rect.h"
 #include "Size.h"
 
-class Simulation {
+class BoxesSimulation {
  public:
-  Simulation(std::vector<Rect> boxes, Rect ground);
+  BoxesSimulation(std::vector<Rect> boxes, Rect ground);
 
-  Simulation(const Simulation& other) = delete;
-  Simulation(Simulation&& other) noexcept = delete;
-  Simulation& operator=(const Simulation& other) = delete;
-  Simulation& operator=(Simulation&& other) noexcept = delete;
+  BoxesSimulation(const BoxesSimulation& other) = delete;
+  BoxesSimulation(BoxesSimulation&& other) noexcept = delete;
+  BoxesSimulation& operator=(const BoxesSimulation& other) = delete;
+  BoxesSimulation& operator=(BoxesSimulation&& other) noexcept = delete;
 
-  ~Simulation();
+  ~BoxesSimulation();
 
   void step();
 
