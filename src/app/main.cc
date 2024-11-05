@@ -5,38 +5,114 @@
 #include <imgui.h>
 #include <iostream>
 
-#include "Simulation.h"
+#include "BoxesSimulation.h"
+#include "CarSimulation.h"
+#include "GuiControls.h"
+#include "RectRot.h"
 
-const int WINDOW_WIDTH = 1600;
-const int WINDOW_HEIGHT = 1000;
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 800;
 
-void drawSimulation(sf::RenderWindow& window, const Simulation& simulation, sf::Color bodyColor) {
-  b2Vec2 ground_pos = simulation.getGroundPosition();
-  b2Vec2 ground_size = simulation.getGroundDimensions();
-  b2Vec2 body_pos = simulation.getBodyPosition();
-  b2Vec2 body_size = simulation.getBodyDimensions();
+sf::Vector2f asVector(const Size& size) {
+  return sf::Vector2f(size.width, size.height);
+}
 
-  const float SCALE = 30.0f;
+sf::Vector2f asVector(const Position& position) {
+  return sf::Vector2f(position.x, position.y);
+}
 
-  sf::RectangleShape ground(sf::Vector2f(ground_size.x * SCALE, ground_size.y * SCALE));
-  ground.setOrigin(ground_size.x * SCALE / 2, ground_size.y * SCALE / 2);
-  ground.setPosition(ground_pos.x * SCALE + WINDOW_WIDTH / 2,
-                     WINDOW_HEIGHT / 2 - ground_pos.y * SCALE);
-  ground.setFillColor(sf::Color::Green);
+sf::RectangleShape createRectangle(const RectRot& rect, const sf::Color color) {
+  const Position& position = rect.pos();
+  const Size& size = rect.size();
+  sf::RectangleShape rectangle(asVector(size));
+  rectangle.setOrigin(size.width / 2, size.height / 2);
+  rectangle.setPosition(asVector(position));
+  rectangle.setRotation(rect.rotation());
+  rectangle.setFillColor(color);
+  return rectangle;
+}
 
-  sf::RectangleShape body(sf::Vector2f(body_size.x * SCALE, body_size.y * SCALE));
-  body.setOrigin(body_size.x * SCALE / 2, body_size.y * SCALE / 2);
-  body.setPosition(body_pos.x * SCALE + WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - body_pos.y * SCALE);
-  body.setFillColor(bodyColor);
+sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
+  return createRectangle({rect.pos(), rect.size(), 0}, color);
+}
 
-  window.draw(ground);
-  window.draw(body);
+sf::Transform box2dToSFML() {
+  sf::Transform transform;
+  transform.translate(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+  transform.scale(30.0f, -30.0f);
+  return transform;
+}
+
+void drawSimulation(sf::RenderWindow& window, const BoxesSimulation& simulation,
+                    sf::Transform transform, sf::Color body_color) {
+  const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
+  auto boxes = simulation.getBoxes();
+  window.draw(ground, transform);
+
+  std::for_each(boxes.begin(), boxes.end(), [&](const auto& box) {
+    auto rectangle = createRectangle(box, body_color);
+    window.draw(rectangle, transform);
+  });
+}
+
+void debugPanel(const BoxesSimulation& sim) {
+  const auto ground = sim.getGroundRect();
+
+  ImGui::Begin("Simulation");
+  ImGui::Text("Ground x: %.2f y: %.2f", ground.pos().x, ground.pos().y);
+  ImGui::Text("Ground width: %.2f height: %.2f", ground.size().width, ground.size().height);
+  for (const auto& box : sim.getBoxes()) {
+    ImGui::Text("Box width: %.2f height: %.2f", box.size().width, box.size().height);
+    ImGui::Text("Box x: %.2f y: %.2f", box.pos().x, box.pos().y);
+  }
+  ImGui::End();
+}
+
+void carDebugPanel(const CarSimulation& sim) {
+  ImGui::Begin("Car Simulation");
+  GuiControls::rectText("Ground", sim.getGroundRect());
+  GuiControls::rectRotText("Car body", sim.getCarBodyRect());
+  GuiControls::rectRotText("Rear wheel", sim.getRearWheelRect());
+  GuiControls::rectRotText("Front wheel", sim.getFrontWheelRect());
+  ImGui::End();
+}
+
+void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
+                       sf::Transform transform) {
+  const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
+  const auto car_body = createRectangle(simulation.getCarBodyRect(), sf::Color::Blue);
+  const auto rear_wheel = createRectangle(simulation.getRearWheelRect(), sf::Color::Red);
+  const auto front_wheel = createRectangle(simulation.getFrontWheelRect(), sf::Color::Red);
+
+  window.draw(ground, transform);
+  window.draw(car_body, transform);
+  window.draw(rear_wheel, transform);
+  window.draw(front_wheel, transform);
+}
+
+void controlPanel(sf::Color& body_color, const BoxesSimulation& sim) {
+  ImGui::Begin("Control Panel");
+
+  if (float color[3] = {body_color.r / 255.0f, body_color.g / 255.0f, body_color.b / 255.0f};
+      ImGui::ColorEdit3("Body Color", color)) {
+    body_color.r = static_cast<sf::Uint8>(color[0] * 255);
+    body_color.g = static_cast<sf::Uint8>(color[1] * 255);
+    body_color.b = static_cast<sf::Uint8>(color[2] * 255);
+  }
+
+  if (ImGui::Button("Kick")) {
+    sim.kickBox();
+    std::cout << "Kicked" << std::endl;
+  }
+
+  ImGui::End();
 }
 
 int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
+  const auto transform = box2dToSFML();
 
   auto window = sf::RenderWindow{
       {WINDOW_WIDTH, WINDOW_HEIGHT}, "Box2D with ImGui and SFML", sf::Style::Default, settings};
@@ -51,9 +127,7 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-  Simulation sim;
-  sf::Color body_color = sf::Color::Blue;
-
+  auto sim = CarSimulation::create();
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);
@@ -65,22 +139,14 @@ int main() {
     sim.step();
     ImGui::SFML::Update(window, delta_time);
 
-    ImGui::Begin("Control Panel");
-    static float color[3] = {body_color.r / 255.0f, body_color.g / 255.0f, body_color.b / 255.0f};
-    if (ImGui::ColorEdit3("Body Color", color)) {
-      body_color.r = static_cast<sf::Uint8>(color[0] * 255);
-      body_color.g = static_cast<sf::Uint8>(color[1] * 255);
-      body_color.b = static_cast<sf::Uint8>(color[2] * 255);
-    }
-    if (ImGui::Button("Kick")) {
-      sim.kickBox();
-    }
-    ImGui::End();
+    carDebugPanel(sim);
 
     window.clear();
-    drawSimulation(window, sim, body_color);
+    drawCarSimulation(window, sim, transform);
     ImGui::SFML::Render(window);
     window.display();
+
+    sf::sleep(sf::milliseconds(3));
   }
 
   ImGui::SFML::Shutdown();
