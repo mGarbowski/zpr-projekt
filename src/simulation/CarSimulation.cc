@@ -14,13 +14,14 @@ CarSimulation CarSimulation::create() {
   world_def.gravity = b2Vec2{0.0f, -0.0f};
 
   const auto rear_wheel_position = Position(-2, -1.5);
+  const auto front_wheel_position = Position(1, -1.5);
   const auto world_id = b2CreateWorld(&world_def);
   const auto ground_id = Utils::createStaticRectangle(world_id, {0, -10}, {20, 1});
   const auto car_body_id = Utils::createDynamicRectangle(world_id, {0, 0}, {4, 2}, 1, 0.3);
   const auto rear_wheel_id =
       Utils::createDynamicCircle(world_id, rear_wheel_position, 0.5f, 1, 0.3);
   const auto front_wheel_id =
-      Utils::createDynamicCircle(world_id, {2, -1}, 1, 1, 0.3);
+      Utils::createDynamicCircle(world_id, front_wheel_position, 0.5f, 1, 0.3);
 
   auto rear_joint_def = b2DefaultRevoluteJointDef();
   rear_joint_def.bodyIdA = car_body_id;
@@ -35,7 +36,7 @@ CarSimulation CarSimulation::create() {
   auto front_joint_def = b2DefaultRevoluteJointDef();
   front_joint_def.bodyIdA = car_body_id;
   front_joint_def.bodyIdB = front_wheel_id;
-  front_joint_def.localAnchorA = b2Body_GetLocalPoint(car_body_id, {2, -1});
+  front_joint_def.localAnchorA = b2Body_GetLocalPoint(car_body_id, {front_wheel_position.x, front_wheel_position.y});
   front_joint_def.localAnchorB = {0, 0};
   front_joint_def.enableMotor = true;
   front_joint_def.motorSpeed = 1.0f;
