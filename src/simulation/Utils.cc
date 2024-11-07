@@ -36,13 +36,13 @@ b2BodyId Utils::createDynamicRectangle(b2WorldId world_id, Position position, Si
   return body_id;
 }
 Rect Utils::getRectangleRect(const b2BodyId body_id) {
-  return {getRectanglePosition(body_id), getRectangleSize(body_id)};
+  return {getBodyPosition(body_id), getRectangleSize(body_id)};
 }
 RectRot Utils::getRectangleRectRot(const b2BodyId body_id) {
   return {
-      getRectanglePosition(body_id),
+      getBodyPosition(body_id),
       getRectangleSize(body_id),
-      radToDeg(getRectangleAngleRadians(body_id)),
+      radToDeg(getBodyAngleRadians(body_id)),
   };
 }
 Size Utils::getRectangleSize(b2BodyId body_id) {
@@ -57,11 +57,11 @@ Size Utils::getRectangleSize(b2BodyId body_id) {
   auto height = polygon.vertices[2].y * 2;
   return {width, height};
 }
-Position Utils::getRectanglePosition(b2BodyId body_id) {
+Position Utils::getBodyPosition(b2BodyId body_id) {
   auto [x, y] = b2Body_GetPosition(body_id);
   return {x, y};
 }
-float Utils::getRectangleAngleRadians(b2BodyId body_id) {
+float Utils::getBodyAngleRadians(b2BodyId body_id) {
   const auto rotation = b2Body_GetRotation(body_id);
   return b2Rot_GetAngle(rotation);
 }
@@ -70,20 +70,35 @@ float Utils::radToDeg(const float rad) {
 }
 b2BodyId Utils::createDynamicCircle(b2WorldId world_id, Position position, Size size, float density,
                                     float friction) {
-
-
   b2ShapeDef shape_def = b2DefaultShapeDef();
   shape_def.density = density;
   shape_def.friction = friction;
-  b2Circle circle = { { 0.0f, 0.0f }, 0.4f * 1.0f };
+  b2Circle circle = {{0.0f, 0.0f}, 0.4f * 1.0f};
 
   auto body_def = b2DefaultBodyDef();
   body_def.type = b2_dynamicBody;
   body_def.position = {position.x, position.y};
   body_def.allowFastRotation = true;
   b2BodyId wheel_id = b2CreateBody(world_id, &body_def);
-  b2CreateCircleShape( wheel_id, &shape_def, &circle );
-
+  b2CreateCircleShape(wheel_id, &shape_def, &circle);
 
   return wheel_id;
+}
+
+float Utils::getCircleRadius(b2BodyId id) {
+  std::vector<b2ShapeId> shape_ids(5);
+  auto n_shapes = b2Body_GetShapes(id, shape_ids.data(), shape_ids.size());
+  assert(n_shapes == 1);
+  auto circle = b2Shape_GetCircle(shape_ids[0]);
+
+  // Return the radius of the circle
+  return circle.radius;
+  return 0;
+}
+CircleRot Utils::getCircleRot(const b2BodyId id) {
+  return {
+      getBodyPosition(id),
+      getCircleRadius(id),
+      radToDeg(getBodyAngleRadians(id)),
+  };
 }

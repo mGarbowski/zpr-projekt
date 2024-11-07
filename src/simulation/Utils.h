@@ -10,6 +10,7 @@
 #include "Position.h"
 #include "Rect.h"
 #include "RectRot.h"
+#include "CircleRot.h"
 #include "Size.h"
 
 class Utils {
@@ -23,9 +24,11 @@ class Utils {
   static RectRot getRectangleRectRot(b2BodyId body_id);
 
   static Size getRectangleSize(b2BodyId body_id);
-  static Position getRectanglePosition(b2BodyId body_id);
-  static float getRectangleAngleRadians(b2BodyId body_id);
+  static Position getBodyPosition(b2BodyId body_id);
+  static float getBodyAngleRadians(b2BodyId body_id);
   static float radToDeg(float rad);
+  static CircleRot getCircleRot(b2BodyId id);
+  static float getCircleRadius(b2BodyId id);
 };
 
 #endif  // UTILS_H
