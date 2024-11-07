@@ -37,7 +37,7 @@ sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color color) {
   sf::CircleShape sf_circle;
   sf_circle.setRadius(radius);
   sf_circle.setOutlineColor(color);
-  sf_circle.setOutlineThickness(3);
+//  sf_circle.setOutlineThickness(3);
   sf_circle.setPosition(asVector(position));
 
   return sf_circle;
@@ -92,12 +92,12 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
                        sf::Transform transform) {
   const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
   const auto car_body = createSfRectangle(simulation.getCarBodyRect(), sf::Color::Blue);
-  //const auto rear_wheel = createSfRectangle(simulation.getRearWheelRect(), sf::Color::Red);
+  const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red);
   //const auto front_wheel = createSfRectangle(simulation.getFrontWheelRect(), sf::Color::Red);
 
   window.draw(ground, transform);
   window.draw(car_body, transform);
-  //window.draw(rear_wheel, transform);
+  window.draw(rear_wheel, transform);
   //window.draw(front_wheel, transform);
 }
 
