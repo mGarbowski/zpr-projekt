@@ -13,8 +13,8 @@ CarSimulation CarSimulation::create() {
   b2WorldDef world_def = b2DefaultWorldDef();
   world_def.gravity = b2Vec2{0.0f, -0.0f};
 
-  const auto rear_wheel_position = Position(-2, -1.5);
-  const auto front_wheel_position = Position(1, -1.5);
+  const auto rear_wheel_position = Position(-2, -1);
+  const auto front_wheel_position = Position(2, -1);
   const auto world_id = b2CreateWorld(&world_def);
   const auto ground_id = Utils::createStaticRectangle(world_id, {0, -10}, {20, 1});
   const auto car_body_id = Utils::createDynamicRectangle(world_id, {0, 0}, {4, 2}, 1, 0.3);
