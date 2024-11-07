@@ -91,9 +91,7 @@ float Utils::getCircleRadius(b2BodyId id) {
   assert(n_shapes == 1);
   auto circle = b2Shape_GetCircle(shape_ids[0]);
 
-  // Return the radius of the circle
   return circle.radius;
-  return 0;
 }
 CircleRot Utils::getCircleRot(const b2BodyId id) {
   return {
