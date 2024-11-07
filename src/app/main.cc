@@ -93,12 +93,12 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
   const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
   const auto car_body = createSfRectangle(simulation.getCarBodyRect(), sf::Color::Blue);
   const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red);
-  //const auto front_wheel = createSfRectangle(simulation.getFrontWheelRect(), sf::Color::Red);
+  const auto front_wheel = createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red);
 
   window.draw(ground, transform);
   window.draw(car_body, transform);
   window.draw(rear_wheel, transform);
-  //window.draw(front_wheel, transform);
+  window.draw(front_wheel, transform);
 }
 
 void controlPanel(sf::Color& body_color, const BoxesSimulation& sim) {
