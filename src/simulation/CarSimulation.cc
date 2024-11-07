@@ -11,7 +11,7 @@ CarSimulation CarSimulation::create() {
   const auto sub_step_count = 4;
 
   b2WorldDef world_def = b2DefaultWorldDef();
-  world_def.gravity = b2Vec2{0.0f, -0.0f};
+  world_def.gravity = b2Vec2{0.0f, -9.81f};
 
   const auto rear_wheel_position = Position(-2, -1);
   const auto front_wheel_position = Position(2, -1);
