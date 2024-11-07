@@ -8,6 +8,7 @@
 
 #include "Rect.h"
 #include "RectRot.h"
+#include "CircleRot.h"
 #include "box2d/id.h"
 
 class CarSimulation {
@@ -24,6 +25,8 @@ class CarSimulation {
   RectRot getCarBodyRect() const;
   RectRot getRearWheelRect() const;
   RectRot getFrontWheelRect() const;
+  CircleRot getRearWheelCircle() const;
+  CircleRot getFrontWheelCircle() const;
 
   void step();
 

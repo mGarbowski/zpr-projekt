@@ -21,7 +21,7 @@ sf::Vector2f asVector(const Position& position) {
   return sf::Vector2f(position.x, position.y);
 }
 
-sf::RectangleShape createRectangle(const RectRot& rect, const sf::Color color) {
+sf::RectangleShape createSfRectangle(const RectRot& rect, const sf::Color color) {
   const Position& position = rect.pos();
   const Size& size = rect.size();
   sf::RectangleShape rectangle(asVector(size));
@@ -31,9 +31,21 @@ sf::RectangleShape createRectangle(const RectRot& rect, const sf::Color color) {
   rectangle.setFillColor(color);
   return rectangle;
 }
+sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color color) {
+  const Position& position = circle.pos();
+  const float radius = circle.radius();
+  sf::CircleShape sf_circle;
+  sf_circle.setOrigin(radius, radius);
+  sf_circle.setRadius(radius);
+  sf_circle.setOutlineColor(color);
+//  sf_circle.setOutlineThickness(3);
+  sf_circle.setPosition(asVector(position));
+
+  return sf_circle;
+}
 
 sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
-  return createRectangle({rect.pos(), rect.size(), 0}, color);
+  return createSfRectangle({rect.pos(), rect.size(), 0}, color);
 }
 
 sf::Transform box2dToSFML() {
@@ -72,17 +84,17 @@ void carDebugPanel(const CarSimulation& sim) {
   ImGui::Begin("Car Simulation");
   GuiControls::rectText("Ground", sim.getGroundRect());
   GuiControls::rectRotText("Car body", sim.getCarBodyRect());
-  GuiControls::rectRotText("Rear wheel", sim.getRearWheelRect());
-  GuiControls::rectRotText("Front wheel", sim.getFrontWheelRect());
+  //GuiControls::rectRotText("Rear wheel", sim.getRearWheelRect());
+  //GuiControls::rectRotText("Front wheel", sim.getFrontWheelRect());
   ImGui::End();
 }
 
 void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
                        sf::Transform transform) {
   const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
-  const auto car_body = createRectangle(simulation.getCarBodyRect(), sf::Color::Blue);
-  const auto rear_wheel = createRectangle(simulation.getRearWheelRect(), sf::Color::Red);
-  const auto front_wheel = createRectangle(simulation.getFrontWheelRect(), sf::Color::Red);
+  const auto car_body = createSfRectangle(simulation.getCarBodyRect(), sf::Color::Blue);
+  const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red);
+  const auto front_wheel = createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red);
 
   window.draw(ground, transform);
   window.draw(car_body, transform);
