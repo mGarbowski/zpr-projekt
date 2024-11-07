@@ -68,12 +68,12 @@ float Utils::getBodyAngleRadians(b2BodyId body_id) {
 float Utils::radToDeg(const float rad) {
   return rad * 180.0f / M_PI;
 }
-b2BodyId Utils::createDynamicCircle(b2WorldId world_id, Position position, Size size, float density,
+b2BodyId Utils::createDynamicCircle(b2WorldId world_id, Position position, float radius, float density,
                                     float friction) {
   b2ShapeDef shape_def = b2DefaultShapeDef();
   shape_def.density = density;
   shape_def.friction = friction;
-  b2Circle circle = {{0.0f, 0.0f}, 0.4f * 1.0f};
+  b2Circle circle = {{0.0f, 0.0f}, radius};
 
   auto body_def = b2DefaultBodyDef();
   body_def.type = b2_dynamicBody;
