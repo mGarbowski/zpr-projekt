@@ -72,8 +72,8 @@ void carDebugPanel(const CarSimulation& sim) {
   ImGui::Begin("Car Simulation");
   GuiControls::rectText("Ground", sim.getGroundRect());
   GuiControls::rectRotText("Car body", sim.getCarBodyRect());
-  GuiControls::rectRotText("Rear wheel", sim.getRearWheelRect());
-  GuiControls::rectRotText("Front wheel", sim.getFrontWheelRect());
+  //GuiControls::rectRotText("Rear wheel", sim.getRearWheelRect());
+  //GuiControls::rectRotText("Front wheel", sim.getFrontWheelRect());
   ImGui::End();
 }
 
@@ -81,13 +81,13 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
                        sf::Transform transform) {
   const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
   const auto car_body = createRectangle(simulation.getCarBodyRect(), sf::Color::Blue);
-  const auto rear_wheel = createRectangle(simulation.getRearWheelRect(), sf::Color::Red);
-  const auto front_wheel = createRectangle(simulation.getFrontWheelRect(), sf::Color::Red);
+  //const auto rear_wheel = createRectangle(simulation.getRearWheelRect(), sf::Color::Red);
+  //const auto front_wheel = createRectangle(simulation.getFrontWheelRect(), sf::Color::Red);
 
   window.draw(ground, transform);
   window.draw(car_body, transform);
-  window.draw(rear_wheel, transform);
-  window.draw(front_wheel, transform);
+  //window.draw(rear_wheel, transform);
+  //window.draw(front_wheel, transform);
 }
 
 void controlPanel(sf::Color& body_color, const BoxesSimulation& sim) {
