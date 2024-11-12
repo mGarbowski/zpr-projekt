@@ -15,7 +15,6 @@
 
 class CarSimulation {
  public:
-  static CarSimulation create();
   static CarSimulation create(const CarDescription& car_description);
 
   ~CarSimulation() = default;

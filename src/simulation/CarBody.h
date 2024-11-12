@@ -12,7 +12,6 @@
 
 class CarBody {
  public:
-  static CarBody create(b2WorldId world_id, Position position);
   static CarBody create(b2WorldId world_id, Position position, const CarDescription& car_description);
 
   b2BodyId bodyId() const;

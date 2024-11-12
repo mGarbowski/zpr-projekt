@@ -20,10 +20,15 @@ void assertPointsEqual(b2Vec2 a, b2Vec2 b) {
   ASSERT_FLOAT_EQ(a.y, b.y);
 }
 
-TEST(CarBodyTest, positions) {
+
+TEST(CarBodyTest, vertexPositions) {
+  const CarDescription car_description = {{-4, 2}, {0, 1}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
+                                    {-2, 0}, 1.0f,   1.0f,   1.0f,   0.5f,    0.5f};
+
+
   const auto world_def = b2DefaultWorldDef();
   const auto world_id = b2CreateWorld(&world_def);
-  const auto car_body = CarBody::create(world_id, {0, 0});
+  const auto car_body = CarBody::create(world_id, {0, 0}, car_description);
   const auto body_id = car_body.bodyId();
 
   std::vector<b2ShapeId> shape_ids(8);
