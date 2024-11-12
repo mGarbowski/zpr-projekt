@@ -23,7 +23,6 @@ class CarSimulation {
   CarSimulation& operator=(CarSimulation&& other) noexcept = delete;
 
   Rect getGroundRect() const;
-  RectRot getCarBodyRect() const;
   RectRot getRearWheelRect() const;
   RectRot getFrontWheelRect() const;
   CircleRot getRearWheelCircle() const;
@@ -34,13 +33,12 @@ class CarSimulation {
   void step();
 
  private:
-  CarSimulation(b2WorldId world_id, float time_step, int sub_step_count, b2BodyId car_body_id,
+  CarSimulation(b2WorldId world_id, float time_step, int sub_step_count,
                 b2BodyId ground_id, b2BodyId rear_wheel_id, b2BodyId front_wheel_id,
                 b2JointId rear_joint_id, b2JointId front_joint_id, CarBody car_body)
       : world_id_(std::move(world_id)),
         time_step_(time_step),
         sub_step_count_(sub_step_count),
-        car_body_id_(std::move(car_body_id)),
         ground_id_(std::move(ground_id)),
         rear_wheel_id_(std::move(rear_wheel_id)),
         front_wheel_id_(std::move(front_wheel_id)),
@@ -51,7 +49,6 @@ class CarSimulation {
   b2WorldId world_id_;
   float time_step_;
   int sub_step_count_;
-  b2BodyId car_body_id_;
   b2BodyId ground_id_;
   b2BodyId rear_wheel_id_;
   b2BodyId front_wheel_id_;

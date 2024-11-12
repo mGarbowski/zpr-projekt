@@ -17,6 +17,7 @@ class CarBody {
   }
   b2Polygon getTriangle(int idx) const;
   Position getPosition() const;
+  b2Vec2 getBottomLeftVertex() const;
 
  private:
   explicit CarBody(b2BodyId body_id) : body_id_(body_id) {}
