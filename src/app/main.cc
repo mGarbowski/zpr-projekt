@@ -37,7 +37,6 @@ sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color color) {
   sf_circle.setOrigin(radius, radius);
   sf_circle.setRadius(radius);
   sf_circle.setOutlineColor(color);
-  //  sf_circle.setOutlineThickness(3);
   sf_circle.setPosition(asVector(position));
 
   return sf_circle;
@@ -66,9 +65,6 @@ sf::Transform box2dToSFML() {
 void carDebugPanel(const CarSimulation& sim) {
   ImGui::Begin("Car Simulation");
   GuiControls::rectText("Ground", sim.getGroundRect());
-  // GuiControls::rectRotText("Car body", sim.getCarBodyRect());
-  // GuiControls::rectRotText("Rear wheel", sim.getRearWheelRect());
-  // GuiControls::rectRotText("Front wheel", sim.getFrontWheelRect());
   ImGui::End();
 }
 
