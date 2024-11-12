@@ -16,8 +16,6 @@
 class Utils {
  public:
   static b2BodyId createStaticRectangle(b2WorldId world_id, Position position, Size size);
-  static b2BodyId createDynamicRectangle(b2WorldId world_id, Position position, Size size,
-                                         float density, float friction);
   static b2BodyId createDynamicCircle(b2WorldId world_id, Position position, float radius,
                                          float density, float friction);
   static Rect getRectangleRect(b2BodyId body_id);
