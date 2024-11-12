@@ -53,12 +53,6 @@ CarSimulation CarSimulation::create(const CarDescription& car_description) {
 Rect CarSimulation::getGroundRect() const {
   return Utils::getRectangleRect(ground_id_);
 }
-RectRot CarSimulation::getRearWheelRect() const {
-  return Utils::getRectangleRectRot(rear_wheel_id_);
-}
-RectRot CarSimulation::getFrontWheelRect() const {
-  return Utils::getRectangleRectRot(front_wheel_id_);
-}
 void CarSimulation::step() {
   b2World_Step(world_id_, time_step_, sub_step_count_);
 }

@@ -24,8 +24,6 @@ class CarSimulation {
   CarSimulation& operator=(CarSimulation&& other) noexcept = delete;
 
   Rect getGroundRect() const;
-  RectRot getRearWheelRect() const;
-  RectRot getFrontWheelRect() const;
   CircleRot getRearWheelCircle() const;
   CircleRot getFrontWheelCircle() const;
 
