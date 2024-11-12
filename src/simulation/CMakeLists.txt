@@ -12,6 +12,8 @@ set(SIMULATION_SOURCES
         CircleRot.h
         CarBody.h
         CarBody.cc
+        CarDescription.h
+        CarDescription.cc
 )
 add_library(simulation ${SIMULATION_SOURCES})
 target_link_libraries(simulation box2d)

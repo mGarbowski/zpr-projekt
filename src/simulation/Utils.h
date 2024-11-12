@@ -7,11 +7,12 @@
 #include <box2d/id.h>
 #include <math.h>
 
+#include "CircleRot.h"
 #include "Position.h"
 #include "Rect.h"
 #include "RectRot.h"
-#include "CircleRot.h"
 #include "Size.h"
+#include "box2d/math_functions.h"
 
 class Utils {
  public:
@@ -29,6 +30,8 @@ class Utils {
   static float radToDeg(float rad);
   static CircleRot getCircleRot(b2BodyId id);
   static float getCircleRadius(b2BodyId id);
+
+  static b2Vec2 asVec(Position position);
 };
 
 #endif  // UTILS_H

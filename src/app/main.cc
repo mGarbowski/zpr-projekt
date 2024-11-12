@@ -38,7 +38,7 @@ sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color color) {
   sf_circle.setOrigin(radius, radius);
   sf_circle.setRadius(radius);
   sf_circle.setOutlineColor(color);
-//  sf_circle.setOutlineThickness(3);
+  //  sf_circle.setOutlineThickness(3);
   sf_circle.setPosition(asVector(position));
 
   return sf_circle;
@@ -51,7 +51,8 @@ sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
 sf::ConvexShape createTriangle(const b2Polygon& triangle, Position position) {
   sf::ConvexShape shape(3);
   for (int i = 0; i < 3; ++i) {
-    shape.setPoint(i, sf::Vector2f(triangle.vertices[i].x + position.x, triangle.vertices[i].y + position.y));
+    shape.setPoint(
+        i, sf::Vector2f(triangle.vertices[i].x + position.x, triangle.vertices[i].y + position.y));
   }
   return shape;
 }
@@ -91,9 +92,9 @@ void debugPanel(const BoxesSimulation& sim) {
 void carDebugPanel(const CarSimulation& sim) {
   ImGui::Begin("Car Simulation");
   GuiControls::rectText("Ground", sim.getGroundRect());
-  //GuiControls::rectRotText("Car body", sim.getCarBodyRect());
-  //GuiControls::rectRotText("Rear wheel", sim.getRearWheelRect());
-  //GuiControls::rectRotText("Front wheel", sim.getFrontWheelRect());
+  // GuiControls::rectRotText("Car body", sim.getCarBodyRect());
+  // GuiControls::rectRotText("Rear wheel", sim.getRearWheelRect());
+  // GuiControls::rectRotText("Front wheel", sim.getFrontWheelRect());
   ImGui::End();
 }
 
@@ -153,7 +154,10 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-  auto sim = CarSimulation::create();
+  CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
+                                    {-2, 0}, 1.0f,   1.0f,   1.0f,   1.0f,    0.5f};
+
+  auto sim = CarSimulation::create(car_description);
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);

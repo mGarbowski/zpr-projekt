@@ -95,6 +95,10 @@ float Utils::getCircleRadius(b2BodyId id) {
   return circle.radius;
   return 0;
 }
+b2Vec2 Utils::asVec(Position position) {
+  const auto [x, y] = position;
+  return {x, y};
+}
 CircleRot Utils::getCircleRot(const b2BodyId id) {
   return {
       getBodyPosition(id),

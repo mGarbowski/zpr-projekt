@@ -7,6 +7,7 @@
 #include <utility>
 
 #include "CarBody.h"
+#include "CarDescription.h"
 #include "CircleRot.h"
 #include "Rect.h"
 #include "RectRot.h"
@@ -15,6 +16,7 @@
 class CarSimulation {
  public:
   static CarSimulation create();
+  static CarSimulation create(const CarDescription& car_description);
 
   ~CarSimulation() = default;
   CarSimulation(const CarSimulation& other) = delete;
@@ -28,14 +30,16 @@ class CarSimulation {
   CircleRot getRearWheelCircle() const;
   CircleRot getFrontWheelCircle() const;
 
-  CarBody getCarBody() const { return car_body_; }
+  CarBody getCarBody() const {
+    return car_body_;
+  }
 
   void step();
 
  private:
-  CarSimulation(b2WorldId world_id, float time_step, int sub_step_count,
-                b2BodyId ground_id, b2BodyId rear_wheel_id, b2BodyId front_wheel_id,
-                b2JointId rear_joint_id, b2JointId front_joint_id, CarBody car_body)
+  CarSimulation(b2WorldId world_id, float time_step, int sub_step_count, b2BodyId ground_id,
+                b2BodyId rear_wheel_id, b2BodyId front_wheel_id, b2JointId rear_joint_id,
+                b2JointId front_joint_id, CarBody car_body)
       : world_id_(std::move(world_id)),
         time_step_(time_step),
         sub_step_count_(sub_step_count),
