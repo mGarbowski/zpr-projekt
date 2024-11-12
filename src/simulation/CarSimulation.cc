@@ -6,6 +6,7 @@
 
 #include "Utils.h"
 #include "box2d/box2d.h"
+
 CarSimulation CarSimulation::create(const CarDescription& car_description) {
   constexpr auto time_step = 1.0f / 60.0f;
   constexpr auto sub_step_count = 4;
@@ -20,9 +21,11 @@ CarSimulation CarSimulation::create(const CarDescription& car_description) {
   const auto ground_id = Utils::createStaticRectangle(world_id, {0, -10}, {100, 1});
 
   const auto rear_wheel_id =
-      Utils::createDynamicCircle(world_id, rear_wheel_position, car_description.rearWheelRadius(), car_description.rearWheelDensity(), 0.3);
+      Utils::createDynamicCircle(world_id, rear_wheel_position, car_description.rearWheelRadius(),
+                                 car_description.rearWheelDensity(), 0.3);
   const auto front_wheel_id =
-      Utils::createDynamicCircle(world_id, front_wheel_position, car_description.frontWheelRadius(), car_description.frontWheelDensity(), 0.3);
+      Utils::createDynamicCircle(world_id, front_wheel_position, car_description.frontWheelRadius(),
+                                 car_description.frontWheelDensity(), 0.3);
 
   const auto car_body = CarBody::create(world_id, {5, 3}, car_description);
   const auto car_body_id = car_body.bodyId();
@@ -61,4 +64,7 @@ CircleRot CarSimulation::getRearWheelCircle() const {
 }
 CircleRot CarSimulation::getFrontWheelCircle() const {
   return Utils::getCircleRot(front_wheel_id_);
+}
+CarBody CarSimulation::getCarBody() const {
+  return car_body_;
 }
