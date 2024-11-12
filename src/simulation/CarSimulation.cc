@@ -16,7 +16,7 @@ CarSimulation CarSimulation::create() {
   const auto rear_wheel_position = Position(-2, -1);
   const auto front_wheel_position = Position(2, -1);
   const auto world_id = b2CreateWorld(&world_def);
-  const auto ground_id = Utils::createStaticRectangle(world_id, {0, -10}, {20, 1});
+  const auto ground_id = Utils::createStaticRectangle(world_id, {0, -10}, {100, 1});
   const auto car_body_id = Utils::createDynamicRectangle(world_id, {0, 0}, {4, 2}, 1, 0.3);
   const auto rear_wheel_id =
       Utils::createDynamicCircle(world_id, rear_wheel_position, 0.5f, 1, 0.3);
@@ -43,8 +43,9 @@ CarSimulation CarSimulation::create() {
   front_joint_def.maxMotorTorque = 1000.0f;
   const auto front_joint_id = b2CreateRevoluteJoint(world_id, &front_joint_def);
 
+  const auto car_body = CarBody::create(world_id, {10, 10});
   return CarSimulation(world_id, time_step, sub_step_count, car_body_id, ground_id, rear_wheel_id,
-                       front_wheel_id, rear_joint_id, front_joint_id);
+                       front_wheel_id, rear_joint_id, front_joint_id, car_body);
 }
 Rect CarSimulation::getGroundRect() const {
   return Utils::getRectangleRect(ground_id_);

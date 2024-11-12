@@ -12,8 +12,13 @@
 class CarBody {
  public:
   static CarBody create(b2WorldId world_id, Position position);
-  b2BodyId bodyId() const { return body_id_; }
-private:
+  b2BodyId bodyId() const {
+    return body_id_;
+  }
+  b2Polygon getTriangle(int idx) const;
+  Position getPosition() const;
+
+ private:
   explicit CarBody(b2BodyId body_id) : body_id_(body_id) {}
 
   b2BodyId body_id_;

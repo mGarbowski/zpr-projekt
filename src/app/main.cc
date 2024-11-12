@@ -48,6 +48,14 @@ sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
   return createSfRectangle({rect.pos(), rect.size(), 0}, color);
 }
 
+sf::ConvexShape createTriangle(const b2Polygon& triangle, Position position) {
+  sf::ConvexShape shape(3);
+  for (int i = 0; i < 3; ++i) {
+    shape.setPoint(i, sf::Vector2f(triangle.vertices[i].x + position.x, triangle.vertices[i].y + position.y));
+  }
+  return shape;
+}
+
 sf::Transform box2dToSFML() {
   sf::Transform transform;
   transform.translate(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
@@ -95,6 +103,14 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
   const auto car_body = createSfRectangle(simulation.getCarBodyRect(), sf::Color::Blue);
   const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red);
   const auto front_wheel = createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red);
+
+  auto body = simulation.getCarBody();
+  auto body_pos = body.getPosition();
+  for (int i = 0; i < 8; ++i) {
+    const auto triangle = body.getTriangle(i);
+    const auto shape = createTriangle(triangle, body_pos);
+    window.draw(shape, transform);
+  }
 
   window.draw(ground, transform);
   window.draw(car_body, transform);
