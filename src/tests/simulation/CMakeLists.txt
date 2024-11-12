@@ -1,4 +1,4 @@
-set(SIMULATION_TEST_SOURCES SimulationUnitTest.cc
+set(SIMULATION_TEST_SOURCES
         CarBodyTest.cc
 )
 add_executable(simulation_tests ${SIMULATION_TEST_SOURCES})

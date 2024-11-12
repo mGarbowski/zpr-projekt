@@ -5,7 +5,6 @@
 #include <imgui.h>
 #include <iostream>
 
-#include "BoxesSimulation.h"
 #include "CarSimulation.h"
 #include "GuiControls.h"
 #include "RectRot.h"
@@ -64,31 +63,6 @@ sf::Transform box2dToSFML() {
   return transform;
 }
 
-void drawSimulation(sf::RenderWindow& window, const BoxesSimulation& simulation,
-                    sf::Transform transform, sf::Color body_color) {
-  const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
-  auto boxes = simulation.getBoxes();
-  window.draw(ground, transform);
-
-  std::for_each(boxes.begin(), boxes.end(), [&](const auto& box) {
-    auto rectangle = createRectangle(box, body_color);
-    window.draw(rectangle, transform);
-  });
-}
-
-void debugPanel(const BoxesSimulation& sim) {
-  const auto ground = sim.getGroundRect();
-
-  ImGui::Begin("Simulation");
-  ImGui::Text("Ground x: %.2f y: %.2f", ground.pos().x, ground.pos().y);
-  ImGui::Text("Ground width: %.2f height: %.2f", ground.size().width, ground.size().height);
-  for (const auto& box : sim.getBoxes()) {
-    ImGui::Text("Box width: %.2f height: %.2f", box.size().width, box.size().height);
-    ImGui::Text("Box x: %.2f y: %.2f", box.pos().x, box.pos().y);
-  }
-  ImGui::End();
-}
-
 void carDebugPanel(const CarSimulation& sim) {
   ImGui::Begin("Car Simulation");
   GuiControls::rectText("Ground", sim.getGroundRect());
@@ -117,24 +91,6 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
   window.draw(front_wheel, transform);
 }
 
-void controlPanel(sf::Color& body_color, const BoxesSimulation& sim) {
-  ImGui::Begin("Control Panel");
-
-  if (float color[3] = {body_color.r / 255.0f, body_color.g / 255.0f, body_color.b / 255.0f};
-      ImGui::ColorEdit3("Body Color", color)) {
-    body_color.r = static_cast<sf::Uint8>(color[0] * 255);
-    body_color.g = static_cast<sf::Uint8>(color[1] * 255);
-    body_color.b = static_cast<sf::Uint8>(color[2] * 255);
-  }
-
-  if (ImGui::Button("Kick")) {
-    sim.kickBox();
-    std::cout << "Kicked" << std::endl;
-  }
-
-  ImGui::End();
-}
-
 int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
@@ -155,7 +111,7 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
   CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
-                                    {-2, 0}, 1.0f,   1.0f,   1.0f,   1.0f,    0.5f};
+                                    {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
 
   auto sim = CarSimulation::create(car_description);
   while (window.isOpen()) {

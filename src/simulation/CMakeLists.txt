@@ -1,6 +1,4 @@
 set(SIMULATION_SOURCES
-        BoxesSimulation.cc
-        BoxesSimulation.h
         Size.h
         Position.h
         Rect.h
