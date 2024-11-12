@@ -5,7 +5,6 @@
 #ifndef UTILS_H
 #define UTILS_H
 #include <box2d/id.h>
-#include <math.h>
 
 #include "CircleRot.h"
 #include "Position.h"

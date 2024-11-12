@@ -19,7 +19,7 @@ class CarBody {
   Position getPosition() const;
 
  private:
-  explicit CarBody(b2BodyId body_id) : body_id_(body_id) {}
+  explicit CarBody(const b2BodyId body_id) : body_id_(body_id) {}
 
   b2BodyId body_id_;
 };

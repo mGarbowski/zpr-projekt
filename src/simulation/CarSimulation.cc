@@ -7,8 +7,8 @@
 #include "Utils.h"
 #include "box2d/box2d.h"
 CarSimulation CarSimulation::create(const CarDescription& car_description) {
-  const auto time_step = 1.0f / 60.0f;
-  const auto sub_step_count = 4;
+  constexpr auto time_step = 1.0f / 60.0f;
+  constexpr auto sub_step_count = 4;
 
   b2WorldDef world_def = b2DefaultWorldDef();
   world_def.gravity = b2Vec2{0.0f, -9.81f};

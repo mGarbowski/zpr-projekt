@@ -54,14 +54,14 @@ CarBody CarBody::create(b2WorldId world_id, Position position,
 b2BodyId CarBody::bodyId() const {
   return body_id_;
 }
-b2Polygon CarBody::getTriangle(int idx) const {
+b2Polygon CarBody::getTriangle(const int idx) const {
   if (idx < 0 || idx > 7) {
     throw std::out_of_range("Triangle index out of range");
   }
 
   std::vector<b2ShapeId> shape_ids(8);
-  auto n_shapes = b2Body_GetShapes(body_id_, shape_ids.data(), shape_ids.size());
-  if (n_shapes != 8) {
+  if (const auto n_shapes = b2Body_GetShapes(body_id_, shape_ids.data(), shape_ids.size());
+      n_shapes != 8) {
     throw std::runtime_error("Expected 8 shapes");
   }
 

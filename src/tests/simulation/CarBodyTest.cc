@@ -7,7 +7,7 @@
 #include "CarBody.h"
 
 namespace CarBodyTest {
-void printTriangle(int idx, b2Polygon triangle) {
+void printTriangle(const int idx, const b2Polygon& triangle) {
   std::cout << "v" << idx << ": ";
   for (int i = 0; i < 3; ++i) {
     std::cout << "(" << triangle.vertices[i].x << ", " << triangle.vertices[i].y << ") ";
@@ -32,7 +32,7 @@ TEST(CarBodyTest, vertexPositions) {
   const auto body_id = car_body.bodyId();
 
   std::vector<b2ShapeId> shape_ids(8);
-  auto n_shapes = b2Body_GetShapes(body_id, shape_ids.data(), shape_ids.size());
+  const auto n_shapes = b2Body_GetShapes(body_id, shape_ids.data(), shape_ids.size());
   ASSERT_EQ(n_shapes, 8);
 
   for (int i = 0; i < 8; ++i) {

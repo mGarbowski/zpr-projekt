@@ -46,7 +46,7 @@ sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
   return createSfRectangle({rect.pos(), rect.size(), 0}, color);
 }
 
-sf::ConvexShape createTriangle(const b2Polygon& triangle, Position position) {
+sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position) {
   sf::ConvexShape shape(3);
   for (int i = 0; i < 3; ++i) {
     shape.setPoint(
@@ -128,7 +128,7 @@ int main() {
     ImGui::SFML::Render(window);
     window.display();
 
-    sf::sleep(sf::milliseconds(3));
+    sleep(sf::milliseconds(3));
   }
 
   ImGui::SFML::Shutdown();
