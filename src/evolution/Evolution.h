@@ -2,7 +2,10 @@
 #define EVOLUTION_H
 
 
-
+/**
+* @ingroup evolution
+* @brief Evolve a population
+*/
 class Evolution {
 public:
  /**
