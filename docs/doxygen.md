@@ -36,4 +36,15 @@ Pliki binarne są instalowane do katalogu /usr/local/bin, strony podręcznika (m
 cmake -Dbuild_doc=YES ..
 make docs
 ``` 
-Dokumentacja będzie dostępna w html/index.html i w pliku pdf.
+Instrukcja będzie dostępna w html/index.html i w pliku pdf.
+
+# Generowanie dokumentacji
+Aby wygenerować nowy plik konfiguracyjny w obecnym katalogu. **To nadpisze obecny plik o tej nazwie, zachować ostrożność**:
+```shell
+doxygen -g <nazwa pliku>
+```
+
+Generowanie dokumentacji 
+```shell
+doxygen <sciezka-do-pliku-konfiguracyjnego>
+```
