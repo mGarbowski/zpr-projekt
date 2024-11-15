@@ -46,18 +46,20 @@ doxygen -g <nazwa pliku>
 
 # Generowanie dokumentacji 
 ```shell
-doxygen <sciezka-do-pliku-konfiguracyjnego>
+doxygen <scieżka-do-pliku-konfiguracyjnego>
 ```
       
 # Dokumentowanie kodu
 
 ```cpp
 /**
-       * @brief krotki opis elementu
-       * @param nazwa_param_a krotki opis parametru a 
-       * @param nazwa_param_b krotki opis parametru b
+       * @brief krótki opis elementu
+       * @param nazwa_param_a krótki opis parametru a 
+       * @param nazwa_param_b krótki opis parametru b
        * @see przydatny_powiazany_element
        * @see ~Javadoc_Test()
        * @return Co zwraca element
        */
 ```
+
+Po więcej informacji odnośnie komentowania kodu skieruj się na https://www.doxygen.nl/manual/docblocks.html
