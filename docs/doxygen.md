@@ -5,8 +5,8 @@ Linux:
 1. Pobrać pliki źródłowe z https://www.doxygen.nl/download.html
 2. Zdekompresować
 ```shell
-gunzip doxygen-$VERSION.src.tar.gz    # uncompress the archive
-tar xf doxygen-$VERSION.src.tar       # unpack it
+gunzip doxygen-$VERSION.src.tar.gz    
+tar xf doxygen-$VERSION.src.tar       
 
 ```
 3. Stworzyć katalog do budowania
@@ -16,7 +16,8 @@ mkdir build
 cd build
 ```
 
-4. Uruchomić generator makefile 
+4. Uruchomić generator makefile (w przypadku błędów, zainstalować ```flex``` i ```bison``` 
+```sudo apt-get install flex```, ```sudo apt-get install bison```)
 ```shell
 cmake -G "Unix Makefiles" ..
 ```
