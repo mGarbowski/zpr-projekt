@@ -13,6 +13,7 @@
 
 class CarSimulation {
  public:
+  //! create a simulation with objects inside it
   static CarSimulation create();
 
   ~CarSimulation() = default;
