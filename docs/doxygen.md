@@ -44,7 +44,20 @@ Aby wygenerować nowy plik konfiguracyjny w obecnym katalogu. **To nadpisze obec
 doxygen -g <nazwa pliku>
 ```
 
-Generowanie dokumentacji 
+# Generowanie dokumentacji 
 ```shell
 doxygen <sciezka-do-pliku-konfiguracyjnego>
+```
+      
+# Dokumentowanie kodu
+
+```cpp
+/**
+       * @brief krotki opis elementu
+       * @param nazwa_param_a krotki opis parametru a 
+       * @param nazwa_param_b krotki opis parametru b
+       * @see przydatny_powiazany_element
+       * @see ~Javadoc_Test()
+       * @return Co zwraca element
+       */
 ```
