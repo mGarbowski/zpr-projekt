@@ -7,8 +7,13 @@
 
 #include "Position.h"
 
+/**
+ * @ingroup simulation
+ * @brief Describes all parameters required to construct a car.
+ */
 class CarDescription {
  public:
+  // TODO: validation
   CarDescription(Position top_left, Position top, Position top_right, Position right,
                  Position bottom_right, Position bottom, Position bottom_left, Position left,
                  float body_density, float rear_wheel_density, float front_wheel_density,
@@ -27,45 +32,19 @@ class CarDescription {
         rear_wheel_radius_(rear_wheel_radius),
         front_wheel_radius_(front_wheel_radius) {}
 
-  Position topLeft() const {
-    return top_left_;
-  }
-  Position top() const {
-    return top_;
-  }
-  Position topRight() const {
-    return top_right_;
-  }
-  Position right() const {
-    return right_;
-  }
-  Position bottomRight() const {
-    return bottom_right_;
-  }
-  Position bottom() const {
-    return bottom_;
-  }
-  Position bottomLeft() const {
-    return bottom_left_;
-  }
-  Position left() const {
-    return left_;
-  }
-  float bodyDensity() const {
-    return body_density_;
-  }
-  float rearWheelDensity() const {
-    return rear_wheel_density_;
-  }
-  float frontWheelDensity() const {
-    return front_wheel_density_;
-  }
-  float rearWheelRadius() const {
-    return rear_wheel_radius_;
-  }
-  float frontWheelRadius() const {
-    return front_wheel_radius_;
-  }
+  Position topLeft() const;
+  Position top() const;
+  Position topRight() const;
+  Position right() const;
+  Position bottomRight() const;
+  Position bottom() const;
+  Position bottomLeft() const;
+  Position left() const;
+  float bodyDensity() const;
+  float rearWheelDensity() const;
+  float frontWheelDensity() const;
+  float rearWheelRadius() const;
+  float frontWheelRadius() const;
 
  private:
   Position top_left_;
