@@ -13,6 +13,10 @@
 #include "Rect.h"
 #include "box2d/id.h"
 
+/**
+ * @ingroup simulation
+ * @brief Simulation with a single car on a road.
+ */
 class CarSimulation {
  public:
   static CarSimulation create(const CarDescription& car_description);
