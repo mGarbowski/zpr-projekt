@@ -6,7 +6,6 @@
 #define EVOLUTION_CIRCLEROT_H
 
 #include "Position.h"
-#include "Size.h"
 
 /**
  * @ingroup simulation

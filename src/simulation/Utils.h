@@ -5,19 +5,17 @@
 #ifndef UTILS_H
 #define UTILS_H
 #include <box2d/id.h>
-#include <math.h>
 
+#include "CircleRot.h"
 #include "Position.h"
 #include "Rect.h"
 #include "RectRot.h"
-#include "CircleRot.h"
 #include "Size.h"
+#include "box2d/math_functions.h"
 
 class Utils {
  public:
   static b2BodyId createStaticRectangle(b2WorldId world_id, Position position, Size size);
-  static b2BodyId createDynamicRectangle(b2WorldId world_id, Position position, Size size,
-                                         float density, float friction);
   static b2BodyId createDynamicCircle(b2WorldId world_id, Position position, float radius,
                                          float density, float friction);
   static Rect getRectangleRect(b2BodyId body_id);
@@ -29,6 +27,8 @@ class Utils {
   static float radToDeg(float rad);
   static CircleRot getCircleRot(b2BodyId id);
   static float getCircleRadius(b2BodyId id);
+
+  static b2Vec2 asVec(Position position);
 };
 
 #endif  // UTILS_H

@@ -1,4 +1,5 @@
-set(SIMULATION_TEST_SOURCES SimulationUnitTest.cc
+set(SIMULATION_TEST_SOURCES
+        CarChassisTest.cc
 )
 add_executable(simulation_tests ${SIMULATION_TEST_SOURCES})
 target_link_libraries(simulation_tests PUBLIC simulation GTest::gtest_main)
