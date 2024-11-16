@@ -74,7 +74,7 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
   const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red);
   const auto front_wheel = createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red);
 
-  auto body = simulation.getCarBody();
+  auto body = simulation.getCarChassis();
   auto body_pos = body.getPosition();
   for (int i = 0; i < 8; ++i) {
     const auto triangle = body.getTriangle(i);

@@ -4,9 +4,9 @@
 #include <box2d/box2d.h>
 #include <gtest/gtest.h>
 
-#include "CarBody.h"
+#include "CarChassis.h"
 
-namespace CarBodyTest {
+namespace CarChassisTest {
 void printTriangle(const int idx, const b2Polygon& triangle) {
   std::cout << "v" << idx << ": ";
   for (int i = 0; i < 3; ++i) {
@@ -21,15 +21,15 @@ void assertPointsEqual(b2Vec2 a, b2Vec2 b) {
 }
 
 
-TEST(CarBodyTest, vertexPositions) {
+TEST(CarChassisTest, vertexPositions) {
   const CarDescription car_description = {{-4, 2}, {0, 1}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
                                     {-2, 0}, 1.0f,   1.0f,   1.0f,   0.5f,    0.5f};
 
 
   const auto world_def = b2DefaultWorldDef();
   const auto world_id = b2CreateWorld(&world_def);
-  const auto car_body = CarBody::create(world_id, {0, 0}, car_description);
-  const auto body_id = car_body.bodyId();
+  const auto car_chassis = CarChassis::create(world_id, {0, 0}, car_description);
+  const auto body_id = car_chassis.bodyId();
 
   std::vector<b2ShapeId> shape_ids(8);
   const auto n_shapes = b2Body_GetShapes(body_id, shape_ids.data(), shape_ids.size());
@@ -46,4 +46,4 @@ TEST(CarBodyTest, vertexPositions) {
   assertPointsEqual(b2Vec2{-4, 2}, b2Shape_GetPolygon(shape_ids[6]).vertices[2]);
 }
 
-}  // namespace CarBodyTest
+}  // namespace CarChassisTest

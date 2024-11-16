@@ -8,8 +8,8 @@ set(SIMULATION_SOURCES
         Utils.h
         RectRot.h
         CircleRot.h
-        CarBody.h
-        CarBody.cc
+        CarChassis.h
+        CarChassis.cc
         CarDescription.h
         CarDescription.cc
         docs.h

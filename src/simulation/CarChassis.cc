@@ -2,13 +2,12 @@
 // Created by mgarbowski on 11/12/24.
 //
 
-#include "CarBody.h"
-
 #include <stdexcept>
 #include <vector>
 
+#include "CarChassis.h"
 #include "Utils.h"
-CarBody CarBody::create(b2WorldId world_id, Position position,
+CarChassis CarChassis::create(b2WorldId world_id, Position position,
                         const CarDescription& car_description) {
   const auto center = Position{0, 0};
   const auto top_left = car_description.topLeft();
@@ -49,12 +48,12 @@ CarBody CarBody::create(b2WorldId world_id, Position position,
     b2CreatePolygonShape(body_id, &shape_def, &poly);
   }
 
-  return CarBody(body_id);
+  return CarChassis(body_id);
 }
-b2BodyId CarBody::bodyId() const {
+b2BodyId CarChassis::bodyId() const {
   return body_id_;
 }
-b2Polygon CarBody::getTriangle(const int idx) const {
+b2Polygon CarChassis::getTriangle(const int idx) const {
   if (idx < 0 || idx > 7) {
     throw std::out_of_range("Triangle index out of range");
   }
@@ -67,7 +66,7 @@ b2Polygon CarBody::getTriangle(const int idx) const {
 
   return b2Shape_GetPolygon(shape_ids[idx]);
 }
-Position CarBody::getPosition() const {
+Position CarChassis::getPosition() const {
   auto [x, y] = b2Body_GetPosition(body_id_);
   return {x, y};
 }
