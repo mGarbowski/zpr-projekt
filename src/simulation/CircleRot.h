@@ -8,6 +8,10 @@
 #include "Position.h"
 #include "Size.h"
 
+/**
+ * @ingroup simulation
+ * @brief A circle with a position, radius, and rotation.
+ */
 class CircleRot {
  public:
   CircleRot(const Position& pos, const float radius, float rotation)

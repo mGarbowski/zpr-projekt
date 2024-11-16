@@ -11,8 +11,13 @@
 #include "CircleRot.h"
 #include "box2d/id.h"
 
+/**
+ * @ingroup simulation
+ * @brief Simulation with a single car on a road.
+ */
 class CarSimulation {
  public:
+  //! create a simulation with objects inside it
   static CarSimulation create();
 
   ~CarSimulation() = default;
