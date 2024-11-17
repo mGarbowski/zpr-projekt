@@ -52,7 +52,7 @@ jobs:
     - name: build
       run: |
         cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug 
-        cmake --build .\cmake-build-debug
+        cmake --build 
 
     - name: Run tests
       run: >
