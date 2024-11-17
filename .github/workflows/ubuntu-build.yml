@@ -43,3 +43,19 @@ jobs:
     - name: Run tests
       run: >
         ctest --test-dir build
+
+  build_and_test_windows:
+    runs-on:
+              os: windows-latest
+              c_compiler: cl
+              cpp_compiler: cl
+    steps:
+    - uses: actions/checkout@v4
+    - name: build
+      run: |
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+        cmake --build build
+
+    - name: Run tests
+      run: >
+        ctest --test-dir build
