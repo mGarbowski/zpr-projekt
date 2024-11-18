@@ -51,9 +51,9 @@ jobs:
     - uses: actions/checkout@v4
     - name: build
       env:
-        CXX: mingw
+        CXX: clang
       run: |
-        CXX=mingw cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug 
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug 
         cmake --build build
 
     - name: Run tests
