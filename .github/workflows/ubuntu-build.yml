@@ -53,8 +53,8 @@ jobs:
       env:
         CXX: mingw
       run: |
-        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug 
-        cmake --build 
+        CXX=mingw cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug 
+        cmake --build build
 
     - name: Run tests
       run: >
