@@ -5,7 +5,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 #include <box2d/id.h>
-#include <math.h>
+#define _USE_MATH_DEFINES
+#include <cmath>
 
 #include "Position.h"
 #include "Rect.h"
