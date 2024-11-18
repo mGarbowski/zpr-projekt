@@ -50,6 +50,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: build
+      env:
+        CC: mingw
       run: |
         cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug 
         cmake --build 
