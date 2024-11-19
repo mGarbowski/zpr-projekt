@@ -4,6 +4,8 @@
 
 #include "Utils.h"
 
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <box2d/box2d.h>
 #include <cassert>
 #include <vector>
