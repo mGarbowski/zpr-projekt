@@ -22,6 +22,10 @@ public:
     // Delete copy constructor and assignment operator to prevent slicing
     Road(const Road&) = delete;
     Road& operator=(const Road&) = delete;
+
+   protected:
+    std::vector<std::pair<float, float>> road_points_;
+
 };
 
 int add(int a, int b);
