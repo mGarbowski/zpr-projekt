@@ -10,7 +10,7 @@ void RoadConverter::addRoad(b2WorldId world_id, const Road& road, float x, float
   ground_id = b2CreateBody(world_id, &body_def);
   b2ChainDef chain_def = b2DefaultChainDef();
   b2Vec2 points[road.points_.size()];
-  for (int i; i < road.points_.size(); i++) {
+  for (int i = 0; i < road.points_.size(); i++) {
       points[i] = {road.points_[i].first, road.points_[i].second};
   }
   chain_def.points = points;
