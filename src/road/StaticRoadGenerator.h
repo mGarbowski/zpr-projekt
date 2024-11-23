@@ -6,7 +6,7 @@
 #define EVOLUTION_STATICROADGENERATOR_H
 
 #include "GenericRoadGenerator.h"
-class StaticRoadGenerator : protected GenericRoadGenerator {
+class StaticRoadGenerator : public GenericRoadGenerator {
 // create constructor which takes in a vector of float std_pairs and creates a road
 public:
     StaticRoadGenerator(){};
