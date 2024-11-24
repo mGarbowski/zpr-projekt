@@ -25,6 +25,4 @@ public:
     GenericRoadGenerator& operator=(const GenericRoadGenerator&) = delete;
 };
 
-int add(int a, int b);
-
 #endif //ROAD_GENERATOR_H
