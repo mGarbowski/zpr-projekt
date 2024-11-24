@@ -9,7 +9,7 @@
 #include <box2d/box2d.h>
 #include "Position.h"
 class RoadModel {
-
+ public:
   /**
      * Adds a road to the Box2D world starting at the specified position
      * @param world The Box2D world to create the road in
