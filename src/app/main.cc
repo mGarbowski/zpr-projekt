@@ -5,6 +5,7 @@
 #include <imgui.h>
 #include <iostream>
 
+#include "../road/StaticRoadGenerator.h"
 #include "CarSimulation.h"
 #include "GuiControls.h"
 #include "RectRot.h"
@@ -64,13 +65,13 @@ sf::Transform box2dToSFML() {
 
 void carDebugPanel(const CarSimulation& sim) {
   ImGui::Begin("Car Simulation");
-  GuiControls::rectText("Ground", sim.getGroundRect());
+//  GuiControls::rectText("Ground", sim.getGroundRect());
   ImGui::End();
 }
 
 void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
                        sf::Transform transform) {
-  const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
+//  const auto ground = createRectangle(simulation.getGroundRect(), sf::Color::Green);
   const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red);
   const auto front_wheel = createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red);
 
@@ -82,7 +83,7 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
     window.draw(shape, transform);
   }
 
-  window.draw(ground, transform);
+//  window.draw(ground, transform);
   window.draw(rear_wheel, transform);
   window.draw(front_wheel, transform);
 }
@@ -108,8 +109,9 @@ int main() {
 
   CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
                                     {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
-
-  auto sim = CarSimulation::create(car_description);
+  StaticRoadGenerator* road_generator = new StaticRoadGenerator();
+  Road road = road_generator->generateRoad();
+  auto sim = CarSimulation::create(car_description, road);
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);
