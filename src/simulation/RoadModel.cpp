@@ -8,6 +8,8 @@ RoadModel RoadModel::create(b2WorldId world_id, const Road& road, Position posit
   int road_length = road.points_.size();
   b2BodyId ground_id;
   b2BodyDef body_def = b2DefaultBodyDef();
+  body_def.type = b2_staticBody;
+  body_def.position = {0, 0};
   ground_id = b2CreateBody(world_id, &body_def);
   b2ChainDef chain_def = b2DefaultChainDef();
   b2Vec2 points[road_length];
