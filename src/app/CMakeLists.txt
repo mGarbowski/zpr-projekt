@@ -6,4 +6,5 @@ target_link_libraries(app PRIVATE
         sfml-graphics
         ImGui-SFML::ImGui-SFML
         simulation
+        road
 )
