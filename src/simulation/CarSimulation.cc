@@ -51,14 +51,12 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
   const auto front_joint_id = b2CreateRevoluteJoint(world_id, &front_joint_def);
 
   // Road
-  const RoadModel road_model = RoadModel::create(world_id, road, {-1, -0});
+  const RoadModel road_model = RoadModel::create(world_id, road, {-1, -10});
 
   return CarSimulation(world_id, time_step, sub_step_count, road_model, rear_wheel_id,
                        front_wheel_id, rear_joint_id, front_joint_id, car_chassis);
 }
-//Rect CarSimulation::getGroundRect() const {
-//  return Utils::getRectangleRect(ground_id_);
-//}
+
 void CarSimulation::step() {
   b2World_Step(world_id_, time_step_, sub_step_count_);
 }
@@ -71,6 +69,7 @@ CircleRot CarSimulation::getFrontWheelCircle() const {
 CarChassis CarSimulation::getCarChassis() const {
   return car_chassis_;
 }
-std::vector<b2Segment> CarSimulation::getGroundSegments() const {
-  return road_model_.getSegments();
+
+RoadModel CarSimulation::getRoadModel() const {
+  return road_model_;
 }

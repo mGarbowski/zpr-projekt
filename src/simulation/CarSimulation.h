@@ -29,8 +29,7 @@ class CarSimulation {
   CarSimulation& operator=(const CarSimulation& other) = delete;
   CarSimulation& operator=(CarSimulation&& other) noexcept = delete;
 
-//  Rect getGroundRect() const;
-  std::vector<b2Segment> getGroundSegments() const;
+  RoadModel getRoadModel() const;
   CircleRot getRearWheelCircle() const;
   CircleRot getFrontWheelCircle() const;
 
@@ -55,7 +54,6 @@ class CarSimulation {
   b2WorldId world_id_;
   float time_step_;
   int sub_step_count_;
-//  b2BodyId ground_id_;
   RoadModel road_model_;
   b2BodyId rear_wheel_id_;
   b2BodyId front_wheel_id_;
