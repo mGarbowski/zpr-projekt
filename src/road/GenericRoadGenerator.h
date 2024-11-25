@@ -10,6 +10,18 @@
 #include <vector>
 
 #include "Road.h"
+/**
+ * @brief Abstract base class for road generation
+ *
+ * GenericRoadGenerator serves as an interface for different road generation strategies.
+ * It defines the common interface that all concrete road generators must implement.
+ * Usage example:
+ * @code
+ * class ConcreteRoadGenerator : public GenericRoadGenerator {
+ *     Road generateRoad() const override;
+ * };
+ * @endcode
+ */
 
 class GenericRoadGenerator {
 public:
