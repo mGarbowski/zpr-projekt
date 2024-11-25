@@ -7,7 +7,6 @@
 
 #include "GenericRoadGenerator.h"
 class StaticRoadGenerator : public GenericRoadGenerator {
-// create constructor which takes in a vector of float std_pairs and creates a road
 public:
     StaticRoadGenerator() = default;
     ~StaticRoadGenerator() override = default;

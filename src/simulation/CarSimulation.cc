@@ -18,7 +18,6 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
   const auto front_wheel_position = car_description.bottomLeft();
   const auto world_id = b2CreateWorld(&world_def);
 
-  // const auto ground_id = Utils::createStaticRectangle(world_id, {0, -10}, {100, 1});
 
   const auto rear_wheel_id =
       Utils::createDynamicCircle(world_id, rear_wheel_position, car_description.rearWheelRadius(),
