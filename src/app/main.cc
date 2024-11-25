@@ -43,12 +43,12 @@ sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color color) {
   return sf_circle;
 }
 
-sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, sf::Color color = sf::Color::White) {
+sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position, sf::Color color = sf::Color::White) {
   sf::VertexArray line(sf::Lines, 2);
 
-  line[0].position = sf::Vector2f(start.x, start.y);
+  line[0].position = sf::Vector2f(start.x + position.x, start.y + position.y);
   line[0].color = color;
-  line[1].position = sf::Vector2f(end.x, end.y);
+  line[1].position = sf::Vector2f(end.x + position.x, end.y + position.y);
   line[1].color = color;
 
   return line;
@@ -86,16 +86,18 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
   const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red);
   const auto front_wheel = createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red);
 
-  auto body = simulation.getCarChassis();
-  auto body_pos = body.getPosition();
+  auto car_chassis = simulation.getCarChassis();
+  auto body_pos = car_chassis.getPosition();
   for (int i = 0; i < 8; ++i) {
-    const auto triangle = body.getTriangle(i);
+    const auto triangle = car_chassis.getTriangle(i);
     const auto shape = createTriangle(triangle, body_pos);
     window.draw(shape, transform);
   }
-  auto ground_lines = simulation.getGroundSegments();
+  RoadModel ground = simulation.getRoadModel();
+  auto ground_lines = ground.getSegments();
+  Position ground_pos = ground.getPosition();
   for (const auto& line : ground_lines) {
-    const auto shape = createLine(line.point1, line.point2);
+    const auto shape = createLine(line.point1, line.point2, ground_pos);
     window.draw(shape, transform);
   }
 //  window.draw(ground, transform);
