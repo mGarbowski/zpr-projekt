@@ -18,6 +18,7 @@ class RoadModel {
    */
   static RoadModel create(b2WorldId world_id, const Road& road, Position position);
 
+  Position getPosition() const;
   Position getBeginning() const;
   Position getEnd() const;
   b2BodyId bodyId() const;

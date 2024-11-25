@@ -21,8 +21,8 @@ RoadModel RoadModel::create(b2WorldId world_id, const Road& road, Position posit
 
   for (size_t i = 0; i < road.points_.size() - 1; ++i) {
     b2Segment segment;
-    segment.point1 = {road.points_[i].first + position.x, road.points_[i].second + position.y };
-    segment.point2 = {road.points_[i + 1].first + position.x, road.points_[i + 1].second + position.y};
+    segment.point1 = {road.points_[i].first, road.points_[i].second };
+    segment.point2 = {road.points_[i + 1].first, road.points_[i + 1].second};
 
     // Create segment shape
     b2CreateSegmentShape(ground_id, &shape_def, &segment);
@@ -65,4 +65,8 @@ std::vector<b2Segment> RoadModel::getSegments() const {
   }
 
   return segments;
+}
+Position RoadModel::getPosition() const {
+  auto [x, y] = b2Body_GetPosition(body_id_);
+  return {x, y};
 }
