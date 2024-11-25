@@ -126,9 +126,8 @@ int main() {
 
   CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
                                     {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
-  StaticRoadGenerator* road_generator = new StaticRoadGenerator();
-  Road road = road_generator->generateRoad();
-  auto sim = CarSimulation::create(car_description, road);
+  GenericRoadGenerator* road_generator = new StaticRoadGenerator();
+  auto sim = CarSimulation::create(car_description, road_generator->generateRoad());
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);
@@ -149,6 +148,6 @@ int main() {
 
     sleep(sf::milliseconds(3));
   }
-
+  delete road_generator;
   ImGui::SFML::Shutdown();
 }
