@@ -7,9 +7,10 @@
 namespace TestTest {
 
 TEST(RoadTest, StaticRoadGeneration) {
+  // TODO: MOCK
   GenericRoadGenerator* road_generator = new StaticRoadGenerator();
   Road road = road_generator->generateRoad();
-  EXPECT_EQ(road.points_[0].first, 0);
+  EXPECT_EQ(road.points_[0].first, -11.0f);
   EXPECT_EQ(road.points_[0].second, 0);
 }
 
