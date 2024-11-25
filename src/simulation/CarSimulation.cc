@@ -71,3 +71,6 @@ CircleRot CarSimulation::getFrontWheelCircle() const {
 CarChassis CarSimulation::getCarChassis() const {
   return car_chassis_;
 }
+std::vector<b2Segment> CarSimulation::getGroundSegments() const {
+  return road_model_.getSegments();
+}

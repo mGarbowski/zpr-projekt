@@ -30,6 +30,7 @@ class CarSimulation {
   CarSimulation& operator=(CarSimulation&& other) noexcept = delete;
 
 //  Rect getGroundRect() const;
+  std::vector<b2Segment> getGroundSegments() const;
   CircleRot getRearWheelCircle() const;
   CircleRot getFrontWheelCircle() const;
 

@@ -43,6 +43,17 @@ sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color color) {
   return sf_circle;
 }
 
+sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, sf::Color color = sf::Color::White) {
+  sf::VertexArray line(sf::Lines, 2);
+
+  line[0].position = sf::Vector2f(start.x, start.y);
+  line[0].color = color;
+  line[1].position = sf::Vector2f(end.x, end.y);
+  line[1].color = color;
+
+  return line;
+}
+
 sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
   return createSfRectangle({rect.pos(), rect.size(), 0}, color);
 }
@@ -82,7 +93,11 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
     const auto shape = createTriangle(triangle, body_pos);
     window.draw(shape, transform);
   }
-
+  auto ground_lines = simulation.getGroundSegments();
+  for (const auto& line : ground_lines) {
+    const auto shape = createLine(line.point1, line.point2);
+    window.draw(shape, transform);
+  }
 //  window.draw(ground, transform);
   window.draw(rear_wheel, transform);
   window.draw(front_wheel, transform);

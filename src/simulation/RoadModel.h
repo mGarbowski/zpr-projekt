@@ -21,6 +21,7 @@ class RoadModel {
   Position getBeginning() const;
   Position getEnd() const;
   b2BodyId bodyId() const;
+  std::vector<b2Segment> getSegments() const;
 
  private:
   explicit RoadModel(const b2BodyId body_id, Position beginning, Position end): body_id_(body_id), beginning_(beginning), end_(end){}
