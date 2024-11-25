@@ -15,12 +15,14 @@ RoadModel RoadModel::create(b2WorldId world_id, const Road& road, Position posit
   b2ShapeDef shape_def = b2DefaultShapeDef();
   shape_def.density = 1.0f;
   shape_def.friction = 0.3f;
+  shape_def.isSensor = false;
+  shape_def.restitution = 0.0f;
 
 
   for (size_t i = 0; i < road.points_.size() - 1; ++i) {
     b2Segment segment;
-    segment.point1 = {road.points_[i].first, road.points_[i].second };
-    segment.point2 = {road.points_[i + 1].first, road.points_[i + 1].second};
+    segment.point1 = {road.points_[i].first + position.x, road.points_[i].second + position.y };
+    segment.point2 = {road.points_[i + 1].first + position.x, road.points_[i + 1].second + position.y};
 
     // Create segment shape
     b2CreateSegmentShape(ground_id, &shape_def, &segment);

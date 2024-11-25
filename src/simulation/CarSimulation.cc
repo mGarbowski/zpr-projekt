@@ -51,7 +51,7 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
   const auto front_joint_id = b2CreateRevoluteJoint(world_id, &front_joint_def);
 
   // Road
-  const RoadModel road_model = RoadModel::create(world_id, road, {-1, -10});
+  const RoadModel road_model = RoadModel::create(world_id, road, {-1, -0});
 
   return CarSimulation(world_id, time_step, sub_step_count, road_model, rear_wheel_id,
                        front_wheel_id, rear_joint_id, front_joint_id, car_chassis);
