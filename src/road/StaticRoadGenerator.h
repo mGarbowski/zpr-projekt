@@ -12,11 +12,17 @@
  * It inherits from the GenericRoadGenerator class.
  */
 class StaticRoadGenerator : public GenericRoadGenerator {
-public:
-    StaticRoadGenerator() = default;
-    ~StaticRoadGenerator() override = default;
-    // Always returns the same road for testing purposes
-    Road generateRoad() const override;
+ public:
+  using Point = std::pair<float, float>;
+  StaticRoadGenerator();
+  ~StaticRoadGenerator() override = default;
+  /**
+   * Always returns the same road for testing purposes
+   */
+  Road generateRoad() const override;
+
+ private:
+  std::vector<Point> points_;
 };
 
 #endif  // EVOLUTION_STATICROADGENERATOR_H
