@@ -8,6 +8,8 @@ set(EVOLUTION_SOURCES Evolution.cc
         mutation/GaussianMutationScheme.h
         reproduction/ReproductionScheme.cc
         reproduction/ReproductionScheme.h
+        reproduction/ProportionalReproductionScheme.cc
+        reproduction/ProportionalReproductionScheme.h
 )
 add_library(evolution ${EVOLUTION_SOURCES})
 target_link_libraries(evolution common)

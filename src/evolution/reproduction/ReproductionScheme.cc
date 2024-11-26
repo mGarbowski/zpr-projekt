@@ -7,7 +7,7 @@
 #include <cassert>
 
 Population ReproductionScheme::reproducePopulation(const Population& population,
-                                                   const std::vector<float>& fitness) const {
+                                                   const std::vector<float>& fitness) {
   assert(population.size() == fitness.size());
   return doReproducePopulation(population, fitness);
 }

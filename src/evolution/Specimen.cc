@@ -27,6 +27,10 @@ Specimen::Specimen(const CarDescription& car_description) {
                  car_description.rearWheelRadius(),
                  car_description.frontWheelRadius()};
 }
+bool Specimen::operator==(const Specimen& rhs) const {
+  return attributes_ == rhs.attributes_;
+}
+
 std::vector<float> Specimen::attributes() const {
   return attributes_;
 }

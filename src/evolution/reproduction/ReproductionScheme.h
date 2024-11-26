@@ -22,11 +22,11 @@ class ReproductionScheme {
   virtual ~ReproductionScheme() = default;
 
   Population reproducePopulation(const Population& population,
-                                 const std::vector<float>& fitness) const;
+                                 const std::vector<float>& fitness);
 
  protected:
   virtual Population doReproducePopulation(const Population& population,
-                                           std::vector<float> fitness) const = 0;
+                                           std::vector<float> fitness) = 0;
 };
 
 using UReproductionScheme = std::unique_ptr<ReproductionScheme>;
