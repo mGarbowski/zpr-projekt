@@ -12,6 +12,8 @@ set(EVOLUTION_SOURCES Evolution.cc
         reproduction/ProportionalReproductionScheme.h
         succession/SuccessionScheme.cc
         succession/SuccessionScheme.h
+        succession/GenerationSuccessionScheme.cc
+        succession/GenerationSuccessionScheme.h
 )
 add_library(evolution ${EVOLUTION_SOURCES})
 target_link_libraries(evolution common)
