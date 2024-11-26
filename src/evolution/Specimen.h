@@ -14,7 +14,7 @@
  */
 class Specimen {
  public:
-  Specimen(const CarDescription &car_description);
+  explicit Specimen(const CarDescription &car_description);
 
   std::vector<float> attributes() const;
 
