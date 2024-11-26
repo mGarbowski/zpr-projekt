@@ -7,7 +7,7 @@
 
 #include <memory>
 
-#include "Specimen.h"
+#include "../Specimen.h"
 
 /**
  * @ingroup evolution

@@ -2,10 +2,10 @@ set(EVOLUTION_SOURCES Evolution.cc
         docs.h
         Specimen.h
         Specimen.cc
-        MutationScheme.cc
-        MutationScheme.h
-        GaussianMutationScheme.cc
-        GaussianMutationScheme.h
+        mutation/MutationScheme.cc
+        mutation/MutationScheme.h
+        mutation/GaussianMutationScheme.cc
+        mutation/GaussianMutationScheme.h
 )
 add_library(evolution ${EVOLUTION_SOURCES})
 target_link_libraries(evolution common)

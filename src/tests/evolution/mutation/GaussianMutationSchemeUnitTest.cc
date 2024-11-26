@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-#include "GaussianMutationScheme.h"
+#include "mutation/GaussianMutationScheme.h"
 #include "Specimen.h"
 
 namespace GaussianMutationSchemeUnitTest {
