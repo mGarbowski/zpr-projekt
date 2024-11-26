@@ -20,6 +20,8 @@ class Specimen {
 
   CarDescription carDescription() const;
 
+  std::vector<float> &attributes();
+
  private:
   std::vector<float> attributes_;
 };

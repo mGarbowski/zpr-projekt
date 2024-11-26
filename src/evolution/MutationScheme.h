@@ -5,6 +5,8 @@
 #ifndef MUTATIONSCHEME_H
 #define MUTATIONSCHEME_H
 
+#include <memory>
+
 #include "Specimen.h"
 
 /**
@@ -23,5 +25,7 @@ class MutationScheme {
  protected:
   virtual void doMutateSpecimen(Specimen& specimen) = 0;
 };
+
+using UMutationScheme = std::unique_ptr<MutationScheme>;
 
 #endif  // MUTATIONSCHEME_H
