@@ -32,6 +32,8 @@ class CarDescription {
         rear_wheel_radius_(rear_wheel_radius),
         front_wheel_radius_(front_wheel_radius) {}
 
+  bool operator==(const CarDescription& other) const;
+
   Position topLeft() const;
   Position top() const;
   Position topRight() const;

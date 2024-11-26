@@ -3,6 +3,17 @@
 //
 
 #include "CarDescription.h"
+bool CarDescription::operator==(const CarDescription& other) const {
+  return (top_left_ == other.topLeft() && top_ == other.top() && top_right_ == other.topRight() &&
+          right_ == other.right() && bottom_right_ == other.bottomRight() &&
+          bottom_ == other.bottom() && bottom_left_ == other.bottomLeft() &&
+          left_ == other.left() && body_density_ == other.bodyDensity() &&
+          rear_wheel_density_ == other.rearWheelDensity() &&
+          front_wheel_density_ == other.frontWheelDensity() &&
+          rear_wheel_radius_ == other.rearWheelRadius() &&
+          front_wheel_radius_ == other.frontWheelRadius());
+}
+
 Position CarDescription::topLeft() const {
   return top_left_;
 }
