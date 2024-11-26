@@ -19,6 +19,12 @@ class SuccessionScheme {
   SuccessionScheme() = default;
   virtual ~SuccessionScheme() = default;
 
+  /**
+   * @brief Create a new population for the next iteration of evolution
+   * @param previous_population The population from the start of the iteration
+   * @param mutants The population after genetic operations
+   * @param fitness The fitness of each specimen in the previous population
+   */
   Population nextGeneration(const Population& previous_population, const Population& mutants,
                             const std::vector<float>& fitness) const;
 
