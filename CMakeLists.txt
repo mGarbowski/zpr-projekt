@@ -73,6 +73,7 @@ message(STATUS "CMAKE_ARCHIVE_OUTPUT_DIRECTORY is set to: ${CMAKE_ARCHIVE_OUTPUT
 message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY is set to: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 message(STATUS "----------------------------------------------------")
 
+add_subdirectory(src/common)
 add_subdirectory(src/simulation)
 add_subdirectory(src/tests/simulation)
 add_subdirectory(src/road)

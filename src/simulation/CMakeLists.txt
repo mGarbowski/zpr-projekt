@@ -10,12 +10,10 @@ set(SIMULATION_SOURCES
         CircleRot.h
         CarChassis.h
         CarChassis.cc
-        CarDescription.h
-        CarDescription.cc
         docs.h
         RoadModel.cpp
         RoadModel.h
 )
 add_library(simulation ${SIMULATION_SOURCES})
-target_link_libraries(simulation box2d)
+target_link_libraries(simulation common box2d)
 target_include_directories(simulation INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
