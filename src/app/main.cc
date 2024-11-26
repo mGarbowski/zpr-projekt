@@ -123,7 +123,7 @@ int main() {
 
   CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
                                     {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
-  GenericRoadGenerator* road_generator = new StaticRoadGenerator();
+  RoadGenerator* road_generator = new StaticRoadGenerator();
   auto sim = CarSimulation::create(car_description, road_generator->generateRoad());
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {

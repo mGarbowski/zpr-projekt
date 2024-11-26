@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "GenericRoadGenerator.h"
 #include "Road.h"
+#include "RoadGenerator.h"
 #include "StaticRoadGenerator.h"
 
 using namespace std;
@@ -9,7 +9,7 @@ namespace RoadTest {
 using Point = std::pair<float, float>;
 
 TEST(StaticRoadGenerator, generateWithDefaultConstructor) {
-  const unique_ptr<GenericRoadGenerator> road_generator = make_unique<StaticRoadGenerator>();
+  const unique_ptr<RoadGenerator> road_generator = make_unique<StaticRoadGenerator>();
   const Road road = road_generator->generateRoad();
   EXPECT_EQ(road.points_.size(), 23);
   EXPECT_EQ(road.points_[0], Point(-11.0, 0.0));
@@ -27,7 +27,7 @@ TEST(StaticRoadGenerator, generateWithPassedPoints) {
       {10.0f, 0.0f},  {11.0f, 0.0f}, {12.0f, 0.0f}, {13.0f, 0.0f}, {100.0f, 0.0f},
   };
 
-  const unique_ptr<GenericRoadGenerator> road_generator = make_unique<StaticRoadGenerator>(points);
+  const unique_ptr<RoadGenerator> road_generator = make_unique<StaticRoadGenerator>(points);
   const Road road = road_generator->generateRoad();
   EXPECT_EQ(road.points_.size(), points.size());
   for (auto i = 0; i < points.size(); ++i) {

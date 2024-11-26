@@ -2,14 +2,13 @@
 // Created by mgarbowski on 11/3/24.
 //
 
-
 #ifndef ROAD_GENERATOR_H
 #define ROAD_GENERATOR_H
 
-#include <utility>
-#include <vector>
+#include <memory>
 
 #include "Road.h"
+
 /**
  * @brief Abstract base class for road generation
  *
@@ -22,19 +21,20 @@
  * };
  * @endcode
  */
+class RoadGenerator {
+ public:
+  virtual ~RoadGenerator() = default;
 
-class GenericRoadGenerator {
-public:
-    virtual ~GenericRoadGenerator() = default;
+  RoadGenerator() = default;
 
-    GenericRoadGenerator() = default;
+  /// Pure virtual function that returns a Road class
+  virtual Road generateRoad() const = 0;
 
-    /// Pure virtual function that returns a Road class
-    virtual Road generateRoad() const = 0;
-
-    // Delete copy constructor and assignment operator to prevent slicing
-    GenericRoadGenerator(const GenericRoadGenerator&) = delete;
-    GenericRoadGenerator& operator=(const GenericRoadGenerator&) = delete;
+  // Delete copy constructor and assignment operator to prevent slicing
+  RoadGenerator(const RoadGenerator&) = delete;
+  RoadGenerator& operator=(const RoadGenerator&) = delete;
 };
 
-#endif //ROAD_GENERATOR_H
+using URoadGenerator = std::unique_ptr<RoadGenerator>;
+
+#endif  // ROAD_GENERATOR_H
