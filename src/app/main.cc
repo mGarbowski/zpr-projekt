@@ -43,7 +43,8 @@ sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color color) {
   return sf_circle;
 }
 
-sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position, sf::Color color = sf::Color::White) {
+sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position,
+                           sf::Color color = sf::Color::White) {
   sf::VertexArray line(sf::Lines, 2);
 
   line[0].position = sf::Vector2f(start.x + position.x, start.y + position.y);
@@ -123,7 +124,7 @@ int main() {
 
   CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
                                     {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
-  RoadGenerator* road_generator = new StaticRoadGenerator();
+  URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
   auto sim = CarSimulation::create(car_description, road_generator->generateRoad());
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {
@@ -145,6 +146,6 @@ int main() {
 
     sleep(sf::milliseconds(3));
   }
-  delete road_generator;
+
   ImGui::SFML::Shutdown();
 }
