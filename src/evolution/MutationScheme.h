@@ -16,12 +16,12 @@ class MutationScheme {
   MutationScheme() = default;
   virtual ~MutationScheme() = default;
 
-  void mutatePopulation(std::vector<Specimen>& population) const;
+  void mutatePopulation(std::vector<Specimen>& population);
 
-  void mutateSpecimen(Specimen& specimen) const;
+  void mutateSpecimen(Specimen& specimen);
 
  protected:
-  virtual void doMutateSpecimen(Specimen& specimen) const = 0;
+  virtual void doMutateSpecimen(Specimen& specimen) = 0;
 };
 
 #endif  // MUTATIONSCHEME_H
