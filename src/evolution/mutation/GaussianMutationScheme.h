@@ -20,11 +20,7 @@ class GaussianMutationScheme : public MutationScheme {
         normal_distribution_(0.0, mutation_strength) {}
 
  protected:
-  void doMutateSpecimen(Specimen& specimen) override {
-    for (auto& attribute : specimen.attributes()) {
-      attribute += normal_distribution_(random_number_generator_);
-    }
-  }
+  void doMutateSpecimen(Specimen& specimen) override;
 
  private:
   std::mt19937 random_number_generator_;

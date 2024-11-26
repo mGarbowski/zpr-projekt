@@ -42,6 +42,6 @@ CarDescription Specimen::carDescription() const {
       Position(attributes_[12], attributes_[13]), Position(attributes_[14], attributes_[15]),
       attributes_[16], attributes_[17], attributes_[18], attributes_[19], attributes_[20]);
 }
-std::vector<float>& Specimen::attributes() {
+std::vector<float>& Specimen::attributesRef() {
   return attributes_;
 }
