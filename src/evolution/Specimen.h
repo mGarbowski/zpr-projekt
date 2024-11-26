@@ -28,4 +28,6 @@ class Specimen {
   std::vector<float> attributes_;
 };
 
+using Population = std::vector<Specimen>;
+
 #endif //SPECIMEN_H

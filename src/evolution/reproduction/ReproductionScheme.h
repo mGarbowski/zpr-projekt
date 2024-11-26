@@ -10,8 +10,6 @@
 
 #include "../Specimen.h"
 
-using Population = std::vector<Specimen>;
-
 /**
 * @ingroup evolution
 * @brief Interface for creating a new population from the old one using fitness values
