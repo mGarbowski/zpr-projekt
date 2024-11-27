@@ -6,11 +6,10 @@
 
 RoadModel RoadModel::create(b2WorldId world_id, const Road& road, Position position) {
   int road_length = road.points_.size();
-  b2BodyId ground_id;
   b2BodyDef body_def = b2DefaultBodyDef();
   body_def.type = b2_staticBody;
   body_def.position = {position.x, position.y};
-  ground_id = b2CreateBody(world_id, &body_def);
+  b2BodyId ground_id = b2CreateBody(world_id, &body_def);
 
   b2ShapeDef shape_def = b2DefaultShapeDef();
   shape_def.density = 1.0f;
