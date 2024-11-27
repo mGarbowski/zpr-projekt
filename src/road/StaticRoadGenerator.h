@@ -9,7 +9,6 @@
 /**
  * @brief A class that generates a static road for testing purposes.
  * This class is used to generate a road that is always the same for testing purposes.
- * It inherits from the GenericRoadGenerator class.
  */
 class StaticRoadGenerator : public GenericRoadGenerator {
 public:
