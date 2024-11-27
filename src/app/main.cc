@@ -9,6 +9,7 @@
 #include "CarSimulation.h"
 #include "GuiControls.h"
 #include "RectRot.h"
+#include "ControlPanel.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
@@ -122,10 +123,13 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
+  bool simulation_running = false;
   CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
                                     {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
   URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
   auto sim = CarSimulation::create(car_description, road_generator->generateRoad());
+
+  std::unique_ptr<ControlPanel> control_panel = std::make_unique<ControlPanel>();
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);
@@ -134,11 +138,12 @@ int main() {
     }
 
     auto delta_time = clock.restart();
-    sim.step();
+    if (simulation_running) sim.step();
     ImGui::SFML::Update(window, delta_time);
 
     carDebugPanel(sim);
-
+    control_panel->render();
+    simulation_running = control_panel->getRunning();
     window.clear();
     drawCarSimulation(window, sim, transform);
     ImGui::SFML::Render(window);
