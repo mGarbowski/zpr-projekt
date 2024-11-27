@@ -3,6 +3,7 @@
 //
 
 #include "RoadModel.h"
+#include "cassert"
 
 RoadModel RoadModel::create(b2WorldId world_id, const Road& road, Position position) {
   int road_length = road.points_.size();
@@ -44,7 +45,7 @@ std::vector<b2Segment> RoadModel::getSegments() const {
   std::vector<b2Segment> segments;
 
   // Get the number of shapes in the body
-  int32_t shape_count = b2Body_GetShapeCount(body_id_);
+  int shape_count = b2Body_GetShapeCount(body_id_);
   if (shape_count == 0) {
     return segments;
   }
@@ -52,12 +53,10 @@ std::vector<b2Segment> RoadModel::getSegments() const {
   b2Body_GetShapes(body_id_, shape_ids.data(), shape_count);
 
   for (const auto& shape_id : shape_ids) {
-    // Check if it's a segment shape
-    if (b2Shape_GetType(shape_id) == b2ShapeType::b2_segmentShape) {
-      // Get the segment vertices
-      b2Segment segment = b2Shape_GetSegment(shape_id);
-      segments.push_back(segment);
-    }
+    // Check if it's a segment shape, only segments should be present in the RoadModel body
+    assert(b2Shape_GetType(shape_id) == b2ShapeType::b2_segmentShape);
+    b2Segment segment = b2Shape_GetSegment(shape_id);
+    segments.push_back(segment);
   }
 
   return segments;
