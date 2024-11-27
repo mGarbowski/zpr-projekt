@@ -8,8 +8,6 @@
 #include "RoadGenerator.h"
 /**
  * @brief A class that generates a static road for testing purposes.
- * This class is used to generate a road that is always the same for testing purposes.
- * It inherits from the GenericRoadGenerator class.
  */
 class StaticRoadGenerator : public RoadGenerator {
  public:
@@ -20,9 +18,10 @@ class StaticRoadGenerator : public RoadGenerator {
   /**
    * Always returns the same road for testing purposes
    */
-  Road generateRoad() const override;
+
 
  private:
+  Road generateRoadImpl() const override;
   std::vector<Point> points_;
 };
 

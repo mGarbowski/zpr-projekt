@@ -1,5 +1,5 @@
 //
-// Created by mgarbowski on 11/3/24.
+// Created by Michał on 23.11.24.
 //
 
 #ifndef ROAD_GENERATOR_H
@@ -27,12 +27,18 @@ class RoadGenerator {
 
   RoadGenerator() = default;
 
-  /// Pure virtual function that returns a Road class
-  virtual Road generateRoad() const = 0;
+  /// generateRoadImpl has to be implemented in each child class
+  Road generateRoad() {
+    return generateRoadImpl();
+  };
 
   // Delete copy constructor and assignment operator to prevent slicing
   RoadGenerator(const RoadGenerator&) = delete;
   RoadGenerator& operator=(const RoadGenerator&) = delete;
+
+ private:
+  /// Pure virtual function that returns a Road class
+  virtual Road generateRoadImpl() const = 0;
 };
 
 using URoadGenerator = std::unique_ptr<RoadGenerator>;
