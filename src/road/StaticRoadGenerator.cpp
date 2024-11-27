@@ -12,6 +12,6 @@ StaticRoadGenerator::StaticRoadGenerator() {
   };
 }
 
-Road StaticRoadGenerator::generateRoad() const {
+Road StaticRoadGenerator::generateRoadImpl() const {
   return Road(points_);
 }
