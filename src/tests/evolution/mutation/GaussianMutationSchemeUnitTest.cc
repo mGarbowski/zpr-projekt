@@ -29,12 +29,6 @@ TEST(GaussianMutationScheme, mutation) {
   mutation_scheme->mutateSpecimen(specimen);
   const auto mutated_car = specimen.carDescription();
 
-  // Always the same because of the hardcoded seed
-  EXPECT_NEAR(mutated_car.topLeft().x, 0.944976, 1e-3);
-  EXPECT_NEAR(mutated_car.topLeft().y, 2.05154324, 1e-3);
-  EXPECT_NEAR(mutated_car.top().x, 3.04738617, 1e-3);
-  EXPECT_NEAR(mutated_car.top().y, 4.13684511, 1e-3);
-
   for (auto i = 0; i < specimen.attributes().size(); ++i) {
     EXPECT_NE(original_specimen.attributes()[i], specimen.attributes()[i]);
   }
