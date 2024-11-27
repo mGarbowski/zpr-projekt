@@ -11,7 +11,9 @@
 #include "CarDescription.h"
 #include "CircleRot.h"
 #include "Rect.h"
+#include "RoadModel.h"
 #include "box2d/id.h"
+
 
 /**
  * @ingroup simulation
@@ -19,7 +21,7 @@
  */
 class CarSimulation {
  public:
-  static CarSimulation create(const CarDescription& car_description);
+  static CarSimulation create(const CarDescription& car_description, const Road road);
 
   ~CarSimulation() = default;
   CarSimulation(const CarSimulation& other) = delete;
@@ -27,7 +29,7 @@ class CarSimulation {
   CarSimulation& operator=(const CarSimulation& other) = delete;
   CarSimulation& operator=(CarSimulation&& other) noexcept = delete;
 
-  Rect getGroundRect() const;
+  RoadModel getRoadModel() const;
   CircleRot getRearWheelCircle() const;
   CircleRot getFrontWheelCircle() const;
 
@@ -37,12 +39,12 @@ class CarSimulation {
 
  private:
   CarSimulation(b2WorldId world_id, const float time_step, const int sub_step_count,
-                b2BodyId ground_id, b2BodyId rear_wheel_id, b2BodyId front_wheel_id,
+                RoadModel road_model, b2BodyId rear_wheel_id, b2BodyId front_wheel_id,
                 b2JointId rear_joint_id, b2JointId front_joint_id, const CarChassis car_chassis)
       : world_id_(std::move(world_id)),
         time_step_(time_step),
         sub_step_count_(sub_step_count),
-        ground_id_(std::move(ground_id)),
+        road_model_(std::move(road_model)),
         rear_wheel_id_(std::move(rear_wheel_id)),
         front_wheel_id_(std::move(front_wheel_id)),
         rear_joint_id_(std::move(rear_joint_id)),
@@ -52,7 +54,7 @@ class CarSimulation {
   b2WorldId world_id_;
   float time_step_;
   int sub_step_count_;
-  b2BodyId ground_id_;
+  RoadModel road_model_;
   b2BodyId rear_wheel_id_;
   b2BodyId front_wheel_id_;
   b2JointId rear_joint_id_;
