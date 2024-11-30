@@ -4,9 +4,21 @@
 
 #include "TestUtils.h"
 Specimen givenSpecimen(const int i) {
-  return Specimen(CarDescription(Position(i + 0.0f, i + 1.0f), Position(i + 2.0f, i + 3.0f),
-                                 Position(i + 4.0f, i + 5.0f), Position(i + 6.0f, i + 7.0f),
-                                 Position(i + 8.0f, i + 9.0f), Position(i + 10.0f, i + 11.0f),
-                                 Position(i + 12.0f, i + 13.0f), Position(i + 14.0f, i + 15.0f),
-                                 i + 16.0f, i + 17.0f, i + 18.0f, i + 19.0f, i + 20.0f));
+  const Position top_left = {-1, static_cast<float>(1 + 0.1 * i)};
+  const Position top = {0, 1};
+  const Position top_right = {1, 1};
+  const Position right = {1, 0};
+  const Position bottom_right = {1, -1};
+  const Position bottom = {0, -1};
+  const Position bottom_left = {-1, -1};
+  const Position left = {-1, 0};
+  constexpr float body_density = 1.0f;
+  constexpr float rear_wheel_density = 1.0f;
+  constexpr float front_wheel_density = 1.0f;
+  constexpr float rear_wheel_radius = 1.0f;
+  constexpr float front_wheel_radius = 1.0f;
+
+  return Specimen(CarDescription(
+      top_left, top, top_right, right, bottom_right, bottom, bottom_left, left, body_density,
+      rear_wheel_density, front_wheel_density, rear_wheel_radius, front_wheel_radius));
 }
