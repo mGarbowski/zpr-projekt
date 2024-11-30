@@ -26,7 +26,10 @@ RUN apt install -y libgl1-mesa-dev
 RUN apt install -y libegl1-mesa-dev
 
 # Build
-COPY . /app
+COPY src /app/src
+COPY CMakeLists.txt /app/CMakeLists.txt
+COPY cmake /app/cmake
+
 WORKDIR /app
 
 RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
