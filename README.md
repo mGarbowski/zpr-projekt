@@ -47,6 +47,7 @@ apt update
 apt install -y build-essential \
    git \
    cmake \
+   libsfml-dev \
    libwayland-dev \
    libxkbcommon-dev \
    libxrandr-dev \
@@ -90,3 +91,13 @@ Uruchomienie pojedynczego zestawu testów
 ```shell
 ./bin/Debug/evolution_tests
 ```
+
+sudo apt remove libsfml-dev \
+ libwayland-dev \
+ libxkbcommon-dev \
+ libxrandr-dev \
+ libxinerama-dev \
+ libxcursor-dev \
+ libxi-dev \
+ pkg-config \
+ libgl-dev
