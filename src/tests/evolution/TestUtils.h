@@ -7,6 +7,8 @@
 
 #include "Specimen.h"
 
+CarDescription givenCarDescription(int i);
+
 Specimen givenSpecimen(int i);
 
 #endif //TESTUTILS_H
