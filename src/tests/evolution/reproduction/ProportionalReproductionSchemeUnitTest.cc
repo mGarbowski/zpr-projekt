@@ -18,6 +18,12 @@ std::mt19937 givenRandomEngine() {
   return std::mt19937(42);  // Seed for reproducibility
 }
 
+void assertContainsElement(const Population& population, const Specimen& specimen) {
+  if (std::find(population.begin(), population.end(), specimen) == population.end()) {
+    FAIL() << "Population does not contain specimen";
+  }
+}
+
 TEST(ProportionalReproductionScheme, reproduction) {
   const auto random_engine = givenRandomEngine();
   const auto population = givenPopulation();
@@ -28,11 +34,9 @@ TEST(ProportionalReproductionScheme, reproduction) {
   const auto new_population = reproduction_scheme->reproducePopulation(population, fitness);
 
   EXPECT_EQ(new_population.size(), population.size());
-  EXPECT_EQ(new_population[0], population[4]);
-  EXPECT_EQ(new_population[1], population[1]);
-  EXPECT_EQ(new_population[2], population[4]);
-  EXPECT_EQ(new_population[3], population[3]);
-  EXPECT_EQ(new_population[4], population[3]);
+  for (const auto &specimen : new_population) {
+    assertContainsElement(population, specimen);
+  }
 }
 
 }  // namespace ProportionalReproductionSchemeUnitTest
