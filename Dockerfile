@@ -16,7 +16,6 @@ RUN apt install -y pkg-config
 RUN apt install -y libgl-dev
 
 # from https://github.com/micromouseonline/cmake-sfml-imgui-project
-RUN apt install -y libxrandr-dev
 RUN apt install -y libxcursor-dev
 RUN apt install -y libudev-dev
 RUN apt install -y libfreetype-dev
