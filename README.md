@@ -42,7 +42,28 @@ z zawartością http://staff.elka.pw.edu.pl/~rbiedrzy/ZPR/index.html.
 ## Instrukcja budowania i uruchomienia
 
 ### Instalowanie zależności w Ubuntu
-TODO
+```shell
+apt update
+apt install -y build-essential \
+   git \
+   cmake \
+   libwayland-dev \
+   libxkbcommon-dev \
+   libxrandr-dev \
+   libxinerama-dev \
+   libxcursor-dev \
+   libxi-dev \
+   pkg-config \
+   libgl-dev \
+   libxcursor-dev \
+   libudev-dev \
+   libfreetype-dev \
+   libopenal-dev \
+   libflac-dev \
+   libvorbis-dev \
+   libgl1-mesa-dev \
+   libegl1-mesa-dev
+```
 
 ### Budowanie i uruchomienie aplikacji
 W głównym katalogu (tym samym co README.md)
