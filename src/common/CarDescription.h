@@ -5,6 +5,8 @@
 #ifndef CARDESCRIPTION_H
 #define CARDESCRIPTION_H
 
+#include <stdexcept>
+
 #include "Position.h"
 
 /**
@@ -13,24 +15,10 @@
  */
 class CarDescription {
  public:
-  // TODO: validation
   CarDescription(Position top_left, Position top, Position top_right, Position right,
                  Position bottom_right, Position bottom, Position bottom_left, Position left,
                  float body_density, float rear_wheel_density, float front_wheel_density,
-                 float rear_wheel_radius, float front_wheel_radius)
-      : top_left_(top_left),
-        top_(top),
-        top_right_(top_right),
-        right_(right),
-        bottom_right_(bottom_right),
-        bottom_(bottom),
-        bottom_left_(bottom_left),
-        left_(left),
-        body_density_(body_density),
-        rear_wheel_density_(rear_wheel_density),
-        front_wheel_density_(front_wheel_density),
-        rear_wheel_radius_(rear_wheel_radius),
-        front_wheel_radius_(front_wheel_radius) {}
+                 float rear_wheel_radius, float front_wheel_radius);
 
   bool operator==(const CarDescription& other) const;
 
