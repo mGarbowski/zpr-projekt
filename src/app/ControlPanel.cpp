@@ -17,13 +17,6 @@ float ControlPanel::getMutationRate() const {
   return mutation_rate_;
 }
 
-std::string ControlPanel::getDropdown1CurrentItem() const {
-  return "";
-}
-
-std::string ControlPanel::getDropdown2CurrentItem() const {
-  return "";
-}
 void ControlPanel::render() {
 
   ImGui::Begin("Control Panel");
@@ -55,6 +48,9 @@ void ControlPanel::render() {
     road_color_ = colors[dropdown_2_current_];
   }
 
+  // Mutation slider
+  ImGui::Text("Mutation rate:");
+  ImGui::SliderFloat("##slider", &mutation_rate_, 0.0f, 1.0f, "%.2f");
   ImGui::End();
 }
 sf::Color ControlPanel::getCarColor() const {
