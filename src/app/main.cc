@@ -33,7 +33,8 @@ sf::RectangleShape createSfRectangle(const RectRot& rect, const sf::Color color)
   rectangle.setFillColor(color);
   return rectangle;
 }
-sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color outiline_color, const sf::Color fill_color) {
+sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color outiline_color,
+                               const sf::Color fill_color) {
   const Position& position = circle.pos();
   const float radius = circle.radius();
   sf::CircleShape sf_circle;
@@ -62,7 +63,8 @@ sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
   return createSfRectangle({rect.pos(), rect.size(), 0}, color);
 }
 
-sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position, const sf::Color color = sf::Color::White) {
+sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position,
+                               const sf::Color color = sf::Color::White) {
   sf::ConvexShape shape(3);
   for (int i = 0; i < 3; ++i) {
     shape.setPoint(
@@ -80,9 +82,12 @@ sf::Transform box2dToSFML() {
 }
 
 void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
-                       sf::Transform transform, sf::Color ground_color = sf::Color::White, sf::Color car_color = sf::Color::White) {
-  const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red, car_color);
-  const auto front_wheel = createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red, car_color);
+                       sf::Transform transform, sf::Color ground_color = sf::Color::White,
+                       sf::Color car_color = sf::Color::White) {
+  const auto rear_wheel =
+      createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red, car_color);
+  const auto front_wheel =
+      createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red, car_color);
 
   auto car_chassis = simulation.getCarChassis();
   auto body_pos = car_chassis.getPosition();
@@ -146,9 +151,11 @@ int main() {
     control_panel->render();
     simulation_running = control_panel->getRunning();
     window.clear();
-    drawCarSimulation(window, sim, transform, control_panel->getRoadColor(), control_panel->getCarColor() );
+    drawCarSimulation(window, sim, transform, control_panel->getRoadColor(),
+                      control_panel->getCarColor());
 
-    debug_info_panel->setCarPosition({sim.getCarChassis().getPosition().x, sim.getCarChassis().getPosition().y});
+    debug_info_panel->setCarPosition(
+        {sim.getCarChassis().getPosition().x, sim.getCarChassis().getPosition().y});
     debug_info_panel->setMutationRate(control_panel->getMutationRate());
     debug_info_panel->render();
     ImGui::SFML::Render(window);

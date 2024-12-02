@@ -4,7 +4,6 @@
 
 #include "ControlPanel.h"
 
-
 bool ControlPanel::getRunning() const {
   return is_running_;
 }
@@ -18,10 +17,8 @@ float ControlPanel::getMutationRate() const {
 }
 
 void ControlPanel::render() {
-
   ImGui::Begin("Control Panel");
 
-  // Buttons
   if (ImGui::Button("Start")) {
     is_running_ = true;
   }
@@ -30,7 +27,6 @@ void ControlPanel::render() {
     is_running_ = false;
   }
 
-  // Items for dropdowns
   const char* color_options[] = {"White", "Blue", "Red"};
   const sf::Color colors[] = {sf::Color::White, sf::Color::Blue, sf::Color::Red};
   // First dropdown, invisible label
