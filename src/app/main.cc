@@ -147,7 +147,6 @@ int main() {
       sim.step();
     ImGui::SFML::Update(window, delta_time);
 
-    sim.getCarChassis().getPosition();
     control_panel->render();
     simulation_running = control_panel->getRunning();
     window.clear();
