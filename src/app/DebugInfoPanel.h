@@ -13,8 +13,8 @@ class DebugInfoPanel {
   using Position = std::pair<float, float>;
   DebugInfoPanel() = default;
   void render() const;
-  void setCarPosition(Position car_position);
-  void setMutationRate(float mutation_rate);
+  Position setCarPosition(Position car_position);
+  float setMutationRate(float mutation_rate);
 
  private:
   Position car_position_;

@@ -3,11 +3,13 @@
 //
 
 #include "DebugInfoPanel.h"
-void DebugInfoPanel::setCarPosition(Position car_position) {
+std::pair<float, float> DebugInfoPanel::setCarPosition(Position car_position) {
   car_position_ = car_position;
+  return car_position_;
 }
-void DebugInfoPanel::setMutationRate(float mutation_rate) {
+float DebugInfoPanel::setMutationRate(float mutation_rate) {
   mutation_rate_ = mutation_rate;
+  return mutation_rate_;
 }
 void DebugInfoPanel::render() const {
   ImGui::Begin("Debug Info");
