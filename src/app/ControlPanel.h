@@ -6,7 +6,6 @@
 #define EVOLUTION_CONTROLPANEL_H
 
 #include <SFML/Graphics.hpp>
-#include <string>
 
 #include "imgui.h"
 class ControlPanel {
