@@ -4,7 +4,7 @@
 
 #include "ControlPanel.h"
 
-#include "imgui.h"
+
 bool ControlPanel::getRunning() const {
   return is_running_;
 }
@@ -38,16 +38,28 @@ void ControlPanel::render() {
   }
 
   // Items for dropdowns
-  const char* items[] = {"Option 1", "Option 2", "Option 3"};
-  const char* items2[] = {"Option A", "Option B", "Option C"};
-
+  const char* color_options[] = {"White", "Blue", "Red"};
+  const sf::Color colors[] = {sf::Color::White, sf::Color::Blue, sf::Color::Red};
   // First dropdown, invisible label
-  ImGui::Text("Dropdown 1:");
-  ImGui::Combo("##dropdown1", &dropdown_1_current_, items, IM_ARRAYSIZE(items));
+  ImGui::Text("Car color:");
+  ImGui::Combo("##dropdown1", &dropdown_1_current_, color_options, IM_ARRAYSIZE(color_options));
+
+  if (dropdown_1_current_ >= 0 && dropdown_1_current_ < IM_ARRAYSIZE(colors)) {
+    car_color_ = colors[dropdown_1_current_];
+  }
 
   // Second dropdown, invisible label
-  ImGui::Text("Dropdown 2:");
-  ImGui::Combo("##dropdown2", &dropdown_2_current_, items, IM_ARRAYSIZE(items));
+  ImGui::Text("Road color:");
+  ImGui::Combo("##dropdown2", &dropdown_2_current_, color_options, IM_ARRAYSIZE(color_options));
+  if (dropdown_2_current_ >= 0 && dropdown_2_current_ < IM_ARRAYSIZE(colors)) {
+    road_color_ = colors[dropdown_2_current_];
+  }
 
   ImGui::End();
+}
+sf::Color ControlPanel::getCarColor() const {
+  return car_color_;
+}
+sf::Color ControlPanel::getRoadColor() const {
+  return road_color_;
 }
