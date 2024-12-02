@@ -8,6 +8,7 @@
 #include "../road/StaticRoadGenerator.h"
 #include "CarSimulation.h"
 #include "ControlPanel.h"
+#include "DebugInfoPanel.h"
 #include "GuiControls.h"
 #include "RectRot.h"
 
@@ -128,6 +129,7 @@ int main() {
   auto sim = CarSimulation::create(car_description, road_generator->generateRoad());
 
   std::unique_ptr<ControlPanel> control_panel = std::make_unique<ControlPanel>();
+  std::unique_ptr<DebugInfoPanel> debug_info_panel = std::make_unique<DebugInfoPanel>();
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);
@@ -145,6 +147,10 @@ int main() {
     simulation_running = control_panel->getRunning();
     window.clear();
     drawCarSimulation(window, sim, transform, control_panel->getRoadColor(), control_panel->getCarColor() );
+
+    debug_info_panel->setCarPosition({sim.getCarChassis().getPosition().x, sim.getCarChassis().getPosition().y});
+    debug_info_panel->setMutationRate(control_panel->getMutationRate());
+    debug_info_panel->render();
     ImGui::SFML::Render(window);
     window.display();
 
