@@ -7,9 +7,9 @@
 
 #include "../road/StaticRoadGenerator.h"
 #include "CarSimulation.h"
+#include "ControlPanel.h"
 #include "GuiControls.h"
 #include "RectRot.h"
-#include "ControlPanel.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
@@ -32,14 +32,15 @@ sf::RectangleShape createSfRectangle(const RectRot& rect, const sf::Color color)
   rectangle.setFillColor(color);
   return rectangle;
 }
-sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color color) {
+sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color outiline_color, const sf::Color fill_color) {
   const Position& position = circle.pos();
   const float radius = circle.radius();
   sf::CircleShape sf_circle;
   sf_circle.setOrigin(radius, radius);
   sf_circle.setRadius(radius);
-  sf_circle.setOutlineColor(color);
+  sf_circle.setOutlineColor(outiline_color);
   sf_circle.setPosition(asVector(position));
+  sf_circle.setFillColor(fill_color);
 
   return sf_circle;
 }
@@ -60,12 +61,13 @@ sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
   return createSfRectangle({rect.pos(), rect.size(), 0}, color);
 }
 
-sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position) {
+sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position, const sf::Color color = sf::Color::White) {
   sf::ConvexShape shape(3);
   for (int i = 0; i < 3; ++i) {
     shape.setPoint(
         i, sf::Vector2f(triangle.vertices[i].x + position.x, triangle.vertices[i].y + position.y));
   }
+  shape.setFillColor(color);
   return shape;
 }
 
@@ -82,22 +84,23 @@ void carDebugPanel(const CarSimulation& sim) {
 }
 
 void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
-                       sf::Transform transform) {
-  const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red);
-  const auto front_wheel = createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red);
+                       sf::Transform transform, sf::Color ground_color = sf::Color::White, sf::Color car_color = sf::Color::White) {
+  const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red, car_color);
+  const auto front_wheel = createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red, car_color);
 
   auto car_chassis = simulation.getCarChassis();
   auto body_pos = car_chassis.getPosition();
   for (int i = 0; i < 8; ++i) {
     const auto triangle = car_chassis.getTriangle(i);
-    const auto shape = createTriangle(triangle, body_pos);
+    const auto shape = createTriangle(triangle, body_pos, car_color);
+
     window.draw(shape, transform);
   }
   RoadModel ground = simulation.getRoadModel();
   auto ground_lines = ground.getSegments();
   Position ground_pos = ground.getPosition();
   for (const auto& line : ground_lines) {
-    const auto shape = createLine(line.point1, line.point2, ground_pos);
+    const auto shape = createLine(line.point1, line.point2, ground_pos, ground_color);
     window.draw(shape, transform);
   }
   window.draw(rear_wheel, transform);
@@ -138,14 +141,15 @@ int main() {
     }
 
     auto delta_time = clock.restart();
-    if (simulation_running) sim.step();
+    if (simulation_running)
+      sim.step();
     ImGui::SFML::Update(window, delta_time);
 
     carDebugPanel(sim);
     control_panel->render();
     simulation_running = control_panel->getRunning();
     window.clear();
-    drawCarSimulation(window, sim, transform);
+    drawCarSimulation(window, sim, transform, control_panel->getRoadColor(), control_panel->getCarColor() );
     ImGui::SFML::Render(window);
     window.display();
 
