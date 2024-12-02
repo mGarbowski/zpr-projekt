@@ -78,11 +78,6 @@ sf::Transform box2dToSFML() {
   return transform;
 }
 
-void carDebugPanel(const CarSimulation& sim) {
-  ImGui::Begin("Car Simulation");
-  ImGui::End();
-}
-
 void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
                        sf::Transform transform, sf::Color ground_color = sf::Color::White, sf::Color car_color = sf::Color::White) {
   const auto rear_wheel = createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red, car_color);
@@ -145,7 +140,7 @@ int main() {
       sim.step();
     ImGui::SFML::Update(window, delta_time);
 
-    carDebugPanel(sim);
+    sim.getCarChassis().getPosition();
     control_panel->render();
     simulation_running = control_panel->getRunning();
     window.clear();
