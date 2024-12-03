@@ -59,12 +59,13 @@ sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position positio
 
 std::vector<sf::VertexArray> createPolygonalChain(const RoadModel& road_model,
                                                   const sf::Color color) {
-  auto ground_lines = road_model.getSegments();
-  auto offset = road_model.getPosition();
-  std::vector<sf::VertexArray> lines(ground_lines.size());
-  for (const auto& line : ground_lines) {
-    const auto shape = createLine(line.point1, line.point2, offset, color);
-    lines.push_back(shape);
-  }
+  auto road_segments = road_model.getSegments();
+  const auto offset = road_model.getPosition();
+  std::vector<sf::VertexArray> lines(road_segments.size());
+
+  std::transform(road_segments.begin(), road_segments.end(), lines.begin(),
+                 [&offset, &color](const auto& segment) {
+                   return createLine(segment.point1, segment.point2, offset, color);
+                 });
   return lines;
 }
