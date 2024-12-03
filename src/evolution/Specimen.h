@@ -1,22 +1,21 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Represents a single specimen in the evolving population.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef SPECIMEN_H
 #define SPECIMEN_H
 
-#include <CarDescription.h>
 #include <vector>
 
-/**
- * @ingroup evolution
- * @brief Represents a single specimen in the evolving population.
- */
+#include "CarDescription.h"
+
 class Specimen {
  public:
-  explicit Specimen(const CarDescription &car_description);
+  explicit Specimen(const CarDescription& car_description);
 
-  bool operator==(const Specimen &rhs) const;
+  bool operator==(const Specimen& rhs) const;
 
   std::vector<float> attributes() const;
 
@@ -30,4 +29,4 @@ class Specimen {
 
 using Population = std::vector<Specimen>;
 
-#endif //SPECIMEN_H
+#endif  // SPECIMEN_H

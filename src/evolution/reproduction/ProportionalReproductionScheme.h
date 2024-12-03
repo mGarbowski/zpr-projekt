@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Proportional reproduction concrete implementation of ReproductionScheme
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef PROPORTIONALREPRODUCTIONSCHEME_H
 #define PROPORTIONALREPRODUCTIONSCHEME_H

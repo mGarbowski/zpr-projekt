@@ -1,10 +1,12 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
-
-#include <cassert>
+/**
+ * @ingroup evolution
+ * @brief Implementation of SuccessionScheme
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "SuccessionScheme.h"
+
+#include <cassert>
 
 Population SuccessionScheme::nextGeneration(const Population& previous_population,
                                             const Population& mutants,

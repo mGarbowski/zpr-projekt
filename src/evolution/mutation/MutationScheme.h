@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Interface for mutating a population
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef MUTATIONSCHEME_H
 #define MUTATIONSCHEME_H
@@ -9,10 +11,6 @@
 
 #include "../Specimen.h"
 
-/**
- * @ingroup evolution
- * @brief Interface for mutating a population
- */
 class MutationScheme {
  public:
   MutationScheme() = default;

@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Implementation of MutationScheme
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "MutationScheme.h"
 void MutationScheme::mutatePopulation(std::vector<Specimen>& population) {

@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Implementation of GenerationSuccessionScheme
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "GenerationSuccessionScheme.h"
 Population GenerationSuccessionScheme::doNextGeneration(const Population& previous_population,

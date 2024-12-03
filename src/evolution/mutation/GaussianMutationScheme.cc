@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Implementation of GaussianMutationScheme
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "GaussianMutationScheme.h"
 void GaussianMutationScheme::doMutateSpecimen(Specimen& specimen) {

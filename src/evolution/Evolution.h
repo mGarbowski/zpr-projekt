@@ -1,13 +1,16 @@
+/**
+ * @ingroup evolution
+ * @brief Implementation of the evolution algorithm.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
+
 #ifndef EVOLUTION_H
 #define EVOLUTION_H
+
 #include "mutation/MutationScheme.h"
 #include "reproduction/ReproductionScheme.h"
 #include "succession/SuccessionScheme.h"
 
-/**
- * @ingroup evolution
- * @brief Evolve a population
- */
 class Evolution {
  public:
   Evolution(UReproductionScheme reproduction_scheme, UMutationScheme mutation_scheme,

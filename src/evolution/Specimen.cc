@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Implementation of Specimen class
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "Specimen.h"
 
@@ -31,12 +33,12 @@ std::vector<float> Specimen::attributes() const {
   return attributes_;
 }
 CarDescription Specimen::carDescription() const {
-  return CarDescription(
-      Position(attributes_[0], attributes_[1]), Position(0, attributes_[2]),
-      Position(attributes_[3], attributes_[4]), Position(attributes_[5], 0),
-      Position(attributes_[6], attributes_[7]), Position(0, attributes_[8]),
-      Position(attributes_[9], attributes_[10]), Position(attributes_[11], 0),
-      attributes_[12], attributes_[13], attributes_[14], attributes_[15], attributes_[16]);
+  return CarDescription(Position(attributes_[0], attributes_[1]), Position(0, attributes_[2]),
+                        Position(attributes_[3], attributes_[4]), Position(attributes_[5], 0),
+                        Position(attributes_[6], attributes_[7]), Position(0, attributes_[8]),
+                        Position(attributes_[9], attributes_[10]), Position(attributes_[11], 0),
+                        attributes_[12], attributes_[13], attributes_[14], attributes_[15],
+                        attributes_[16]);
 }
 std::vector<float>& Specimen::attributesRef() {
   return attributes_;

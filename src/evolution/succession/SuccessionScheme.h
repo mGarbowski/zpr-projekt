@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Interface for creating a population for the next iteration of evolution
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef SUCCESSIONSCHEME_H
 #define SUCCESSIONSCHEME_H
@@ -10,10 +12,6 @@
 
 #include "../Specimen.h"
 
-/**
- * @ingroup evolution
- * @brief Interface for creating a population for the next iteration of evolution
- */
 class SuccessionScheme {
  public:
   SuccessionScheme() = default;

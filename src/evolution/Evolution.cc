@@ -1,3 +1,9 @@
+/**
+ * @ingroup evolution
+ * @brief Implementation of Evolution
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
+
 #include "Evolution.h"
 
 #include <cassert>

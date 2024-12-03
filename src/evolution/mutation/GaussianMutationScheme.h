@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Gaussian mutation with the same mutation strength for each attribute
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef GAUSSIANMUTATIONSCHEME_H
 #define GAUSSIANMUTATIONSCHEME_H
@@ -8,10 +10,6 @@
 
 #include "MutationScheme.h"
 
-/**
- * @ingroup evolution
- * @brief Gaussian mutation with the same mutation strength for each attribute
- */
 class GaussianMutationScheme : public MutationScheme {
  public:
   explicit GaussianMutationScheme(const double mutation_strength,

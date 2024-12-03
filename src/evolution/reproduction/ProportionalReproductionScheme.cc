@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup evolution
+ * @brief Implementation of ProportionalReproductionScheme
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "ProportionalReproductionScheme.h"
 
