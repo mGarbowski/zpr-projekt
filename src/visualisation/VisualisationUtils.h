@@ -6,8 +6,12 @@
 #define VISUALISATIONUTILS_H
 
 #include <SFML/Graphics.hpp>
+#include <box2d/box2d.h>
 
+#include "CircleRot.h"
 #include "Position.h"
+#include "Rect.h"
+#include "RectRot.h"
 #include "Size.h"
 
 /**
@@ -41,4 +45,17 @@ sf::Vector2f asVector(const Size& size);
  */
 sf::Vector2f asVector(const Position& position);
 
-#endif //VISUALISATIONUTILS_H
+sf::RectangleShape createSfRectangle(const RectRot& rect, const sf::Color color);
+
+sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color outiline_color,
+                               const sf::Color fill_color);
+
+sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position,
+                           sf::Color color = sf::Color::White);
+
+sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color);
+
+sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position,
+                               const sf::Color color = sf::Color::White);
+
+#endif  // VISUALISATIONUTILS_H

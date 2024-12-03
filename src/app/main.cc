@@ -1,75 +1,19 @@
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include <SFML/Graphics.hpp>
+#include <VisualisationUtils.h>
 #include <box2d/box2d.h>
 #include <imgui-SFML.h>
 #include <imgui.h>
 #include <iostream>
 
-#include <VisualisationUtils.h>
 #include "../road/StaticRoadGenerator.h"
 #include "CarSimulation.h"
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
 #include "GuiControls.h"
-#include "RectRot.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
-
-
-
-sf::RectangleShape createSfRectangle(const RectRot& rect, const sf::Color color) {
-  const Position& position = rect.pos();
-  const Size& size = rect.size();
-  sf::RectangleShape rectangle(asVector(size));
-  rectangle.setOrigin(size.width / 2, size.height / 2);
-  rectangle.setPosition(asVector(position));
-  rectangle.setRotation(rect.rotation());
-  rectangle.setFillColor(color);
-  return rectangle;
-}
-sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color outiline_color,
-                               const sf::Color fill_color) {
-  const Position& position = circle.pos();
-  const float radius = circle.radius();
-  sf::CircleShape sf_circle;
-  sf_circle.setOrigin(radius, radius);
-  sf_circle.setRadius(radius);
-  sf_circle.setOutlineColor(outiline_color);
-  sf_circle.setPosition(asVector(position));
-  sf_circle.setFillColor(fill_color);
-
-  return sf_circle;
-}
-
-sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position,
-                           sf::Color color = sf::Color::White) {
-  sf::VertexArray line(sf::Lines, 2);
-
-  line[0].position = sf::Vector2f(start.x + position.x, start.y + position.y);
-  line[0].color = color;
-  line[1].position = sf::Vector2f(end.x + position.x, end.y + position.y);
-  line[1].color = color;
-
-  return line;
-}
-
-sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
-  return createSfRectangle({rect.pos(), rect.size(), 0}, color);
-}
-
-sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position,
-                               const sf::Color color = sf::Color::White) {
-  sf::ConvexShape shape(3);
-  for (int i = 0; i < 3; ++i) {
-    shape.setPoint(
-        i, sf::Vector2f(triangle.vertices[i].x + position.x, triangle.vertices[i].y + position.y));
-  }
-  shape.setFillColor(color);
-  return shape;
-}
-
-
 
 void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
                        sf::Transform transform, sf::Color ground_color = sf::Color::White,
