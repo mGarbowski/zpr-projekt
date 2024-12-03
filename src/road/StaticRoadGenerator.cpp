@@ -1,6 +1,8 @@
-//
-// Created by Michał on 20/11/2024.
-//
+/**
+ * @ingroup road
+ * @brief Implementation of StaticRoadGenerator
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "StaticRoadGenerator.h"
 StaticRoadGenerator::StaticRoadGenerator() {
