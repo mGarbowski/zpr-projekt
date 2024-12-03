@@ -12,6 +12,8 @@ set(SIMULATION_SOURCES
         docs.h
         RoadModel.cpp
         RoadModel.h
+        TriangleRot.cc
+        TriangleRot.h
 )
 add_library(simulation ${SIMULATION_SOURCES})
 target_link_libraries(simulation common box2d)
