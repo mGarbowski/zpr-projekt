@@ -1,12 +1,13 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @brief  GaussianMutationScheme unit tests
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include <gtest/gtest.h>
 
 #include "../TestUtils.h"
-#include "mutation/GaussianMutationScheme.h"
 #include "Specimen.h"
+#include "mutation/GaussianMutationScheme.h"
 
 namespace GaussianMutationSchemeUnitTest {
 

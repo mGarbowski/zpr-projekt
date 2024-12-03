@@ -1,6 +1,7 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @brief Utilities for testing
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef TESTUTILS_H
 #define TESTUTILS_H

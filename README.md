@@ -90,3 +90,11 @@ Uruchomienie pojedynczego zestawu testów
 ```shell
 ./bin/Debug/evolution_tests
 ```
+
+### Budowanie dokumentacji
+
+W głównym katalogu projektu
+
+```shell
+doxygen
+```

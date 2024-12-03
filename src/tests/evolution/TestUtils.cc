@@ -1,6 +1,7 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @brief Implementation of TestUtils
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "TestUtils.h"
 
@@ -19,9 +20,9 @@ CarDescription givenCarDescription(const int i) {
   constexpr float rear_wheel_radius = 1.0f;
   constexpr float front_wheel_radius = 1.0f;
 
-  return CarDescription(
-      top_left, top, top_right, right, bottom_right, bottom, bottom_left, left, body_density,
-      rear_wheel_density, front_wheel_density, rear_wheel_radius, front_wheel_radius);
+  return CarDescription(top_left, top, top_right, right, bottom_right, bottom, bottom_left, left,
+                        body_density, rear_wheel_density, front_wheel_density, rear_wheel_radius,
+                        front_wheel_radius);
 }
 
 Specimen givenSpecimen(const int i) {
