@@ -11,7 +11,7 @@
 class ControlPanel {
  public:
   ControlPanel()
-      : is_running_(false),
+      : is_running_(true),
         mutation_rate_(1.0f),
         dropdown_1_current_(0),
         dropdown_2_current_(0),
