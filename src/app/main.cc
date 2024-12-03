@@ -134,7 +134,9 @@ int main() {
 
   ControlPanel control_panel{};
   DebugInfoPanel debug_info_panel{};
+
   while (window.isOpen()) {
+    // Events
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);
       if (event.type == sf::Event::Closed) {
@@ -142,26 +144,26 @@ int main() {
       }
     }
 
-    window.clear();
+    // Setup
     auto delta_time = clock.restart();
+    window.clear();
     ImGui::SFML::Update(window, delta_time);
 
+    // Draw UI and simulation
+    control_panel.render();
     if (control_panel.getRunning()) {
       sim.step();
     }
-
-
-
-    control_panel.render();
-
-    drawCarSimulation(window, sim, transform, control_panel.getRoadColor(),
-                      control_panel.getCarColor());
 
     debug_info_panel.setCarPosition(
         {sim.getCarChassis().getPosition().x, sim.getCarChassis().getPosition().y});
     debug_info_panel.setMutationRate(control_panel.getMutationRate());
     debug_info_panel.render();
 
+    drawCarSimulation(window, sim, transform, control_panel.getRoadColor(),
+                      control_panel.getCarColor());
+
+    // Finish
     ImGui::SFML::Render(window);
     window.display();
     sleep(sf::milliseconds(3));
