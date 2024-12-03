@@ -16,13 +16,7 @@
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
 
-sf::Vector2f asVector(const Size& size) {
-  return sf::Vector2f(size.width, size.height);
-}
 
-sf::Vector2f asVector(const Position& position) {
-  return sf::Vector2f(position.x, position.y);
-}
 
 sf::RectangleShape createSfRectangle(const RectRot& rect, const sf::Color color) {
   const Position& position = rect.pos();

@@ -7,6 +7,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Position.h"
+#include "Size.h"
+
 /**
  * @ingroup visualisation
  *
@@ -18,6 +21,24 @@
  */
 sf::Transform box2dToSFML(int window_width, int window_height, float scale = 30.0f);
 
+/**
+ * @ingroup visualisation
+ *
+ * Convert size to SFML vector
+ *
+ * @param size Size
+ * @return SFML vector
+ */
+sf::Vector2f asVector(const Size& size);
 
+/**
+ * @ingroup visualisation
+ *
+ * Convert position to SFML vector
+ *
+ * @param position Position
+ * @return SFML vector
+ */
+sf::Vector2f asVector(const Position& position);
 
 #endif //VISUALISATIONUTILS_H
