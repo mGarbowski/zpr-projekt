@@ -127,7 +127,6 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-
   CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
                                     {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
   URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
@@ -138,13 +137,16 @@ int main() {
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);
-      if (event.type == sf::Event::Closed)
+      if (event.type == sf::Event::Closed) {
         window.close();
+      }
     }
 
     auto delta_time = clock.restart();
-    if (control_panel.getRunning())
+    if (control_panel.getRunning()) {
       sim.step();
+    }
+
     ImGui::SFML::Update(window, delta_time);
 
     control_panel.render();
