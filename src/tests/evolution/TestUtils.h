@@ -11,4 +11,4 @@ CarDescription givenCarDescription(int i);
 
 Specimen givenSpecimen(int i);
 
-#endif //TESTUTILS_H
+#endif  // TESTUTILS_H

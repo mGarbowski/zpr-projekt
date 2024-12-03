@@ -5,4 +5,3 @@
  *
  * Creating SFML shapes based on simulation objects.
  */
-
