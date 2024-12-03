@@ -9,6 +9,7 @@
 #include <box2d/box2d.h>
 
 #include "CarChassis.h"
+#include "CarSimulation.h"
 #include "CircleRot.h"
 #include "Position.h"
 #include "RoadModel.h"
@@ -95,4 +96,18 @@ void drawCarChassis(sf::RenderWindow& window, const CarChassis& car_chassis,
  */
 void drawRoad(sf::RenderWindow& window, const RoadModel& road_model, const sf::Transform& transform,
               sf::Color color = sf::Color::White);
+
+/**
+ * @ingroup visualisation
+ * @brief Draw car simulation on the SFML window
+ * @param window SFML window
+ * @param simulation box2d simulation
+ * @param transform transformation matrix
+ * @param ground_color color of the ground
+ * @param car_color color of the car
+ */
+void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
+                       const sf::Transform& transform, sf::Color ground_color = sf::Color::White,
+                       sf::Color car_color = sf::Color::White);
+
 #endif  // VISUALISATIONUTILS_H
