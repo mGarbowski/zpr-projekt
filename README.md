@@ -98,3 +98,11 @@ W głównym katalogu projektu
 ```shell
 doxygen
 ```
+
+Przeglądanie dokumentacji w formacie HTML
+
+```shell
+python3 -m http.server -d doxygen-build/html/
+```
+
+Uruchomi lokalny serwer HTTP na porcie 8000, a dokumentacja będzie dostępna pod adresem http://localhost:8000
