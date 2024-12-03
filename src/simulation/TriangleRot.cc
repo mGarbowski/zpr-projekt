@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 12/3/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Implementation of TriangleRot
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "TriangleRot.h"
 Position TriangleRot::a() const {

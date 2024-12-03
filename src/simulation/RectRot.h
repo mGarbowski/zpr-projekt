@@ -1,9 +1,12 @@
-//
-// Created by mgarbowski on 11/5/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Represents a rectangle with rotation in 2D space
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef RECTROT_H
 #define RECTROT_H
+
 #include "Position.h"
 #include "Size.h"
 

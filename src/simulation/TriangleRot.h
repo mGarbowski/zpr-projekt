@@ -1,15 +1,14 @@
-//
-// Created by mgarbowski on 12/3/24.
-//
-
-#ifndef TRIANGLEROT_H
-#define TRIANGLEROT_H
-#include "Position.h"
-
 /**
  * @ingroup simulation
  * @brief A triangle with three vertices and rotation (degrees).
+ * @authors Mikolaj Garbowski, Michal Luszczek
  */
+
+#ifndef TRIANGLEROT_H
+#define TRIANGLEROT_H
+
+#include "Position.h"
+
 class TriangleRot {
  public:
   TriangleRot(const Position& a, const Position& b, const Position& c, const float rotation)

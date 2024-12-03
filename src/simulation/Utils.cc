@@ -1,13 +1,15 @@
-//
-// Created by mgarbowski on 11/5/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Implementation of Utils
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "Utils.h"
 
 #define _USE_MATH_DEFINES
-#include <cmath>
 #include <box2d/box2d.h>
 #include <cassert>
+#include <cmath>
 #include <vector>
 
 b2BodyId Utils::createStaticRectangle(b2WorldId world_id, Position position, Size size) {

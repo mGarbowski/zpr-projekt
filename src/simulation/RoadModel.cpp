@@ -1,9 +1,12 @@
-//
-// Created by michluszcz on 23.11.24.
-//
+/**
+ * @ingroup simulation
+ * @brief Implementation of RoadModel
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "RoadModel.h"
-#include "cassert"
+
+#include <cassert>
 
 RoadModel RoadModel::create(b2WorldId world_id, const Road& road, Position position) {
   int road_length = road.points_.size();

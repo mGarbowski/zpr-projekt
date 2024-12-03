@@ -1,11 +1,14 @@
-//
-// Created by mgarbowski on 11/5/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Implementation of CarSimulation
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "CarSimulation.h"
 
+#include <box2d/box2d.h>
+
 #include "Utils.h"
-#include "box2d/box2d.h"
 
 CarSimulation CarSimulation::create(const CarDescription& car_description, Road road) {
   constexpr auto time_step = 1.0f / 60.0f;
@@ -17,7 +20,6 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
   const auto rear_wheel_position = car_description.bottomRight();
   const auto front_wheel_position = car_description.bottomLeft();
   const auto world_id = b2CreateWorld(&world_def);
-
 
   const auto rear_wheel_id =
       Utils::createDynamicCircle(world_id, rear_wheel_position, car_description.rearWheelRadius(),

@@ -1,19 +1,19 @@
 /**
  * @ingroup simulation
- * @brief Simulation with a single car on a road.
+ * @brief Physical simulation with a single car on a road using Box2D.
  * @authors Mikolaj Garbowski, Michal Luszczek
  */
 
 #ifndef CARSIMULATION_H
 #define CARSIMULATION_H
 
+#include <box2d/box2d.h>
 #include <utility>
 
 #include "CarChassis.h"
 #include "CarDescription.h"
 #include "CircleRot.h"
 #include "RoadModel.h"
-#include "box2d/id.h"
 
 class CarSimulation {
  public:

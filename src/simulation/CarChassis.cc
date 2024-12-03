@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/12/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Implementation of CarChassis
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "CarChassis.h"
 
@@ -8,6 +10,7 @@
 #include <vector>
 
 #include "Utils.h"
+
 CarChassis CarChassis::create(b2WorldId world_id, Position position,
                               const CarDescription& car_description) {
   const auto center = Position{0, 0};

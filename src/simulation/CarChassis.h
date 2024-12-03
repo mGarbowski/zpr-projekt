@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/12/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Physical model of the car chassis composed of triangles with a shared center vertex
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef CARCHASSIS_H
 #define CARCHASSIS_H

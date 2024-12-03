@@ -1,16 +1,14 @@
-//
-// Created by Michał on 07/11/2024.
-//
+/**
+ * @ingroup simulation
+ * @brief A circle with position, radius, and rotation.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef EVOLUTION_CIRCLEROT_H
 #define EVOLUTION_CIRCLEROT_H
 
 #include "Position.h"
 
-/**
- * @ingroup simulation
- * @brief A circle with a position, radius, and rotation.
- */
 class CircleRot {
  public:
   CircleRot(const Position& pos, const float radius, float rotation)

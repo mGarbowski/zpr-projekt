@@ -1,10 +1,5 @@
-#ifndef DOCS_H
-#define DOCS_H
-
 /**
- * @defgroup simulation Simulation Module
+ * @defgroup simulation Simulation
  * @brief This module uses Box2D to simulate a car driving on a road.
- *
+ * @authors Mikolaj Garbowski, Michal Luszczek
  */
-
-#endif  // DOCS_H

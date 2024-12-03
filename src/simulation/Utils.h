@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/5/24.
-//
+/**
+ * @ingroup simulation
+ * @brief General utilities for working with Box2D objects
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef UTILS_H
 #define UTILS_H
@@ -17,7 +19,7 @@ class Utils {
  public:
   static b2BodyId createStaticRectangle(b2WorldId world_id, Position position, Size size);
   static b2BodyId createDynamicCircle(b2WorldId world_id, Position position, float radius,
-                                         float density, float friction);
+                                      float density, float friction);
   static Rect getRectangleRect(b2BodyId body_id);
   static RectRot getRectangleRectRot(b2BodyId body_id);
 
