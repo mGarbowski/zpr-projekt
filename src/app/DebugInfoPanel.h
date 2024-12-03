@@ -1,20 +1,21 @@
-//
-// Created by Michał on 02/12/2024.
-//
+/**
+ * @ingroup app
+ * @brief Panel for displaying debug information about the simulation.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef EVOLUTION_DEBUGINFOPANEL_H
 #define EVOLUTION_DEBUGINFOPANEL_H
 
 #include <utility>
 
-#include "imgui.h"
 class DebugInfoPanel {
  public:
   using Position = std::pair<float, float>;
   DebugInfoPanel() = default;
   void render() const;
-  Position setCarPosition(Position car_position);
-  float setMutationRate(float mutation_rate);
+  Position setCarPosition( const Position& car_position );
+  float setMutationRate( float mutation_rate );
 
  private:
   Position car_position_;

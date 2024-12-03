@@ -1,6 +1,7 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @brief GenerationSuccessionScheme unit tests
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include <gtest/gtest.h>
 

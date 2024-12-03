@@ -1,6 +1,7 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @brief ProportionalReproductionScheme unit tests
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include <gtest/gtest.h>
 
@@ -34,7 +35,7 @@ TEST(ProportionalReproductionScheme, reproduction) {
   const auto new_population = reproduction_scheme->reproducePopulation(population, fitness);
 
   EXPECT_EQ(new_population.size(), population.size());
-  for (const auto &specimen : new_population) {
+  for (const auto& specimen : new_population) {
     assertContainsElement(population, specimen);
   }
 }

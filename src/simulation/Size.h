@@ -1,15 +1,17 @@
-//
-// Created by mgarbowski on 11/4/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Represents size of a 2D object
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef SIZE_H
 #define SIZE_H
 
 struct Size {
-  Size(float width, float height) : width(width), height(height) {}
+  Size( float width, float height ) : width_( width ), height_( height ) {}
 
-  float width;
-  float height;
+  float width_;
+  float height_;
 };
 
-#endif //SIZE_H
+#endif  // SIZE_H

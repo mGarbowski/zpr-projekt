@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/12/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Physical model of the car chassis composed of triangles with a shared center vertex
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef CARCHASSIS_H
 #define CARCHASSIS_H
@@ -9,17 +11,20 @@
 
 #include "CarDescription.h"
 #include "Position.h"
+#include "TriangleRot.h"
 
 class CarChassis {
  public:
-  static CarChassis create(b2WorldId world_id, Position position, const CarDescription& car_description);
+  static CarChassis create( b2WorldId world_id, Position position,
+                            const CarDescription& car_description );
 
   b2BodyId bodyId() const;
-  b2Polygon getTriangle(int idx) const;
+  TriangleRot getTriangleRot( int idx ) const;
+  b2Polygon getTriangle( int idx ) const;
   Position getPosition() const;
 
  private:
-  explicit CarChassis(const b2BodyId body_id) : body_id_(body_id) {}
+  explicit CarChassis( const b2BodyId body_id ) : body_id_( body_id ) {}
 
   b2BodyId body_id_;
 };

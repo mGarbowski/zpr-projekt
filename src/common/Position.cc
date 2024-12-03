@@ -1,9 +1,11 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup common
+ * @brief Implementation of Position.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "Position.h"
 
 bool Position::operator==(const Position& other) const {
-  return x == other.x && y == other.y;
+  return x_ == other.x_ && y_ == other.y_;
 }

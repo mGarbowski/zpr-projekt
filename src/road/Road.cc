@@ -1,4 +1,5 @@
-
-int add(int a, int b) {
-  return a + b;
-}
+/**
+ * @ingroup road
+ * @brief Implementation of Road
+ * @author Mikolaj Garbowski, Michal Luszczek
+ */

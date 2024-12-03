@@ -1,14 +1,18 @@
-//
-// Created by mgarbowski on 11/12/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Implementation of CarChassis
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
+
+#include "CarChassis.h"
 
 #include <stdexcept>
 #include <vector>
 
-#include "CarChassis.h"
 #include "Utils.h"
+
 CarChassis CarChassis::create(b2WorldId world_id, Position position,
-                        const CarDescription& car_description) {
+                              const CarDescription& car_description) {
   const auto center = Position{0, 0};
   const auto top_left = car_description.topLeft();
   const auto top = car_description.top();
@@ -32,7 +36,7 @@ CarChassis CarChassis::create(b2WorldId world_id, Position position,
                     tri_5_points, tri_6_points, tri_7_points, tri_8_points};
 
   auto body_def = b2DefaultBodyDef();
-  body_def.position = {position.x, position.y};
+  body_def.position = {position.x_, position.y_};
   body_def.type = b2_dynamicBody;
   const auto body_id = b2CreateBody(world_id, &body_def);
 
@@ -66,6 +70,16 @@ b2Polygon CarChassis::getTriangle(const int idx) const {
 
   return b2Shape_GetPolygon(shape_ids[idx]);
 }
+
+TriangleRot CarChassis::getTriangleRot(const int idx) const {
+  const auto polygon = getTriangle(idx);
+  const auto rotation = Utils::radToDeg(Utils::getBodyAngleRadians(body_id_));
+  const auto a = polygon.vertices[0];
+  const auto b = polygon.vertices[1];
+  const auto c = polygon.vertices[2];
+  return TriangleRot{{a.x, a.y}, {b.x, b.y}, {c.x, c.y}, rotation};
+}
+
 Position CarChassis::getPosition() const {
   auto [x, y] = b2Body_GetPosition(body_id_);
   return {x, y};
