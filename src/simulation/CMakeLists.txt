@@ -9,7 +9,7 @@ set(SIMULATION_SOURCES
         CircleRot.h
         CarChassis.h
         CarChassis.cc
-        docs.h
+        Docs.h
         RoadModel.cpp
         RoadModel.h
         TriangleRot.cc

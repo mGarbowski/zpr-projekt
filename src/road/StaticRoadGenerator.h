@@ -15,9 +15,6 @@ class StaticRoadGenerator : public RoadGenerator {
   StaticRoadGenerator();
   explicit StaticRoadGenerator(const std::vector<Point>& points): points_(points) {}
   ~StaticRoadGenerator() override = default;
-  /**
-   * Always returns the same road for testing purposes
-   */
 
 
  private:
