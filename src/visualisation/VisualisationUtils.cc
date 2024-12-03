@@ -4,6 +4,8 @@
 
 #include "VisualisationUtils.h"
 
+#include <iostream>
+
 sf::Transform box2dToSFML(const int window_width, const int window_height, const float scale) {
   sf::Transform transform;
   transform.translate(window_width / 2, window_height / 2);
@@ -46,14 +48,16 @@ sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, const Positio
   return line;
 }
 
-sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position,
-                               const sf::Color color) {
+sf::ConvexShape createTriangle(const TriangleRot& triangle, const Position position,
+                                const sf::Color color) {
   sf::ConvexShape shape(3);
-  for (int i = 0; i < 3; ++i) {
-    shape.setPoint(
-        i, sf::Vector2f(triangle.vertices[i].x + position.x, triangle.vertices[i].y + position.y));
-  }
+  shape.setOrigin(-asVector(position));  // FIXME
+  shape.setPoint(0, sf::Vector2f(triangle.a().x, triangle.a().y));
+  shape.setPoint(1, sf::Vector2f(triangle.b().x, triangle.b().y));
+  shape.setPoint(2, sf::Vector2f(triangle.c().x, triangle.c().y));
+  shape.setRotation(triangle.rotation());
   shape.setFillColor(color);
+
   return shape;
 }
 
@@ -61,7 +65,7 @@ void drawCarChassis(sf::RenderWindow& window, const CarChassis& car_chassis,
                     const sf::Transform& transform, const sf::Color color) {
   const auto position = car_chassis.getPosition();
   for (int i = 0; i < 8; ++i) {
-    const auto triangle = car_chassis.getTriangle(i);
+    const auto triangle = car_chassis.getTriangleRot(i);
     const auto shape = createTriangle(triangle, position, color);
     window.draw(shape, transform);
   }

@@ -66,15 +66,15 @@ sf::CircleShape createCircle(const CircleRot& circle, sf::Color outline_color,
 sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position,
                            sf::Color color = sf::Color::White);
 
-/** TODO encapsulate triangle description, fix bug with no rotation
+/** TODO fix bug with no rotation
  * @ingroup visualisation
  * @brief Create SFML triangle shape
- * @param triangle box2d polygon describing a triagle
- * @param position offset for the vertices
+ * @param triangle triangle vertices and rotation
+ * @param position position of the chassis
  * @param color fill color
  * @return SFML convex shape
  */
-sf::ConvexShape createTriangle(const b2Polygon& triangle, Position position,
+sf::ConvexShape createTriangle(const TriangleRot& triangle, Position position,
                                sf::Color color = sf::Color::White);
 
 /**
