@@ -1,8 +1,13 @@
-//
-// Created by mgarbowski on 11/12/24.
-//
+/**
+ * @ingroup common
+ * @brief Implementation of CarDescription.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "CarDescription.h"
+
+#include <stdexcept>
+
 CarDescription::CarDescription(const Position top_left, const Position top,
                                const Position top_right, const Position right,
                                const Position bottom_right, const Position bottom,

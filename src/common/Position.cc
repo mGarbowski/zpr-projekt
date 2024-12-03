@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/26/24.
-//
+/**
+ * @ingroup common
+ * @brief Implementation of Position.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "Position.h"
 

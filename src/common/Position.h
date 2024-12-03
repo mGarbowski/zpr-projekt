@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/4/24.
-//
+/**
+ * @ingroup common
+ * @brief Position in 2D space
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef POSITION_H
 #define POSITION_H
