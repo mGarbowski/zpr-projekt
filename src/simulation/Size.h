@@ -6,10 +6,10 @@
 #define SIZE_H
 
 struct Size {
-  Size(float width, float height) : width(width), height(height) {}
+  Size(float width, float height) : width_(width), height_(height) {}
 
-  float width;
-  float height;
+  float width_;
+  float height_;
 };
 
 #endif //SIZE_H

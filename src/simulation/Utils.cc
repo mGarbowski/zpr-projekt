@@ -15,7 +15,7 @@ b2BodyId Utils::createStaticRectangle(b2WorldId world_id, Position position, Siz
   body_def.position = {position.x, position.y};
   const auto body_id = b2CreateBody(world_id, &body_def);
 
-  const b2Polygon box = b2MakeBox(size.width / 2, size.height / 2);
+  const b2Polygon box = b2MakeBox(size.width_ / 2, size.height_ / 2);
   const b2ShapeDef ground_shape_def = b2DefaultShapeDef();
   b2CreatePolygonShape(body_id, &ground_shape_def, &box);
 

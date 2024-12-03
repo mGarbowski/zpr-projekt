@@ -9,8 +9,8 @@
 #include <imgui.h>
 
 void GuiControls::sizeText(const std::string& label, const Size& size) {
-  ImGui::Text("%s: width: %.2f", label.c_str(), size.width);
-  ImGui::Text("%s: height: %.2f", label.c_str(), size.height);
+  ImGui::Text("%s: width: %.2f", label.c_str(), size.width_);
+  ImGui::Text("%s: height: %.2f", label.c_str(), size.height_);
 }
 
 void GuiControls::positionText(const std::string& label, const Position& position) {
