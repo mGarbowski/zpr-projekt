@@ -11,8 +11,8 @@
 
 class CircleRot {
  public:
-  CircleRot(const Position& pos, const float radius, float rotation)
-      : pos_(pos), radius_(radius), rotation_(rotation) {}
+  CircleRot( const Position& pos, const float radius, float rotation )
+      : pos_( pos ), radius_( radius ), rotation_( rotation ) {}
 
   Position pos() const {
     return pos_;

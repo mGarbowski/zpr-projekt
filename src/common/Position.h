@@ -8,9 +8,9 @@
 #define POSITION_H
 
 struct Position {
-  Position(float x, float y) : x_(x), y_(y) {}
+  Position( float x, float y ) : x_( x ), y_( y ) {}
 
-  bool operator==(const Position& other) const;
+  bool operator==( const Position& other ) const;
 
   float x_;
   float y_;

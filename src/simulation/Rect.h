@@ -12,8 +12,8 @@
 
 class Rect {
  public:
-  Rect() : pos_({0, 0}), size_({0, 0}) {}
-  Rect(Position pos, Size size) : pos_(pos), size_(size) {}
+  Rect() : pos_( { 0, 0 } ), size_( { 0, 0 } ) {}
+  Rect( Position pos, Size size ) : pos_( pos ), size_( size ) {}
 
   Position pos() const {
     return pos_;

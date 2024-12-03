@@ -16,15 +16,15 @@
 
 class GuiControls {
  public:
-  static void sizeText(const std::string& label, const Size& size);
+  static void sizeText( const std::string& label, const Size& size );
 
-  static void positionText(const std::string& label, const Position& position);
+  static void positionText( const std::string& label, const Position& position );
 
-  static void rotationText(const std::string& label, const float rotation);
+  static void rotationText( const std::string& label, const float rotation );
 
-  static void rectText(const std::string& label, const Rect& rect);
+  static void rectText( const std::string& label, const Rect& rect );
 
-  static void rectRotText(const std::string& label, const RectRot& rect);
+  static void rectRotText( const std::string& label, const RectRot& rect );
 };
 
 #endif  // GUICONTROLS_H

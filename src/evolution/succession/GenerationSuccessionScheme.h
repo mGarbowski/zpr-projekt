@@ -10,8 +10,8 @@
 
 class GenerationSuccessionScheme : public SuccessionScheme {
  protected:
-  Population doNextGeneration(const Population& previous_population, const Population& mutants,
-                              const std::vector<float>& fitness) const override;
+  Population doNextGeneration( const Population& previous_population, const Population& mutants,
+                               const std::vector<float>& fitness ) const override;
 };
 
 #endif  // GENERATIONSUCCESSIONSCHEME_H

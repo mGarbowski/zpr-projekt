@@ -23,13 +23,13 @@ class SuccessionScheme {
    * @param mutants The population after genetic operations
    * @param fitness The fitness of each specimen in the previous population
    */
-  Population nextGeneration(const Population& previous_population, const Population& mutants,
-                            const std::vector<float>& fitness) const;
+  Population nextGeneration( const Population& previous_population, const Population& mutants,
+                             const std::vector<float>& fitness ) const;
 
  protected:
-  virtual Population doNextGeneration(const Population& previous_population,
-                                      const Population& mutants,
-                                      const std::vector<float>& fitness) const = 0;
+  virtual Population doNextGeneration( const Population& previous_population,
+                                       const Population& mutants,
+                                       const std::vector<float>& fitness ) const = 0;
 };
 
 using USuccessionScheme = std::unique_ptr<SuccessionScheme>;

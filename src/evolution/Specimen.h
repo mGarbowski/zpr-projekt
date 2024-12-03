@@ -13,9 +13,9 @@
 
 class Specimen {
  public:
-  explicit Specimen(const CarDescription& car_description);
+  explicit Specimen( const CarDescription& car_description );
 
-  bool operator==(const Specimen& rhs) const;
+  bool operator==( const Specimen& rhs ) const;
 
   std::vector<float> attributes() const;
 

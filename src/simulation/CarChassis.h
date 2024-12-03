@@ -15,16 +15,16 @@
 
 class CarChassis {
  public:
-  static CarChassis create(b2WorldId world_id, Position position,
-                           const CarDescription& car_description);
+  static CarChassis create( b2WorldId world_id, Position position,
+                            const CarDescription& car_description );
 
   b2BodyId bodyId() const;
-  TriangleRot getTriangleRot(int idx) const;
-  b2Polygon getTriangle(int idx) const;
+  TriangleRot getTriangleRot( int idx ) const;
+  b2Polygon getTriangle( int idx ) const;
   Position getPosition() const;
 
  private:
-  explicit CarChassis(const b2BodyId body_id) : body_id_(body_id) {}
+  explicit CarChassis( const b2BodyId body_id ) : body_id_( body_id ) {}
 
   b2BodyId body_id_;
 };

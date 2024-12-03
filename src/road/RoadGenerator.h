@@ -32,8 +32,8 @@ class RoadGenerator {
   };
 
   // Delete copy constructor and assignment operator to prevent slicing
-  RoadGenerator(const RoadGenerator&) = delete;
-  RoadGenerator& operator=(const RoadGenerator&) = delete;
+  RoadGenerator( const RoadGenerator& ) = delete;
+  RoadGenerator& operator=( const RoadGenerator& ) = delete;
 
  private:
   /// Pure virtual function that returns a Road class

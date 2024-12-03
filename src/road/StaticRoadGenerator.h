@@ -13,7 +13,7 @@ class StaticRoadGenerator : public RoadGenerator {
  public:
   using Point = std::pair<float, float>;
   StaticRoadGenerator();
-  explicit StaticRoadGenerator(const std::vector<Point>& points) : points_(points) {}
+  explicit StaticRoadGenerator( const std::vector<Point>& points ) : points_( points ) {}
   ~StaticRoadGenerator() override = default;
 
  private:

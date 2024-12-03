@@ -12,8 +12,8 @@
 
 class RectRot {
  public:
-  RectRot(const Position& pos, const Size& size, float rotation)
-      : pos_(pos), size_(size), rotation_(rotation) {}
+  RectRot( const Position& pos, const Size& size, float rotation )
+      : pos_( pos ), size_( size ), rotation_( rotation ) {}
 
   Position pos() const {
     return pos_;

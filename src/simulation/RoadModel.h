@@ -20,7 +20,7 @@ class RoadModel {
    * @param road The Road object to be converted to Box2D body
    * @param position The position for the beginning of the road
    */
-  static RoadModel create(b2WorldId world_id, const Road& road, Position position);
+  static RoadModel create( b2WorldId world_id, const Road& road, Position position );
 
   Position getPosition() const;
   Position getBeginning() const;
@@ -29,8 +29,8 @@ class RoadModel {
   std::vector<b2Segment> getSegments() const;
 
  private:
-  explicit RoadModel(const b2BodyId body_id, Position beginning, Position end)
-      : body_id_(body_id), beginning_(beginning), end_(end) {}
+  explicit RoadModel( const b2BodyId body_id, Position beginning, Position end )
+      : body_id_( body_id ), beginning_( beginning ), end_( end ) {}
 
   b2BodyId body_id_;
   Position beginning_;

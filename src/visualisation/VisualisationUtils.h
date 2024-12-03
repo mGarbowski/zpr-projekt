@@ -26,7 +26,7 @@
  * @param scale Scale factor for the transformation
  * @return SFML Transform matrix
  */
-sf::Transform box2dToSFML(int window_width, int window_height, float scale = 30.0f);
+sf::Transform box2dToSFML( int window_width, int window_height, float scale = 30.0f );
 
 /**
  * @ingroup visualisation
@@ -34,7 +34,7 @@ sf::Transform box2dToSFML(int window_width, int window_height, float scale = 30.
  * @param size Size
  * @return SFML vector
  */
-sf::Vector2f asVector(const Size& size);
+sf::Vector2f asVector( const Size& size );
 
 /**
  * @ingroup visualisation
@@ -42,7 +42,7 @@ sf::Vector2f asVector(const Size& size);
  * @param position Position
  * @return SFML vector
  */
-sf::Vector2f asVector(const Position& position);
+sf::Vector2f asVector( const Position& position );
 
 /**
  * @ingroup visualisation
@@ -52,8 +52,8 @@ sf::Vector2f asVector(const Position& position);
  * @param fill_color fill color
  * @return SFML circle shape
  */
-sf::CircleShape createCircle(const CircleRot& circle, sf::Color outline_color,
-                             sf::Color fill_color);
+sf::CircleShape createCircle( const CircleRot& circle, sf::Color outline_color,
+                              sf::Color fill_color );
 
 /**
  * @ingroup visualisation
@@ -64,8 +64,8 @@ sf::CircleShape createCircle(const CircleRot& circle, sf::Color outline_color,
  * @param color color
  * @return SFML vertex array
  */
-sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position,
-                           sf::Color color = sf::Color::White);
+sf::VertexArray createLine( const b2Vec2& start, const b2Vec2& end, Position position,
+                            sf::Color color = sf::Color::White );
 
 /** TODO fix bug with no rotation
  * @ingroup visualisation
@@ -75,8 +75,8 @@ sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position posi
  * @param color fill color
  * @return SFML convex shape
  */
-sf::ConvexShape createTriangle(const TriangleRot& triangle, Position position,
-                               sf::Color color = sf::Color::White);
+sf::ConvexShape createTriangle( const TriangleRot& triangle, Position position,
+                                sf::Color color = sf::Color::White );
 
 /**
  * @ingroup visualisation
@@ -86,8 +86,8 @@ sf::ConvexShape createTriangle(const TriangleRot& triangle, Position position,
  * @param transform transformation matrix
  * @param color chassis fill color
  */
-void drawCarChassis(sf::RenderWindow& window, const CarChassis& car_chassis,
-                    const sf::Transform& transform, sf::Color color = sf::Color::White);
+void drawCarChassis( sf::RenderWindow& window, const CarChassis& car_chassis,
+                     const sf::Transform& transform, sf::Color color = sf::Color::White );
 
 /**
  * @ingroup visualisation
@@ -97,8 +97,8 @@ void drawCarChassis(sf::RenderWindow& window, const CarChassis& car_chassis,
  * @param transform transformation matrix
  * @param color color
  */
-void drawRoad(sf::RenderWindow& window, const RoadModel& road_model, const sf::Transform& transform,
-              sf::Color color = sf::Color::White);
+void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
+               const sf::Transform& transform, sf::Color color = sf::Color::White );
 
 /**
  * @ingroup visualisation
@@ -109,8 +109,8 @@ void drawRoad(sf::RenderWindow& window, const RoadModel& road_model, const sf::T
  * @param ground_color color of the ground
  * @param car_color color of the car
  */
-void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
-                       const sf::Transform& transform, sf::Color ground_color = sf::Color::White,
-                       sf::Color car_color = sf::Color::White);
+void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulation,
+                        const sf::Transform& transform, sf::Color ground_color = sf::Color::White,
+                        sf::Color car_color = sf::Color::White );
 
 #endif  // VISUALISATIONUTILS_H

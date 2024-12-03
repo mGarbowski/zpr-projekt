@@ -11,8 +11,8 @@
 
 class TriangleRot {
  public:
-  TriangleRot(const Position& a, const Position& b, const Position& c, const float rotation)
-      : a_(a), b_(b), c_(c), rotation_(rotation) {}
+  TriangleRot( const Position& a, const Position& b, const Position& c, const float rotation )
+      : a_( a ), b_( b ), c_( c ), rotation_( rotation ) {}
 
   Position a() const;
   Position b() const;

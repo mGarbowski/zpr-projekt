@@ -12,13 +12,13 @@
 
 class GaussianMutationScheme : public MutationScheme {
  public:
-  explicit GaussianMutationScheme(const double mutation_strength,
-                                  const std::mt19937& random_number_generator)
-      : random_number_generator_(random_number_generator),
-        normal_distribution_(0.0, mutation_strength) {}
+  explicit GaussianMutationScheme( const double mutation_strength,
+                                   const std::mt19937& random_number_generator )
+      : random_number_generator_( random_number_generator ),
+        normal_distribution_( 0.0, mutation_strength ) {}
 
  protected:
-  void doMutateSpecimen(Specimen& specimen) override;
+  void doMutateSpecimen( Specimen& specimen ) override;
 
  private:
   std::mt19937 random_number_generator_;

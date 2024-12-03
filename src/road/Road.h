@@ -11,7 +11,7 @@
 
 class Road {
  public:
-  explicit Road(std::vector<std::pair<float, float>> road) : points_(std::move(road)) {}
+  explicit Road( std::vector<std::pair<float, float>> road ) : points_( std::move( road ) ) {}
 
   std::vector<std::pair<float, float>> points_;
 };
