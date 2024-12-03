@@ -20,7 +20,7 @@ sf::Vector2f asVector(const Position& position) {
 }
 
 sf::CircleShape createCircle(const CircleRot& circle, const sf::Color outline_color,
-                               const sf::Color fill_color) {
+                             const sf::Color fill_color) {
   const Position& position = circle.pos();
   const float radius = circle.radius();
   sf::CircleShape sf_circle;
@@ -33,8 +33,8 @@ sf::CircleShape createCircle(const CircleRot& circle, const sf::Color outline_co
   return sf_circle;
 }
 
-sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position,
-                           sf::Color color) {
+sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, const Position position,
+                           const sf::Color color) {
   sf::VertexArray line(sf::Lines, 2);
 
   line[0].position = sf::Vector2f(start.x + position.x, start.y + position.y);

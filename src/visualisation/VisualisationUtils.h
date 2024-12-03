@@ -45,13 +45,13 @@ sf::Vector2f asVector(const Size& size);
  */
 sf::Vector2f asVector(const Position& position);
 
-sf::CircleShape createCircle(const CircleRot& circle, const sf::Color outline_color,
-                               const sf::Color fill_color);
+sf::CircleShape createCircle(const CircleRot& circle, sf::Color outline_color,
+                             sf::Color fill_color);
 
 sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position,
                            sf::Color color = sf::Color::White);
 
-sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position,
-                               const sf::Color color = sf::Color::White);
+sf::ConvexShape createTriangle(const b2Polygon& triangle, Position position,
+                               sf::Color color = sf::Color::White);
 
 #endif  // VISUALISATIONUTILS_H
