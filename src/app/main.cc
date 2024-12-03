@@ -1,16 +1,16 @@
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include <SFML/Graphics.hpp>
-#include <VisualisationUtils.h>
 #include <box2d/box2d.h>
 #include <imgui-SFML.h>
 #include <imgui.h>
 #include <iostream>
 
-#include "../road/StaticRoadGenerator.h"
 #include "CarSimulation.h"
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
 #include "GuiControls.h"
+#include "StaticRoadGenerator.h"
+#include "VisualisationUtils.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
