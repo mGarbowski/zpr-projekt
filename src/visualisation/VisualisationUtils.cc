@@ -57,19 +57,6 @@ sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position positio
   return shape;
 }
 
-std::vector<sf::VertexArray> createPolygonalChain(const RoadModel& road_model,
-                                                  const sf::Color color) {
-  auto road_segments = road_model.getSegments();
-  const auto offset = road_model.getPosition();
-  std::vector<sf::VertexArray> lines(road_segments.size());
-
-  std::transform(road_segments.begin(), road_segments.end(), lines.begin(),
-                 [&offset, &color](const auto& segment) {
-                   return createLine(segment.point1, segment.point2, offset, color);
-                 });
-  return lines;
-}
-
 void drawCarChassis(sf::RenderWindow& window, const CarChassis& car_chassis,
                     const sf::Transform& transform, const sf::Color color) {
   const auto position = car_chassis.getPosition();
@@ -77,5 +64,15 @@ void drawCarChassis(sf::RenderWindow& window, const CarChassis& car_chassis,
     const auto triangle = car_chassis.getTriangle(i);
     const auto shape = createTriangle(triangle, position, color);
     window.draw(shape, transform);
+  }
+}
+
+void drawRoad(sf::RenderWindow& window, const RoadModel& road_model, const sf::Transform& transform,
+              const sf::Color color) {
+  auto road_segments = road_model.getSegments();
+  const auto offset = road_model.getPosition();
+  for (const auto& [point1, point2] : road_segments) {
+    const auto line = createLine(point1, point2, offset, color);
+    window.draw(line, transform);
   }
 }

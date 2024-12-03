@@ -76,16 +76,6 @@ sf::ConvexShape createTriangle(const b2Polygon& triangle, Position position,
 
 /**
  * @ingroup visualisation
- * @brief Create a collection of line segments representing a road
- * @param road_model model of the road
- * @param color color
- * @return collection of line segments representing the road
- */
-std::vector<sf::VertexArray> createPolygonalChain(const RoadModel& road_model,
-                                                  sf::Color color = sf::Color::White);
-
-/**
- * @ingroup visualisation
  * @brief Draw car chassis on the SFML window
  * @param window SFML window
  * @param car_chassis car chassis
@@ -93,6 +83,16 @@ std::vector<sf::VertexArray> createPolygonalChain(const RoadModel& road_model,
  * @param color chassis fill color
  */
 void drawCarChassis(sf::RenderWindow& window, const CarChassis& car_chassis,
-                    const sf::Transform& transform,
-                    sf::Color color = sf::Color::White);
+                    const sf::Transform& transform, sf::Color color = sf::Color::White);
+
+/**
+ * @ingroup visualisation
+ * @brief Draw road on the SFML window
+ * @param window SFML window
+ * @param road_model model of the road
+ * @param transform transformation matrix
+ * @param color color
+ */
+void drawRoad(sf::RenderWindow& window, const RoadModel& road_model, const sf::Transform& transform,
+              sf::Color color = sf::Color::White);
 #endif  // VISUALISATIONUTILS_H
