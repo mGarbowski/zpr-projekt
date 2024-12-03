@@ -1,3 +1,8 @@
+/**
+ * @brief Evolution unit tests
+ * @authors  Mikolaj Garbowski, Michal Luszczek
+ */
+
 #include <gtest/gtest.h>
 #include <random>
 

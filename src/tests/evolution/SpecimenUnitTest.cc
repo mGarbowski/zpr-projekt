@@ -1,3 +1,8 @@
+/**
+ * @brief Unit tests for Specimen
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
+
 #include <gtest/gtest.h>
 
 #include "CarDescription.h"
