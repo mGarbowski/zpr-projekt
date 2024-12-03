@@ -4,9 +4,9 @@
 
 #include "VisualisationUtils.h"
 
-sf::Transform box2dToSFML(const int window_width, const int window_height) {
+sf::Transform box2dToSFML(const int window_width, const int window_height, const float scale) {
   sf::Transform transform;
   transform.translate(window_width / 2, window_height / 2);
-  transform.scale(30.0f, -30.0f);
+  transform.scale(scale, -scale);
   return transform;
 }
