@@ -1,6 +1,7 @@
-//
-// Created by mgarbowski on 12/3/24.
-//
+/**
+ * Utility functions for visualising the simulation
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef VISUALISATIONUTILS_H
 #define VISUALISATIONUTILS_H

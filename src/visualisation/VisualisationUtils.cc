@@ -1,10 +1,9 @@
-//
-// Created by mgarbowski on 12/3/24.
-//
+/**
+ * Implementation of VisualisationUtils
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "VisualisationUtils.h"
-
-#include <iostream>
 
 sf::Transform box2dToSFML(const int window_width, const int window_height, const float scale) {
   sf::Transform transform;
@@ -49,7 +48,7 @@ sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, const Positio
 }
 
 sf::ConvexShape createTriangle(const TriangleRot& triangle, const Position position,
-                                const sf::Color color) {
+                               const sf::Color color) {
   sf::ConvexShape shape(3);
   shape.setOrigin(-asVector(position));  // FIXME
   shape.setPoint(0, sf::Vector2f(triangle.a().x_, triangle.a().y_));

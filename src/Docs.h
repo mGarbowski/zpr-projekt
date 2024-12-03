@@ -1,11 +1,6 @@
-//
-// Created by mgarbowski on 11/15/24.
-//
-
-#ifndef DOCS_H
-#define DOCS_H
-
 /**
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ *
  * \mainpage Car Evolution Project
  *
  * \section intro_sec Introduction
@@ -28,5 +23,3 @@
  *
  * For more information, contact the project maintainer.
  */
-
-#endif //DOCS_H
