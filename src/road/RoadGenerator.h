@@ -1,16 +1,7 @@
-//
-// Created by Michał on 23.11.24.
-//
-
-#ifndef ROAD_GENERATOR_H
-#define ROAD_GENERATOR_H
-
-#include <memory>
-
-#include "Road.h"
-
 /**
+ * @ingroup road
  * @brief Abstract base class for road generation
+ * @authors Mikolaj Garbowski, Michal Luszczek
  *
  * GenericRoadGenerator serves as an interface for different road generation strategies.
  * It defines the common interface that all concrete road generators must implement.
@@ -21,6 +12,14 @@
  * };
  * @endcode
  */
+
+#ifndef ROAD_GENERATOR_H
+#define ROAD_GENERATOR_H
+
+#include <memory>
+
+#include "Road.h"
+
 class RoadGenerator {
  public:
   virtual ~RoadGenerator() = default;
