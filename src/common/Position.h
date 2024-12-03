@@ -16,4 +16,4 @@ struct Position {
   float y_;
 };
 
-#endif //POSITION_H
+#endif  // POSITION_H
