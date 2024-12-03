@@ -69,3 +69,13 @@ std::vector<sf::VertexArray> createPolygonalChain(const RoadModel& road_model,
                  });
   return lines;
 }
+
+void drawCarChassis(sf::RenderWindow& window, const CarChassis& car_chassis,
+                    const sf::Transform& transform, const sf::Color color) {
+  const auto position = car_chassis.getPosition();
+  for (int i = 0; i < 8; ++i) {
+    const auto triangle = car_chassis.getTriangle(i);
+    const auto shape = createTriangle(triangle, position, color);
+    window.draw(shape, transform);
+  }
+}

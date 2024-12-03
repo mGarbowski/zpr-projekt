@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <box2d/box2d.h>
 
+#include "CarChassis.h"
 #include "CircleRot.h"
 #include "Position.h"
 #include "RoadModel.h"
@@ -83,4 +84,15 @@ sf::ConvexShape createTriangle(const b2Polygon& triangle, Position position,
 std::vector<sf::VertexArray> createPolygonalChain(const RoadModel& road_model,
                                                   sf::Color color = sf::Color::White);
 
+/**
+ * @ingroup visualisation
+ * @brief Draw car chassis on the SFML window
+ * @param window SFML window
+ * @param car_chassis car chassis
+ * @param transform transformation matrix
+ * @param color chassis fill color
+ */
+void drawCarChassis(sf::RenderWindow& window, const CarChassis& car_chassis,
+                    const sf::Transform& transform,
+                    sf::Color color = sf::Color::White);
 #endif  // VISUALISATIONUTILS_H

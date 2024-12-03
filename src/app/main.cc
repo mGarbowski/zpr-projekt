@@ -16,7 +16,7 @@ constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
 
 void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
-                       sf::Transform transform, sf::Color ground_color = sf::Color::White,
+                       const sf::Transform& transform, sf::Color ground_color = sf::Color::White,
                        sf::Color car_color = sf::Color::White) {
   const auto rear_wheel =
       createCircle(simulation.getRearWheelCircle(), car_color, car_color);
@@ -24,13 +24,8 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
       createCircle(simulation.getFrontWheelCircle(), car_color, car_color);
 
   auto car_chassis = simulation.getCarChassis();
-  auto body_pos = car_chassis.getPosition();
-  for (int i = 0; i < 8; ++i) {
-    const auto triangle = car_chassis.getTriangle(i);
-    const auto shape = createTriangle(triangle, body_pos, car_color);
 
-    window.draw(shape, transform);
-  }
+  drawCarChassis(window, car_chassis, transform, car_color);
   RoadModel ground = simulation.getRoadModel();
   for (const auto &segment : createPolygonalChain(ground, ground_color)) {
     window.draw(segment, transform);
