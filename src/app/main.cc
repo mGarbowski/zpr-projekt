@@ -142,15 +142,18 @@ int main() {
       }
     }
 
+    window.clear();
     auto delta_time = clock.restart();
+    ImGui::SFML::Update(window, delta_time);
+
     if (control_panel.getRunning()) {
       sim.step();
     }
 
-    ImGui::SFML::Update(window, delta_time);
+
 
     control_panel.render();
-    window.clear();
+
     drawCarSimulation(window, sim, transform, control_panel.getRoadColor(),
                       control_panel.getCarColor());
 
@@ -158,9 +161,9 @@ int main() {
         {sim.getCarChassis().getPosition().x, sim.getCarChassis().getPosition().y});
     debug_info_panel.setMutationRate(control_panel.getMutationRate());
     debug_info_panel.render();
+
     ImGui::SFML::Render(window);
     window.display();
-
     sleep(sf::milliseconds(3));
   }
 
