@@ -69,7 +69,7 @@ int main() {
     }
 
     debug_info_panel.setCarPosition(
-        {sim.getCarChassis().getPosition().x, sim.getCarChassis().getPosition().y});
+        {sim.getCarChassis().getPosition().x_, sim.getCarChassis().getPosition().y_});
     debug_info_panel.setMutationRate(control_panel.getMutationRate());
     debug_info_panel.render();
 

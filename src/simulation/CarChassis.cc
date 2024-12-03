@@ -36,7 +36,7 @@ CarChassis CarChassis::create(b2WorldId world_id, Position position,
                     tri_5_points, tri_6_points, tri_7_points, tri_8_points};
 
   auto body_def = b2DefaultBodyDef();
-  body_def.position = {position.x, position.y};
+  body_def.position = {position.x_, position.y_};
   body_def.type = b2_dynamicBody;
   const auto body_id = b2CreateBody(world_id, &body_def);
 

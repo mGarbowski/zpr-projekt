@@ -18,7 +18,7 @@ sf::Vector2f asVector(const Size& size) {
 }
 
 sf::Vector2f asVector(const Position& position) {
-  return sf::Vector2f(position.x, position.y);
+  return sf::Vector2f(position.x_, position.y_);
 }
 
 sf::CircleShape createCircle(const CircleRot& circle, const sf::Color outline_color,
@@ -40,9 +40,9 @@ sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, const Positio
                            const sf::Color color) {
   sf::VertexArray line(sf::Lines, 2);
 
-  line[0].position = sf::Vector2f(start.x + position.x, start.y + position.y);
+  line[0].position = sf::Vector2f(start.x + position.x_, start.y + position.y_);
   line[0].color = color;
-  line[1].position = sf::Vector2f(end.x + position.x, end.y + position.y);
+  line[1].position = sf::Vector2f(end.x + position.x_, end.y + position.y_);
   line[1].color = color;
 
   return line;
@@ -52,9 +52,9 @@ sf::ConvexShape createTriangle(const TriangleRot& triangle, const Position posit
                                 const sf::Color color) {
   sf::ConvexShape shape(3);
   shape.setOrigin(-asVector(position));  // FIXME
-  shape.setPoint(0, sf::Vector2f(triangle.a().x, triangle.a().y));
-  shape.setPoint(1, sf::Vector2f(triangle.b().x, triangle.b().y));
-  shape.setPoint(2, sf::Vector2f(triangle.c().x, triangle.c().y));
+  shape.setPoint(0, sf::Vector2f(triangle.a().x_, triangle.a().y_));
+  shape.setPoint(1, sf::Vector2f(triangle.b().x_, triangle.b().y_));
+  shape.setPoint(2, sf::Vector2f(triangle.c().x_, triangle.c().y_));
   shape.setRotation(triangle.rotation());
   shape.setFillColor(color);
 
