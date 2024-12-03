@@ -27,6 +27,7 @@ sf::CircleShape createCircle(const CircleRot& circle, const sf::Color outline_co
   sf_circle.setOrigin(radius, radius);
   sf_circle.setRadius(radius);
   sf_circle.setOutlineColor(outline_color);
+  sf_circle.setOutlineThickness(0.05f);
   sf_circle.setPosition(asVector(position));
   sf_circle.setFillColor(fill_color);
 
