@@ -133,8 +133,8 @@ int main() {
   URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
   auto sim = CarSimulation::create(car_description, road_generator->generateRoad());
 
-  std::unique_ptr<ControlPanel> control_panel = std::make_unique<ControlPanel>();
-  std::unique_ptr<DebugInfoPanel> debug_info_panel = std::make_unique<DebugInfoPanel>();
+  ControlPanel control_panel{};
+  DebugInfoPanel debug_info_panel{};
   while (window.isOpen()) {
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);
@@ -147,16 +147,16 @@ int main() {
       sim.step();
     ImGui::SFML::Update(window, delta_time);
 
-    control_panel->render();
-    simulation_running = control_panel->getRunning();
+    control_panel.render();
+    simulation_running = control_panel.getRunning();
     window.clear();
-    drawCarSimulation(window, sim, transform, control_panel->getRoadColor(),
-                      control_panel->getCarColor());
+    drawCarSimulation(window, sim, transform, control_panel.getRoadColor(),
+                      control_panel.getCarColor());
 
-    debug_info_panel->setCarPosition(
+    debug_info_panel.setCarPosition(
         {sim.getCarChassis().getPosition().x, sim.getCarChassis().getPosition().y});
-    debug_info_panel->setMutationRate(control_panel->getMutationRate());
-    debug_info_panel->render();
+    debug_info_panel.setMutationRate(control_panel.getMutationRate());
+    debug_info_panel.render();
     ImGui::SFML::Render(window);
     window.display();
 
