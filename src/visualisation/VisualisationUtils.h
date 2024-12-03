@@ -64,7 +64,7 @@ sf::CircleShape createCircle(const CircleRot& circle, sf::Color outline_color,
 sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position,
                            sf::Color color = sf::Color::White);
 
-/**
+/** TODO encapsulate triangle description, fix bug with no rotation
  * @ingroup visualisation
  * @brief Create SFML triangle shape
  * @param triangle box2d polygon describing a triagle
