@@ -5,6 +5,7 @@
 #include <imgui.h>
 #include <iostream>
 
+#include <VisualisationUtils.h>
 #include "../road/StaticRoadGenerator.h"
 #include "CarSimulation.h"
 #include "ControlPanel.h"
@@ -74,12 +75,7 @@ sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position positio
   return shape;
 }
 
-sf::Transform box2dToSFML() {
-  sf::Transform transform;
-  transform.translate(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-  transform.scale(30.0f, -30.0f);
-  return transform;
-}
+
 
 void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation,
                        sf::Transform transform, sf::Color ground_color = sf::Color::White,
@@ -112,7 +108,7 @@ int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
-  const auto transform = box2dToSFML();
+  const auto transform = box2dToSFML(WINDOW_WIDTH, WINDOW_HEIGHT);
 
   auto window = sf::RenderWindow{
       {WINDOW_WIDTH, WINDOW_HEIGHT}, "Box2D with ImGui and SFML", sf::Style::Default, settings};

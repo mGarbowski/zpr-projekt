@@ -1,4 +1,5 @@
 set(VISUALISATION_SOURCES
+        docs.h
         VisualisationUtils.h
         VisualisationUtils.cc
 )
