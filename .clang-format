@@ -17,3 +17,6 @@ AllowShortBlocksOnASingleLine: Never
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty
+SpacesInParentheses: true
+SpacesInContainerLiterals: true
+SpaceBeforeParens: Never
