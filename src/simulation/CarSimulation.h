@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 11/5/24.
-//
+/**
+ * @ingroup simulation
+ * @brief Simulation with a single car on a road.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef CARSIMULATION_H
 #define CARSIMULATION_H
@@ -10,15 +12,9 @@
 #include "CarChassis.h"
 #include "CarDescription.h"
 #include "CircleRot.h"
-#include "Rect.h"
 #include "RoadModel.h"
 #include "box2d/id.h"
 
-
-/**
- * @ingroup simulation
- * @brief Simulation with a single car on a road.
- */
 class CarSimulation {
  public:
   static CarSimulation create(const CarDescription& car_description, const Road road);

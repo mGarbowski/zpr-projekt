@@ -1,8 +1,12 @@
-//
-// Created by Michał on 27/11/2024.
-//
+/**
+ * @ingroup app
+ * @brief Implementation of ControlPanel
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "ControlPanel.h"
+
+#include <imgui.h>
 
 bool ControlPanel::getRunning() const {
   return is_running_;
@@ -49,9 +53,11 @@ void ControlPanel::render() {
   ImGui::SliderFloat("##slider", &mutation_rate_, 0.0f, 1.0f, "%.2f");
   ImGui::End();
 }
+
 sf::Color ControlPanel::getCarColor() const {
   return car_color_;
 }
+
 sf::Color ControlPanel::getRoadColor() const {
   return road_color_;
 }

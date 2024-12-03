@@ -1,3 +1,9 @@
+/**
+ * @ingroup app
+ * @brief Main file for the application.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
+
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include <SFML/Graphics.hpp>
 #include <box2d/box2d.h>

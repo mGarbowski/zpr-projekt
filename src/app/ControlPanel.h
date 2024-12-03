@@ -1,22 +1,23 @@
-//
-// Created by Michał on 27/11/2024.
-//
+/**
+ * @ingroup app
+ * @brief Panel for controlling the simulation.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef EVOLUTION_CONTROLPANEL_H
 #define EVOLUTION_CONTROLPANEL_H
 
 #include <SFML/Graphics.hpp>
 
-#include "imgui.h"
 class ControlPanel {
  public:
   ControlPanel()
-      : is_running_(true),
+      : car_color_(sf::Color::White),
+        road_color_(sf::Color::White),
+        is_running_(true),
         mutation_rate_(1.0f),
         dropdown_1_current_(0),
-        dropdown_2_current_(0),
-        car_color_(sf::Color::White),
-        road_color_(sf::Color::White){};
+        dropdown_2_current_(0){};
 
   bool getRunning() const;
   bool setRunning(bool is_running);

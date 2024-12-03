@@ -18,11 +18,11 @@ class CarChassis {
 
   b2BodyId bodyId() const;
   TriangleRot getTriangleRot(int idx) const;
+  b2Polygon getTriangle(int idx) const;
   Position getPosition() const;
 
  private:
   explicit CarChassis(const b2BodyId body_id) : body_id_(body_id) {}
-  b2Polygon getTriangle(int idx) const;
 
   b2BodyId body_id_;
 };
