@@ -16,8 +16,8 @@ void printTriangle(const int idx, const b2Polygon& triangle) {
 }
 
 void assertPointsEqual(const Position a, const b2Vec2 b) {
-  ASSERT_FLOAT_EQ(a.x, b.x);
-  ASSERT_FLOAT_EQ(a.y, b.y);
+  ASSERT_FLOAT_EQ(a.x_, b.x);
+  ASSERT_FLOAT_EQ(a.y_, b.y);
 }
 
 TEST(CarChassisTest, vertexPositions) {

@@ -14,8 +14,8 @@ void GuiControls::sizeText(const std::string& label, const Size& size) {
 }
 
 void GuiControls::positionText(const std::string& label, const Position& position) {
-  ImGui::Text("%s: x: %.2f", label.c_str(), position.x);
-  ImGui::Text("%s: y: %.2f", label.c_str(), position.y);
+  ImGui::Text("%s: x: %.2f", label.c_str(), position.x_);
+  ImGui::Text("%s: y: %.2f", label.c_str(), position.y_);
 }
 
 void GuiControls::rotationText(const std::string& label, const float rotation) {

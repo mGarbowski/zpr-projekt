@@ -28,13 +28,13 @@ CarDescription::CarDescription(const Position top_left, const Position top,
       front_wheel_density_(front_wheel_density),
       rear_wheel_radius_(rear_wheel_radius),
       front_wheel_radius_(front_wheel_radius) {
-  if (top.x != 0 || bottom.x != 0 || left.y != 0 || right.y != 0) {
+  if (top.x_ != 0 || bottom.x_ != 0 || left.y_ != 0 || right.y_ != 0) {
     throw std::invalid_argument(
         "top, left, bottom, right points must be constrained to the x and y axes");
   }
 
-  if (!(top_left.x < 0 && top_left.y > 0) || !(top_right.x > 0 && top_right.y > 0) ||
-      !(bottom_right.x > 0 && bottom_right.y < 0) || !(bottom_left.x < 0 && bottom_left.y < 0)) {
+  if (!(top_left.x_ < 0 && top_left.y_ > 0) || !(top_right.x_ > 0 && top_right.y_ > 0) ||
+      !(bottom_right.x_ > 0 && bottom_right.y_ < 0) || !(bottom_left.x_ < 0 && bottom_left.y_ < 0)) {
     throw std::invalid_argument(
         "top_left, top_right, bottom_right, bottom_left points must be restricted to their "
         "respective quadrants");

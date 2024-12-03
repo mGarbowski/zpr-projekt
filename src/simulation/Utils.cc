@@ -12,7 +12,7 @@
 
 b2BodyId Utils::createStaticRectangle(b2WorldId world_id, Position position, Size size) {
   auto body_def = b2DefaultBodyDef();
-  body_def.position = {position.x, position.y};
+  body_def.position = {position.x_, position.y_};
   const auto body_id = b2CreateBody(world_id, &body_def);
 
   const b2Polygon box = b2MakeBox(size.width_ / 2, size.height_ / 2);
@@ -63,7 +63,7 @@ b2BodyId Utils::createDynamicCircle(const b2WorldId world_id, const Position pos
 
   auto body_def = b2DefaultBodyDef();
   body_def.type = b2_dynamicBody;
-  body_def.position = {position.x, position.y};
+  body_def.position = {position.x_, position.y_};
   body_def.allowFastRotation = true;
   b2BodyId wheel_id = b2CreateBody(world_id, &body_def);
   b2CreateCircleShape(wheel_id, &shape_def, &circle);
