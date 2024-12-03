@@ -19,9 +19,9 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
                        sf::Transform transform, sf::Color ground_color = sf::Color::White,
                        sf::Color car_color = sf::Color::White) {
   const auto rear_wheel =
-      createSfCircle(simulation.getRearWheelCircle(), sf::Color::Red, car_color);
+      createCircle(simulation.getRearWheelCircle(), sf::Color::Red, car_color);
   const auto front_wheel =
-      createSfCircle(simulation.getFrontWheelCircle(), sf::Color::Red, car_color);
+      createCircle(simulation.getFrontWheelCircle(), sf::Color::Red, car_color);
 
   auto car_chassis = simulation.getCarChassis();
   auto body_pos = car_chassis.getPosition();

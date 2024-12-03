@@ -45,7 +45,7 @@ sf::Vector2f asVector(const Size& size);
  */
 sf::Vector2f asVector(const Position& position);
 
-sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color outiline_color,
+sf::CircleShape createCircle(const CircleRot& circle, const sf::Color outiline_color,
                                const sf::Color fill_color);
 
 sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position position,

@@ -19,7 +19,7 @@ sf::Vector2f asVector(const Position& position) {
   return sf::Vector2f(position.x, position.y);
 }
 
-sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color outiline_color,
+sf::CircleShape createCircle(const CircleRot& circle, const sf::Color outiline_color,
                                const sf::Color fill_color) {
   const Position& position = circle.pos();
   const float radius = circle.radius();
