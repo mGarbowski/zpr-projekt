@@ -16,7 +16,6 @@ RUN apt install -y pkg-config
 RUN apt install -y libgl-dev
 
 # from https://github.com/micromouseonline/cmake-sfml-imgui-project
-RUN apt install -y libxrandr-dev
 RUN apt install -y libxcursor-dev
 RUN apt install -y libudev-dev
 RUN apt install -y libfreetype-dev
@@ -27,7 +26,10 @@ RUN apt install -y libgl1-mesa-dev
 RUN apt install -y libegl1-mesa-dev
 
 # Build
-COPY . /app
+COPY src /app/src
+COPY CMakeLists.txt /app/CMakeLists.txt
+COPY cmake /app/cmake
+
 WORKDIR /app
 
 RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
