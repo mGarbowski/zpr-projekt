@@ -127,7 +127,7 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-  bool simulation_running = false;
+
   CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
                                     {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
   URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
@@ -143,12 +143,11 @@ int main() {
     }
 
     auto delta_time = clock.restart();
-    if (simulation_running)
+    if (control_panel.getRunning())
       sim.step();
     ImGui::SFML::Update(window, delta_time);
 
     control_panel.render();
-    simulation_running = control_panel.getRunning();
     window.clear();
     drawCarSimulation(window, sim, transform, control_panel.getRoadColor(),
                       control_panel.getCarColor());
