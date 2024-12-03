@@ -1,5 +1,5 @@
 set(EVOLUTION_SOURCES Evolution.cc
-        docs.h
+        Docs.h
         Specimen.h
         Specimen.cc
         mutation/MutationScheme.cc
