@@ -15,6 +15,8 @@
 #include "RoadModel.h"
 #include "Size.h"
 
+// TODO better file structure, do not pass window and transform everywhere
+
 /**
  * @ingroup visualisation
  * @brief Create a matrix for transforming box2d simulation coordinates to SFML window coordinates
