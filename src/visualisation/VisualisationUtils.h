@@ -10,6 +10,7 @@
 
 #include "CircleRot.h"
 #include "Position.h"
+#include "RoadModel.h"
 #include "Size.h"
 
 /**
@@ -71,5 +72,15 @@ sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position posi
  */
 sf::ConvexShape createTriangle(const b2Polygon& triangle, Position position,
                                sf::Color color = sf::Color::White);
+
+/**
+ * @ingroup visualisation
+ * @brief Create a collection of line segments representing a road
+ * @param road_model model of the road
+ * @param color color
+ * @return collection of line segments representing the road
+ */
+std::vector<sf::VertexArray> createPolygonalChain(const RoadModel& road_model,
+                                                  sf::Color color = sf::Color::White);
 
 #endif  // VISUALISATIONUTILS_H

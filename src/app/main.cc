@@ -32,12 +32,10 @@ void drawCarSimulation(sf::RenderWindow& window, const CarSimulation& simulation
     window.draw(shape, transform);
   }
   RoadModel ground = simulation.getRoadModel();
-  auto ground_lines = ground.getSegments();
-  Position ground_pos = ground.getPosition();
-  for (const auto& line : ground_lines) {
-    const auto shape = createLine(line.point1, line.point2, ground_pos, ground_color);
-    window.draw(shape, transform);
+  for (const auto &segment : createPolygonalChain(ground, ground_color)) {
+    window.draw(segment, transform);
   }
+
   window.draw(rear_wheel, transform);
   window.draw(front_wheel, transform);
 }
