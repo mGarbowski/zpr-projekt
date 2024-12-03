@@ -19,17 +19,6 @@ sf::Vector2f asVector(const Position& position) {
   return sf::Vector2f(position.x, position.y);
 }
 
-sf::RectangleShape createSfRectangle(const RectRot& rect, const sf::Color color) {
-  const Position& position = rect.pos();
-  const Size& size = rect.size();
-  sf::RectangleShape rectangle(asVector(size));
-  rectangle.setOrigin(size.width / 2, size.height / 2);
-  rectangle.setPosition(asVector(position));
-  rectangle.setRotation(rect.rotation());
-  rectangle.setFillColor(color);
-  return rectangle;
-}
-
 sf::CircleShape createSfCircle(const CircleRot& circle, const sf::Color outiline_color,
                                const sf::Color fill_color) {
   const Position& position = circle.pos();
@@ -54,10 +43,6 @@ sf::VertexArray createLine(const b2Vec2& start, const b2Vec2& end, Position posi
   line[1].color = color;
 
   return line;
-}
-
-sf::RectangleShape createRectangle(const Rect& rect, const sf::Color color) {
-  return createSfRectangle({rect.pos(), rect.size(), 0}, color);
 }
 
 sf::ConvexShape createTriangle(const b2Polygon& triangle, const Position position,
