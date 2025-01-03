@@ -49,20 +49,14 @@ sf::VertexArray createLine( const b2Vec2& start, const b2Vec2& end, const Positi
 
 sf::ConvexShape createTriangle( const TriangleRot& triangle, const Position position,
                                 const sf::Color color ) {
-  const auto window_width = 800;
-  const auto window_height = 800;
-  const auto scale = 30.0f;
   sf::ConvexShape shape( 3 );
-  // shape.setOrigin(-asVector(position));  // FIXME
   shape.setPoint( 0, sf::Vector2f( triangle.a().x_, triangle.a().y_ ) );
   shape.setPoint( 1, sf::Vector2f( triangle.b().x_, triangle.b().y_ ) );
   shape.setPoint( 2, sf::Vector2f( triangle.c().x_, triangle.c().y_ ) );
+
   shape.setFillColor( color );
-  const auto x = window_width / 2 + position.x_ * scale;
-  const auto y = window_height / 2 + position.y_ * -scale;
-  shape.setPosition( x, y );
-  shape.setScale( scale, -scale );
-  shape.setRotation( -triangle.rotation() );
+  shape.setPosition( asVector( position ) );
+  shape.rotate( triangle.rotation() );
 
   return shape;
 }
@@ -72,8 +66,8 @@ void drawCarChassis( sf::RenderWindow& window, const CarChassis& car_chassis,
   const auto position = car_chassis.getPosition();
   for( int i = 0; i < 8; ++i ) {
     const auto triangle = car_chassis.getTriangleRot( i );
-    const auto shape = createTriangle( triangle, position, color );
-    window.draw( shape );
+    auto shape = createTriangle( triangle, position, color );
+    window.draw( shape, transform );
   }
 }
 
