@@ -50,7 +50,12 @@ void ControlPanel::render() {
 
   // Mutation slider
   ImGui::Text( "Mutation rate:" );
-  ImGui::SliderFloat( "##slider", &mutation_rate_, 0.0f, 1.0f, "%.2f" );
+  ImGui::SliderFloat( "##mutationslider", &mutation_rate_, 0.0f, 1.0f, "%.2f" );
+
+  // Population size slider
+  ImGui::Text( "Population size:" );
+  ImGui::SliderInt( "##populationslider", &population_size_, 1, 50, "%d" );
+
   ImGui::End();
 }
 
