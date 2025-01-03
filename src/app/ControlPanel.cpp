@@ -19,6 +19,7 @@ bool ControlPanel::setRunning( bool is_running ) {
 float ControlPanel::getMutationRate() const {
   return mutation_rate_;
 }
+
 int ControlPanel::getPopulationSize() const {
   return population_size_;
 }
@@ -35,7 +36,9 @@ void ControlPanel::render() {
   }
 
   const char* color_options[] = { "White", "Blue", "Red" };
-  const sf::Color colors[] = { sf::Color( 255, 255, 255, 128 ), sf::Color::Blue, sf::Color::Red };
+  const sf::Color colors[] = { sf::Color( 255, 255, 255, 128 ), sf::Color( 0, 0, 255, 128 ),
+                               sf::Color( 255, 0, 0, 128 ) };
+
   // First dropdown, invisible label
   ImGui::Text( "Car color:" );
   ImGui::Combo( "##dropdown1", &dropdown_1_current_, color_options, IM_ARRAYSIZE( color_options ) );
