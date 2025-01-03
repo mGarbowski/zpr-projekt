@@ -1,9 +1,16 @@
-set(APP_SOURCES Main.cc
-        GuiControls.cc
-        GuiControls.h ControlPanel.cpp ControlPanel.h DebugInfoPanel.cpp DebugInfoPanel.h
+set(APP_SOURCES
         Docs.h
+        Main.cc
+        GuiControls.cc
+        GuiControls.h
+        ControlPanel.cpp
+        ControlPanel.h
+        DebugInfoPanel.cpp
+        DebugInfoPanel.h
         SimulationsManager.cc
-        SimulationsManager.h)
+        SimulationsManager.h
+)
+
 add_executable(app ${APP_SOURCES})
 target_link_libraries(app PRIVATE
         sfml-graphics
