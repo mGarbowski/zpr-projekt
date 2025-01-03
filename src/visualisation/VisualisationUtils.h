@@ -24,9 +24,10 @@
  * @param window_width Width of the SFML window
  * @param window_height Height of the SFML window
  * @param scale Scale factor for the transformation
+ * @param tracked_position Position to track in box2d coordinates (the best car position)
  * @return SFML Transform matrix
  */
-sf::Transform box2dToSFML( int window_width, int window_height, float scale = 30.0f );
+sf::Transform box2dToSFML( int window_width, int window_height, float scale = 30.0f, Position tracked_position = {0, 0} );
 
 /**
  * @ingroup visualisation

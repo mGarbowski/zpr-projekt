@@ -21,12 +21,13 @@
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
+constexpr float SCALE = 20.0f;
 
 int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
-  const auto transform = box2dToSFML(WINDOW_WIDTH, WINDOW_HEIGHT);
+  auto camera_transform = box2dToSFML(WINDOW_WIDTH, WINDOW_HEIGHT, SCALE);
 
   auto window = sf::RenderWindow{
       {WINDOW_WIDTH, WINDOW_HEIGHT}, "Box2D with ImGui and SFML", sf::Style::Default, settings};
@@ -58,7 +59,7 @@ int main() {
   DebugInfoPanel debug_info_panel{};
 
   while (window.isOpen()) {
-    // Events
+    ///// Events
     for (auto event = sf::Event{}; window.pollEvent(event);) {
       ImGui::SFML::ProcessEvent(window, event);
       if (event.type == sf::Event::Closed) {
@@ -66,12 +67,12 @@ int main() {
       }
     }
 
-    // Setup
+    ///// Setup
     auto delta_time = clock.restart();
     window.clear();
     ImGui::SFML::Update(window, delta_time);
 
-    // Draw UI and simulation
+    ///// Draw UI and simulation
     control_panel.render();
     if (control_panel.getRunning()) {
       simulations_manager.update();
@@ -83,14 +84,17 @@ int main() {
     debug_info_panel.setBestCarPosition( simulations_manager.getBestCarPosition().asPair() );
     debug_info_panel.render();
 
+    // update camera
+    camera_transform = box2dToSFML(WINDOW_WIDTH, WINDOW_HEIGHT, SCALE, simulations_manager.getBestCarPosition());
+
     for (const auto& sim : simulations_manager.simulations()) {
-      drawCarSimulation( window, sim, transform, control_panel.getCarColor() );
+      drawCarSimulation( window, sim, camera_transform, control_panel.getCarColor() );
     }
 
     auto ground = simulations_manager.simulations()[0].getRoadModel();
-    drawRoad( window, ground, transform, control_panel.getRoadColor() );
+    drawRoad( window, ground, camera_transform, control_panel.getRoadColor() );
 
-    // Finish
+    ///// Finish
     ImGui::SFML::Render(window);
     window.display();
     sleep(sf::milliseconds(3));
