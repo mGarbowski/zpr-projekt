@@ -31,13 +31,15 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
   const auto car_chassis = CarChassis::create(world_id, {5, 3}, car_description);
   const auto car_chassis_body_id = car_chassis.bodyId();
 
+  constexpr auto motor_speed = -2.0f;  // Negative - go right
+
   auto rear_joint_def = b2DefaultRevoluteJointDef();
   rear_joint_def.bodyIdA = car_chassis_body_id;
   rear_joint_def.bodyIdB = rear_wheel_id;
   rear_joint_def.localAnchorA = Utils::asVec(car_description.bottomLeft());
   rear_joint_def.localAnchorB = {0, 0};
   rear_joint_def.enableMotor = true;
-  rear_joint_def.motorSpeed = 1.0f;
+  rear_joint_def.motorSpeed = motor_speed;
   rear_joint_def.maxMotorTorque = 1000.0f;
   const auto rear_joint_id = b2CreateRevoluteJoint(world_id, &rear_joint_def);
 
@@ -47,7 +49,7 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
   front_joint_def.localAnchorA = Utils::asVec(car_description.bottomRight());
   front_joint_def.localAnchorB = {0, 0};
   front_joint_def.enableMotor = true;
-  front_joint_def.motorSpeed = 1.0f;
+  front_joint_def.motorSpeed = motor_speed;
   front_joint_def.maxMotorTorque = 1000.0f;
   const auto front_joint_id = b2CreateRevoluteJoint(world_id, &front_joint_def);
 
