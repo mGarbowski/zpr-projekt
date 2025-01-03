@@ -5,10 +5,12 @@
 
 #include "VisualisationUtils.h"
 
-sf::Transform box2dToSFML( const int window_width, const int window_height, const float scale ) {
+sf::Transform box2dToSFML( const int window_width, const int window_height, const float scale,
+                           const Position tracked_position ) {
   sf::Transform transform;
   transform.translate( window_width / 2, window_height / 2 );
   transform.scale( scale, -scale );
+  transform.translate( -tracked_position.x_, -tracked_position.y_ );
   return transform;
 }
 
@@ -82,15 +84,12 @@ void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
 }
 
 void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulation,
-                        const sf::Transform& transform, sf::Color ground_color,
-                        sf::Color car_color ) {
+                        const sf::Transform& transform, sf::Color car_color ) {
   const auto rear_wheel = createCircle( simulation.getRearWheelCircle(), car_color, car_color );
   const auto front_wheel = createCircle( simulation.getFrontWheelCircle(), car_color, car_color );
   auto car_chassis = simulation.getCarChassis();
-  auto ground = simulation.getRoadModel();
 
   drawCarChassis( window, car_chassis, transform, car_color );
-  drawRoad( window, ground, transform, ground_color );
   window.draw( rear_wheel, transform );
   window.draw( front_wheel, transform );
 }

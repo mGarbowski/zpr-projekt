@@ -15,21 +15,22 @@
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
 #include "GuiControls.h"
+#include "SimulationsManager.h"
 #include "StaticRoadGenerator.h"
 #include "VisualisationUtils.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
+constexpr float SCALE = 20.0f;
 
 int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
-  const auto transform = box2dToSFML(WINDOW_WIDTH, WINDOW_HEIGHT);
 
   auto window = sf::RenderWindow{
-      {WINDOW_WIDTH, WINDOW_HEIGHT}, "Box2D with ImGui and SFML", sf::Style::Default, settings};
-  if (!ImGui::SFML::Init(window)) {
+      { WINDOW_WIDTH, WINDOW_HEIGHT }, "Box2D with ImGui and SFML", sf::Style::Default, settings };
+  if( !ImGui::SFML::Init( window ) ) {
     std::cerr << "Failed to initialize ImGui with SFML." << std::endl;
     window.close();
     return EXIT_FAILURE;
@@ -40,46 +41,53 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-  CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
-                                    {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
-  URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
-  auto sim = CarSimulation::create(car_description, road_generator->generateRoad());
-
   ControlPanel control_panel{};
   DebugInfoPanel debug_info_panel{};
 
-  while (window.isOpen()) {
-    // Events
-    for (auto event = sf::Event{}; window.pollEvent(event);) {
-      ImGui::SFML::ProcessEvent(window, event);
-      if (event.type == sf::Event::Closed) {
+  URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
+  auto road = road_generator->generateRoad();
+
+  SimulationsManager simulations_manager{ road, control_panel.getPopulationSize() };
+
+  while( window.isOpen() ) {
+    ///// Events
+    for( auto event = sf::Event{}; window.pollEvent( event ); ) {
+      ImGui::SFML::ProcessEvent( window, event );
+      if( event.type == sf::Event::Closed ) {
         window.close();
       }
     }
 
-    // Setup
+    ///// Setup
     auto delta_time = clock.restart();
     window.clear();
-    ImGui::SFML::Update(window, delta_time);
+    ImGui::SFML::Update( window, delta_time );
 
-    // Draw UI and simulation
+    ///// Draw UI and simulation
     control_panel.render();
-    if (control_panel.getRunning()) {
-      sim.step();
+    if( control_panel.getRunning() ) {
+      simulations_manager.update();
     }
 
-    debug_info_panel.setCarPosition(
-        {sim.getCarChassis().getPosition().x_, sim.getCarChassis().getPosition().y_});
-    debug_info_panel.setMutationRate(control_panel.getMutationRate());
+    debug_info_panel.setMutationRate( control_panel.getMutationRate() );
+    debug_info_panel.setBestCarPosition( simulations_manager.getBestCarPosition().asPair() );
     debug_info_panel.render();
 
-    drawCarSimulation(window, sim, transform, control_panel.getRoadColor(),
-                      control_panel.getCarColor());
+    // update camera
+    const auto camera_transform =
+        box2dToSFML( WINDOW_WIDTH, WINDOW_HEIGHT, SCALE, simulations_manager.getBestCarPosition() );
 
-    // Finish
-    ImGui::SFML::Render(window);
+    for( const auto& sim : simulations_manager.simulations() ) {
+      drawCarSimulation( window, sim, camera_transform, control_panel.getCarColor() );
+    }
+
+    auto ground = simulations_manager.getRoadModel();
+    drawRoad( window, ground, camera_transform, control_panel.getRoadColor() );
+
+    ///// Finish
+    ImGui::SFML::Render( window );
     window.display();
-    sleep(sf::milliseconds(3));
+    sleep( sf::milliseconds( 3 ) );
   }
 
   ImGui::SFML::Shutdown();

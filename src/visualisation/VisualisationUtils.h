@@ -24,9 +24,10 @@
  * @param window_width Width of the SFML window
  * @param window_height Height of the SFML window
  * @param scale Scale factor for the transformation
+ * @param tracked_position Position to track in box2d coordinates (the best car position)
  * @return SFML Transform matrix
  */
-sf::Transform box2dToSFML( int window_width, int window_height, float scale = 30.0f );
+sf::Transform box2dToSFML( int window_width, int window_height, float scale, Position tracked_position = {0, 0} );
 
 /**
  * @ingroup visualisation
@@ -67,7 +68,7 @@ sf::CircleShape createCircle( const CircleRot& circle, sf::Color outline_color,
 sf::VertexArray createLine( const b2Vec2& start, const b2Vec2& end, Position position,
                             sf::Color color = sf::Color::White );
 
-/** TODO fix bug with no rotation
+/**
  * @ingroup visualisation
  * @brief Create SFML triangle shape
  * @param triangle triangle vertices and rotation
@@ -106,11 +107,9 @@ void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
  * @param window SFML window
  * @param simulation box2d simulation
  * @param transform transformation matrix
- * @param ground_color color of the ground
  * @param car_color color of the car
  */
 void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulation,
-                        const sf::Transform& transform, sf::Color ground_color = sf::Color::White,
-                        sf::Color car_color = sf::Color::White );
+                        const sf::Transform& transform, sf::Color car_color = sf::Color::White );
 
 #endif  // VISUALISATIONUTILS_H

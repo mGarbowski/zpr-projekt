@@ -20,6 +20,10 @@ float ControlPanel::getMutationRate() const {
   return mutation_rate_;
 }
 
+int ControlPanel::getPopulationSize() const {
+  return population_size_;
+}
+
 void ControlPanel::render() {
   ImGui::Begin( "Control Panel" );
 
@@ -32,7 +36,9 @@ void ControlPanel::render() {
   }
 
   const char* color_options[] = { "White", "Blue", "Red" };
-  const sf::Color colors[] = { sf::Color::White, sf::Color::Blue, sf::Color::Red };
+  const sf::Color colors[] = { sf::Color( 255, 255, 255, 128 ), sf::Color( 0, 0, 255, 128 ),
+                               sf::Color( 255, 0, 0, 128 ) };
+
   // First dropdown, invisible label
   ImGui::Text( "Car color:" );
   ImGui::Combo( "##dropdown1", &dropdown_1_current_, color_options, IM_ARRAYSIZE( color_options ) );
@@ -50,7 +56,12 @@ void ControlPanel::render() {
 
   // Mutation slider
   ImGui::Text( "Mutation rate:" );
-  ImGui::SliderFloat( "##slider", &mutation_rate_, 0.0f, 1.0f, "%.2f" );
+  ImGui::SliderFloat( "##mutationslider", &mutation_rate_, 0.0f, 1.0f, "%.2f" );
+
+  // Population size slider
+  ImGui::Text( "Population size:" );
+  ImGui::SliderInt( "##populationslider", &population_size_, 1, 50, "%d" );
+
   ImGui::End();
 }
 
