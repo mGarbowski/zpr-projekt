@@ -150,4 +150,13 @@ TEST(CarDescription, throwsIfCornerPointsAreNotRestrictedToQuadrants) {
                std::invalid_argument);
 }
 
+TEST(CarDescription, randomGeneratesValidDescription) {
+  std::mt19937 gen(42);  // Seed for reproducibility
+
+  for (int i = 0; i < 100; ++i) {
+    EXPECT_NO_THROW( CarDescription::random(gen));
+  }
+
+}
+
 }  // namespace CarDescriptionUnitTest

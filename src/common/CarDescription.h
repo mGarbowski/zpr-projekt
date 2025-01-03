@@ -7,11 +7,13 @@
 #ifndef CARDESCRIPTION_H
 #define CARDESCRIPTION_H
 
+#include <random>
+
 #include "Position.h"
 
 class CarDescription {
  public:
-  static CarDescription random();
+  static CarDescription random( std::mt19937& random_engine );
 
   CarDescription( Position top_left, Position top, Position top_right, Position right,
                   Position bottom_right, Position bottom, Position bottom_left, Position left,

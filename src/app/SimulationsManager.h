@@ -12,8 +12,11 @@ class SimulationsManager {
       : simulations_( std::move( simulations ) ) {}
 
   SimulationsManager( const Road& road_model, const int population_size ) {
+    std::random_device rd;
+    std::mt19937 gen( rd() );
+
     for( int i = 0; i < population_size; ++i ) {
-      simulations_.push_back( CarSimulation::create( CarDescription::random(), road_model ) );
+      simulations_.push_back( CarSimulation::create( CarDescription::random( gen ), road_model ) );
     }
   }
 
