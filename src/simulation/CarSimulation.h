@@ -20,10 +20,6 @@ class CarSimulation {
   static CarSimulation create( const CarDescription& car_description, const Road road );
 
   ~CarSimulation() = default;
-  CarSimulation( const CarSimulation& other ) = delete;
-  CarSimulation( CarSimulation&& other ) noexcept = delete;
-  CarSimulation& operator=( const CarSimulation& other ) = delete;
-  CarSimulation& operator=( CarSimulation&& other ) noexcept = delete;
 
   RoadModel getRoadModel() const;
   CircleRot getRearWheelCircle() const;
