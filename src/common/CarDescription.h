@@ -11,6 +11,8 @@
 
 class CarDescription {
  public:
+  static CarDescription random();
+
   CarDescription( Position top_left, Position top, Position top_right, Position right,
                   Position bottom_right, Position bottom, Position bottom_left, Position left,
                   float body_density, float rear_wheel_density, float front_wheel_density,

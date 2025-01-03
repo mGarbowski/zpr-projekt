@@ -7,6 +7,35 @@
 #include "CarDescription.h"
 
 #include <stdexcept>
+#include <random>
+
+CarDescription CarDescription::random() {
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_real_distribution<float> dist_x(1.0, 4.0f);
+  std::uniform_real_distribution<float> dist_y(1.0, 2.0f);
+  std::uniform_real_distribution<float> dist_density(0.5f, 2.0f);
+  std::uniform_real_distribution<float> dist_radius(0.8f, 2.0f);
+
+  const Position top_left(-dist_x(gen), dist_y(gen));
+  const Position top(0.0f, dist_y(gen));
+  const Position top_right(dist_x(gen), dist_y(gen));
+  const Position right(dist_x(gen), 0.0f);
+  const Position bottom_right(dist_x(gen), -dist_y(gen));
+  const Position bottom(0.0f, -dist_y(gen));
+  const Position bottom_left(-dist_x(gen), -dist_y(gen));
+  const Position left(-dist_x(gen), 0.0f);
+
+  const float body_density = dist_density(gen);
+  const float rear_wheel_density = dist_density(gen);
+  const float front_wheel_density = dist_density(gen);
+  const float rear_wheel_radius = dist_radius(gen);
+  const float front_wheel_radius = dist_radius(gen);
+
+  return CarDescription(top_left, top, top_right, right, bottom_right, bottom, bottom_left, left,
+                        body_density, rear_wheel_density, front_wheel_density, rear_wheel_radius,
+                        front_wheel_radius);
+}
 
 CarDescription::CarDescription(const Position top_left, const Position top,
                                const Position top_right, const Position right,
