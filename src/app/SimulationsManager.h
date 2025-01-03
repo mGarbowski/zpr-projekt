@@ -21,6 +21,16 @@ class SimulationsManager {
     return simulations_;
   }
 
+  Position getBestCarPosition() const {
+    Position best_position = simulations_[0].getCarChassis().getPosition();
+    for( const auto& simulation : simulations_ ) {
+      if( simulation.getCarChassis().getPosition().x_ > best_position.x_ ) {
+        best_position = simulation.getCarChassis().getPosition();
+      }
+    }
+    return best_position;
+  }
+
  private:
   std::vector<CarSimulation> simulations_;
 };

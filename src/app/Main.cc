@@ -80,6 +80,7 @@ int main() {
     debug_info_panel.setCarPosition(
         {sim_1.getCarChassis().getPosition().x_, sim_1.getCarChassis().getPosition().y_});
     debug_info_panel.setMutationRate(control_panel.getMutationRate());
+    debug_info_panel.setBestCarPosition( simulations_manager.getBestCarPosition().asPair() );
     debug_info_panel.render();
 
     for (const auto& sim : simulations_manager.simulations()) {
