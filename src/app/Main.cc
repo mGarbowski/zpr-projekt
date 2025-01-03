@@ -15,6 +15,7 @@
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
 #include "GuiControls.h"
+#include "SimulationsManager.h"
 #include "StaticRoadGenerator.h"
 #include "VisualisationUtils.h"
 
@@ -40,10 +41,18 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-  CarDescription car_description = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
+  CarDescription car_description_1 = {{-4, 2}, {0, 1.5}, {4, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
+                                    {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
+  CarDescription car_description_2 = {{-3, 2}, {0, 1.5}, {3, 2}, {2, 0}, {4, -2}, {0, -1}, {-4, -2},
+                                    {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
+  CarDescription car_description_3 = {{-3, 2}, {0, 1.5}, {3, 2}, {2, 0}, {3, -2}, {0, -1}, {-3, -2},
                                     {-2, 0}, 1.0f,     1.0f,   1.0f,   1.0f,    0.5f};
   URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
-  auto sim = CarSimulation::create(car_description, road_generator->generateRoad());
+  auto road = road_generator->generateRoad();
+  auto sim_1 = CarSimulation::create(car_description_1, road);
+  auto sim_2 = CarSimulation::create(car_description_2, road);
+  auto sim_3 = CarSimulation::create(car_description_3, road);
+  SimulationsManager simulations_manager{std::vector{sim_1, sim_2, sim_3}};
 
   ControlPanel control_panel{};
   DebugInfoPanel debug_info_panel{};
@@ -65,16 +74,20 @@ int main() {
     // Draw UI and simulation
     control_panel.render();
     if (control_panel.getRunning()) {
-      sim.step();
+      simulations_manager.update();
     }
 
     debug_info_panel.setCarPosition(
-        {sim.getCarChassis().getPosition().x_, sim.getCarChassis().getPosition().y_});
+        {sim_1.getCarChassis().getPosition().x_, sim_1.getCarChassis().getPosition().y_});
     debug_info_panel.setMutationRate(control_panel.getMutationRate());
     debug_info_panel.render();
 
-    drawCarSimulation(window, sim, transform, control_panel.getRoadColor(),
-                      control_panel.getCarColor());
+    for (const auto& sim : simulations_manager.simulations()) {
+      drawCarSimulation( window, sim, transform, control_panel.getCarColor() );
+    }
+
+    auto ground = simulations_manager.simulations()[0].getRoadModel();
+    drawRoad( window, ground, transform, control_panel.getRoadColor() );
 
     // Finish
     ImGui::SFML::Render(window);

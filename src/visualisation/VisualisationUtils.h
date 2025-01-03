@@ -106,11 +106,9 @@ void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
  * @param window SFML window
  * @param simulation box2d simulation
  * @param transform transformation matrix
- * @param ground_color color of the ground
  * @param car_color color of the car
  */
 void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulation,
-                        const sf::Transform& transform, sf::Color ground_color = sf::Color::White,
-                        sf::Color car_color = sf::Color::White );
+                        const sf::Transform& transform, sf::Color car_color = sf::Color::White );
 
 #endif  // VISUALISATIONUTILS_H
