@@ -29,8 +29,8 @@ int main() {
   settings.antialiasingLevel = 8;
 
   auto window = sf::RenderWindow{
-      {WINDOW_WIDTH, WINDOW_HEIGHT}, "Box2D with ImGui and SFML", sf::Style::Default, settings};
-  if (!ImGui::SFML::Init(window)) {
+      { WINDOW_WIDTH, WINDOW_HEIGHT }, "Box2D with ImGui and SFML", sf::Style::Default, settings };
+  if( !ImGui::SFML::Init( window ) ) {
     std::cerr << "Failed to initialize ImGui with SFML." << std::endl;
     window.close();
     return EXIT_FAILURE;
@@ -47,14 +47,13 @@ int main() {
   URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
   auto road = road_generator->generateRoad();
 
+  SimulationsManager simulations_manager{ road, control_panel.getPopulationSize() };
 
-  SimulationsManager simulations_manager{road, control_panel.getPopulationSize()};
-
-  while (window.isOpen()) {
+  while( window.isOpen() ) {
     ///// Events
-    for (auto event = sf::Event{}; window.pollEvent(event);) {
-      ImGui::SFML::ProcessEvent(window, event);
-      if (event.type == sf::Event::Closed) {
+    for( auto event = sf::Event{}; window.pollEvent( event ); ) {
+      ImGui::SFML::ProcessEvent( window, event );
+      if( event.type == sf::Event::Closed ) {
         window.close();
       }
     }
@@ -62,22 +61,23 @@ int main() {
     ///// Setup
     auto delta_time = clock.restart();
     window.clear();
-    ImGui::SFML::Update(window, delta_time);
+    ImGui::SFML::Update( window, delta_time );
 
     ///// Draw UI and simulation
     control_panel.render();
-    if (control_panel.getRunning()) {
+    if( control_panel.getRunning() ) {
       simulations_manager.update();
     }
 
-    debug_info_panel.setMutationRate(control_panel.getMutationRate());
+    debug_info_panel.setMutationRate( control_panel.getMutationRate() );
     debug_info_panel.setBestCarPosition( simulations_manager.getBestCarPosition().asPair() );
     debug_info_panel.render();
 
     // update camera
-    const auto camera_transform = box2dToSFML(WINDOW_WIDTH, WINDOW_HEIGHT, SCALE, simulations_manager.getBestCarPosition());
+    const auto camera_transform =
+        box2dToSFML( WINDOW_WIDTH, WINDOW_HEIGHT, SCALE, simulations_manager.getBestCarPosition() );
 
-    for (const auto& sim : simulations_manager.simulations()) {
+    for( const auto& sim : simulations_manager.simulations() ) {
       drawCarSimulation( window, sim, camera_transform, control_panel.getCarColor() );
     }
 
@@ -85,9 +85,9 @@ int main() {
     drawRoad( window, ground, camera_transform, control_panel.getRoadColor() );
 
     ///// Finish
-    ImGui::SFML::Render(window);
+    ImGui::SFML::Render( window );
     window.display();
-    sleep(sf::milliseconds(3));
+    sleep( sf::milliseconds( 3 ) );
   }
 
   ImGui::SFML::Shutdown();
