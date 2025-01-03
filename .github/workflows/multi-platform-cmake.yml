@@ -29,10 +29,11 @@ jobs:
           sudo apt-get install -y libgl-dev
           sudo apt install -y pkg-config
           sudo apt-get install -y libflac-dev
-        
           sudo apt install libudev-dev
+        
           sudo apt-get install libopenal-dev
           sudo apt-get install libvorbis-dev
+          sudo apt-get install libfreetype6-dev
 
     - name: build
       shell: bash
