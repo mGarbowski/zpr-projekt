@@ -19,6 +19,9 @@ bool ControlPanel::setRunning( bool is_running ) {
 float ControlPanel::getMutationRate() const {
   return mutation_rate_;
 }
+int ControlPanel::getPopulationSize() const {
+  return population_size_;
+}
 
 void ControlPanel::render() {
   ImGui::Begin( "Control Panel" );

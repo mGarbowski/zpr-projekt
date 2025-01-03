@@ -23,6 +23,7 @@ class ControlPanel {
   bool getRunning() const;
   bool setRunning( bool is_running );
   float getMutationRate() const;
+  int getPopulationSize() const;
   sf::Color getCarColor() const;
   sf::Color getRoadColor() const;
   void render();

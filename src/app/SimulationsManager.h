@@ -11,6 +11,12 @@ class SimulationsManager {
   explicit SimulationsManager( std::vector<CarSimulation> simulations )
       : simulations_( std::move( simulations ) ) {}
 
+  SimulationsManager( const Road& road_model, const int population_size ) {
+    for( int i = 0; i < population_size; ++i ) {
+      simulations_.push_back( CarSimulation::create( CarDescription::random(), road_model ) );
+    }
+  }
+
   void update() {
     for( auto& simulation : simulations_ ) {
       simulation.step();

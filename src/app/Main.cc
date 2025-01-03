@@ -41,16 +41,14 @@ int main() {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
+  ControlPanel control_panel{};
+  DebugInfoPanel debug_info_panel{};
+
   URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
   auto road = road_generator->generateRoad();
 
-  auto sim_1 = CarSimulation::create( CarDescription::random(), road);
-  auto sim_2 = CarSimulation::create( CarDescription::random(), road);
-  auto sim_3 = CarSimulation::create( CarDescription::random(), road);
-  SimulationsManager simulations_manager{std::vector{sim_1, sim_2, sim_3}};
 
-  ControlPanel control_panel{};
-  DebugInfoPanel debug_info_panel{};
+  SimulationsManager simulations_manager{road, control_panel.getPopulationSize()};
 
   while (window.isOpen()) {
     ///// Events
@@ -72,8 +70,6 @@ int main() {
       simulations_manager.update();
     }
 
-    debug_info_panel.setCarPosition(
-        {sim_1.getCarChassis().getPosition().x_, sim_1.getCarChassis().getPosition().y_});
     debug_info_panel.setMutationRate(control_panel.getMutationRate());
     debug_info_panel.setBestCarPosition( simulations_manager.getBestCarPosition().asPair() );
     debug_info_panel.render();
