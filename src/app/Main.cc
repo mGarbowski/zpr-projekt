@@ -90,7 +90,7 @@ int main() {
       drawCarSimulation( window, sim, camera_transform, control_panel.getCarColor() );
     }
 
-    auto ground = simulations_manager.simulations()[0].getRoadModel();
+    auto ground = simulations_manager.getRoadModel();
     drawRoad( window, ground, camera_transform, control_panel.getRoadColor() );
 
     ///// Finish

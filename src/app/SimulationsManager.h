@@ -31,6 +31,10 @@ class SimulationsManager {
     return best_position;
   }
 
+  RoadModel getRoadModel() const {
+    return simulations_[0].getRoadModel();
+  }
+
  private:
   std::vector<CarSimulation> simulations_;
 };
