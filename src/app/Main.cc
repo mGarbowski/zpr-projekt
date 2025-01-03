@@ -27,7 +27,6 @@ int main() {
   sf::Clock clock;
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
-  auto camera_transform = box2dToSFML(WINDOW_WIDTH, WINDOW_HEIGHT, SCALE);
 
   auto window = sf::RenderWindow{
       {WINDOW_WIDTH, WINDOW_HEIGHT}, "Box2D with ImGui and SFML", sf::Style::Default, settings};
@@ -85,7 +84,7 @@ int main() {
     debug_info_panel.render();
 
     // update camera
-    camera_transform = box2dToSFML(WINDOW_WIDTH, WINDOW_HEIGHT, SCALE, simulations_manager.getBestCarPosition());
+    const auto camera_transform = box2dToSFML(WINDOW_WIDTH, WINDOW_HEIGHT, SCALE, simulations_manager.getBestCarPosition());
 
     for (const auto& sim : simulations_manager.simulations()) {
       drawCarSimulation( window, sim, camera_transform, control_panel.getCarColor() );
