@@ -17,21 +17,22 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
   b2WorldDef world_def = b2DefaultWorldDef();
   world_def.gravity = b2Vec2{0.0f, -9.81f};
 
+  float wheel_friction = 1.4;
   const auto rear_wheel_position = car_description.bottomRight();
   const auto front_wheel_position = car_description.bottomLeft();
   const auto world_id = b2CreateWorld(&world_def);
 
   const auto rear_wheel_id =
       Utils::createDynamicCircle(world_id, rear_wheel_position, car_description.rearWheelRadius(),
-                                 car_description.rearWheelDensity(), 0.3);
+                                 car_description.rearWheelDensity(), wheel_friction);
   const auto front_wheel_id =
       Utils::createDynamicCircle(world_id, front_wheel_position, car_description.frontWheelRadius(),
-                                 car_description.frontWheelDensity(), 0.3);
+                                 car_description.frontWheelDensity(), wheel_friction);
 
   const auto car_chassis = CarChassis::create(world_id, {5, 3}, car_description);
   const auto car_chassis_body_id = car_chassis.bodyId();
 
-  constexpr auto motor_speed = -2.0f;  // Negative - go right
+  constexpr auto motor_speed = -7.0f;  // Negative - go right
 
   auto rear_joint_def = b2DefaultRevoluteJointDef();
   rear_joint_def.bodyIdA = car_chassis_body_id;
@@ -40,7 +41,7 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
   rear_joint_def.localAnchorB = {0, 0};
   rear_joint_def.enableMotor = true;
   rear_joint_def.motorSpeed = motor_speed;
-  rear_joint_def.maxMotorTorque = 1000.0f;
+  rear_joint_def.maxMotorTorque = 5000.0f;
   const auto rear_joint_id = b2CreateRevoluteJoint(world_id, &rear_joint_def);
 
   auto front_joint_def = b2DefaultRevoluteJointDef();
@@ -50,7 +51,7 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
   front_joint_def.localAnchorB = {0, 0};
   front_joint_def.enableMotor = true;
   front_joint_def.motorSpeed = motor_speed;
-  front_joint_def.maxMotorTorque = 1000.0f;
+  front_joint_def.maxMotorTorque = 5000.0f;
   const auto front_joint_id = b2CreateRevoluteJoint(world_id, &front_joint_def);
 
   // Road
