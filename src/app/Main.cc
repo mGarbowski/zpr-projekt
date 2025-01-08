@@ -45,7 +45,7 @@ int main() {
   ControlPanel control_panel{};
   DebugInfoPanel debug_info_panel{};
 
-  URoadGenerator road_generator = std::make_unique<PerlinRoadGenerator>(50, 50, 20, 10, 7);
+  URoadGenerator road_generator = std::make_unique<PerlinRoadGenerator>(50, 200, 20, 10, 8);
   auto road = road_generator->generateRoad();
 
   SimulationsManager simulations_manager{ road, control_panel.getPopulationSize() };
