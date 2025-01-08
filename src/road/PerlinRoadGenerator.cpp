@@ -1,7 +1,8 @@
-//
-// Created by Michał on 08/01/2025.
-//
-
+/**
+* @ingroup road
+* @brief Implementation of PerlinRoadGenerator
+* @authors Mikolaj Garbowski, Michal Luszczek
+*/
 #include "PerlinRoadGenerator.h"
 
 #include <random>

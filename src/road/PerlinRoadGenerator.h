@@ -1,15 +1,12 @@
-//
-// Created by Michał on 08/01/2025.
-//
+/**
+* @ingroup road
+* @brief A class that generates a road using perlin noise.
+* @authors Mikolaj Garbowski, Michal Luszczek
+*/
 
 #ifndef EVOLUTION_PERLINROADGENERATOR_H
 #define EVOLUTION_PERLINROADGENERATOR_H
 #include "RoadGenerator.h"
-/**
- * @ingroup road
- * @brief A class that generates a road using perlin noise.
- * @authors Mikolaj Garbowski, Michal Luszczek
- */
 
 class PerlinRoadGenerator: public RoadGenerator {
  public:
