@@ -14,7 +14,6 @@ float randomGradient( int x ) {
 }
 
 float dotGridGradient( int grid_x, float chosen_point_x ) {
-  //TODO might be incorrect
   float gradient = randomGradient( grid_x );
 
   float dx = chosen_point_x - grid_x;
@@ -57,7 +56,6 @@ Road PerlinRoadGenerator::generateRoadImpl() const {
       frequency *= 2;
       amplitude *= 0.5;
     }
-    // TODO figure out scaling
     if (height < -1) {
       height = -1;
     }
