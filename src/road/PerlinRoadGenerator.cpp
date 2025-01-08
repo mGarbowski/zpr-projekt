@@ -41,3 +41,31 @@ float perlin( float x ) {
 
   return interpolated;
 }
+
+
+
+Road PerlinRoadGenerator::generateRoadImpl() const {
+  std::vector<Point> road;
+  road.push_back({0, 0});
+
+  for (int x = 1; x < length_; ++x ) {
+    float height = 0;
+    float frequency = 1;
+    float amplitude = 1;
+    for (int layer_index = 0; layer_index < layers_; ++layer_index ) {
+      height += perlin( (float)x * frequency  / grid_size_ ) * amplitude;
+      frequency *= 2;
+      amplitude *= 0.5;
+    }
+    // TODO figure out scaling
+    if (height < -1) {
+      height = -1;
+    }
+    else if (height > 1) {
+      height = 1;
+    }
+    road.push_back( { x*scale_x_, height*scale_y_ }  );
+  }
+
+  return Road(road);
+}
