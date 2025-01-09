@@ -17,6 +17,7 @@
 #include "GuiControls.h"
 #include "SimulationsManager.h"
 #include "StaticRoadGenerator.h"
+#include "PerlinRoadGenerator.h"
 #include "VisualisationUtils.h"
 
 constexpr int WINDOW_WIDTH = 800;
@@ -44,7 +45,7 @@ int main() {
   ControlPanel control_panel{};
   DebugInfoPanel debug_info_panel{};
 
-  URoadGenerator road_generator = std::make_unique<StaticRoadGenerator>();
+  URoadGenerator road_generator = std::make_unique<PerlinRoadGenerator>(50, 200, 20, 10, 8);
   auto road = road_generator->generateRoad();
 
   SimulationsManager simulations_manager{ road, control_panel.getPopulationSize() };
