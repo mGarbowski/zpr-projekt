@@ -20,6 +20,24 @@ RoadModel RoadModel::create( b2WorldId world_id, const Road& road, Position posi
   shape_def.friction = 0.3f;
   shape_def.isSensor = false;
   shape_def.restitution = 0.0f;
+  // back wall
+  for( int i = 20; i > 0; --i ){
+    b2Segment segment;
+    segment.point1 = { -20, static_cast<float>(i)};
+    segment.point2 = { -20, static_cast<float>(i - 1) };
+
+    // Create segment shape
+    b2CreateSegmentShape( ground_id, &shape_def, &segment );
+  }
+  // runway
+  for( int i = -20; i < 0; ++i ){
+    b2Segment segment;
+    segment.point1 = { (float)i, 0 };
+    segment.point2 = { static_cast<float>(i + 1), 0 };
+
+    // Create segment shape
+    b2CreateSegmentShape( ground_id, &shape_def, &segment );
+  }
 
   for( size_t i = 0; i < road.points_.size() - 1; ++i ) {
     b2Segment segment;
