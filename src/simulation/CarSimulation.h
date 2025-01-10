@@ -35,7 +35,7 @@ class CarSimulation {
   CarSimulation( b2WorldId world_id, const float time_step, const int sub_step_count,
                  RoadModel road_model, b2BodyId rear_wheel_id, b2BodyId front_wheel_id,
                  b2JointId rear_joint_id, b2JointId front_joint_id, const CarChassis car_chassis,
-                 int max_stuck_steps = 300, float min_move_distance = 0.2f )
+                 int max_stuck_steps = 400, float min_move_distance = 0.2f )
       : world_id_( std::move( world_id ) ),
         time_step_( time_step ),
         sub_step_count_( sub_step_count ),
