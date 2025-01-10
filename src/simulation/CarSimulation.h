@@ -48,7 +48,9 @@ class CarSimulation {
         stuck_steps_( 0 ),
         max_distance_( 0 ),
         max_stuck_steps_( max_stuck_steps ),
-        min_move_distance_( min_move_distance ) {}
+        min_move_distance_( min_move_distance ),
+        total_steps_( 0 ),
+        max_steps_lifespan_( max_steps_lifespan ) {}
 
   b2WorldId world_id_;
   float time_step_;
@@ -63,6 +65,8 @@ class CarSimulation {
   float max_distance_;
   int max_stuck_steps_;
   float min_move_distance_;
+  int max_steps_lifespan_;
+  int total_steps_;
 };
 
 #endif  // CARSIMULATION_H

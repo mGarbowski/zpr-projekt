@@ -69,6 +69,7 @@ void CarSimulation::step() {
   } else {
     stuck_steps_++;
   }
+  total_steps_++;
 }
 
 CircleRot CarSimulation::getRearWheelCircle() const {
@@ -85,7 +86,9 @@ RoadModel CarSimulation::getRoadModel() const {
   return road_model_;
 }
 bool CarSimulation::isStuck() const {
-  return stuck_steps_ > max_stuck_steps_;
+  bool stuck = (stuck_steps_ > max_stuck_steps_);
+  bool life_over = (max_stuck_steps_ != 0 && total_steps_ > max_stuck_steps_);
+  return stuck || life_over;
 }
 
 bool CarSimulation::isFinished() const {
