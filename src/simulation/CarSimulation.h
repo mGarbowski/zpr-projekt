@@ -32,10 +32,27 @@ class CarSimulation {
   void step();
 
  private:
+  /**
+   *
+   * @param world_id
+   * @param time_step
+   * @param sub_step_count
+   * @param road_model
+   * @param rear_wheel_id
+   * @param front_wheel_id
+   * @param rear_joint_id
+   * @param front_joint_id
+   * @param car_chassis
+   * @param max_stuck_steps - maximum amount of steps a car can not advance forward
+   * @param min_move_distance - minimum distance car has to move in max_stuck_steps to not be
+   * considered stuck
+   * @param max_steps_lifespan - maximum amount of steps before considered stuck, 0 = disable check
+   */
   CarSimulation( b2WorldId world_id, const float time_step, const int sub_step_count,
                  RoadModel road_model, b2BodyId rear_wheel_id, b2BodyId front_wheel_id,
                  b2JointId rear_joint_id, b2JointId front_joint_id, const CarChassis car_chassis,
-                 int max_stuck_steps = 400, float min_move_distance = 0.2f )
+                 int max_stuck_steps = 400, float min_move_distance = 0.2f,
+                 int max_steps_lifespan = 0 )
       : world_id_( std::move( world_id ) ),
         time_step_( time_step ),
         sub_step_count_( sub_step_count ),
