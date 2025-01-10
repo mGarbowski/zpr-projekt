@@ -15,7 +15,7 @@ SimulationsManager::SimulationsManager( const Road& road_model, const int popula
 }
 void SimulationsManager::update() {
   for( auto& simulation : simulations_ ) {
-    if (simulation.isStuck() || simulation.isFinished()) {
+    if( simulation.isStuck() || simulation.isFinished() ) {
       continue;
     }
     simulation.step();
@@ -25,9 +25,10 @@ std::vector<CarSimulation> SimulationsManager::simulations() const {
   return simulations_;
 }
 Position SimulationsManager::getBestCarPosition() const {
-  Position best_position = {0, 0};
+  Position best_position = { 0, 0 };
   for( const auto& simulation : simulations_ ) {
-    if( !simulation.isStuck() && !simulation.isFinished() && simulation.getCarChassis().getPosition().x_ > best_position.x_ ) {
+    if( !simulation.isStuck() && !simulation.isFinished() &&
+        simulation.getCarChassis().getPosition().x_ > best_position.x_ ) {
       best_position = simulation.getCarChassis().getPosition();
     }
   }
@@ -39,8 +40,8 @@ RoadModel SimulationsManager::getRoadModel() const {
 
 bool SimulationsManager::isFinished() const {
   int live_simulations = simulations_.size();
-  for( CarSimulation simulation: simulations_ ) {
-    if (simulation.isStuck() || simulation.isFinished()){
+  for( CarSimulation simulation : simulations_ ) {
+    if( simulation.isStuck() || simulation.isFinished() ) {
       live_simulations--;
     }
   }
