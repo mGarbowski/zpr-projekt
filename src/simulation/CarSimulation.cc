@@ -87,7 +87,7 @@ RoadModel CarSimulation::getRoadModel() const {
 }
 bool CarSimulation::isStuck() const {
   bool stuck = (stuck_steps_ > max_stuck_steps_);
-  bool life_over = (max_stuck_steps_ != 0 && total_steps_ > max_stuck_steps_);
+  bool life_over = (max_steps_lifespan_ != 0 && total_steps_ > max_steps_lifespan_);
   return stuck || life_over;
 }
 
