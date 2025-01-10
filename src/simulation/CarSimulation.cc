@@ -62,7 +62,13 @@ CarSimulation CarSimulation::create(const CarDescription& car_description, Road 
 }
 
 void CarSimulation::step() {
-  b2World_Step(world_id_, time_step_, sub_step_count_);
+  b2World_Step( world_id_, time_step_, sub_step_count_ );
+  if( getCarChassis().getPosition().x_ > max_distance_ + 0.2 ) {
+    max_distance_ = getCarChassis().getPosition().x_;
+    stuck_steps_ = 0;
+  } else {
+    stuck_steps_++;
+  }
 }
 CircleRot CarSimulation::getRearWheelCircle() const {
   return Utils::getCircleRot(rear_wheel_id_);
@@ -76,4 +82,13 @@ CarChassis CarSimulation::getCarChassis() const {
 
 RoadModel CarSimulation::getRoadModel() const {
   return road_model_;
+}
+bool CarSimulation::isStuck() const {
+  return stuck_steps_ > 500; // approximately 333 steps per second
+}
+
+bool CarSimulation::isFinished() const {
+  float car_x = getCarChassis().getPosition().x_;
+  float road_end_x = getRoadModel().getEnd().x_;
+  return ( car_x > road_end_x );
 }

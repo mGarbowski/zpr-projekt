@@ -26,6 +26,8 @@ class CarSimulation {
   CircleRot getFrontWheelCircle() const;
 
   CarChassis getCarChassis() const;
+  bool isFinished() const;
+  bool isStuck() const;
 
   void step();
 
@@ -41,7 +43,9 @@ class CarSimulation {
         front_wheel_id_( std::move( front_wheel_id ) ),
         rear_joint_id_( std::move( rear_joint_id ) ),
         front_joint_id_( std::move( front_joint_id ) ),
-        car_chassis_( car_chassis ) {}
+        car_chassis_( car_chassis ),
+        stuck_steps_( 0 ),
+        max_distance_( 0 ) {}
 
   b2WorldId world_id_;
   float time_step_;
@@ -52,6 +56,8 @@ class CarSimulation {
   b2JointId rear_joint_id_;
   b2JointId front_joint_id_;
   CarChassis car_chassis_;
+  int stuck_steps_;
+  float max_distance_;
 };
 
 #endif  // CARSIMULATION_H
