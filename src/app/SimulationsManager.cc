@@ -33,3 +33,13 @@ Position SimulationsManager::getBestCarPosition() const {
 RoadModel SimulationsManager::getRoadModel() const {
   return simulations_[0].getRoadModel();
 }
+
+bool SimulationsManager::isFinished() const {
+  int live_simulations = simulations_.size();
+  for( CarSimulation simulation: simulations_ ) {
+    if (simulation.isStuck() || simulation.isFinished()){
+      live_simulations--;
+    }
+  }
+  return live_simulations == 0;
+}
