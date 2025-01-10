@@ -32,7 +32,7 @@ RoadModel RoadModel::create( b2WorldId world_id, const Road& road, Position posi
   // runway
   for( int i = -20; i < 0; ++i ) {
     b2Segment segment;
-    segment.point1 = { (float)i, 0 };
+    segment.point1 = { static_cast<float>( i ), 0 };
     segment.point2 = { static_cast<float>( i + 1 ), 0 };
 
     // Create segment shape
