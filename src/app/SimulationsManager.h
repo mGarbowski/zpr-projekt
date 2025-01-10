@@ -26,6 +26,8 @@ class SimulationsManager {
 
   RoadModel getRoadModel() const;
 
+  bool isFinished() const;
+
  private:
   std::vector<CarSimulation> simulations_;
 };
