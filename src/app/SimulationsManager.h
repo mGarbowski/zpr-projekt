@@ -17,6 +17,8 @@ class SimulationsManager {
       : simulations_( std::move( simulations ) ) {}
 
   SimulationsManager( const Road& road_model, const int population_size );
+  SimulationsManager() = default;
+
 
   void update();
 
