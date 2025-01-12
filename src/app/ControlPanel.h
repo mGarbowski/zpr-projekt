@@ -16,12 +16,14 @@ class ControlPanel {
         road_color_( sf::Color::White ),
         is_running_( true ),
         dropdown_1_current_( 0 ),
-        dropdown_2_current_( 0 ){};
+        dropdown_2_current_( 0 ),
+        is_display_enabled_( true ) {}
 
   bool getRunning() const;
   bool setRunning( bool is_running );
   sf::Color getCarColor() const;
   sf::Color getRoadColor() const;
+  bool isDisplayEnabled() const;
 
   void render();
 
@@ -31,6 +33,7 @@ class ControlPanel {
   bool is_running_;
   int dropdown_1_current_;
   int dropdown_2_current_;
+  bool is_display_enabled_;
 };
 
 #endif  // EVOLUTION_CONTROLPANEL_H

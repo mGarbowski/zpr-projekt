@@ -27,6 +27,8 @@ void ControlPanel::render() {
     is_running_ = false;
   }
 
+  ImGui::Checkbox( "Display", &is_display_enabled_ );
+
   const char* color_options[] = { "White", "Blue", "Red" };
   const sf::Color colors[] = { sf::Color( 255, 255, 255, 128 ), sf::Color( 0, 0, 255, 128 ),
                                sf::Color( 255, 0, 0, 128 ) };
@@ -55,4 +57,8 @@ sf::Color ControlPanel::getCarColor() const {
 
 sf::Color ControlPanel::getRoadColor() const {
   return road_color_;
+}
+
+bool ControlPanel::isDisplayEnabled() const {
+  return is_display_enabled_;
 }
