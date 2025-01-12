@@ -5,7 +5,7 @@
 #include "StaticRoadGenerator.h"
 
 using namespace std;
-namespace RoadTest {
+namespace StaticRoadGeneratorTest {
 using Point = std::pair<float, float>;
 
 TEST( StaticRoadGenerator, generateWithDefaultConstructor ) {
@@ -35,4 +35,4 @@ TEST( StaticRoadGenerator, generateWithPassedPoints ) {
   }
 }
 
-}  // namespace RoadTest
+}  // namespace StaticRoadGeneratorTest
