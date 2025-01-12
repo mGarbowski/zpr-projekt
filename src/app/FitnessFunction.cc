@@ -1,6 +1,8 @@
-//
-// Created by mgarbowski on 1/12/25.
-//
+/**
+ * @ingroup app
+ * @brief Calculates fitness of a simulated car.
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "FitnessFunction.h"
 float FitnessFunction::calculateFitness( const CarSimulation& simulation ) const {
