@@ -11,6 +11,8 @@ set(APP_SOURCES
         SimulationsManager.h
         FitnessFunction.cc
         FitnessFunction.h
+        EvolutionManager.cc
+        EvolutionManager.h
 )
 
 add_executable(app ${APP_SOURCES})
@@ -20,4 +22,5 @@ target_link_libraries(app PRIVATE
         simulation
         road
         visualisation
+        evolution
 )
