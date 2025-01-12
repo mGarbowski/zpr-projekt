@@ -45,8 +45,7 @@ void EvolutionManager::update() {
     return;
   }
 
-  std::cout << "Finished generation " << generation_ << std::endl;
-  ++generation_;
+  handleEndOfSimulation();
 }
 
 Population EvolutionManager::createRandomPopulation( int population_size,
@@ -64,4 +63,21 @@ Population EvolutionManager::createRandomPopulation( int population_size,
 void EvolutionManager::initializeSimulationsForNewGeneration() {
   const auto road = road_generator_->generateRoad();
   simulations_manager_.initializeForPopulation( road, population_ );
+}
+
+std::vector<float> EvolutionManager::calculateFitness() const {
+  std::vector<float> fitness;
+  for( auto& simulation : simulations_manager_.simulations() ) {
+    fitness.push_back( fitness_function_.calculateFitness( simulation ) );
+  }
+  return fitness;
+}
+
+void EvolutionManager::handleEndOfSimulation() {
+  std::cout << "Finished generation " << generation_ << std::endl;
+  ++generation_;
+
+  const auto fitness = calculateFitness();
+  population_ = evolution_.evolve( population_, fitness );
+  initializeSimulationsForNewGeneration();
 }

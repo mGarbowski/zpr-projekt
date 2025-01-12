@@ -43,6 +43,10 @@ class EvolutionManager {
 
   void initializeSimulationsForNewGeneration();
 
+  std::vector<float> calculateFitness() const;
+
+  void handleEndOfSimulation();
+
   std::mt19937 random_generator_;
   SimulationsManager simulations_manager_;
   URoadGenerator road_generator_;
