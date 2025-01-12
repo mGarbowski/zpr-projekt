@@ -16,6 +16,14 @@ bool ConfigurationPanel::shouldStartEvolution() const {
   return start_evolution_;
 }
 
+MutationVariant ConfigurationPanel::mutationVariant() const {
+  return mutation_variant_;
+}
+
+MutationParams ConfigurationPanel::mutationParams() const {
+  return mutation_params_;
+}
+
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 

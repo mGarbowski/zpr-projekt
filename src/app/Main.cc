@@ -65,7 +65,7 @@ int main() {
 
     ///// Draw UI and simulation
 
-    if (evolution_manager) {
+    if( evolution_manager ) {
       control_panel.render();
       if( control_panel.getRunning() ) {
         evolution_manager->update();
@@ -90,10 +90,11 @@ int main() {
     } else {
       configuration_panel.render();
       if( configuration_panel.shouldStartEvolution() ) {
-        evolution_manager = EvolutionManager::create( configuration_panel.populationSize(), std::mt19937{ std::random_device{}() } );
+        evolution_manager = EvolutionManager::create(
+            configuration_panel.populationSize(), std::mt19937{ std::random_device{}() },
+            configuration_panel.mutationVariant(), configuration_panel.mutationParams() );
       }
     }
-
 
     ///// Finish
     ImGui::SFML::Render( window );

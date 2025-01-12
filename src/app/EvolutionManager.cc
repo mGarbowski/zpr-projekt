@@ -16,7 +16,7 @@
 #include "PerlinRoadGenerator.h"
 #include "succession/GenerationSuccessionScheme.h"
 
-EvolutionManager EvolutionManager::create( int population_size, std::mt19937 random_generator ) {
+EvolutionManager EvolutionManager::create( int population_size, std::mt19937 random_generator, MutationVariant mutation_variant, MutationParams mutation_params ) {
   auto population = createRandomPopulation( population_size, random_generator );
   auto fitness_function = FitnessFunction();
   auto simulations_manager = SimulationsManager();
@@ -24,8 +24,7 @@ EvolutionManager EvolutionManager::create( int population_size, std::mt19937 ran
 
   UReproductionScheme reproduction_scheme =
       std::make_unique<ProportionalReproductionScheme>( random_generator );
-  UMutationScheme mutation_scheme =
-      std::make_unique<GaussianMutationScheme>( 0.1, random_generator );
+  UMutationScheme mutation_scheme = MutationSchemeFactory::create( mutation_variant, mutation_params, random_generator );
   USuccessionScheme succession_scheme = std::make_unique<GenerationSuccessionScheme>();
 
   auto evolution = Evolution( std::move( reproduction_scheme ), std::move( mutation_scheme ),

@@ -9,15 +9,7 @@
 
 #include <variant>
 
-enum class MutationVariant { GAUSSIAN, NONE };
-
-struct GaussianMutationParams {
-  float mutation_strength_;
-};
-
-struct NoMutationParams {};
-
-using MutationParams = std::variant<GaussianMutationParams, NoMutationParams>;
+#include "mutation/MutationSchemeFactory.h"
 
 class ConfigurationPanel {
  public:
@@ -29,6 +21,8 @@ class ConfigurationPanel {
 
   int populationSize() const;
   bool shouldStartEvolution() const;
+  MutationVariant mutationVariant() const;
+  MutationParams mutationParams() const;
 
   void render();
 
