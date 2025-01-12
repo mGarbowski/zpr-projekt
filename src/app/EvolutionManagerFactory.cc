@@ -1,6 +1,6 @@
 /**
  * @ingroup app
- * @brief Factory for creating EvolutionManager objects based on UI confiugration.
+ * @brief Factory for creating EvolutionManager objects based on UI configuration.
  * @authors Mikolaj Garbowski, Michal Luszczek
  */
 
