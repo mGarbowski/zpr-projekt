@@ -62,8 +62,10 @@ CarSimulation CarSimulation::create( const CarDescription& car_description, Road
                         front_wheel_id, rear_joint_id, front_joint_id, car_chassis );
 }
 CarSimulation::~CarSimulation() {
-  std::cout << "Destroying car simulation" << std::endl;
-  b2DestroyWorld( world_id_ );
+  // b2DestroyWorld( world_id_ );
+  // needs to be destroyed explicitly by calling destroyWorld
+  // but the object is copyable so the world would be destroyed after teleting
+  // a temporary copy
 }
 
 void CarSimulation::step() {
@@ -75,6 +77,10 @@ void CarSimulation::step() {
     stuck_steps_++;
   }
   total_steps_++;
+}
+
+void CarSimulation::destroyWorld() {
+  b2DestroyWorld( world_id_ );
 }
 
 CircleRot CarSimulation::getRearWheelCircle() const {

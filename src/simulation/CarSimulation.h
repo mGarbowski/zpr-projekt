@@ -31,6 +31,7 @@ class CarSimulation {
   int getTotalSteps() const;
 
   void step();
+  void destroyWorld();
 
  private:
   /**
