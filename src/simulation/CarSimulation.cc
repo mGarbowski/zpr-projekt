@@ -7,6 +7,7 @@
 #include "CarSimulation.h"
 
 #include <box2d/box2d.h>
+#include <iostream>
 
 #include "Utils.h"
 
@@ -59,6 +60,10 @@ CarSimulation CarSimulation::create( const CarDescription& car_description, Road
 
   return CarSimulation( world_id, time_step, sub_step_count, road_model, rear_wheel_id,
                         front_wheel_id, rear_joint_id, front_joint_id, car_chassis );
+}
+CarSimulation::~CarSimulation() {
+  std::cout << "Destroying car simulation" << std::endl;
+  b2DestroyWorld( world_id_ );
 }
 
 void CarSimulation::step() {

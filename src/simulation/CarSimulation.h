@@ -19,7 +19,7 @@ class CarSimulation {
  public:
   static CarSimulation create( const CarDescription& car_description, const Road road );
 
-  ~CarSimulation() = default;
+  ~CarSimulation();
 
   RoadModel getRoadModel() const;
   CircleRot getRearWheelCircle() const;
