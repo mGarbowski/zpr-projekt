@@ -79,5 +79,9 @@ void EvolutionManager::handleEndOfSimulation() {
 
   const auto fitness = calculateFitness();
   population_ = evolution_.evolve( population_, fitness );
+  for (auto& specimen : population_) {
+    specimen.clampAttributes();
+  }
+
   initializeSimulationsForNewGeneration();
 }
