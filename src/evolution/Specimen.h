@@ -11,8 +11,13 @@
 
 #include "CarDescription.h"
 
+class Specimen;
+using Population = std::vector<Specimen>;
+
 class Specimen {
  public:
+  static Population createRandomPopulation( int population_size, std::mt19937 random_generator );
+
   explicit Specimen( const CarDescription& car_description );
 
   bool operator==( const Specimen& rhs ) const;
@@ -28,7 +33,5 @@ class Specimen {
  private:
   std::vector<float> attributes_;
 };
-
-using Population = std::vector<Specimen>;
 
 #endif  // SPECIMEN_H

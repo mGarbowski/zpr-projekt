@@ -8,6 +8,17 @@
 
 #include <cassert>
 
+Population Specimen::createRandomPopulation( int population_size, std::mt19937 random_generator ) {
+  Population population;
+  for( int i = 0; i < population_size; ++i ) {
+    const CarDescription car_description = CarDescription::random( random_generator );
+    Specimen specimen( car_description );
+    population.push_back( specimen );
+  }
+
+  return population;
+}
+
 Specimen::Specimen( const CarDescription& car_description ) {
   attributes_ = { car_description.topLeft().x_,
                   car_description.topLeft().y_,

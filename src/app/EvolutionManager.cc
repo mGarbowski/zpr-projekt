@@ -55,18 +55,6 @@ SimulationsManager EvolutionManager::simulationsManager() const {
   return simulations_manager_;
 }
 
-Population EvolutionManager::createRandomPopulation( int population_size,
-                                                     std::mt19937 random_generator ) {
-  Population population;
-  for( int i = 0; i < population_size; ++i ) {
-    const CarDescription car_description = CarDescription::random( random_generator );
-    Specimen specimen( car_description );
-    population.push_back( specimen );
-  }
-
-  return population;
-}
-
 void EvolutionManager::initializeSimulationsForNewGeneration() {
   const auto road = road_generator_->generateRoad();
   simulations_manager_.initializeForPopulation( road, population_ );

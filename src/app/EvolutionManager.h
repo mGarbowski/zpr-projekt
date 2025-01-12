@@ -43,11 +43,9 @@ class EvolutionManager {
 
   void update();
 
- private:
-  static Population createRandomPopulation( int population_size, std::mt19937 random_generator );
-
   void initializeSimulationsForNewGeneration();
 
+ private:
   std::vector<float> calculateFitness() const;
 
   void handleEndOfSimulation();
