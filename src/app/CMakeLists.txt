@@ -1,8 +1,6 @@
 set(APP_SOURCES
         Docs.h
         Main.cc
-        GuiControls.cc
-        GuiControls.h
         ControlPanel.cpp
         ControlPanel.h
         DebugInfoPanel.cpp

@@ -15,7 +15,7 @@
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
 #include "EvolutionManager.h"
-#include "GuiControls.h"
+
 #include "PerlinRoadGenerator.h"
 #include "SimulationsManager.h"
 #include "VisualisationUtils.h"
