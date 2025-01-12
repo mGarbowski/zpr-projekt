@@ -11,6 +11,8 @@
 
 #include "EvolutionManager.h"
 
+#include <iostream>
+
 #include "PerlinRoadGenerator.h"
 #include "succession/GenerationSuccessionScheme.h"
 
@@ -29,9 +31,22 @@ EvolutionManager EvolutionManager::create( int population_size, std::mt19937 ran
   auto evolution = Evolution( std::move( reproduction_scheme ), std::move( mutation_scheme ),
                               std::move( succession_scheme ) );
 
-  return EvolutionManager( std::move( random_generator ), std::move( simulations_manager ),
-                           std::move( road_generator ), std::move( evolution ),
-                           std::move( population ), std::move( fitness_function ) );
+  EvolutionManager manager( std::move( random_generator ), std::move( simulations_manager ),
+                            std::move( road_generator ), std::move( evolution ),
+                            std::move( population ), std::move( fitness_function ) );
+
+  manager.initializeSimulationsForNewGeneration();
+  return manager;
+}
+
+void EvolutionManager::update() {
+  if( !simulations_manager_.isFinished() ) {
+    simulations_manager_.update();
+    return;
+  }
+
+  std::cout << "Finished generation " << generation_ << std::endl;
+  ++generation_;
 }
 
 Population EvolutionManager::createRandomPopulation( int population_size,
@@ -44,4 +59,9 @@ Population EvolutionManager::createRandomPopulation( int population_size,
   }
 
   return population;
+}
+
+void EvolutionManager::initializeSimulationsForNewGeneration() {
+  const auto road = road_generator_->generateRoad();
+  simulations_manager_.initializeForPopulation( road, population_ );
 }
