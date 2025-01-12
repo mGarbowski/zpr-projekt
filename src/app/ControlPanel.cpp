@@ -16,14 +16,6 @@ bool ControlPanel::setRunning( bool is_running ) {
   return is_running_ = is_running;
 }
 
-float ControlPanel::getMutationRate() const {
-  return mutation_rate_;
-}
-
-int ControlPanel::getPopulationSize() const {
-  return population_size_;
-}
-
 void ControlPanel::render() {
   ImGui::Begin( "Control Panel" );
 
@@ -53,14 +45,6 @@ void ControlPanel::render() {
   if( dropdown_2_current_ >= 0 && dropdown_2_current_ < IM_ARRAYSIZE( colors ) ) {
     road_color_ = colors[dropdown_2_current_];
   }
-
-  // Mutation slider
-  ImGui::Text( "Mutation rate:" );
-  ImGui::SliderFloat( "##mutationslider", &mutation_rate_, 0.0f, 1.0f, "%.2f" );
-
-  // Population size slider
-  ImGui::Text( "Population size:" );
-  ImGui::SliderInt( "##populationslider", &population_size_, 1, 50, "%d" );
 
   ImGui::End();
 }
