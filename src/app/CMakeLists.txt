@@ -9,6 +9,8 @@ set(APP_SOURCES
         DebugInfoPanel.h
         SimulationsManager.cc
         SimulationsManager.h
+        FitnessFunction.cc
+        FitnessFunction.h
 )
 
 add_executable(app ${APP_SOURCES})
