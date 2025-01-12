@@ -6,6 +6,10 @@
 
 #include "Position.h"
 
-bool Position::operator==(const Position& other) const {
+bool Position::operator==( const Position& other ) const {
   return x_ == other.x_ && y_ == other.y_;
+}
+
+std::pair<float, float> Position::asPair() const {
+  return { x_, y_ };
 }

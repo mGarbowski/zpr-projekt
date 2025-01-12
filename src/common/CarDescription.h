@@ -1,5 +1,5 @@
 /**
- * @ingroup simulation
+ * @ingroup common
  * @brief Holds all parameters required to construct a car.
  * @authors Mikolaj Garbowski, Michal Luszczek
  */
