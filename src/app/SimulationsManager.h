@@ -15,7 +15,7 @@
 class SimulationsManager {
  public:
   explicit SimulationsManager( std::vector<CarSimulation> simulations )
-      : simulations_( std::move( simulations ) ) {}
+      : simulations_( std::move( simulations ) ), live_simulations_count_( simulations.size() ) {}
 
   SimulationsManager( const Road& road_model, const int population_size );
   SimulationsManager() = default;
@@ -28,12 +28,15 @@ class SimulationsManager {
 
   Position getBestCarPosition() const;
 
+  int liveSimulationsCount() const;
+
   RoadModel getRoadModel() const;
 
   bool isFinished() const;
 
  private:
   std::vector<CarSimulation> simulations_;
+  int live_simulations_count_;
 };
 
 #endif  // SIMULATIONSMANAGER_H

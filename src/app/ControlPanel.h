@@ -15,27 +15,24 @@ class ControlPanel {
       : car_color_( sf::Color::White ),
         road_color_( sf::Color::White ),
         is_running_( true ),
-        mutation_rate_( 1.0f ),
-        population_size_( 20 ),
         dropdown_1_current_( 0 ),
-        dropdown_2_current_( 0 ){};
+        dropdown_2_current_( 0 ),
+        is_display_enabled_( true ) {}
 
   bool getRunning() const;
-  bool setRunning( bool is_running );
-  float getMutationRate() const;
-  int getPopulationSize() const;
   sf::Color getCarColor() const;
   sf::Color getRoadColor() const;
+  bool isDisplayEnabled() const;
+
   void render();
 
  private:
   sf::Color car_color_;
   sf::Color road_color_;
   bool is_running_;
-  float mutation_rate_;
-  int population_size_;
   int dropdown_1_current_;
   int dropdown_2_current_;
+  bool is_display_enabled_;
 };
 
 #endif  // EVOLUTION_CONTROLPANEL_H

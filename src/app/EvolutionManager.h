@@ -17,12 +17,11 @@
 #include "RoadGenerator.h"
 #include "SimulationsManager.h"
 #include "mutation/GaussianMutationScheme.h"
+#include "mutation/MutationSchemeFactory.h"
 #include "reproduction/ProportionalReproductionScheme.h"
 
 class EvolutionManager {
  public:
-  static EvolutionManager create( int population_size, std::mt19937 random_generator );
-
   EvolutionManager( std::mt19937 random_generator, SimulationsManager simulations_manager,
                     URoadGenerator road_generator, Evolution evolution, Population population,
                     FitnessFunction fitness_function )
@@ -34,15 +33,15 @@ class EvolutionManager {
         fitness_function_( std::move( fitness_function ) ),
         generation_( 0 ) {}
 
+  int generation() const;
+
+  SimulationsManager simulationsManager() const;
+
   void update();
-
-  SimulationsManager simulationsManager() const { return simulations_manager_; }
-
- private:
-  static Population createRandomPopulation( int population_size, std::mt19937 random_generator );
 
   void initializeSimulationsForNewGeneration();
 
+ private:
   std::vector<float> calculateFitness() const;
 
   void handleEndOfSimulation();

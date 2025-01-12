@@ -1,8 +1,6 @@
 set(APP_SOURCES
         Docs.h
         Main.cc
-        GuiControls.cc
-        GuiControls.h
         ControlPanel.cpp
         ControlPanel.h
         DebugInfoPanel.cpp
@@ -13,6 +11,10 @@ set(APP_SOURCES
         FitnessFunction.h
         EvolutionManager.cc
         EvolutionManager.h
+        ConfigurationPanel.cc
+        ConfigurationPanel.h
+        EvolutionManagerFactory.cc
+        EvolutionManagerFactory.h
 )
 
 add_executable(app ${APP_SOURCES})
