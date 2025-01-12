@@ -69,7 +69,6 @@ int main() {
       evolution_manager.update();
     }
 
-    debug_info_panel.setMutationRate( control_panel.getMutationRate() );
     debug_info_panel.setBestCarPosition( evolution_manager.simulationsManager().getBestCarPosition().asPair() );
     debug_info_panel.render();
 

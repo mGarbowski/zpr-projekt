@@ -19,11 +19,8 @@ class DebugInfoPanel {
 
   void setBestCarPosition( const Position& best_car_position );
 
-  float setMutationRate( float mutation_rate );
-
  private:
   Position best_car_position_;
-  float mutation_rate_;
 };
 
 #endif  // EVOLUTION_DEBUGINFOPANEL_H
