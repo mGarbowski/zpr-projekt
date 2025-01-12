@@ -13,6 +13,14 @@ SimulationsManager::SimulationsManager( const Road& road_model, const int popula
     simulations_.push_back( CarSimulation::create( CarDescription::random( gen ), road_model ) );
   }
 }
+void SimulationsManager::initializeForPopulation( const Road& road_model,
+                                                  const Population& population ) {
+  simulations_.clear();  // Delete previous simulations
+  for( const auto& specimen : population ) {
+    simulations_.push_back( CarSimulation::create( specimen.carDescription(), road_model ) );
+  }
+}
+
 void SimulationsManager::update() {
   for( auto& simulation : simulations_ ) {
     if( simulation.isStuck() || simulation.isFinished() ) {
