@@ -9,6 +9,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/${CMAKE_BUILD_TYPE}
 
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 include(cmake/compiler-flags.cmake)
+include(CTest)
 set(CMAKE_CXX_STANDARD 17)
 
 enable_testing()
@@ -83,3 +84,20 @@ add_subdirectory(src/evolution)
 add_subdirectory(src/tests/evolution)
 add_subdirectory(src/visualisation)
 add_subdirectory(src/app)
+
+if(MY_ENABLE_COVERAGE)
+    # set compiler flags
+    set(CMAKE_CXX_FLAGS "-O0 -coverage")
+
+    # find required tools
+    find_program(LCOV lcov REQUIRED)
+    find_program(GENHTML genhtml REQUIRED)
+
+    # add coverage target
+    add_custom_target(coverage
+            # gather data
+            COMMAND ${LCOV} --directory . --capture --output-file coverage.info --ignore-errors mismatch
+            # generate report
+            COMMAND ${GENHTML} --demangle-cpp -o coverage coverage.info
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+endif()
