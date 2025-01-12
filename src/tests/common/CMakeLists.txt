@@ -1,5 +1,6 @@
 set(COMMON_TEST_SOURCES
     CarDescriptionUnitTest.cc
+        PositionUnitTest.cc
 )
 add_executable(common_tests ${COMMON_TEST_SOURCES})
 
