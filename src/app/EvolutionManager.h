@@ -22,10 +22,6 @@
 
 class EvolutionManager {
  public:
-  static EvolutionManager create( int population_size, std::mt19937 random_generator,
-                                  MutationVariant mutation_variant,
-                                  MutationParams mutation_params );
-
   EvolutionManager( std::mt19937 random_generator, SimulationsManager simulations_manager,
                     URoadGenerator road_generator, Evolution evolution, Population population,
                     FitnessFunction fitness_function )

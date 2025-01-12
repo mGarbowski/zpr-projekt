@@ -17,6 +17,7 @@
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
 #include "EvolutionManager.h"
+#include "EvolutionManagerFactory.h"
 #include "PerlinRoadGenerator.h"
 #include "SimulationsManager.h"
 #include "VisualisationUtils.h"
@@ -90,9 +91,8 @@ int main() {
     } else {
       configuration_panel.render();
       if( configuration_panel.shouldStartEvolution() ) {
-        evolution_manager = EvolutionManager::create(
-            configuration_panel.populationSize(), std::mt19937{ std::random_device{}() },
-            configuration_panel.mutationVariant(), configuration_panel.mutationParams() );
+        evolution_manager = EvolutionManagerFactory::create(
+            configuration_panel, std::mt19937{ std::random_device{}() } );
       }
     }
 

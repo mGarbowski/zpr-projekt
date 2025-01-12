@@ -13,6 +13,8 @@ set(APP_SOURCES
         EvolutionManager.h
         ConfigurationPanel.cc
         ConfigurationPanel.h
+        EvolutionManagerFactory.cc
+        EvolutionManagerFactory.h
 )
 
 add_executable(app ${APP_SOURCES})
