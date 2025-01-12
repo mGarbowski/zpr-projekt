@@ -12,10 +12,6 @@ bool ControlPanel::getRunning() const {
   return is_running_;
 }
 
-bool ControlPanel::setRunning( bool is_running ) {
-  return is_running_ = is_running;
-}
-
 void ControlPanel::render() {
   ImGui::Begin( "Control Panel" );
 

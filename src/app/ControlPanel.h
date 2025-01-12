@@ -20,7 +20,6 @@ class ControlPanel {
         is_display_enabled_( true ) {}
 
   bool getRunning() const;
-  bool setRunning( bool is_running );
   sf::Color getCarColor() const;
   sf::Color getRoadColor() const;
   bool isDisplayEnabled() const;
