@@ -99,7 +99,6 @@ int main() {
     ///// Finish
     ImGui::SFML::Render( window );
     window.display();
-    // sleep( sf::milliseconds( 3 ) );
   }
 
   ImGui::SFML::Shutdown();
