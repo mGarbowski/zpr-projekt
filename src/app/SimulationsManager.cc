@@ -14,11 +14,13 @@ SimulationsManager::SimulationsManager( const Road& road_model, const int popula
   for( int i = 0; i < population_size; ++i ) {
     simulations_.push_back( CarSimulation::create( CarDescription::random( gen ), road_model ) );
   }
+
+  live_simulations_count_ = population_size;
 }
 void SimulationsManager::initializeForPopulation( const Road& road_model,
                                                   const Population& population ) {
   // Delete previous simulations
-  for (auto& simulation : simulations_) {
+  for( auto& simulation : simulations_ ) {
     simulation.destroyWorld();
   }
   simulations_.clear();
@@ -27,15 +29,22 @@ void SimulationsManager::initializeForPopulation( const Road& road_model,
   for( const auto& specimen : population ) {
     simulations_.push_back( CarSimulation::create( specimen.carDescription(), road_model ) );
   }
+
+  live_simulations_count_ = population.size();
 }
 
 void SimulationsManager::update() {
+  auto live_simulations = 0;
+
   for( auto& simulation : simulations_ ) {
     if( simulation.isStuck() || simulation.isFinished() ) {
       continue;
     }
+    ++live_simulations;
     simulation.step();
   }
+
+  live_simulations_count_ = live_simulations;
 }
 std::vector<CarSimulation> SimulationsManager::simulations() const {
   return simulations_;
@@ -50,16 +59,14 @@ Position SimulationsManager::getBestCarPosition() const {
   }
   return best_position;
 }
+int SimulationsManager::liveSimulationsCount() const {
+  return live_simulations_count_;
+}
+
 RoadModel SimulationsManager::getRoadModel() const {
   return simulations_[0].getRoadModel();
 }
 
 bool SimulationsManager::isFinished() const {
-  int live_simulations = simulations_.size();
-  for( CarSimulation simulation : simulations_ ) {
-    if( simulation.isStuck() || simulation.isFinished() ) {
-      live_simulations--;
-    }
-  }
-  return live_simulations == 0;
+  return live_simulations_count_ == 0;
 }

@@ -24,6 +24,7 @@ class DebugInfoPanel {
  private:
   Position best_car_position_;
   int generation_number_;
+  int active_cars_count_;
 };
 
 #endif  // EVOLUTION_DEBUGINFOPANEL_H
