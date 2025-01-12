@@ -23,6 +23,7 @@ class DebugInfoPanel {
 
  private:
   Position best_car_position_;
+  int generation_number_;
 };
 
 #endif  // EVOLUTION_DEBUGINFOPANEL_H

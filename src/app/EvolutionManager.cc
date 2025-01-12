@@ -39,6 +39,10 @@ EvolutionManager EvolutionManager::create( int population_size, std::mt19937 ran
   return manager;
 }
 
+int EvolutionManager::generation() const {
+  return generation_;
+}
+
 void EvolutionManager::update() {
   if( !simulations_manager_.isFinished() ) {
     simulations_manager_.update();
@@ -46,6 +50,10 @@ void EvolutionManager::update() {
   }
 
   handleEndOfSimulation();
+}
+
+SimulationsManager EvolutionManager::simulationsManager() const {
+  return simulations_manager_;
 }
 
 Population EvolutionManager::createRandomPopulation( int population_size,
@@ -79,7 +87,7 @@ void EvolutionManager::handleEndOfSimulation() {
 
   const auto fitness = calculateFitness();
   population_ = evolution_.evolve( population_, fitness );
-  for (auto& specimen : population_) {
+  for( auto& specimen : population_ ) {
     specimen.clampAttributes();
   }
 

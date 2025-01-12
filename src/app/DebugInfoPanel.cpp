@@ -10,10 +10,12 @@
 
 void DebugInfoPanel::update( const EvolutionManager& evolution_manager ) {
   best_car_position_ = evolution_manager.simulationsManager().getBestCarPosition().asPair();
+  generation_number_ = evolution_manager.generation();
 }
 
 void DebugInfoPanel::render() const {
   ImGui::Begin( "Debug Info" );
+  ImGui::Text( "Generation: %d", generation_number_ );
   ImGui::Text( "Best Position: (%.2f, %.2f)", best_car_position_.first, best_car_position_.second );
   ImGui::End();
 }

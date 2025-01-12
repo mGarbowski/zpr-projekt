@@ -34,9 +34,11 @@ class EvolutionManager {
         fitness_function_( std::move( fitness_function ) ),
         generation_( 0 ) {}
 
-  void update();
+  int generation() const;
 
-  SimulationsManager simulationsManager() const { return simulations_manager_; }
+  SimulationsManager simulationsManager() const;
+
+  void update();
 
  private:
   static Population createRandomPopulation( int population_size, std::mt19937 random_generator );
