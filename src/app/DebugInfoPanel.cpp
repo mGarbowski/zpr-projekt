@@ -8,8 +8,8 @@
 
 #include <imgui.h>
 
-void DebugInfoPanel::setBestCarPosition( const Position& best_car_position ) {
-  best_car_position_ = best_car_position;
+void DebugInfoPanel::update( const EvolutionManager& evolution_manager ) {
+  best_car_position_ = evolution_manager.simulationsManager().getBestCarPosition().asPair();
 }
 
 void DebugInfoPanel::render() const {

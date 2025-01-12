@@ -9,15 +9,17 @@
 
 #include <utility>
 
+#include "EvolutionManager.h"
+
 class DebugInfoPanel {
  public:
   using Position = std::pair<float, float>;
 
   DebugInfoPanel() = default;
 
-  void render() const;
+  void update(const EvolutionManager& evolution_manager);
 
-  void setBestCarPosition( const Position& best_car_position );
+  void render() const;
 
  private:
   Position best_car_position_;

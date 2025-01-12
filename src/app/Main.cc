@@ -69,7 +69,7 @@ int main() {
       evolution_manager.update();
     }
 
-    debug_info_panel.setBestCarPosition( evolution_manager.simulationsManager().getBestCarPosition().asPair() );
+    debug_info_panel.update( evolution_manager );
     debug_info_panel.render();
 
     // update camera
