@@ -61,12 +61,6 @@ CarSimulation CarSimulation::create( const CarDescription& car_description, Road
   return CarSimulation( world_id, time_step, sub_step_count, road_model, rear_wheel_id,
                         front_wheel_id, rear_joint_id, front_joint_id, car_chassis );
 }
-CarSimulation::~CarSimulation() {
-  // b2DestroyWorld( world_id_ );
-  // needs to be destroyed explicitly by calling destroyWorld
-  // but the object is copyable so the world would be destroyed after teleting
-  // a temporary copy
-}
 
 void CarSimulation::step() {
   b2World_Step( world_id_, time_step_, sub_step_count_ );
