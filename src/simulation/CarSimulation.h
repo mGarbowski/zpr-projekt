@@ -19,6 +19,11 @@ class CarSimulation {
  public:
   static CarSimulation create( const CarDescription& car_description, const Road road );
 
+  /**
+   * Does not destroy the Box2D world.
+   *
+   * To free the resources, explicitly call destroyWorld().
+   */
   ~CarSimulation() = default;
 
   RoadModel getRoadModel() const;
@@ -28,8 +33,10 @@ class CarSimulation {
   CarChassis getCarChassis() const;
   bool isFinished() const;
   bool isStuck() const;
+  int getTotalSteps() const;
 
   void step();
+  void destroyWorld();
 
  private:
   /**

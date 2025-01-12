@@ -14,10 +14,11 @@
 #include "CarSimulation.h"
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
+#include "EvolutionManager.h"
 #include "GuiControls.h"
+#include "PerlinRoadGenerator.h"
 #include "SimulationsManager.h"
 #include "StaticRoadGenerator.h"
-#include "PerlinRoadGenerator.h"
 #include "VisualisationUtils.h"
 
 constexpr int WINDOW_WIDTH = 800;
@@ -45,10 +46,8 @@ int main() {
   ControlPanel control_panel{};
   DebugInfoPanel debug_info_panel{};
 
-  URoadGenerator road_generator = std::make_unique<PerlinRoadGenerator>(50, 200, 20, 10, 8);
-  auto road = road_generator->generateRoad();
 
-  SimulationsManager simulations_manager{ road, control_panel.getPopulationSize() };
+  EvolutionManager evolution_manager = EvolutionManager::create( 20, std::mt19937{ std::random_device{}() } );
 
   while( window.isOpen() ) {
     ///// Events
@@ -67,28 +66,27 @@ int main() {
     ///// Draw UI and simulation
     control_panel.render();
     if( control_panel.getRunning() ) {
-      simulations_manager.update();
+      evolution_manager.update();
     }
 
     debug_info_panel.setMutationRate( control_panel.getMutationRate() );
-    debug_info_panel.setBestCarPosition( simulations_manager.getBestCarPosition().asPair() );
+    debug_info_panel.setBestCarPosition( evolution_manager.simulationsManager().getBestCarPosition().asPair() );
     debug_info_panel.render();
 
     // update camera
     const auto camera_transform =
-        box2dToSFML( WINDOW_WIDTH, WINDOW_HEIGHT, SCALE, simulations_manager.getBestCarPosition() );
+        box2dToSFML( WINDOW_WIDTH, WINDOW_HEIGHT, SCALE, evolution_manager.simulationsManager().getBestCarPosition() );
 
-    for( const auto& sim : simulations_manager.simulations() ) {
+    for( const auto& sim : evolution_manager.simulationsManager().simulations() ) {
       drawCarSimulation( window, sim, camera_transform, control_panel.getCarColor() );
     }
 
-    auto ground = simulations_manager.getRoadModel();
+    auto ground = evolution_manager.simulationsManager().getRoadModel();
     drawRoad( window, ground, camera_transform, control_panel.getRoadColor() );
 
     ///// Finish
     ImGui::SFML::Render( window );
     window.display();
-    sleep( sf::milliseconds( 3 ) );
   }
 
   ImGui::SFML::Shutdown();

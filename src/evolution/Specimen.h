@@ -23,6 +23,8 @@ class Specimen {
 
   std::vector<float>& attributesRef();
 
+  void clampAttributes();
+
  private:
   std::vector<float> attributes_;
 };

@@ -5,6 +5,8 @@
  */
 
 #include "SimulationsManager.h"
+
+#include <iostream>
 SimulationsManager::SimulationsManager( const Road& road_model, const int population_size ) {
   std::random_device rd;
   std::mt19937 gen( rd() );
@@ -13,6 +15,20 @@ SimulationsManager::SimulationsManager( const Road& road_model, const int popula
     simulations_.push_back( CarSimulation::create( CarDescription::random( gen ), road_model ) );
   }
 }
+void SimulationsManager::initializeForPopulation( const Road& road_model,
+                                                  const Population& population ) {
+  // Delete previous simulations
+  for (auto& simulation : simulations_) {
+    simulation.destroyWorld();
+  }
+  simulations_.clear();
+  std::cout << "Cleared simulations" << std::endl;
+
+  for( const auto& specimen : population ) {
+    simulations_.push_back( CarSimulation::create( specimen.carDescription(), road_model ) );
+  }
+}
+
 void SimulationsManager::update() {
   for( auto& simulation : simulations_ ) {
     if( simulation.isStuck() || simulation.isFinished() ) {

@@ -7,6 +7,7 @@
 #include "CarSimulation.h"
 
 #include <box2d/box2d.h>
+#include <iostream>
 
 #include "Utils.h"
 
@@ -72,6 +73,10 @@ void CarSimulation::step() {
   total_steps_++;
 }
 
+void CarSimulation::destroyWorld() {
+  b2DestroyWorld( world_id_ );
+}
+
 CircleRot CarSimulation::getRearWheelCircle() const {
   return Utils::getCircleRot( rear_wheel_id_ );
 }
@@ -86,9 +91,12 @@ RoadModel CarSimulation::getRoadModel() const {
   return road_model_;
 }
 bool CarSimulation::isStuck() const {
-  bool stuck = (stuck_steps_ > max_stuck_steps_);
-  bool life_over = (max_steps_lifespan_ != 0 && total_steps_ > max_steps_lifespan_);
+  bool stuck = ( stuck_steps_ > max_stuck_steps_ );
+  bool life_over = ( max_steps_lifespan_ != 0 && total_steps_ > max_steps_lifespan_ );
   return stuck || life_over;
+}
+int CarSimulation::getTotalSteps() const {
+  return total_steps_;
 }
 
 bool CarSimulation::isFinished() const {

@@ -10,6 +10,7 @@
 #define SIMULATIONSMANAGER_H
 
 #include "CarSimulation.h"
+#include "Specimen.h"
 
 class SimulationsManager {
  public:
@@ -17,6 +18,9 @@ class SimulationsManager {
       : simulations_( std::move( simulations ) ) {}
 
   SimulationsManager( const Road& road_model, const int population_size );
+  SimulationsManager() = default;
+
+  void initializeForPopulation( const Road& road_model, const Population& population );
 
   void update();
 
