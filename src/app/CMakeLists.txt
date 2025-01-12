@@ -11,6 +11,8 @@ set(APP_SOURCES
         FitnessFunction.h
         EvolutionManager.cc
         EvolutionManager.h
+        ConfigurationPanel.cc
+        ConfigurationPanel.h
 )
 
 add_executable(app ${APP_SOURCES})
