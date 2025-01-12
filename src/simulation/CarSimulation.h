@@ -28,6 +28,7 @@ class CarSimulation {
   CarChassis getCarChassis() const;
   bool isFinished() const;
   bool isStuck() const;
+  int getTotalSteps() const;
 
   void step();
 
