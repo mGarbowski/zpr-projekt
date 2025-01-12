@@ -10,12 +10,13 @@
 #include <imgui-SFML.h>
 #include <imgui.h>
 #include <iostream>
+#include <optional>
 
 #include "CarSimulation.h"
+#include "ConfigurationPanel.h"
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
 #include "EvolutionManager.h"
-
 #include "PerlinRoadGenerator.h"
 #include "SimulationsManager.h"
 #include "VisualisationUtils.h"
@@ -44,9 +45,9 @@ int main() {
 
   ControlPanel control_panel{};
   DebugInfoPanel debug_info_panel{};
+  ConfigurationPanel configuration_panel{};
 
-  EvolutionManager evolution_manager =
-      EvolutionManager::create( 20, std::mt19937{ std::random_device{}() } );
+  std::optional<EvolutionManager> evolution_manager;
 
   while( window.isOpen() ) {
     ///// Events
@@ -63,27 +64,36 @@ int main() {
     ImGui::SFML::Update( window, delta_time );
 
     ///// Draw UI and simulation
-    control_panel.render();
-    if( control_panel.getRunning() ) {
-      evolution_manager.update();
-    }
 
-    debug_info_panel.update( evolution_manager );
-    debug_info_panel.render();
-
-    // update camera
-    const auto camera_transform =
-        box2dToSFML( WINDOW_WIDTH, WINDOW_HEIGHT, SCALE,
-                     evolution_manager.simulationsManager().getBestCarPosition() );
-
-    if( control_panel.isDisplayEnabled() ) {
-      for( const auto& sim : evolution_manager.simulationsManager().simulations() ) {
-        drawCarSimulation( window, sim, camera_transform, control_panel.getCarColor() );
+    if (evolution_manager) {
+      control_panel.render();
+      if( control_panel.getRunning() ) {
+        evolution_manager->update();
       }
 
-      auto ground = evolution_manager.simulationsManager().getRoadModel();
-      drawRoad( window, ground, camera_transform, control_panel.getRoadColor() );
+      debug_info_panel.update( *evolution_manager );
+      debug_info_panel.render();
+
+      // update camera
+      const auto camera_transform =
+          box2dToSFML( WINDOW_WIDTH, WINDOW_HEIGHT, SCALE,
+                       evolution_manager->simulationsManager().getBestCarPosition() );
+
+      if( control_panel.isDisplayEnabled() ) {
+        for( const auto& sim : evolution_manager->simulationsManager().simulations() ) {
+          drawCarSimulation( window, sim, camera_transform, control_panel.getCarColor() );
+        }
+
+        auto ground = evolution_manager->simulationsManager().getRoadModel();
+        drawRoad( window, ground, camera_transform, control_panel.getRoadColor() );
+      }
+    } else {
+      configuration_panel.render();
+      if( configuration_panel.shouldStartEvolution() ) {
+        evolution_manager = EvolutionManager::create( configuration_panel.populationSize(), std::mt19937{ std::random_device{}() } );
+      }
     }
+
 
     ///// Finish
     ImGui::SFML::Render( window );
