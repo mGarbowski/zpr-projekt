@@ -29,7 +29,8 @@ class ConfigurationPanel {
         mutation_params_( GaussianMutationParams{ 0.1 } ),
         reproduction_variant_( ReproductionVariant::PROPORTIONAL ),
         reproduction_params_( ProportionalReproductionParams{} ),
-        road_gen_params_( RoadGenParams{ 50, 200, 20, 10, 8 } ) {}
+        road_gen_params_( RoadGenParams{ 50, 200, 20, 10, 8 } ),
+        gravity_( 9.81 ) {}
 
   int populationSize() const;
   bool shouldStartEvolution() const;
@@ -38,6 +39,7 @@ class ConfigurationPanel {
   ReproductionVariant reproductionVariant() const;
   ReproductionParams reproductionParams() const;
   RoadGenParams roadGenParams() const;
+  float gravity() const;
 
   void render();
 
@@ -46,6 +48,7 @@ class ConfigurationPanel {
   void renderReproductionControls();
   void adjustReproductionParamsType();
   void renderRoadGeneratorControls();
+  void renderGravityControl();
 
   int population_size_;
   bool start_evolution_;
@@ -53,6 +56,7 @@ class ConfigurationPanel {
   MutationParams mutation_params_;
   ReproductionVariant reproduction_variant_;
   ReproductionParams reproduction_params_;
+  float gravity_;
   RoadGenParams road_gen_params_;
 };
 
