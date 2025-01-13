@@ -1,6 +1,8 @@
-//
-// Created by Michał on 13/01/2025.
-//
+/**
+* @ingroup evolution
+* @brief Implementation of ReproductionSchemeFactory
+* @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #include "ReproductionSchemeFactory.h"
 
@@ -16,6 +18,10 @@ UReproductionScheme ReproductionSchemeFactory::create( ReproductionVariant varia
       auto tournament_params = std::get<TournamentReproductionParams>( params );
       return std::make_unique<TournamentReproductionScheme>( rng,
                                                              tournament_params.tournament_size_ );
+    }
+    case ReproductionVariant::RANDOM: {
+      return std::make_unique<RandomReproductionScheme>( rng );
+
     }
     default:
       throw std::runtime_error( "Unknown reproduction variant" );
