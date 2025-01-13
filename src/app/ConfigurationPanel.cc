@@ -136,5 +136,5 @@ void ConfigurationPanel::renderRoadGeneratorControls() {
 }
 void ConfigurationPanel::renderGravityControl() {
   ImGui::Text( "Gravity of the simulation:" );
-  ImGui::SliderFloat( "Gravity (in m/s^2):", &gravity_, 0, 50 );
+  ImGui::SliderFloat( "Gravity (in m/s^2):", &gravity_, 0, 20 );
 }
