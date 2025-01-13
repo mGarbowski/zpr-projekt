@@ -12,19 +12,17 @@
 enum class ReproductionVariant { PROPORTIONAL, TOURNAMENT };
 
 struct ProportionalReproductionParams {
-  std::mt19937 random_engine_;
 };
 
 struct TournamentReproductionParams {
-  std::mt19937 random_engine;
-  int tournament_size;
+  int tournament_size_;
 };
 
 using ReproductionParams =
     std::variant<ProportionalReproductionParams, TournamentReproductionParams>;
 class ReproductionSchemeFactory {
  public:
-  static UReproductionScheme create( ReproductionVariant variant, ReproductionParams params );
+  static UReproductionScheme create( ReproductionVariant variant, ReproductionParams params, std::mt19937 rng );
 };
 
 #endif  // EVOLUTION_REPRODUCTIONSCHEMEFACTORY_H

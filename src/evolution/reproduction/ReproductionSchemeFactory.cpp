@@ -2,20 +2,20 @@
 // Created by Michał on 13/01/2025.
 //
 
-#include "stdexcept"
-
 #include "ReproductionSchemeFactory.h"
+
+#include "stdexcept"
 UReproductionScheme ReproductionSchemeFactory::create( ReproductionVariant variant,
-                                                       ReproductionParams params ) {
+                                                       ReproductionParams params,
+                                                       std::mt19937 rng ) {
   switch( variant ) {
     case ReproductionVariant::PROPORTIONAL: {
-      auto proportional_params = std::get<ProportionalReproductionParams>( params );
-      return std::make_unique<ProportionalReproductionScheme>( proportional_params.random_engine_ );
+      return std::make_unique<ProportionalReproductionScheme>( rng );
     }
     case ReproductionVariant::TOURNAMENT: {
       auto tournament_params = std::get<TournamentReproductionParams>( params );
-      return std::make_unique<TournamentReproductionScheme>( tournament_params.random_engine,
-                                                             tournament_params.tournament_size );
+      return std::make_unique<TournamentReproductionScheme>( rng,
+                                                             tournament_params.tournament_size_ );
     }
     default:
       throw std::runtime_error( "Unknown reproduction variant" );
