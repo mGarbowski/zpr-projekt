@@ -32,6 +32,10 @@ ReproductionParams ConfigurationPanel::reproductionParams() const {
   return reproduction_params_;
 }
 
+RoadGenParams ConfigurationPanel::roadGenParams() const {
+  return road_gen_params_;
+}
+
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 
@@ -39,6 +43,7 @@ void ConfigurationPanel::render() {
 
   renderReproductionControls();
   renderMutationControls();
+  renderRoadGeneratorControls();
 
   if( ImGui::Button( "Start" ) ) {
     start_evolution_ = true;
@@ -111,4 +116,13 @@ void ConfigurationPanel::adjustReproductionParamsType() {
       break;
     }
   }
+}
+
+void ConfigurationPanel::renderRoadGeneratorControls() {
+  auto& params = road_gen_params_;
+  ImGui::SliderInt( "Number of points:", &params.length_, 1, 300 );
+  ImGui::SliderInt( "Perlin grid size", &params.grid_size_, 1, 500 );
+  ImGui::SliderInt( "Perlin Layers", &params.layers_, 1, 50 );
+  ImGui::SliderFloat( "Y Scale", &params.scale_y_, 1, 15 );
+  ImGui::SliderFloat( "X Scale", &params.scale_x_, 1, 15 );
 }

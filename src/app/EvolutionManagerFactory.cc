@@ -14,7 +14,10 @@ EvolutionManager EvolutionManagerFactory::create( const ConfigurationPanel& conf
   auto population = Specimen::createRandomPopulation( configuration_panel.populationSize(), rng );
   auto fitness_function = FitnessFunction();
   auto simulations_manager = SimulationsManager();
-  auto road_generator = std::make_unique<PerlinRoadGenerator>( 50, 200, 20, 10, 8 );
+  auto roadroad_gen_params = configuration_panel.roadGenParams();
+  auto road_generator = std::make_unique<PerlinRoadGenerator>(
+      roadroad_gen_params.length_, roadroad_gen_params.grid_size_, roadroad_gen_params.layers_,
+      roadroad_gen_params.scale_y_, roadroad_gen_params.scale_x_ );
 
   UReproductionScheme reproduction_scheme = ReproductionSchemeFactory::create(
       configuration_panel.reproductionVariant(), configuration_panel.reproductionParams(), rng );
