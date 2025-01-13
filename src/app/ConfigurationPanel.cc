@@ -62,7 +62,7 @@ void ConfigurationPanel::renderMutationControls() {
 }
 
 void ConfigurationPanel::renderReproductionControls() {
-  const char* reproduction_variants[] = { "Proportional", "Tournament" };
+  const char* reproduction_variants[] = { "Proportional", "Tournament", "Random" };
   int current_variant = static_cast<int>( reproduction_variant_ );
   if( ImGui::Combo( "Reproduction Variant", &current_variant, reproduction_variants,
                     IM_ARRAYSIZE( reproduction_variants ) ) ) {
@@ -76,6 +76,9 @@ void ConfigurationPanel::renderReproductionControls() {
       ImGui::SliderInt( "Torunament Size", &params.tournament_size_, 1, 15 );
     }
     case ReproductionVariant::PROPORTIONAL: {
+      break;
+    }
+    case ReproductionVariant::RANDOM: {
       break;
     }
   }
@@ -96,6 +99,14 @@ void ConfigurationPanel::adjustReproductionParamsType() {
         std::get<ProportionalReproductionParams>( reproduction_params_ );
       } catch( std::bad_variant_access error ) {
         reproduction_params_ = ProportionalReproductionParams{};
+      }
+      break;
+    }
+    case ReproductionVariant::RANDOM: {
+      try {
+        std::get<RandomReproductionParams>( reproduction_params_ );
+      } catch( std::bad_variant_access error ) {
+        reproduction_params_ = RandomReproductionParams{};
       }
       break;
     }
