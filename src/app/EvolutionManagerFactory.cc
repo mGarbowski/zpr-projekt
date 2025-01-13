@@ -16,9 +16,11 @@ EvolutionManager EvolutionManagerFactory::create( const ConfigurationPanel& conf
   auto simulations_manager = SimulationsManager();
   auto road_generator = std::make_unique<PerlinRoadGenerator>( 50, 200, 20, 10, 8 );
 
-  UReproductionScheme reproduction_scheme = std::make_unique<ProportionalReproductionScheme>( rng );
+  UReproductionScheme reproduction_scheme = ReproductionSchemeFactory::create(
+      configuration_panel.reproductionVariant(), configuration_panel.reproductionParams(), rng );
   UMutationScheme mutation_scheme = MutationSchemeFactory::create(
       configuration_panel.mutationVariant(), configuration_panel.mutationParams(), rng );
+
   USuccessionScheme succession_scheme = std::make_unique<GenerationSuccessionScheme>();
 
   auto evolution = Evolution( std::move( reproduction_scheme ), std::move( mutation_scheme ),
