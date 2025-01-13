@@ -1,16 +1,16 @@
 /**
-* @ingroup evolution
-* @brief Randomly selects two specimens from both populations and picks the better one until filled
-* @authors Mikołaj Garbowski, Michał Łuszczek
-*/
+ * @ingroup evolution
+ * @brief Randomly selects n specimens from the population and reproduces the best one
+ * @authors Mikołaj Garbowski, Michał Łuszczek
+ */
 #ifndef EVOLUTION_TOURNAMENTREPRODUCTIONSCHEME_H
 #define EVOLUTION_TOURNAMENTREPRODUCTIONSCHEME_H
 
 #include "../reproduction/ReproductionScheme.h"
 class TournamentReproductionScheme : public ReproductionScheme {
  public:
-  explicit TournamentReproductionScheme( std::mt19937 random_engine )
-      : random_engine_( random_engine ) {}
+  explicit TournamentReproductionScheme( std::mt19937 random_engine, int tournament_size )
+      : random_engine_( random_engine ), tournament_size_( tournament_size ) {}
 
  protected:
   Population doReproducePopulation( const Population& population,
@@ -18,6 +18,7 @@ class TournamentReproductionScheme : public ReproductionScheme {
 
  private:
   std::mt19937 random_engine_;
+  int tournament_size_;
 };
 
 #endif  // EVOLUTION_TOURNAMENTREPRODUCTIONSCHEME_H
