@@ -61,7 +61,7 @@ TEST( TournamentReproductionScheme, tournament_larger_than_population_reproducti
   const auto population = givenPopulation();
   const std::vector<float> fitness = { 1, 2, 3, 4, 5 };
   const UReproductionScheme reproduction_scheme =
-      std::make_unique<TournamentReproductionScheme>( random_engine, 5 );
+      std::make_unique<TournamentReproductionScheme>( random_engine, 10 );
 
   const auto new_population = reproduction_scheme->reproducePopulation( population, fitness );
 
