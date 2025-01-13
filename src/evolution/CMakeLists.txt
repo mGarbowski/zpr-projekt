@@ -21,7 +21,9 @@ set(EVOLUTION_SOURCES Evolution.cc
         reproduction/TournamentReproductionScheme.cpp
         reproduction/TournamentReproductionScheme.h
         reproduction/ReproductionSchemeFactory.cpp
-        reproduction/ReproductionSchemeFactory.h)
+        reproduction/ReproductionSchemeFactory.h
+        reproduction/RandomReproductionScheme.cpp
+        reproduction/RandomReproductionScheme.h)
 add_library(evolution ${EVOLUTION_SOURCES})
 target_link_libraries(evolution common)
 target_include_directories(evolution INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
