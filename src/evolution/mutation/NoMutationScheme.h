@@ -9,7 +9,7 @@
 #include "MutationScheme.h"
 
 class NoMutationScheme : public MutationScheme {
-protected:
+ protected:
   void doMutateSpecimen( Specimen& specimen ) override;
 };
 

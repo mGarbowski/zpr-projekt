@@ -1,16 +1,18 @@
 /**
-* @ingroup evolution
-* @brief Factory for creating reproduction schemes
-* @authors Mikolaj Garbowski, Michal Luszczek
-*/
+ * @ingroup evolution
+ * @brief Factory for creating reproduction schemes
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef EVOLUTION_REPRODUCTIONSCHEMEFACTORY_H
 #define EVOLUTION_REPRODUCTIONSCHEMEFACTORY_H
+#include <stdexcept>
+#include <variant>
+
 #include "ProportionalReproductionScheme.h"
 #include "RandomReproductionScheme.h"
 #include "ReproductionScheme.h"
 #include "TournamentReproductionScheme.h"
-#include "variant"
 
 enum class ReproductionVariant { PROPORTIONAL, TOURNAMENT, RANDOM };
 

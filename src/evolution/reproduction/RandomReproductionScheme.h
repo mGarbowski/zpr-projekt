@@ -1,8 +1,8 @@
 /**
-* @ingroup evolution
-* @brief Random reproduction, concrete implementation of ReproductionScheme
-* @authors Mikolaj Garbowski, Michal Luszczek
-*/
+ * @ingroup evolution
+ * @brief Random reproduction, concrete implementation of ReproductionScheme
+ * @authors Mikolaj Garbowski, Michal Luszczek
+ */
 
 #ifndef EVOLUTION_RANDOMREPRODUCTIONSCHEME_H
 #define EVOLUTION_RANDOMREPRODUCTIONSCHEME_H
@@ -20,7 +20,6 @@ class RandomReproductionScheme : public ReproductionScheme {
 
  private:
   std::mt19937 random_engine_;
-
 };
 
 #endif  // EVOLUTION_RANDOMREPRODUCTIONSCHEME_H

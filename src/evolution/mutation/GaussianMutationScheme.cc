@@ -5,8 +5,8 @@
  */
 
 #include "GaussianMutationScheme.h"
-void GaussianMutationScheme::doMutateSpecimen(Specimen& specimen) {
-  for (auto& attribute : specimen.attributesRef()) {
-    attribute += normal_distribution_(random_number_generator_);
+void GaussianMutationScheme::doMutateSpecimen( Specimen& specimen ) {
+  for( auto& attribute : specimen.attributesRef() ) {
+    attribute += normal_distribution_( random_number_generator_ );
   }
 }

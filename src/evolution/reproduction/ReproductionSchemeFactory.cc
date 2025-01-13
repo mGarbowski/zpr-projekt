@@ -1,12 +1,11 @@
 /**
-* @ingroup evolution
-* @brief Implementation of ReproductionSchemeFactory
-* @authors Mikolaj Garbowski, Michal Luszczek
+ * @ingroup evolution
+ * @brief Implementation of ReproductionSchemeFactory
+ * @authors Mikolaj Garbowski, Michal Luszczek
  */
 
 #include "ReproductionSchemeFactory.h"
 
-#include "stdexcept"
 UReproductionScheme ReproductionSchemeFactory::create( ReproductionVariant variant,
                                                        ReproductionParams params,
                                                        std::mt19937 rng ) {
@@ -21,7 +20,6 @@ UReproductionScheme ReproductionSchemeFactory::create( ReproductionVariant varia
     }
     case ReproductionVariant::RANDOM: {
       return std::make_unique<RandomReproductionScheme>( rng );
-
     }
     default:
       throw std::runtime_error( "Unknown reproduction variant" );
