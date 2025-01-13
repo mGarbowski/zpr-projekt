@@ -17,7 +17,8 @@
 
 class CarSimulation {
  public:
-  static CarSimulation create( const CarDescription& car_description, const Road road );
+  static CarSimulation create( const CarDescription& car_description, const Road road,
+                               float gravity = 9.81 );
 
   /**
    * Does not destroy the Box2D world.

@@ -11,12 +11,13 @@
 
 #include "Utils.h"
 
-CarSimulation CarSimulation::create( const CarDescription& car_description, Road road ) {
+CarSimulation CarSimulation::create( const CarDescription& car_description, Road road,
+                                     float gravity ) {
   constexpr auto time_step = 1.0f / 60.0f;
   constexpr auto sub_step_count = 4;
 
   b2WorldDef world_def = b2DefaultWorldDef();
-  world_def.gravity = b2Vec2{ 0.0f, -9.81f };
+  world_def.gravity = b2Vec2{ 0.0f, -gravity };
 
   float wheel_friction = 1.4;
   const auto rear_wheel_position = car_description.bottomRight();
