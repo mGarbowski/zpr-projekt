@@ -18,7 +18,12 @@ set(EVOLUTION_SOURCES Evolution.cc
         mutation/NoMutationScheme.h
         mutation/MutationSchemeFactory.cc
         mutation/MutationSchemeFactory.h
-)
+        reproduction/TournamentReproductionScheme.cc
+        reproduction/TournamentReproductionScheme.h
+        reproduction/ReproductionSchemeFactory.cc
+        reproduction/ReproductionSchemeFactory.h
+        reproduction/RandomReproductionScheme.cc
+        reproduction/RandomReproductionScheme.h)
 add_library(evolution ${EVOLUTION_SOURCES})
 target_link_libraries(evolution common)
 target_include_directories(evolution INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

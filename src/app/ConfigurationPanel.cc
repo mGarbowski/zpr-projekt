@@ -24,11 +24,20 @@ MutationParams ConfigurationPanel::mutationParams() const {
   return mutation_params_;
 }
 
+ReproductionVariant ConfigurationPanel::reproductionVariant() const {
+  return reproduction_variant_;
+}
+
+ReproductionParams ConfigurationPanel::reproductionParams() const {
+  return reproduction_params_;
+}
+
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 
   ImGui::SliderInt( "Population Size", &population_size_, 1, 50 );
 
+  renderReproductionControls();
   renderMutationControls();
 
   if( ImGui::Button( "Start" ) ) {
@@ -49,5 +58,57 @@ void ConfigurationPanel::renderMutationControls() {
   if( mutation_variant_ == MutationVariant::GAUSSIAN ) {
     auto& params = std::get<GaussianMutationParams>( mutation_params_ );
     ImGui::SliderFloat( "Mutation Strength", &params.mutation_strength_, 0.01f, 1.0f );
+  }
+}
+
+void ConfigurationPanel::renderReproductionControls() {
+  const char* reproduction_variants[] = { "Proportional", "Tournament", "Random" };
+  int current_variant = static_cast<int>( reproduction_variant_ );
+  if( ImGui::Combo( "Reproduction Variant", &current_variant, reproduction_variants,
+                    IM_ARRAYSIZE( reproduction_variants ) ) ) {
+    reproduction_variant_ = static_cast<ReproductionVariant>( current_variant );
+  }
+
+  adjustReproductionParamsType();
+  switch( reproduction_variant_ ) {
+    case ReproductionVariant::TOURNAMENT: {
+      auto& params = std::get<TournamentReproductionParams>( reproduction_params_ );
+      ImGui::SliderInt( "Torunament Size", &params.tournament_size_, 1, 15 );
+    }
+    case ReproductionVariant::PROPORTIONAL: {
+      break;
+    }
+    case ReproductionVariant::RANDOM: {
+      break;
+    }
+  }
+}
+
+void ConfigurationPanel::adjustReproductionParamsType() {
+  switch( reproduction_variant_ ) {
+    case ReproductionVariant::TOURNAMENT: {
+      try {
+        std::get<TournamentReproductionParams>( reproduction_params_ );
+      } catch( std::bad_variant_access error ) {
+        reproduction_params_ = TournamentReproductionParams{ 1 };
+      }
+      break;
+    }
+    case ReproductionVariant::PROPORTIONAL: {
+      try {
+        std::get<ProportionalReproductionParams>( reproduction_params_ );
+      } catch( std::bad_variant_access error ) {
+        reproduction_params_ = ProportionalReproductionParams{};
+      }
+      break;
+    }
+    case ReproductionVariant::RANDOM: {
+      try {
+        std::get<RandomReproductionParams>( reproduction_params_ );
+      } catch( std::bad_variant_access error ) {
+        reproduction_params_ = RandomReproductionParams{};
+      }
+      break;
+    }
   }
 }

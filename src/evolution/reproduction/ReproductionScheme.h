@@ -7,6 +7,7 @@
 #ifndef REPRODUCTIONSCHEME_H
 #define REPRODUCTIONSCHEME_H
 
+#include <cassert>
 #include <memory>
 #include <vector>
 
