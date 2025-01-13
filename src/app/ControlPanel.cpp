@@ -8,6 +8,8 @@
 
 #include <imgui.h>
 
+const float ControlPanel::MAX_SIMULATION_DELAY_MICROSECONDS = 5000.0f;
+
 bool ControlPanel::getRunning() const {
   return is_running_;
 }
@@ -44,6 +46,8 @@ void ControlPanel::render() {
     road_color_ = colors[dropdown_2_current_];
   }
 
+  ImGui::SliderFloat( "Simulation speed", &simulation_speed_percent_, 0, 100 );
+
   ImGui::End();
 }
 
@@ -57,4 +61,9 @@ sf::Color ControlPanel::getRoadColor() const {
 
 bool ControlPanel::isDisplayEnabled() const {
   return is_display_enabled_;
+}
+
+int ControlPanel::getDelayMicroseconds() const {
+  return static_cast<int>( MAX_SIMULATION_DELAY_MICROSECONDS * ( 100 - simulation_speed_percent_ ) /
+                           100 );
 }
