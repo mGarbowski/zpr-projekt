@@ -6,8 +6,6 @@
 
 #include "ProportionalReproductionScheme.h"
 
-#include <random>
-
 Population ProportionalReproductionScheme::doReproducePopulation(const Population& population,
                                                                  std::vector<float> fitness) {
   Population new_population;
