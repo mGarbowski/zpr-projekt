@@ -24,6 +24,14 @@ MutationParams ConfigurationPanel::mutationParams() const {
   return mutation_params_;
 }
 
+ReproductionVariant ConfigurationPanel::reproductionVariant() const {
+  return reproduction_variant_;
+}
+
+ReproductionParams ConfigurationPanel::reproductionParams() const {
+  return reproduction_params_;
+}
+
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 

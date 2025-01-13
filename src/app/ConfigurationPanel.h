@@ -26,6 +26,8 @@ class ConfigurationPanel {
   bool shouldStartEvolution() const;
   MutationVariant mutationVariant() const;
   MutationParams mutationParams() const;
+  ReproductionVariant reproductionVariant() const;
+  ReproductionParams reproductionParams() const;
 
   void render();
 
