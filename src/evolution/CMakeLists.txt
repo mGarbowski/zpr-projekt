@@ -18,11 +18,11 @@ set(EVOLUTION_SOURCES Evolution.cc
         mutation/NoMutationScheme.h
         mutation/MutationSchemeFactory.cc
         mutation/MutationSchemeFactory.h
-        reproduction/TournamentReproductionScheme.cpp
+        reproduction/TournamentReproductionScheme.cc
         reproduction/TournamentReproductionScheme.h
-        reproduction/ReproductionSchemeFactory.cpp
+        reproduction/ReproductionSchemeFactory.cc
         reproduction/ReproductionSchemeFactory.h
-        reproduction/RandomReproductionScheme.cpp
+        reproduction/RandomReproductionScheme.cc
         reproduction/RandomReproductionScheme.h)
 add_library(evolution ${EVOLUTION_SOURCES})
 target_link_libraries(evolution common)
