@@ -19,8 +19,8 @@ class ConfigurationPanel {
         start_evolution_( false ),
         mutation_variant_( MutationVariant::GAUSSIAN ),
         mutation_params_( GaussianMutationParams{ 0.1 } ),
-        reproduction_variant_( ReproductionVariant::PROPORTIONAL),
-        reproduction_params_(ProportionalReproductionParams{}){}
+        reproduction_variant_( ReproductionVariant::PROPORTIONAL ),
+        reproduction_params_( ProportionalReproductionParams{} ) {}
 
   int populationSize() const;
   bool shouldStartEvolution() const;
@@ -32,6 +32,7 @@ class ConfigurationPanel {
  private:
   void renderMutationControls();
   void renderReproductionControls();
+  void adjustReproductionParamsType();
 
   int population_size_;
   bool start_evolution_;
@@ -39,7 +40,6 @@ class ConfigurationPanel {
   MutationParams mutation_params_;
   ReproductionVariant reproduction_variant_;
   ReproductionParams reproduction_params_;
-
 };
 
 #endif  // CONFIGURATIONPANEL_H

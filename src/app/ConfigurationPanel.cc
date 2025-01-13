@@ -60,12 +60,24 @@ void ConfigurationPanel::renderReproductionControls() {
                     IM_ARRAYSIZE( reproduction_variants ) ) ) {
     reproduction_variant_ = static_cast<ReproductionVariant>( current_variant );
   }
+
+  adjustReproductionParamsType();
+  switch( reproduction_variant_ ) {
+    case ReproductionVariant::TOURNAMENT: {
+      auto& params = std::get<TournamentReproductionParams>( reproduction_params_ );
+      ImGui::SliderInt( "Torunament Size", &params.tournament_size_, 1, 15 );
+    }
+    case ReproductionVariant::PROPORTIONAL: {
+      break;
+    }
+  }
+}
+
+void ConfigurationPanel::adjustReproductionParamsType() {
   switch( reproduction_variant_ ) {
     case ReproductionVariant::TOURNAMENT: {
       try {
-        auto& params = std::get<TournamentReproductionParams>( reproduction_params_ );
-        ImGui::SliderInt( "Torunament Size", &params.tournament_size_, 1, 15 );
-
+        std::get<TournamentReproductionParams>( reproduction_params_ );
       } catch( std::bad_variant_access error ) {
         reproduction_params_ = TournamentReproductionParams{ 1 };
       }
@@ -73,9 +85,9 @@ void ConfigurationPanel::renderReproductionControls() {
     }
     case ReproductionVariant::PROPORTIONAL: {
       try {
-        auto& params = std::get<ProportionalReproductionParams>( reproduction_params_ );
+        std::get<ProportionalReproductionParams>( reproduction_params_ );
       } catch( std::bad_variant_access error ) {
-        reproduction_params_ = ProportionalReproductionParams{ };
+        reproduction_params_ = ProportionalReproductionParams{};
       }
       break;
     }
