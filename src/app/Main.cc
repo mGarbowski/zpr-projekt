@@ -32,8 +32,6 @@ int main() {
   while( window.isOpen() ) {
     window.onStartOfFrame();
 
-    ///// Draw UI and simulation
-
     if( evolution_manager ) {
       control_panel.render();
       if( control_panel.getRunning() ) {
@@ -52,7 +50,6 @@ int main() {
       }
     }
 
-    ///// Finish
     window.onEndOfFrame();
     sleep( sf::microseconds( control_panel.getDelayMicroseconds() ) );
   }
