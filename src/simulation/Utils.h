@@ -6,13 +6,12 @@
 
 #ifndef UTILS_H
 #define UTILS_H
-#include <box2d/id.h>
+#include <box2d/box2d.h>
 
 #include "CircleRot.h"
 #include "Position.h"
 #include "RectRot.h"
 #include "Size.h"
-#include "box2d/math_functions.h"
 
 class Utils {
  public:

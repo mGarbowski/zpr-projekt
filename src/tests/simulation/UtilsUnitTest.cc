@@ -1,7 +1,9 @@
-#include <Position.h>
-#include <Utils.h>
 #include <box2d/box2d.h>
+#include <cmath>
 #include <gtest/gtest.h>
+
+#include "Position.h"
+#include "Utils.h"
 
 namespace UtilsUnitTest {
 
@@ -30,6 +32,12 @@ TEST( Utils, dynamicCircle ) {
   EXPECT_FLOAT_EQ( circle_rot.rotation(), 0.0f );
 
   b2DestroyWorld( world_id );
+}
+
+TEST( Utils, radToDeg ) {
+  EXPECT_FLOAT_EQ( Utils::radToDeg(0), 0 );
+  EXPECT_FLOAT_EQ( Utils::radToDeg(M_PI / 2), 90 );
+  EXPECT_FLOAT_EQ( Utils::radToDeg(M_PI), 180 );
 }
 
 }  // namespace UtilsUnitTest
