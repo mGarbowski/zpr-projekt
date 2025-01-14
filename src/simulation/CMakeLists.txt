@@ -5,7 +5,6 @@ set(SIMULATION_SOURCES
         CarSimulation.h
         Utils.cc
         Utils.h
-        RectRot.h
         CircleRot.h
         CarChassis.h
         CarChassis.cc
