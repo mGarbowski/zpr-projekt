@@ -1,6 +1,5 @@
 set(SIMULATION_SOURCES
         Size.h
-        Rect.h
         CarSimulation.cc
         CarSimulation.h
         Utils.cc
