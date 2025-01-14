@@ -12,17 +12,6 @@
 #include <cmath>
 #include <vector>
 
-b2BodyId Utils::createStaticRectangle(b2WorldId world_id, Position position, Size size) {
-  auto body_def = b2DefaultBodyDef();
-  body_def.position = {position.x_, position.y_};
-  const auto body_id = b2CreateBody(world_id, &body_def);
-
-  const b2Polygon box = b2MakeBox(size.width_ / 2, size.height_ / 2);
-  const b2ShapeDef ground_shape_def = b2DefaultShapeDef();
-  b2CreatePolygonShape(body_id, &ground_shape_def, &box);
-
-  return body_id;
-}
 RectRot Utils::getRectangleRectRot(const b2BodyId body_id) {
   return {
       getBodyPosition(body_id),
