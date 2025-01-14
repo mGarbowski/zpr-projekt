@@ -10,7 +10,6 @@
 
 #include "CircleRot.h"
 #include "Position.h"
-#include "Rect.h"
 #include "RectRot.h"
 #include "Size.h"
 #include "box2d/math_functions.h"
