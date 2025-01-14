@@ -17,7 +17,6 @@
 #include "RoadGenerator.h"
 #include "SimulationsManager.h"
 #include "mutation/GaussianMutationScheme.h"
-#include "mutation/MutationSchemeFactory.h"
 #include "reproduction/ProportionalReproductionScheme.h"
 
 class EvolutionManager {
