@@ -11,6 +11,7 @@ set(APP_TEST_SOURCES
         TestUtils.h
         FitnessFunctionUnitTest.cc
         EvolutionManagerUnitTest.cc
+        ControlPanelUnitTest.cc
 )
 add_executable(app_tests ${APP_TEST_SOURCES})
 
