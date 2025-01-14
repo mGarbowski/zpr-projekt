@@ -23,9 +23,6 @@ b2BodyId Utils::createStaticRectangle(b2WorldId world_id, Position position, Siz
 
   return body_id;
 }
-Rect Utils::getRectangleRect(const b2BodyId body_id) {
-  return {getBodyPosition(body_id), getRectangleSize(body_id)};
-}
 RectRot Utils::getRectangleRectRot(const b2BodyId body_id) {
   return {
       getBodyPosition(body_id),
