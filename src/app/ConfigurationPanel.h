@@ -12,6 +12,14 @@
 #include "mutation/MutationSchemeFactory.h"
 #include "reproduction/ReproductionSchemeFactory.h"
 
+struct RoadGenParams {
+  int length_;
+  int grid_size_;
+  int layers_;
+  float scale_y_;
+  float scale_x_;
+};
+
 class ConfigurationPanel {
  public:
   explicit ConfigurationPanel()
@@ -20,7 +28,9 @@ class ConfigurationPanel {
         mutation_variant_( MutationVariant::GAUSSIAN ),
         mutation_params_( GaussianMutationParams{ 0.1 } ),
         reproduction_variant_( ReproductionVariant::PROPORTIONAL ),
-        reproduction_params_( ProportionalReproductionParams{} ) {}
+        reproduction_params_( ProportionalReproductionParams{} ),
+        road_gen_params_( RoadGenParams{ 50, 200, 20, 10, 8 } ),
+        gravity_( 9.81 ) {}
 
   int populationSize() const;
   bool shouldStartEvolution() const;
@@ -28,6 +38,8 @@ class ConfigurationPanel {
   MutationParams mutationParams() const;
   ReproductionVariant reproductionVariant() const;
   ReproductionParams reproductionParams() const;
+  RoadGenParams roadGenParams() const;
+  float gravity() const;
 
   void render();
 
@@ -35,6 +47,8 @@ class ConfigurationPanel {
   void renderMutationControls();
   void renderReproductionControls();
   void adjustReproductionParamsType();
+  void renderRoadGeneratorControls();
+  void renderGravityControl();
 
   int population_size_;
   bool start_evolution_;
@@ -42,6 +56,8 @@ class ConfigurationPanel {
   MutationParams mutation_params_;
   ReproductionVariant reproduction_variant_;
   ReproductionParams reproduction_params_;
+  float gravity_;
+  RoadGenParams road_gen_params_;
 };
 
 #endif  // CONFIGURATIONPANEL_H

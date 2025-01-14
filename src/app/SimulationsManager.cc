@@ -12,7 +12,8 @@ SimulationsManager::SimulationsManager( const Road& road_model, const int popula
   std::mt19937 gen( rd() );
 
   for( int i = 0; i < population_size; ++i ) {
-    simulations_.push_back( CarSimulation::create( CarDescription::random( gen ), road_model ) );
+    simulations_.push_back(
+        CarSimulation::create( CarDescription::random( gen ), road_model, gravity_ ) );
   }
 
   live_simulations_count_ = population_size;
@@ -27,7 +28,8 @@ void SimulationsManager::initializeForPopulation( const Road& road_model,
   std::cout << "Cleared simulations" << std::endl;
 
   for( const auto& specimen : population ) {
-    simulations_.push_back( CarSimulation::create( specimen.carDescription(), road_model ) );
+    simulations_.push_back(
+        CarSimulation::create( specimen.carDescription(), road_model, gravity_ ) );
   }
 
   live_simulations_count_ = population.size();

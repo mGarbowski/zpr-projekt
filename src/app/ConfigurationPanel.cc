@@ -32,13 +32,25 @@ ReproductionParams ConfigurationPanel::reproductionParams() const {
   return reproduction_params_;
 }
 
+RoadGenParams ConfigurationPanel::roadGenParams() const {
+  return road_gen_params_;
+}
+
+float ConfigurationPanel::gravity() const {
+  return gravity_;
+}
+
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 
   ImGui::SliderInt( "Population Size", &population_size_, 1, 50 );
 
+  ImGui::Text( "Evolution parameters:" );
   renderReproductionControls();
   renderMutationControls();
+
+  renderRoadGeneratorControls();
+  renderGravityControl();
 
   if( ImGui::Button( "Start" ) ) {
     start_evolution_ = true;
@@ -111,4 +123,18 @@ void ConfigurationPanel::adjustReproductionParamsType() {
       break;
     }
   }
+}
+
+void ConfigurationPanel::renderRoadGeneratorControls() {
+  auto& params = road_gen_params_;
+  ImGui::Text( "Road generator parameters:" );
+  ImGui::SliderInt( "Number of points:", &params.length_, 1, 300 );
+  ImGui::SliderInt( "Perlin grid size", &params.grid_size_, 1, 500 );
+  ImGui::SliderInt( "Perlin Layers", &params.layers_, 1, 50 );
+  ImGui::SliderFloat( "Y Scale", &params.scale_y_, 1, 15 );
+  ImGui::SliderFloat( "X Scale", &params.scale_x_, 1, 15 );
+}
+void ConfigurationPanel::renderGravityControl() {
+  ImGui::Text( "Gravity of the simulation:" );
+  ImGui::SliderFloat( "Gravity (in m/s^2):", &gravity_, 0, 20 );
 }
