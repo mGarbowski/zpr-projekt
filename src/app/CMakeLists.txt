@@ -17,8 +17,7 @@ set(APP_SOURCES
         EvolutionManagerFactory.h
 )
 
-add_executable(app ${APP_SOURCES})
-target_link_libraries(app PRIVATE
+set(APP_LIBRARIES
         sfml-graphics
         ImGui-SFML::ImGui-SFML
         simulation
@@ -26,3 +25,10 @@ target_link_libraries(app PRIVATE
         visualisation
         evolution
 )
+
+add_executable(app ${APP_SOURCES})
+target_link_libraries(app PRIVATE ${APP_LIBRARIES})
+
+add_library(app-lib ${APP_SOURCES})
+target_link_libraries(app-lib PRIVATE ${APP_LIBRARIES})
+target_include_directories(app-lib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
