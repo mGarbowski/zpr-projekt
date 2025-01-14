@@ -30,6 +30,21 @@ CarDescription givenCarDescription( const int i ) {
                          front_wheel_radius );
 }
 
+CarSimulation givenSimulation() {
+  const auto simulation = CarSimulation::create( givenCarDescription( 0 ), givenRoad() );
+  assert( !simulation.isFinished() );
+  return simulation;
+}
+
+CarSimulation givenFinishedSimulation() {
+  auto simulation = givenSimulation();
+  for( int i = 0; i < 1000; ++i ) {
+    simulation.step();
+  }
+  assert( simulation.isFinished() );
+  return simulation;
+}
+
 Specimen givenSpecimen( const int i ) {
   return Specimen( givenCarDescription( i ) );
 }
@@ -74,6 +89,26 @@ TEST( SimulationsManager, getBestCarPosition ) {
 
   // After a while, the best car position should move to the right
   EXPECT_TRUE( initial_best_position.x_ < later_best_position.x_ );
+}
+
+TEST( SimulationsManager, isFinishedWhenAllSimulationsAreFinished ) {
+  const auto simulations = { givenFinishedSimulation(), givenFinishedSimulation(),
+                             givenFinishedSimulation() };
+
+  auto manager = SimulationsManager( simulations );
+  manager.update();
+
+  EXPECT_TRUE( manager.isFinished() );
+}
+
+TEST( SimulationManager, isNotFinishedWhenAnySimulationIsNotFinished ) {
+  const auto simulations = { givenFinishedSimulation(), givenSimulation(),
+                             givenFinishedSimulation() };
+
+  auto manager = SimulationsManager( simulations );
+  manager.update();
+
+  EXPECT_FALSE( manager.isFinished() );
 }
 
 }  // namespace SimulationsManagerUnitTest
