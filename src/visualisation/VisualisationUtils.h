@@ -14,7 +14,6 @@
 #include "CircleRot.h"
 #include "Position.h"
 #include "RoadModel.h"
-#include "Size.h"
 
 // TODO better file structure, do not pass window and transform everywhere
 
@@ -27,15 +26,8 @@
  * @param tracked_position Position to track in box2d coordinates (the best car position)
  * @return SFML Transform matrix
  */
-sf::Transform box2dToSFML( int window_width, int window_height, float scale, Position tracked_position = {0, 0} );
-
-/**
- * @ingroup visualisation
- * @brief Convert size to SFML vector
- * @param size Size
- * @return SFML vector
- */
-sf::Vector2f asVector( const Size& size );
+sf::Transform box2dToSFML( int window_width, int window_height, float scale,
+                           Position tracked_position = { 0, 0 } );
 
 /**
  * @ingroup visualisation
