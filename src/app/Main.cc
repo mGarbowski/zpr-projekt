@@ -6,43 +6,22 @@
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include <SFML/Graphics.hpp>
-#include <box2d/box2d.h>
 #include <imgui-SFML.h>
-#include <imgui.h>
-#include <iostream>
 #include <optional>
 
-#include "CarSimulation.h"
 #include "ConfigurationPanel.h"
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
 #include "EvolutionManager.h"
 #include "EvolutionManagerFactory.h"
-#include "PerlinRoadGenerator.h"
-#include "SimulationsManager.h"
-#include "VisualisationUtils.h"
+#include "Window.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
 constexpr float SCALE = 20.0f;
 
 int main() {
-  sf::Clock clock;
-  sf::ContextSettings settings;
-  settings.antialiasingLevel = 8;
-
-  auto window = sf::RenderWindow{
-      { WINDOW_WIDTH, WINDOW_HEIGHT }, "Box2D with ImGui and SFML", sf::Style::Default, settings };
-  if( !ImGui::SFML::Init( window ) ) {
-    std::cerr << "Failed to initialize ImGui with SFML." << std::endl;
-    window.close();
-    return EXIT_FAILURE;
-  }
-
-  ImGuiIO& io = ImGui::GetIO();
-  io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-  io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-  io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+  auto window = Window::create( WINDOW_WIDTH, WINDOW_HEIGHT, SCALE );
 
   ControlPanel control_panel{};
   DebugInfoPanel debug_info_panel{};
@@ -51,18 +30,7 @@ int main() {
   std::optional<EvolutionManager> evolution_manager;
 
   while( window.isOpen() ) {
-    ///// Events
-    for( auto event = sf::Event{}; window.pollEvent( event ); ) {
-      ImGui::SFML::ProcessEvent( window, event );
-      if( event.type == sf::Event::Closed ) {
-        window.close();
-      }
-    }
-
-    ///// Setup
-    auto delta_time = clock.restart();
-    window.clear();
-    ImGui::SFML::Update( window, delta_time );
+    window.onStartOfFrame();
 
     ///// Draw UI and simulation
 
@@ -75,19 +43,7 @@ int main() {
       debug_info_panel.update( *evolution_manager );
       debug_info_panel.render();
 
-      // update camera
-      const auto camera_transform =
-          box2dToSFML( WINDOW_WIDTH, WINDOW_HEIGHT, SCALE,
-                       evolution_manager->simulationsManager().getBestCarPosition() );
-
-      if( control_panel.isDisplayEnabled() ) {
-        for( const auto& sim : evolution_manager->simulationsManager().simulations() ) {
-          drawCarSimulation( window, sim, camera_transform, control_panel.getCarColor() );
-        }
-
-        auto ground = evolution_manager->simulationsManager().getRoadModel();
-        drawRoad( window, ground, camera_transform, control_panel.getRoadColor() );
-      }
+      window.drawSimulation( *evolution_manager, control_panel );
     } else {
       configuration_panel.render();
       if( configuration_panel.shouldStartEvolution() ) {
@@ -97,10 +53,7 @@ int main() {
     }
 
     ///// Finish
-    ImGui::SFML::Render( window );
-    window.display();
+    window.onEndOfFrame();
     sleep( sf::microseconds( control_panel.getDelayMicroseconds() ) );
   }
-
-  ImGui::SFML::Shutdown();
 }

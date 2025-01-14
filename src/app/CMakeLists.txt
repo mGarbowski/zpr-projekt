@@ -15,6 +15,8 @@ set(APP_SOURCES
         ConfigurationPanel.h
         EvolutionManagerFactory.cc
         EvolutionManagerFactory.h
+        Window.cc
+        Window.h
 )
 
 set(APP_LIBRARIES
