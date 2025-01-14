@@ -32,15 +32,6 @@ class Window {
     return window_.isOpen();
   }
 
-  void processEvents() {
-    for( auto event = sf::Event{}; window_.pollEvent( event ); ) {
-      ImGui::SFML::ProcessEvent( window_, event );
-      if( event.type == sf::Event::Closed ) {
-        window_.close();
-      }
-    }
-  }
-
   void onStartOfFrame() {
     processEvents();
 
@@ -87,6 +78,15 @@ class Window {
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+  }
+
+  void processEvents() {
+    for( auto event = sf::Event{}; window_.pollEvent( event ); ) {
+      ImGui::SFML::ProcessEvent( window_, event );
+      if( event.type == sf::Event::Closed ) {
+        window_.close();
+      }
+    }
   }
 
   unsigned int width_;
