@@ -35,9 +35,15 @@ TEST( Utils, dynamicCircle ) {
 }
 
 TEST( Utils, radToDeg ) {
-  EXPECT_FLOAT_EQ( Utils::radToDeg(0), 0 );
-  EXPECT_FLOAT_EQ( Utils::radToDeg(M_PI / 2), 90 );
-  EXPECT_FLOAT_EQ( Utils::radToDeg(M_PI), 180 );
+  EXPECT_FLOAT_EQ( Utils::radToDeg( 0 ), 0 );
+  EXPECT_FLOAT_EQ( Utils::radToDeg( M_PI / 2 ), 90 );
+  EXPECT_FLOAT_EQ( Utils::radToDeg( M_PI ), 180 );
+}
+
+TEST( Utils, asVec ) {
+  const auto position = Position{ 3, 4 };
+  constexpr auto expected = b2Vec2{ 3, 4 };
+  EXPECT_EQ( Utils::asVec( position ), expected );
 }
 
 }  // namespace UtilsUnitTest
