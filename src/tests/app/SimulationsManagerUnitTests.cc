@@ -10,8 +10,8 @@ Road givenRoad() {
   return generator.generateRoad();
 }
 
-CarDescription givenCarDescription( const int i ) {
-  const Position top_left = { -1, static_cast<float>( 1 + 0.1 * i ) };
+CarDescription givenCarDescription() {
+  const Position top_left = { -1, 1 };
   const Position top = { 0, 1 };
   const Position top_right = { 1, 1 };
   const Position right = { 1, 0 };
@@ -31,7 +31,7 @@ CarDescription givenCarDescription( const int i ) {
 }
 
 CarSimulation givenSimulation() {
-  const auto simulation = CarSimulation::create( givenCarDescription( 0 ), givenRoad() );
+  const auto simulation = CarSimulation::create( givenCarDescription(), givenRoad() );
   assert( !simulation.isFinished() );
   return simulation;
 }
@@ -46,7 +46,7 @@ CarSimulation givenFinishedSimulation() {
 }
 
 Specimen givenSpecimen( const int i ) {
-  return Specimen( givenCarDescription( i ) );
+  return Specimen( givenCarDescription() );
 }
 
 Population givenPopulation() {
@@ -81,9 +81,10 @@ TEST( SimulationsManager, getBestCarPosition ) {
   manager.initializeForPopulation( road, population );
   const auto initial_best_position = manager.getBestCarPosition();
 
-  // Cars move to the right (towards positive x)
-  for( int i = 0; i < 100; ++i ) {
+  // Cars move to the right after landing (towards positive x)
+  for( int i = 0; i < 300; ++i ) {
     manager.update();
+    std::cout << manager.getBestCarPosition().x_ << " " << manager.getBestCarPosition().y_ << std::endl;
   }
   const auto later_best_position = manager.getBestCarPosition();
 
@@ -109,6 +110,34 @@ TEST( SimulationManager, isNotFinishedWhenAnySimulationIsNotFinished ) {
   manager.update();
 
   EXPECT_FALSE( manager.isFinished() );
+}
+
+TEST( SimulationManager, liveSimulationsCount ) {
+  const auto simulations = { givenFinishedSimulation(), givenSimulation(),
+                             givenFinishedSimulation() };
+
+  auto manager = SimulationsManager( simulations );
+  manager.update();
+
+  EXPECT_EQ( manager.liveSimulationsCount(), 1 );
+}
+
+TEST( SimulationManager, updateUpdatesAllSimulations ) {
+  const auto road = givenRoad();
+  const auto population = givenPopulation();
+  auto manager = givenManager();
+  manager.initializeForPopulation( road, population );
+
+  EXPECT_FALSE( manager.isFinished() );
+  EXPECT_TRUE( manager.liveSimulationsCount() > 0);
+
+  // After enough time all simulations finish
+  for( int i = 0; i < 1000; ++i ) {
+    manager.update();
+  }
+
+  EXPECT_TRUE( manager.isFinished() );
+  EXPECT_EQ( manager.liveSimulationsCount(), 0 );
 }
 
 }  // namespace SimulationsManagerUnitTest
