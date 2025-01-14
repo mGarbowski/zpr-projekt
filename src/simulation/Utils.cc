@@ -12,25 +12,6 @@
 #include <cmath>
 #include <vector>
 
-RectRot Utils::getRectangleRectRot(const b2BodyId body_id) {
-  return {
-      getBodyPosition(body_id),
-      getRectangleSize(body_id),
-      radToDeg(getBodyAngleRadians(body_id)),
-  };
-}
-Size Utils::getRectangleSize(const b2BodyId body_id) {
-  std::vector<b2ShapeId> shape_ids(5);
-  const auto n_shapes = b2Body_GetShapes(body_id, shape_ids.data(), shape_ids.size());
-  assert(n_shapes == 1);
-
-  const auto polygon = b2Shape_GetPolygon(shape_ids[0]);
-  assert(polygon.count == 4);
-
-  auto width = polygon.vertices[1].x * 2;
-  auto height = polygon.vertices[2].y * 2;
-  return {width, height};
-}
 Position Utils::getBodyPosition(const b2BodyId body_id) {
   auto [x, y] = b2Body_GetPosition(body_id);
   return {x, y};
