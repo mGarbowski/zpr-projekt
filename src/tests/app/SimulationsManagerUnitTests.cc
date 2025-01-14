@@ -5,8 +5,6 @@
 
 namespace SimulationsManagerUnitTest {
 
-
-
 SimulationsManager givenManager() {
   constexpr auto gravity = 9.81;
   return SimulationsManager( gravity );
@@ -34,7 +32,6 @@ TEST( SimulationsManager, getBestCarPosition ) {
   // Cars move to the right after landing (towards positive x)
   for( int i = 0; i < 300; ++i ) {
     manager.update();
-    std::cout << manager.getBestCarPosition().x_ << " " << manager.getBestCarPosition().y_ << std::endl;
   }
   const auto later_best_position = manager.getBestCarPosition();
 
@@ -79,7 +76,7 @@ TEST( SimulationManager, updateUpdatesAllSimulations ) {
   manager.initializeForPopulation( road, population );
 
   EXPECT_FALSE( manager.isFinished() );
-  EXPECT_TRUE( manager.liveSimulationsCount() > 0);
+  EXPECT_TRUE( manager.liveSimulationsCount() > 0 );
 
   // After enough time all simulations finish
   for( int i = 0; i < 1000; ++i ) {
