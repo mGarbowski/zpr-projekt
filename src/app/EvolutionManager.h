@@ -12,12 +12,21 @@
 #ifndef EVOLUTIONMANAGER_H
 #define EVOLUTIONMANAGER_H
 
+#include <optional>
+
 #include "Evolution.h"
 #include "FitnessFunction.h"
 #include "RoadGenerator.h"
 #include "SimulationsManager.h"
 #include "mutation/GaussianMutationScheme.h"
 #include "reproduction/ProportionalReproductionScheme.h"
+
+struct BestCar {
+  CarDescription description_;
+  float distance_;
+  int iterations_;
+  float fitness_;
+};
 
 class EvolutionManager {
  public:
@@ -30,7 +39,8 @@ class EvolutionManager {
         evolution_( std::move( evolution ) ),
         population_( std::move( population ) ),
         fitness_function_( std::move( fitness_function ) ),
-        generation_( 0 ) {}
+        generation_( 0 ),
+        best_car_( std::nullopt ) {}
 
   int generation() const;
 
@@ -39,6 +49,8 @@ class EvolutionManager {
   void update();
 
   void initializeSimulationsForNewGeneration();
+
+  std::optional<BestCar> bestCar() const;
 
  private:
   std::vector<float> calculateFitness() const;
@@ -52,6 +64,7 @@ class EvolutionManager {
   Population population_;
   FitnessFunction fitness_function_;
   int generation_;
+  std::optional<BestCar> best_car_;
 };
 
 #endif  // EVOLUTIONMANAGER_H

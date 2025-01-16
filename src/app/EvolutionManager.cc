@@ -36,6 +36,9 @@ void EvolutionManager::initializeSimulationsForNewGeneration() {
   const auto road = road_generator_->generateRoad();
   simulations_manager_.initializeForPopulation( road, population_ );
 }
+std::optional<BestCar> EvolutionManager::bestCar() const {
+  return best_car_;
+}
 
 std::vector<float> EvolutionManager::calculateFitness() const {
   std::vector<float> fitness;
