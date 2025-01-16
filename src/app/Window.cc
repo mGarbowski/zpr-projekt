@@ -58,15 +58,6 @@ void Window::drawSimulation( const EvolutionManager& evolution_manager,
   drawBestCar( evolution_manager, control_panel );
 }
 
-sf::Transform Window::box2dToSFML( int window_width, int window_height, float scale,
-                                   Position tracked_position ) {
-  sf::Transform transform;
-  transform.translate( window_width / 2, window_height / 2 );
-  transform.scale( scale, -scale );
-  transform.translate( -tracked_position.x_, -tracked_position.y_ );
-  return transform;
-}
-
 Window::Window( const unsigned int width, const unsigned int height, const float scale,
                 const sf::ContextSettings& settings, const sf::Transform& camera_transform,
                 const sf::Color car_color )

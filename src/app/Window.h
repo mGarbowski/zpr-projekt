@@ -28,17 +28,6 @@ class Window {
                        const ControlPanel& control_panel );
 
  private:
-  /**
-   * @brief Create a matrix for transforming box2d simulation coordinates to SFML window coordinates
-   * @param window_width Width of the SFML window
-   * @param window_height Height of the SFML window
-   * @param scale Scale factor for the transformation
-   * @param tracked_position Position to track in box2d coordinates (the best car position)
-   * @return SFML Transform matrix
-   */
-  static sf::Transform box2dToSFML( int window_width, int window_height, float scale,
-                                    Position tracked_position = { 0, 0 } );
-
   Window( unsigned int width, unsigned int height, float scale, const sf::ContextSettings& settings,
           const sf::Transform& camera_transform, sf::Color car_color );
 

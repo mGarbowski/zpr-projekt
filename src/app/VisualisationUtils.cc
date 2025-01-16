@@ -5,6 +5,15 @@
 
 #include "VisualisationUtils.h"
 
+sf::Transform box2dToSFML( const int window_width, const int window_height, const float scale,
+                           const Position tracked_position ) {
+  sf::Transform transform;
+  transform.translate( window_width / 2, window_height / 2 );
+  transform.scale( scale, -scale );
+  transform.translate( -tracked_position.x_, -tracked_position.y_ );
+  return transform;
+}
+
 sf::Vector2f asVector( const Position& position ) {
   return sf::Vector2f( position.x_, position.y_ );
 }
@@ -49,4 +58,3 @@ sf::ConvexShape createTriangle( const TriangleRot& triangle, const Position posi
 
   return shape;
 }
-
