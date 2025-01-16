@@ -33,6 +33,14 @@ ReproductionParams ConfigurationPanel::reproductionParams() const {
   return reproduction_params_;
 }
 
+SuccessionVariant ConfigurationPanel::successionVariant() const {
+  return succession_variant_;
+}
+
+SuccessionParams ConfigurationPanel::successionParams() const {
+  return succession_params_;
+}
+
 RoadGenParams ConfigurationPanel::roadGenParams() const {
   return road_gen_params_;
 }

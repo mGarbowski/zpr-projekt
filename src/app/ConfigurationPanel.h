@@ -41,6 +41,8 @@ class ConfigurationPanel {
   MutationParams mutationParams() const;
   ReproductionVariant reproductionVariant() const;
   ReproductionParams reproductionParams() const;
+  SuccessionVariant successionVariant() const;
+  SuccessionParams successionParams() const;
   RoadGenParams roadGenParams() const;
   float gravity() const;
 
