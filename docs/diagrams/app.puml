@@ -1,0 +1,170 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package app {
+    class BestCarParamsPanel <<UI>> {
+        + BestCarParamsPanel()
+        + void render()
+        + void update(const EvolutionManager& evolution_manager)
+        - void renderEmpty()
+        - void renderNormal()
+        - std::optional<BestCar> best_car_
+    }
+
+    class ConfigurationPanel <<UI>> {
+        + ConfigurationPanel()
+        + int populationSize() const
+        + bool shouldStartEvolution() const
+        + MutationVariant mutationVariant() const
+        + MutationParams mutationParams() const
+        + ReproductionVariant reproductionVariant() const
+        + ReproductionParams reproductionParams() const
+        + SuccessionVariant successionVariant() const
+        + SuccessionParams successionParams() const
+        + RoadGenParams roadGenParams() const
+        + float gravity() const
+        + float distanceWeight() const
+        + float speedWeight() const
+        + int computationLimit() const
+        + void render()
+        - void renderFitnessFunctionControls()
+        - void renderMutationControls()
+        - void renderReproductionControls()
+        - void renderSuccessionControls()
+        - void adjustSuccessionParamsType()
+        - void adjustReproductionParamsType()
+        - void adjustMutationParamsType()
+        - void renderRoadGeneratorControls()
+        - void renderSimulationControls()
+        - int population_size_
+        - bool start_evolution_
+        - MutationVariant mutation_variant_
+        - MutationParams mutation_params_
+        - ReproductionVariant reproduction_variant_
+        - ReproductionParams reproduction_params_
+        - SuccessionVariant succession_variant_
+        - SuccessionParams succession_params_
+        - float gravity_
+        - RoadGenParams road_gen_params_
+        - float distance_weight_
+        - float speed_weight_
+        - int computation_limit_
+    }
+
+    class ControlPanel <<UI>> {
+        + ControlPanel()
+        + bool getRunning() const
+        + sf::Color getCarColor() const
+        + sf::Color getRoadColor() const
+        + bool isDisplayEnabled() const
+        + int getDelayMicroseconds() const
+        + void render()
+        - sf::Color car_color_
+        - sf::Color road_color_
+        - bool is_running_
+        - int dropdown_1_current_
+        - int dropdown_2_current_
+        - bool is_display_enabled_
+        - float simulation_speed_percent_
+    }
+
+    class DebugInfoPanel <<UI>> {
+        + void update(const EvolutionManager& evolution_manager)
+        + void render() const
+        - Position best_car_position_
+        - int generation_number_
+        - int active_cars_count_
+    }
+
+    class EvolutionManager {
+        + EvolutionManager( std::mt19937 random_generator, SimulationsManager simulations_manager, URoadGenerator road_generator, Evolution evolution, Population population, FitnessFunction fitness_function )
+        + int generation() const
+        + SimulationsManager simulationsManager() const
+        + void update()
+        + void initializeSimulationsForNewGeneration()
+        + std::optional<BestCar> bestCar() const
+        - std::vector<float> calculateFitness() const
+        - void handleEndOfSimulation()
+        - void updateBestCar( std::vector<float> fitness )
+        - std::mt19937 random_generator_
+        - SimulationsManager simulations_manager_
+        - URoadGenerator road_generator_
+        - Evolution evolution_
+        - Population population_
+        - FitnessFunction fitness_function_
+        - int generation_
+        - std::optional<BestCar> best_car_
+    }
+
+    class EvolutionManagerFactory {
+        + {static} EvolutionManager create( const ConfigurationPanel& configuration_panel, std::mt19937 rng )
+    }
+
+    class FitnessFunction {
+        + FitnessFunction( const float distance_weight, const float speed_weight)
+        + float calculateFitness( const CarSimulation& simulation ) const
+        - float distance_weight_
+        - float speed_weight_
+    }
+
+    class SimulationsManager {
+        + SimulationsManager( std::vector<CarSimulation> simulations )
+        + SimulationsManager( const float gravity, const int computation_limit )
+        + void initializeForPopulation( const Road& road_model, const Population& population )
+        + void update()
+        + std::vector<CarSimulation> simulations() const
+        + Position getBestCarPosition() const
+        + int liveSimulationsCount() const
+        + RoadModel getRoadModel() const
+        + bool isFinished() const
+        - std::vector<CarSimulation> simulations_
+        - int live_simulations_count_
+        - float gravity_
+        - int computation_limit
+    }
+
+    class VisualisationUtils {
+        + {static} sf::Transform box2dToSFML( int window_width, int window_height, float scale, Position tracked_position)
+        + {static} sf::Vector2f asVector( const Position& position )
+        + {static} sf::CircleShape createCircle( const CircleRot& circle, sf::Color outline_color, sf::Color fill_color )
+        + {static} sf::VertexArray createLine( const b2Vec2& start, const b2Vec2& end, Position position, sf::Color color = sf::Color::White )
+        + {static} sf::ConvexShape createTriangle( const TriangleRot& triangle, Position position, sf::Color color = sf::Color::White )
+    }
+
+    class Window {
+        + {static} Window create( unsigned int width, unsigned int height, float scale )
+        + bool isOpen() const
+        + void onStartOfFrame()
+        + void onEndOfFrame()
+        + void drawSimulation( const EvolutionManager& evolution_manager, const ControlPanel& control_panel )
+        - Window( unsigned int width, unsigned int height, float scale, const sf::ContextSettings& settings, const sf::Transform& camera_transform, sf::Color car_color )
+        - void drawCar( const CarSimulation& simulation )
+        - void drawCarChassis( const CarChassis& car_chassis )
+        - void drawBestCar( const EvolutionManager& evolution_manager )
+        - void drawCarFromDescription( const CarDescription& description, Position position, sf::Transform transform )
+        - void drawRoad( const RoadModel& road_model, sf::Color color )
+        - void processEvents()
+        - unsigned int width_
+        - unsigned int height_
+        - float scale_
+        - sf::RenderWindow window_
+        - sf::Clock clock_
+        - sf::Transform camera_transform_
+        - sf::Color car_color_
+    }
+
+    EvolutionManagerFactory <.. EvolutionManager
+    EvolutionManagerFactory <.. ConfigurationPanel
+
+    EvolutionManager *-- SimulationsManager
+    EvolutionManager *-- FitnessFunction
+
+    Window <.. VisualisationUtils
+    Window <.. EvolutionManager
+    Window <.. ControlPanel
+
+    DebugInfoPanel <.. EvolutionManager
+    BestCarParamsPanel <.. EvolutionManager
+}
+
+@enduml
