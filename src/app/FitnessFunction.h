@@ -10,14 +10,14 @@
 
 class FitnessFunction {
  public:
-  explicit FitnessFunction( const float distance_weight = 1.0f, const float time_weight = 1.0f )
-      : distance_weight_( distance_weight ), time_weight_( time_weight ) {}
+  explicit FitnessFunction( const float distance_weight = 1.0f, const float speed_weight = 1.0f )
+      : distance_weight_( distance_weight ), speed_weight_( speed_weight ) {}
 
   float calculateFitness( const CarSimulation& simulation ) const;
 
  private:
   float distance_weight_;
-  float time_weight_;
+  float speed_weight_;
 };
 
 #endif  // FITNESSFUNCTION_H

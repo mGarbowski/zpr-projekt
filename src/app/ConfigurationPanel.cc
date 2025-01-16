@@ -81,11 +81,21 @@ float ConfigurationPanel::gravity() const {
   return gravity_;
 }
 
+float ConfigurationPanel::distanceWeight() const {
+  return distance_weight_;
+}
+
+float ConfigurationPanel::speedWeight() const {
+  return speed_weight_;
+}
+
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 
   ImGui::SeparatorText( "Evolution" );
   ImGui::SliderInt( "Population Size", &population_size_, 1, 50 );
+
+  renderFitnessFunctionControls();
 
   renderReproductionControls();
   renderMutationControls();
@@ -101,6 +111,11 @@ void ConfigurationPanel::render() {
   }
 
   ImGui::End();
+}
+void ConfigurationPanel::renderFitnessFunctionControls() {
+  ImGui::SeparatorText( "Fitness function" );
+  ImGui::SliderFloat( "Distance Weight", &distance_weight_, 1.0, 100.0 );
+  ImGui::SliderFloat( "Speed weight", &speed_weight_, 1.0, 100.0 );
 }
 
 void ConfigurationPanel::renderMutationControls() {

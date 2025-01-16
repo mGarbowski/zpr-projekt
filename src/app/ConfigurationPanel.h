@@ -33,7 +33,9 @@ class ConfigurationPanel {
         succession_variant_( SuccessionVariant::GENERATION ),
         succession_params_( GenerationSuccessionParams{} ),
         gravity_( 9.81 ),
-        road_gen_params_( RoadGenParams{ 50, 200, 20, 10, 8 } ) {}
+        road_gen_params_( RoadGenParams{ 50, 200, 20, 10, 8 } ),
+        distance_weight_( 1.0 ),
+        speed_weight_( 1.0 ) {}
 
   int populationSize() const;
   bool shouldStartEvolution() const;
@@ -45,10 +47,13 @@ class ConfigurationPanel {
   SuccessionParams successionParams() const;
   RoadGenParams roadGenParams() const;
   float gravity() const;
+  float distanceWeight() const;
+  float speedWeight() const;
 
   void render();
 
  private:
+  void renderFitnessFunctionControls();
   void renderMutationControls();
   void renderReproductionControls();
   void renderSuccessionControls();
@@ -68,6 +73,8 @@ class ConfigurationPanel {
   SuccessionParams succession_params_;
   float gravity_;
   RoadGenParams road_gen_params_;
+  float distance_weight_;
+  float speed_weight_;
 };
 
 #endif  // CONFIGURATIONPANEL_H
