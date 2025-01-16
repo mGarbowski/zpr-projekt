@@ -55,7 +55,7 @@ void Window::drawSimulation( const EvolutionManager& evolution_manager,
 
   const auto ground = evolution_manager.simulationsManager().getRoadModel();
   drawRoad( ground, control_panel.getRoadColor() );
-  drawBestCar( evolution_manager, control_panel );
+  drawBestCar( evolution_manager );
 }
 
 Window::Window( const unsigned int width, const unsigned int height, const float scale,
@@ -98,8 +98,7 @@ void Window::drawCarChassis( const CarChassis& car_chassis ) {
   }
 }
 
-void Window::drawBestCar( const EvolutionManager& evolution_manager,
-                          const ControlPanel& control_panel ) {
+void Window::drawBestCar( const EvolutionManager& evolution_manager ) {
   if( !evolution_manager.bestCar().has_value() ) {
     return;
   }

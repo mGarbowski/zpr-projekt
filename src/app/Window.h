@@ -33,7 +33,7 @@ class Window {
 
   void drawCar( const CarSimulation& simulation );
   void drawCarChassis( const CarChassis& car_chassis );
-  void drawBestCar( const EvolutionManager& evolution_manager, const ControlPanel& control_panel );
+  void drawBestCar( const EvolutionManager& evolution_manager );
   void drawCarFromDescription( const CarDescription& description, Position position,
                                sf::Transform transform );
   void drawRoad( const RoadModel& road_model, sf::Color color );
