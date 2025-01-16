@@ -7,6 +7,7 @@
 #ifndef POSITION_H
 #define POSITION_H
 
+#include <string>
 #include <utility>
 
 struct Position {
@@ -15,6 +16,8 @@ struct Position {
   bool operator==( const Position& other ) const;
 
   std::pair<float, float> asPair() const;
+
+  std::string toString() const;
 
   float x_;
   float y_;

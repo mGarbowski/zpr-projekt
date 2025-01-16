@@ -25,4 +25,9 @@ TEST( Position, asPair ) {
   EXPECT_EQ( expected_pair, position.asPair() );
 }
 
+TEST(Position, toString) {
+  const Position position( 1.2345, 2.789 );
+  EXPECT_EQ( "(1.23, 2.79)", position.toString());
+}
+
 }  // namespace PositionUnitTest
