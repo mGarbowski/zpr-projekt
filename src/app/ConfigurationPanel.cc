@@ -7,6 +7,7 @@
 #include "ConfigurationPanel.h"
 
 #include <imgui.h>
+#include <succession/SuccessionSchemeFactory.h>
 
 int ConfigurationPanel::populationSize() const {
   return population_size_;
@@ -48,6 +49,7 @@ void ConfigurationPanel::render() {
   ImGui::Text( "Evolution parameters:" );
   renderReproductionControls();
   renderMutationControls();
+  renderSuccessionControls();
 
   renderRoadGeneratorControls();
   renderGravityControl();
@@ -91,6 +93,50 @@ void ConfigurationPanel::renderReproductionControls() {
       break;
     }
     case ReproductionVariant::RANDOM: {
+      break;
+    }
+  }
+}
+
+void ConfigurationPanel::renderSuccessionControls() {
+  ImGui::SeparatorText( "Succession" );
+
+  const char* succession_variants[] = { "Generation", "Elitist" };
+  int current_variant = static_cast<int>( succession_variant_ );
+  if( ImGui::Combo( "Succession Variant", &current_variant, succession_variants,
+                    IM_ARRAYSIZE( succession_variants ) ) ) {
+    succession_variant_ = static_cast<SuccessionVariant>( current_variant );
+  }
+
+  adjustSuccessionParamsType();
+  switch( succession_variant_ ) {
+    case SuccessionVariant::GENERATION: {
+      break;
+    }
+    case SuccessionVariant::ELITIST: {
+      auto& params = std::get<ElitistSuccessionParams>( succession_params_ );
+      ImGui::SliderInt( "Elite Size", &params.elite_size_, 1, population_size_ );
+      break;
+    }
+  }
+}
+
+void ConfigurationPanel::adjustSuccessionParamsType() {
+  switch( succession_variant_ ) {
+    case SuccessionVariant::GENERATION: {
+      try {
+        std::get<GenerationSuccessionParams>( succession_params_ );
+      } catch( std::bad_variant_access error ) {
+        succession_params_ = GenerationSuccessionParams{};
+      }
+      break;
+    }
+    case SuccessionVariant::ELITIST: {
+      try {
+        std::get<ElitistSuccessionParams>( succession_params_ );
+      } catch( std::bad_variant_access error ) {
+        succession_params_ = ElitistSuccessionParams{ 1 };
+      }
       break;
     }
   }

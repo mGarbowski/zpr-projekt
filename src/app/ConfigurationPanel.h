@@ -7,6 +7,7 @@
 #ifndef CONFIGURATIONPANEL_H
 #define CONFIGURATIONPANEL_H
 
+#include <succession/SuccessionSchemeFactory.h>
 #include <variant>
 
 #include "mutation/MutationSchemeFactory.h"
@@ -29,8 +30,10 @@ class ConfigurationPanel {
         mutation_params_( GaussianMutationParams{ 0.1 } ),
         reproduction_variant_( ReproductionVariant::PROPORTIONAL ),
         reproduction_params_( ProportionalReproductionParams{} ),
-        road_gen_params_( RoadGenParams{ 50, 200, 20, 10, 8 } ),
-        gravity_( 9.81 ) {}
+        succession_variant_( SuccessionVariant::GENERATION ),
+        succession_params_( GenerationSuccessionParams{} ),
+        gravity_( 9.81 ),
+        road_gen_params_( RoadGenParams{ 50, 200, 20, 10, 8 } ) {}
 
   int populationSize() const;
   bool shouldStartEvolution() const;
@@ -46,6 +49,8 @@ class ConfigurationPanel {
  private:
   void renderMutationControls();
   void renderReproductionControls();
+  void renderSuccessionControls();
+  void adjustSuccessionParamsType();
   void adjustReproductionParamsType();
   void renderRoadGeneratorControls();
   void renderGravityControl();
@@ -56,6 +61,8 @@ class ConfigurationPanel {
   MutationParams mutation_params_;
   ReproductionVariant reproduction_variant_;
   ReproductionParams reproduction_params_;
+  SuccessionVariant succession_variant_;
+  SuccessionParams succession_params_;
   float gravity_;
   RoadGenParams road_gen_params_;
 };
