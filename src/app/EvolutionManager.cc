@@ -11,6 +11,7 @@
 
 #include "EvolutionManager.h"
 
+#include <algorithm>
 #include <iostream>
 
 #include "PerlinRoadGenerator.h"
@@ -53,10 +54,24 @@ void EvolutionManager::handleEndOfSimulation() {
   ++generation_;
 
   const auto fitness = calculateFitness();
+  updateBestCar( fitness );
+
   population_ = evolution_.evolve( population_, fitness );
   for( auto& specimen : population_ ) {
     specimen.clampAttributes();
   }
 
   initializeSimulationsForNewGeneration();
+}
+
+void EvolutionManager::updateBestCar( std::vector<float> fitness ) {
+  const auto best_car_idx = std::distance(fitness.begin(), std::max_element(fitness.begin(), fitness.end()));
+  const auto simulation = simulations_manager_.simulations()[best_car_idx];
+
+  const auto description = population_[best_car_idx].carDescription();
+  const auto distance = simulation.getCarChassis().getPosition().x_;
+  const auto iterations = simulation.getTotalSteps();
+  const auto best_fitness = fitness[best_car_idx];
+
+  best_car_ = BestCar{description, distance, iterations, best_fitness};
 }

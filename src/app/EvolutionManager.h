@@ -57,6 +57,8 @@ class EvolutionManager {
 
   void handleEndOfSimulation();
 
+  void updateBestCar(std::vector<float> fitness);
+
   std::mt19937 random_generator_;
   SimulationsManager simulations_manager_;
   URoadGenerator road_generator_;
