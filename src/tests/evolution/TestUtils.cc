@@ -32,7 +32,17 @@ Specimen givenSpecimen( const int i ) {
 }
 
 void assertContainsElement( const Population& population, const Specimen& specimen ) {
-  if( std::find( population.begin(), population.end(), specimen ) == population.end() ) {
+  if( !containsElement( population, specimen ) ) {
     FAIL() << "Population does not contain specimen";
   }
+}
+
+void assertDoesNotContainElement( const Population& population, const Specimen& specimen ) {
+  if( containsElement( population, specimen ) ) {
+    FAIL() << "Population contains specimen";
+  }
+}
+
+bool containsElement( const Population& population, const Specimen& specimen ) {
+  return std::find( population.begin(), population.end(), specimen ) != population.end();
 }
