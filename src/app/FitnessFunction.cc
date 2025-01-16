@@ -6,9 +6,7 @@
 
 #include "FitnessFunction.h"
 float FitnessFunction::calculateFitness( const CarSimulation& simulation ) const {
-  const auto distance = simulation.getCarChassis().getPosition().x_;
-  const auto steps = simulation.getTotalSteps();
-  const auto speed = distance / ( steps + 1 );  // +1 to avoid division by 0
-
+  const auto distance = simulation.getDistance();
+  const auto speed = simulation.getSpeed();
   return distance * distance_weight_ + speed * speed_weight_;
 }
