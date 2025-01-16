@@ -19,8 +19,8 @@ EvolutionManager EvolutionManagerFactory::create( const ConfigurationPanel& conf
       road_gen_params.length_, road_gen_params.grid_size_, road_gen_params.layers_,
       road_gen_params.scale_y_, road_gen_params.scale_x_ );
 
-  UReproductionScheme reproduction_scheme = ReproductionSchemeFactory::create(
-      configuration_panel.reproductionVariant(), configuration_panel.reproductionParams(), rng );
+  UReproductionScheme reproduction_scheme =
+      ReproductionSchemeFactory::create( configuration_panel.reproductionParams(), rng );
   UMutationScheme mutation_scheme = MutationSchemeFactory::create(
       configuration_panel.mutationVariant(), configuration_panel.mutationParams(), rng );
 
