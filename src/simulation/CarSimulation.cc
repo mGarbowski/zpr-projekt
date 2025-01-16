@@ -100,6 +100,14 @@ int CarSimulation::getTotalSteps() const {
   return total_steps_;
 }
 
+float CarSimulation::getDistance() const {
+  return getCarChassis().getPosition().x_;
+}
+
+float CarSimulation::getSpeed() const {
+  return getDistance() / ( total_steps_ + 1 );  // Avoid division by 0
+}
+
 bool CarSimulation::isFinished() const {
   float car_x = getCarChassis().getPosition().x_;
   float road_end_x = getRoadModel().getEnd().x_;
