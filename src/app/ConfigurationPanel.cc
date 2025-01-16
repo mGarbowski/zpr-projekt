@@ -114,8 +114,8 @@ void ConfigurationPanel::render() {
 }
 void ConfigurationPanel::renderFitnessFunctionControls() {
   ImGui::SeparatorText( "Fitness function" );
-  ImGui::SliderFloat( "Distance Weight", &distance_weight_, 1.0, 100.0 );
-  ImGui::SliderFloat( "Speed weight", &speed_weight_, 1.0, 100.0 );
+  ImGui::SliderFloat( "Distance Weight", &distance_weight_, 1.0, 5000.0 );
+  ImGui::SliderFloat( "Speed weight", &speed_weight_, 1.0, 5000.0 );
 }
 
 void ConfigurationPanel::renderMutationControls() {

@@ -35,7 +35,7 @@ class ConfigurationPanel {
         gravity_( 9.81 ),
         road_gen_params_( RoadGenParams{ 50, 200, 20, 10, 8 } ),
         distance_weight_( 1.0 ),
-        speed_weight_( 1.0 ) {}
+        speed_weight_( 1000.0 ) {}
 
   int populationSize() const;
   bool shouldStartEvolution() const;
