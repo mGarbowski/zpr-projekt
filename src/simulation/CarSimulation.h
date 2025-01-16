@@ -18,7 +18,7 @@
 class CarSimulation {
  public:
   static CarSimulation create( const CarDescription& car_description, const Road road,
-                               float gravity = 9.81 );
+                               float gravity = 9.81, int total_steps_limit = 10000 );
 
   /**
    * Does not destroy the Box2D world.
@@ -30,10 +30,13 @@ class CarSimulation {
   RoadModel getRoadModel() const;
   CircleRot getRearWheelCircle() const;
   CircleRot getFrontWheelCircle() const;
-
   CarChassis getCarChassis() const;
-  bool isFinished() const;
+
+  bool isEndOfRoadReached() const;
   bool isStuck() const;
+  bool isComputationLimitReached() const;
+  bool isFinished() const;
+
   int getTotalSteps() const;
   float getDistance() const;
   float getSpeed() const;
@@ -53,6 +56,7 @@ class CarSimulation {
    * @param rear_joint_id
    * @param front_joint_id
    * @param car_chassis
+   * @param total_steps_limit - maximum number of steps before simulation is stopped
    * @param max_stuck_steps - maximum amount of steps a car can not advance forward
    * @param min_move_distance - minimum distance car has to move in max_stuck_steps to not be
    * considered stuck
@@ -61,7 +65,7 @@ class CarSimulation {
   CarSimulation( b2WorldId world_id, const float time_step, const int sub_step_count,
                  RoadModel road_model, b2BodyId rear_wheel_id, b2BodyId front_wheel_id,
                  b2JointId rear_joint_id, b2JointId front_joint_id, const CarChassis car_chassis,
-                 int max_stuck_steps = 400, float min_move_distance = 0.2f,
+                 int total_steps_limit, int max_stuck_steps = 400, float min_move_distance = 0.2f,
                  int max_steps_lifespan = 0 )
       : world_id_( std::move( world_id ) ),
         time_step_( time_step ),
@@ -76,8 +80,9 @@ class CarSimulation {
         max_distance_( 0 ),
         max_stuck_steps_( max_stuck_steps ),
         min_move_distance_( min_move_distance ),
+        max_steps_lifespan_( max_steps_lifespan ),
         total_steps_( 0 ),
-        max_steps_lifespan_( max_steps_lifespan ) {}
+        total_steps_limit_( total_steps_limit ) {}
 
   b2WorldId world_id_;
   float time_step_;
@@ -94,6 +99,7 @@ class CarSimulation {
   float min_move_distance_;
   int max_steps_lifespan_;
   int total_steps_;
+  int total_steps_limit_;
 };
 
 #endif  // CARSIMULATION_H

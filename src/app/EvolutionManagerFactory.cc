@@ -14,7 +14,8 @@ EvolutionManager EvolutionManagerFactory::create( const ConfigurationPanel& conf
   auto population = Specimen::createRandomPopulation( configuration_panel.populationSize(), rng );
   auto fitness_function =
       FitnessFunction( configuration_panel.distanceWeight(), configuration_panel.speedWeight() );
-  auto simulations_manager = SimulationsManager( configuration_panel.gravity() );
+  auto simulations_manager =
+      SimulationsManager( configuration_panel.gravity(), configuration_panel.computationLimit() );
   auto road_gen_params = configuration_panel.roadGenParams();
   auto road_generator = std::make_unique<PerlinRoadGenerator>(
       road_gen_params.length_, road_gen_params.grid_size_, road_gen_params.layers_,

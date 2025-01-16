@@ -7,7 +7,8 @@ namespace SimulationsManagerUnitTest {
 
 SimulationsManager givenManager() {
   constexpr auto gravity = 9.81;
-  return SimulationsManager( gravity );
+  constexpr auto computation_limit = 10000;
+  return SimulationsManager( gravity, computation_limit );
 }
 
 TEST( SimulationsManager, initializeForPopulation ) {

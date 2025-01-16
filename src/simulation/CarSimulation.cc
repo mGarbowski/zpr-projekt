@@ -11,7 +11,7 @@
 #include "Utils.h"
 
 CarSimulation CarSimulation::create( const CarDescription& car_description, Road road,
-                                     float gravity ) {
+                                     float gravity, int total_steps_limit ) {
   constexpr auto time_step = 1.0f / 60.0f;
   constexpr auto sub_step_count = 4;
 
@@ -59,7 +59,8 @@ CarSimulation CarSimulation::create( const CarDescription& car_description, Road
   const RoadModel road_model = RoadModel::create( world_id, road, { -1, -10 } );
 
   return CarSimulation( world_id, time_step, sub_step_count, road_model, rear_wheel_id,
-                        front_wheel_id, rear_joint_id, front_joint_id, car_chassis );
+                        front_wheel_id, rear_joint_id, front_joint_id, car_chassis,
+                        total_steps_limit );
 }
 
 void CarSimulation::step() {
@@ -95,6 +96,15 @@ bool CarSimulation::isStuck() const {
   const bool life_over = ( max_steps_lifespan_ != 0 && total_steps_ > max_steps_lifespan_ );
   return stuck || life_over;
 }
+
+bool CarSimulation::isComputationLimitReached() const {
+  return total_steps_ >= total_steps_limit_;
+}
+
+bool CarSimulation::isFinished() const {
+  return isEndOfRoadReached() || isStuck() || isComputationLimitReached();
+}
+
 int CarSimulation::getTotalSteps() const {
   return total_steps_;
 }
@@ -107,7 +117,7 @@ float CarSimulation::getSpeed() const {
   return getDistance() / ( total_steps_ + 1 );  // Avoid division by 0
 }
 
-bool CarSimulation::isFinished() const {
+bool CarSimulation::isEndOfRoadReached() const {
   const float car_x = getDistance();
   const float road_end_x = getRoadModel().getEnd().x_;
   return ( car_x > road_end_x );
