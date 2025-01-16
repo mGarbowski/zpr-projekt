@@ -65,8 +65,8 @@ CarSimulation CarSimulation::create( const CarDescription& car_description, Road
 
 void CarSimulation::step() {
   b2World_Step( world_id_, time_step_, sub_step_count_ );
-  if( getCarChassis().getPosition().x_ > max_distance_ + min_move_distance_ ) {
-    max_distance_ = getCarChassis().getPosition().x_;
+  if( getDistance() > max_distance_ + min_move_distance_ ) {
+    max_distance_ = getDistance();
     stuck_steps_ = 0;
   } else {
     stuck_steps_++;
@@ -109,7 +109,7 @@ float CarSimulation::getSpeed() const {
 }
 
 bool CarSimulation::isFinished() const {
-  float car_x = getCarChassis().getPosition().x_;
+  float car_x = getDistance();
   float road_end_x = getRoadModel().getEnd().x_;
   return ( car_x > road_end_x );
 }
