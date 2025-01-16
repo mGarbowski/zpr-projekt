@@ -105,6 +105,6 @@ void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulatio
                         const sf::Transform& transform, sf::Color car_color = sf::Color::White );
 
 void drawCarDescription( sf::RenderWindow& window, const CarDescription& description,
-                   const sf::Transform& transform, sf::Color car_color, sf::Vector2f position );
+                   const sf::Transform& transform, sf::Color car_color, Position position );
 
 #endif  // VISUALISATIONUTILS_H
