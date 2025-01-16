@@ -21,6 +21,16 @@ struct SuccessionControlsVisitor {
   int max_elite_size_;
 };
 
+struct ReproductionParamsVisitor {
+  void operator()( ProportionalReproductionParams& params ) const {}
+
+  void operator()( TournamentReproductionParams& params ) const {
+    ImGui::SliderInt( "Tournament Size", &params.tournament_size_, 1, 15 );
+  }
+
+  void operator()( RandomReproductionParams& params ) const {}
+};
+
 int ConfigurationPanel::populationSize() const {
   return population_size_;
 }
@@ -107,21 +117,10 @@ void ConfigurationPanel::renderReproductionControls() {
   if( ImGui::Combo( "Reproduction Variant", &current_variant, reproduction_variants,
                     IM_ARRAYSIZE( reproduction_variants ) ) ) {
     reproduction_variant_ = static_cast<ReproductionVariant>( current_variant );
+    adjustReproductionParamsType();
   }
 
-  adjustReproductionParamsType();
-  switch( reproduction_variant_ ) {
-    case ReproductionVariant::TOURNAMENT: {
-      auto& params = std::get<TournamentReproductionParams>( reproduction_params_ );
-      ImGui::SliderInt( "Torunament Size", &params.tournament_size_, 1, 15 );
-    }
-    case ReproductionVariant::PROPORTIONAL: {
-      break;
-    }
-    case ReproductionVariant::RANDOM: {
-      break;
-    }
-  }
+  std::visit( ReproductionParamsVisitor{}, reproduction_params_ );
 }
 
 void ConfigurationPanel::renderSuccessionControls() {
@@ -151,30 +150,15 @@ void ConfigurationPanel::adjustSuccessionParamsType() {
 
 void ConfigurationPanel::adjustReproductionParamsType() {
   switch( reproduction_variant_ ) {
-    case ReproductionVariant::TOURNAMENT: {
-      try {
-        std::get<TournamentReproductionParams>( reproduction_params_ );
-      } catch( std::bad_variant_access error ) {
-        reproduction_params_ = TournamentReproductionParams{ 1 };
-      }
+    case ReproductionVariant::TOURNAMENT:
+      reproduction_params_ = TournamentReproductionParams{ 1 };
       break;
-    }
-    case ReproductionVariant::PROPORTIONAL: {
-      try {
-        std::get<ProportionalReproductionParams>( reproduction_params_ );
-      } catch( std::bad_variant_access error ) {
-        reproduction_params_ = ProportionalReproductionParams{};
-      }
+    case ReproductionVariant::PROPORTIONAL:
+      reproduction_params_ = ProportionalReproductionParams{};
       break;
-    }
-    case ReproductionVariant::RANDOM: {
-      try {
-        std::get<RandomReproductionParams>( reproduction_params_ );
-      } catch( std::bad_variant_access error ) {
-        reproduction_params_ = RandomReproductionParams{};
-      }
+    case ReproductionVariant::RANDOM:
+      reproduction_params_ = RandomReproductionParams{};
       break;
-    }
   }
 }
 
