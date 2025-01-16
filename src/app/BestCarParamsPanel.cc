@@ -9,7 +9,7 @@
 #include <imgui.h>
 
 void BestCarParamsPanel::render() {
-  if (!best_car_.has_value()) {
+  if( !best_car_.has_value() ) {
     renderEmpty();
     return;
   }
@@ -23,7 +23,7 @@ void BestCarParamsPanel::update( const EvolutionManager& evolution_manager ) {
 
 void BestCarParamsPanel::renderEmpty() {
   ImGui::Begin( "Best Car so far" );
-  ImGui::Text( "Wait for the end of the first generation" );
+  ImGui::Text( "No data" );
   ImGui::End();
 }
 
@@ -33,6 +33,7 @@ void BestCarParamsPanel::renderNormal() {
   ImGui::Text( "Fitness: %.2f", best_car_->fitness_ );
   ImGui::Text( "Distance: %.2f", best_car_->distance_ );
   ImGui::Text( "Iterations (time): %d", best_car_->iterations_ );
+  ImGui::Text( "Generation: %d", best_car_->generation_ );
 
   ImGui::SeparatorText( "Chassis vertices" );
   ImGui::Text( "Top left: %s", best_car_->description_.topLeft().toString().c_str() );

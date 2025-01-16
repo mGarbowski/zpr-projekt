@@ -26,6 +26,7 @@ struct BestCar {
   float distance_;
   int iterations_;
   float fitness_;
+  int generation_;
 };
 
 class EvolutionManager {
@@ -57,7 +58,7 @@ class EvolutionManager {
 
   void handleEndOfSimulation();
 
-  void updateBestCar(std::vector<float> fitness);
+  void updateBestCar( std::vector<float> fitness );
 
   std::mt19937 random_generator_;
   SimulationsManager simulations_manager_;
