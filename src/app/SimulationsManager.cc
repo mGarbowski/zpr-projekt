@@ -13,7 +13,7 @@ SimulationsManager::SimulationsManager( const Road& road_model, const int popula
 
   for( int i = 0; i < population_size; ++i ) {
     simulations_.push_back(
-        CarSimulation::create( CarDescription::random( gen ), road_model, gravity_ ) );
+        CarSimulation::create( CarDescription::random( gen ), road_model, gravity_, computation_limit_ ) );
   }
 
   live_simulations_count_ = population_size;
@@ -29,7 +29,7 @@ void SimulationsManager::initializeForPopulation( const Road& road_model,
 
   for( const auto& specimen : population ) {
     simulations_.push_back(
-        CarSimulation::create( specimen.carDescription(), road_model, gravity_ ) );
+        CarSimulation::create( specimen.carDescription(), road_model, gravity_, computation_limit_ ) );
   }
 
   live_simulations_count_ = population.size();
@@ -39,7 +39,7 @@ void SimulationsManager::update() {
   auto live_simulations = 0;
 
   for( auto& simulation : simulations_ ) {
-    if( simulation.isStuck() || simulation.isFinished() ) {
+    if( simulation.isFinished() ) {
       continue;
     }
     ++live_simulations;
@@ -54,8 +54,7 @@ std::vector<CarSimulation> SimulationsManager::simulations() const {
 Position SimulationsManager::getBestCarPosition() const {
   Position best_position = { 0, 0 };
   for( const auto& simulation : simulations_ ) {
-    if( !simulation.isStuck() && !simulation.isFinished() &&
-        simulation.getDistance() > best_position.x_ ) {
+    if( !simulation.isFinished() && simulation.getDistance() > best_position.x_ ) {
       best_position = simulation.getCarChassis().getPosition();
     }
   }

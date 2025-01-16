@@ -17,11 +17,15 @@ class SimulationsManager {
   explicit SimulationsManager( std::vector<CarSimulation> simulations )
       : simulations_( std::move( simulations ) ),
         live_simulations_count_( simulations.size() ),
-        gravity_( 9.81 ) {}
+        gravity_( 9.81 ),
+        computation_limit_( 10000 ) {}
 
-  SimulationsManager( const Road& road_model, const int population_size );
+  SimulationsManager( const Road& road_model, int population_size );
   SimulationsManager() = default;
-  SimulationsManager( float gravity ) : gravity_( gravity ){};
+  SimulationsManager( const float gravity, const int computation_limit )
+      : live_simulations_count_( 0 ),
+        gravity_( gravity ),
+        computation_limit_( computation_limit ) {}
 
   void initializeForPopulation( const Road& road_model, const Population& population );
 
@@ -41,6 +45,7 @@ class SimulationsManager {
   std::vector<CarSimulation> simulations_;
   int live_simulations_count_;
   float gravity_;
+  int computation_limit_;
 };
 
 #endif  // SIMULATIONSMANAGER_H

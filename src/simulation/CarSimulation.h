@@ -30,11 +30,13 @@ class CarSimulation {
   RoadModel getRoadModel() const;
   CircleRot getRearWheelCircle() const;
   CircleRot getFrontWheelCircle() const;
-
   CarChassis getCarChassis() const;
-  bool isFinished() const;
+
+  bool isEndOfRoadReached() const;
   bool isStuck() const;
   bool isComputationLimitReached() const;
+  bool isFinished() const;
+
   int getTotalSteps() const;
   float getDistance() const;
   float getSpeed() const;
