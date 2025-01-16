@@ -9,6 +9,7 @@
 #include <imgui-SFML.h>
 #include <optional>
 
+#include "BestCarParamsPanel.h"
 #include "ConfigurationPanel.h"
 #include "ControlPanel.h"
 #include "DebugInfoPanel.h"
@@ -26,6 +27,7 @@ int main() {
   ControlPanel control_panel{};
   DebugInfoPanel debug_info_panel{};
   ConfigurationPanel configuration_panel{};
+  BestCarParamsPanel best_car_params_panel{};
 
   std::optional<EvolutionManager> evolution_manager;
 
@@ -40,6 +42,9 @@ int main() {
 
       debug_info_panel.update( *evolution_manager );
       debug_info_panel.render();
+
+      best_car_params_panel.update( *evolution_manager );
+      best_car_params_panel.render();
 
       window.drawSimulation( *evolution_manager, control_panel );
     } else {
