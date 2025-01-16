@@ -89,6 +89,10 @@ float ConfigurationPanel::speedWeight() const {
   return speed_weight_;
 }
 
+int ConfigurationPanel::computationLimit() const {
+  return computation_limit_;
+}
+
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 
@@ -103,8 +107,7 @@ void ConfigurationPanel::render() {
 
   renderRoadGeneratorControls();
 
-  ImGui::SeparatorText( "Simulation" );
-  renderGravityControl();
+  renderSimulationControls();
 
   if( ImGui::Button( "Start" ) ) {
     start_evolution_ = true;
@@ -203,6 +206,8 @@ void ConfigurationPanel::renderRoadGeneratorControls() {
   ImGui::SliderFloat( "Y Scale", &params.scale_y_, 1, 15 );
   ImGui::SliderFloat( "X Scale", &params.scale_x_, 1, 15 );
 }
-void ConfigurationPanel::renderGravityControl() {
+void ConfigurationPanel::renderSimulationControls() {
+  ImGui::SeparatorText( "Simulation" );
   ImGui::SliderFloat( "Gravity (in m/s^2):", &gravity_, 0, 20 );
+  ImGui::SliderInt( "Computation Limit (simulation steps)", &computation_limit_, 1000, 15000 );
 }
