@@ -36,7 +36,7 @@ TEST( ElitistSuccessionScheme, eliteSize2 ) {
                                            givenSpecimen( 2 ) };
   const Population mutants = { givenSpecimen( 3 ), givenSpecimen( 4 ), givenSpecimen( 5 ) };
   const std::vector<float> fitness = { 5, 2, 3 };
-  const USuccessionScheme succession = std::make_unique<ElitistSuccessionScheme>( 1 );
+  const USuccessionScheme succession = std::make_unique<ElitistSuccessionScheme>( 2 );
 
   const auto next_generation = succession->nextGeneration( original_population, mutants, fitness );
 
@@ -46,6 +46,21 @@ TEST( ElitistSuccessionScheme, eliteSize2 ) {
   assertContainsElement( next_generation, original_population[2] );
 
   EXPECT_EQ( countMutantsInNextGeneration( next_generation, mutants ), 1 );
+}
+
+TEST( ElitistSuccessionScheme, eliteSizeEqualOriginalPopulationSize ) {
+  const Population original_population = { givenSpecimen( 0 ), givenSpecimen( 1 ),
+                                           givenSpecimen( 2 ) };
+  const Population mutants = { givenSpecimen( 3 ), givenSpecimen( 4 ), givenSpecimen( 5 ) };
+  const std::vector<float> fitness = { 5, 2, 3 };
+  const USuccessionScheme succession = std::make_unique<ElitistSuccessionScheme>( 3 );
+
+  const auto next_generation = succession->nextGeneration( original_population, mutants, fitness );
+
+  EXPECT_EQ( original_population.size(), next_generation.size() );
+  assertContainsElement( next_generation, original_population[0] );
+  assertContainsElement( next_generation, original_population[1] );
+  assertContainsElement( next_generation, original_population[2] );
 }
 
 TEST( ElitistSuccessionScheme, eliteSizeInvalid ) {
