@@ -104,4 +104,7 @@ void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
 void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulation,
                         const sf::Transform& transform, sf::Color car_color = sf::Color::White );
 
+void drawCarModel( sf::RenderWindow& window, const CarDescription& description,
+                   const sf::Transform& transform, sf::Color car_color, sf::Vector2f position );
+
 #endif  // VISUALISATIONUTILS_H

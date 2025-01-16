@@ -30,6 +30,8 @@ class Window {
  private:
   Window( unsigned int width, unsigned int height, float scale, sf::ContextSettings settings );
 
+  void drawBestCar( const EvolutionManager& evolution_manager, const ControlPanel& control_panel );
+
   void processEvents();
 
   unsigned int width_;
