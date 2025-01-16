@@ -54,6 +54,7 @@ class ConfigurationPanel {
   void renderSuccessionControls();
   void adjustSuccessionParamsType();
   void adjustReproductionParamsType();
+  void adjustMutationParamsType();
   void renderRoadGeneratorControls();
   void renderGravityControl();
 

@@ -10,9 +10,10 @@
 #include <succession/SuccessionSchemeFactory.h>
 
 struct SuccessionControlsVisitor {
-  explicit SuccessionControlsVisitor( int max_elite_size ) : max_elite_size_( max_elite_size ) {}
+  explicit SuccessionControlsVisitor( const int max_elite_size )
+      : max_elite_size_( max_elite_size ) {}
 
-  void operator()( GenerationSuccessionParams& params ) const {}
+  void operator()( GenerationSuccessionParams& ) const {}
 
   void operator()( ElitistSuccessionParams& params ) const {
     ImGui::SliderInt( "Elite Size", &params.elite_size_, 1, max_elite_size_ );
@@ -21,14 +22,22 @@ struct SuccessionControlsVisitor {
   int max_elite_size_;
 };
 
-struct ReproductionParamsVisitor {
-  void operator()( ProportionalReproductionParams& params ) const {}
+struct ReproductionControlsVisitor {
+  void operator()( ProportionalReproductionParams& ) const {}
 
   void operator()( TournamentReproductionParams& params ) const {
     ImGui::SliderInt( "Tournament Size", &params.tournament_size_, 1, 15 );
   }
 
-  void operator()( RandomReproductionParams& params ) const {}
+  void operator()( RandomReproductionParams& ) const {}
+};
+
+struct MutationControlsVisitor {
+  void operator()( NoMutationParams& ) const {}
+
+  void operator()( GaussianMutationParams& params ) const {
+    ImGui::SliderFloat( "Mutation Strength", &params.mutation_strength_, 0.01f, 1.0f );
+  }
 };
 
 int ConfigurationPanel::populationSize() const {
@@ -101,12 +110,10 @@ void ConfigurationPanel::renderMutationControls() {
   if( ImGui::Combo( "Mutation Variant", &current_variant, mutation_variants,
                     IM_ARRAYSIZE( mutation_variants ) ) ) {
     mutation_variant_ = static_cast<MutationVariant>( current_variant );
+    adjustMutationParamsType();
   }
 
-  if( mutation_variant_ == MutationVariant::GAUSSIAN ) {
-    auto& params = std::get<GaussianMutationParams>( mutation_params_ );
-    ImGui::SliderFloat( "Mutation Strength", &params.mutation_strength_, 0.01f, 1.0f );
-  }
+  std::visit( MutationControlsVisitor{}, mutation_params_ );
 }
 
 void ConfigurationPanel::renderReproductionControls() {
@@ -120,7 +127,7 @@ void ConfigurationPanel::renderReproductionControls() {
     adjustReproductionParamsType();
   }
 
-  std::visit( ReproductionParamsVisitor{}, reproduction_params_ );
+  std::visit( ReproductionControlsVisitor{}, reproduction_params_ );
 }
 
 void ConfigurationPanel::renderSuccessionControls() {
@@ -159,6 +166,15 @@ void ConfigurationPanel::adjustReproductionParamsType() {
     case ReproductionVariant::RANDOM:
       reproduction_params_ = RandomReproductionParams{};
       break;
+  }
+}
+void ConfigurationPanel::adjustMutationParamsType() {
+  switch( mutation_variant_ ) {
+    case MutationVariant::NONE:
+      mutation_params_ = NoMutationParams{};
+      break;
+    case MutationVariant::GAUSSIAN:
+      mutation_params_ = GaussianMutationParams{ 0.1 };
   }
 }
 
