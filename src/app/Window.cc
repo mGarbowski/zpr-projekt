@@ -54,7 +54,7 @@ void Window::drawSimulation( const EvolutionManager& evolution_manager,
   }
 
   const auto ground = evolution_manager.simulationsManager().getRoadModel();
-  drawRoad( window_, ground, camera_transform_, control_panel.getRoadColor() );
+  drawRoad( ground, control_panel.getRoadColor() );
   drawBestCar( evolution_manager, control_panel );
 }
 
@@ -146,6 +146,15 @@ void Window::drawCarFromDescription( const CarDescription& description, const Po
     auto triangle =
         createTriangle( TriangleRot{ Position{ 0, 0 }, b, c, 0 }, position, car_color_ );
     window_.draw( triangle, transform );
+  }
+}
+
+void Window::drawRoad( const RoadModel& road_model, const sf::Color color ) {
+  auto road_segments = road_model.getSegments();
+  const auto offset = road_model.getPosition();
+  for( const auto& [point1, point2] : road_segments ) {
+    const auto line = createLine( point1, point2, offset, color );
+    window_.draw( line, camera_transform_ );
   }
 }
 

@@ -47,6 +47,7 @@ class Window {
   void drawBestCar( const EvolutionManager& evolution_manager, const ControlPanel& control_panel );
   void drawCarFromDescription( const CarDescription& description, Position position,
                                sf::Transform transform );
+  void drawRoad( const RoadModel& road_model, sf::Color color );
   void processEvents();
 
   unsigned int width_;

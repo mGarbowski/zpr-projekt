@@ -59,15 +59,4 @@ sf::VertexArray createLine( const b2Vec2& start, const b2Vec2& end, Position pos
 sf::ConvexShape createTriangle( const TriangleRot& triangle, Position position,
                                 sf::Color color = sf::Color::White );
 
-/**
- * @ingroup visualisation
- * @brief Draw road on the SFML window
- * @param window SFML window
- * @param road_model model of the road
- * @param transform transformation matrix
- * @param color color
- */
-void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
-               const sf::Transform& transform, sf::Color color = sf::Color::White );
-
 #endif  // VISUALISATIONUTILS_H

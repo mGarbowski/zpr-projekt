@@ -50,12 +50,3 @@ sf::ConvexShape createTriangle( const TriangleRot& triangle, const Position posi
   return shape;
 }
 
-void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
-               const sf::Transform& transform, const sf::Color color ) {
-  auto road_segments = road_model.getSegments();
-  const auto offset = road_model.getPosition();
-  for( const auto& [point1, point2] : road_segments ) {
-    const auto line = createLine( point1, point2, offset, color );
-    window.draw( line, transform );
-  }
-}
