@@ -90,8 +90,8 @@ void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulatio
   window.draw( front_wheel, transform );
 }
 
-sf::ConvexShape createTriangle( sf::Vector2f offset, Position a, Position b, Position c,
-                                sf::Color color ) {
+sf::ConvexShape createTriangle( const sf::Vector2f offset, const Position a, const Position b,
+                                const Position c, const sf::Color color ) {
   sf::ConvexShape shape( 3 );
   shape.setPoint( 0, offset + sf::Vector2f( a.x_, a.y_ ) );
   shape.setPoint( 1, offset + sf::Vector2f( b.x_, b.y_ ) );
@@ -100,7 +100,8 @@ sf::ConvexShape createTriangle( sf::Vector2f offset, Position a, Position b, Pos
   return shape;
 }
 
-sf::CircleShape createCircle( float radius, sf::Vector2f position, sf::Color color ) {
+sf::CircleShape createCircle( const float radius, const sf::Vector2f position,
+                              const sf::Color color ) {
   sf::CircleShape circle;
   circle.setOrigin( radius, radius );
   circle.setRadius( radius );
