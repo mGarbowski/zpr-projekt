@@ -2,84 +2,119 @@
 'https://plantuml.com/class-diagram
 
 package evolution {
-    class Point {
-        +x: float
-        +y: float
-    }
+    class Evolution {
+        + Evolution( UReproductionScheme reproduction_scheme, UMutationScheme mutation_scheme,
+                       USuccessionScheme succession_scheme )
+        + Population evolve( const Population& population, const std::vector<float>& fitness )
 
-    class Genome {
-        -vertices_: array<Point, 8>
-        -rear_wheel_radius_: float
-        -front_wheel_radius_: float
-        -rear_wheel_density_: float
-        -front_wheel_density_: float
-
-        +{static} fromVector(const vector<float>& params): Genome
-        + vector<float> toVector() const
+        - UReproductionScheme reproduction_scheme_
+        - UMutationScheme mutation_scheme_
+        - USuccessionScheme succession_scheme_
     }
 
     class Specimen {
-        -genome_: Genome
-        -rating_: float
+        + {static} Population createRandomPopulation( int population_size, std::mt19937 random_generator )
+        + Specimen( const CarDescription& car_description )
+        + bool operator==( const Specimen& rhs ) const
+        + std::vector<float> attributes() const
+        + CarDescription carDescription() const
+        + std::vector<float>& attributesRef()
+        + void clampAttributes()
+        - std::vector<float> attributes_
     }
 
-    class Evolution
-
-    abstract class ReproductionScheme {
-        +virtual Population nextPopulation(const Population& population) const = 0
+    class MutationScheme {
+        + void mutatePopulation( std::vector<Specimen>& population )
+        + void mutateSpecimen( Specimen& specimen )
+        # virtual void doMutateSpecimen( Specimen& specimen ) = 0
     }
 
-    class RouletteReproduction
-
-    class TournamentReproduction {
-        -tournament_size_: int
+    class MutationSchemeFactory {
+        + {static} UMutationScheme create( MutationParams params, std::mt19937 rng )
     }
 
-    abstract class MutationScheme {
-        +virtual Specimen mutate(const Specimen& specimen) const = 0
+    class MutationScheme {
+        + void mutatePopulation( std::vector<Specimen>& population )
+        + void mutateSpecimen( Specimen& specimen )
+        # virtual void doMutateSpecimen( Specimen& specimen ) = 0
     }
 
-    class GaussMutation {
-        -vertex_coord_mutation_strength_: float
-        -wheel_radius_mutation_strength_: float
-        -wheel_density_mutation_strength_: float
+    class NoMutationScheme {
+        # virtual void doMutateSpecimen( Specimen& specimen )
     }
 
-    abstract class CrossoverScheme {
-        +virtual crossover(const Genome& genome) const = 0:
+    class GaussianMutationScheme {
+        + GaussianMutationScheme( const double mutation_strength, const std::mt19937& random_number_generator )
+        # void doMutateSpecimen( Specimen& specimen ) override
+        - std::mt19937 random_number_generator_
+        - std::normal_distribution<> normal_distribution_
     }
 
-    class OnePointCrossover {
-        -probability: float
-    }
-    class TwoPointCrossover {
-        -probability: float
+    class ReproductionScheme {
+        + Population reproducePopulation( const Population& population, const std::vector<float>& fitness )
+        # virtual Population doReproducePopulation( const Population& population, std::vector<float> fitness ) = 0
     }
 
-    abstract class SuccessionScheme {
-        +virtual vector<Specimen> nextPopulation() const = 0
+    class ReproductionSchemeFactory {
+        + {static} UReproductionScheme create( ReproductionParams params, std::mt19937 rng )
     }
 
-    class GenerationSuccession
-
-    class ElitistSuccession {
-        -elite_size: int
+    class ProportionalReproductionScheme {
+        + ProportionalReproductionScheme( std::mt19937 random_engine )
+        # Population doReproducePopulation( const Population& population, std::vector<float> fitness ) override
+        - std::mt19937 random_engine_
     }
 
-    Evolution *-- ReproductionScheme
-    Evolution *-- MutationScheme
-    Evolution *-- CrossoverScheme
-    Evolution *-- SuccessionScheme
+    class RandomReproductionScheme {
+        + RandomReproductionScheme( std::mt19937 random_engine )
+        # Population doReproducePopulation( const Population& population, std::vector<float> fitness ) override
+        - std::mt19937 random_engine_
+    }
 
-    ReproductionScheme <|-- RouletteReproduction
-    ReproductionScheme <|-- TournamentReproduction
+    class TournamentReproductionScheme {
+        + TournamentReproductionScheme( std::mt19937 random_engine, int tournament_size )
+        # Population doReproducePopulation( const Population& population, std::vector<float> fitness ) override
+        - std::mt19937 random_engine_
+        - int tournament_size_
+    }
 
-    MutationScheme <|-- GaussMutation
+    class SuccessionScheme {
+        + Population nextGeneration( const Population& previous_population, const Population& mutants, const std::vector<float>& fitness )
+        # virtual Population doNextGeneration( const Population& previous_population, const Population& mutants, const std::vector<float>& fitness ) const = 0
+    }
 
-    CrossoverScheme <|-- OnePointCrossover
-    CrossoverScheme <|-- TwoPointCrossover
+    class SuccessionSchemeFactory {
+        + {static} USuccessionScheme create( SuccessionParams params )
+    }
 
-    SuccessionScheme <|-- GenerationSuccession
-    SuccessionScheme <|-- ElitistSuccession
+    class GenerationSuccessionScheme {
+        # Population doNextGeneration( const Population& previous_population, const Population& mutants, const std::vector<float>& fitness ) const override
+    }
+
+    class ElitistSuccessionScheme {
+        + ElitistSuccessionScheme( int elite_size )
+        # Population doNextGeneration( const Population& previous_population, const Population& mutants, const std::vector<float>& fitness ) const override
+        - int elite_size_
+    }
+
+
+    MutationScheme <|-- NoMutationScheme
+    MutationScheme <|-- GaussianMutationScheme
+    MutationSchemeFactory <.. MutationScheme
+
+    ReproductionScheme <|-- RandomReproductionScheme
+    ReproductionScheme <|-- ProportionalReproductionScheme
+    ReproductionScheme <|-- TournamentReproductionScheme
+    ReproductionSchemeFactory <.. ReproductionScheme
+
+    SuccessionScheme <|-- GenerationSuccessionScheme
+    SuccessionScheme <|-- ElitistSuccessionScheme
+    SuccessionSchemeFactory <.. SuccessionScheme
+
+    Evolution <.. MutationScheme
+    Evolution <.. ReproductionScheme
+    Evolution <.. SuccessionScheme
+
+
 }
 @enduml
