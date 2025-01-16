@@ -1,5 +1,5 @@
 /**
- * @ingroup visualisation
+ * @ingroup app
  * @brief Wrapper for SFML window.
  * @authors Mikolaj Garbowski, Michal Luszczek
  */
@@ -15,7 +15,8 @@
 Window Window::create( const unsigned int width, const unsigned int height, const float scale ) {
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
-  return Window( width, height, scale, settings );
+  const auto transform = box2dToSFML( width, height, scale );
+  return Window( width, height, scale, settings, transform, sf::Color::White );
 }
 
 Window::~Window() {
@@ -56,12 +57,25 @@ void Window::drawSimulation( const EvolutionManager& evolution_manager,
   drawBestCar( evolution_manager, control_panel );
 }
 
-Window::Window( unsigned int width, unsigned int height, float scale, sf::ContextSettings settings )
+sf::Transform Window::box2dToSFML( int window_width, int window_height, float scale,
+                                   Position tracked_position ) {
+  sf::Transform transform;
+  transform.translate( window_width / 2, window_height / 2 );
+  transform.scale( scale, -scale );
+  transform.translate( -tracked_position.x_, -tracked_position.y_ );
+  return transform;
+}
+
+Window::Window( const unsigned int width, const unsigned int height, const float scale,
+                const sf::ContextSettings& settings, const sf::Transform& camera_transform,
+                const sf::Color car_color )
     : width_( width ),
       height_( height ),
       scale_( scale ),
       window_( sf::RenderWindow{
-          { width_, height_ }, "Box2D with ImGui and SFML", sf::Style::Default, settings } ) {
+          { width_, height_ }, "Box2D with ImGui and SFML", sf::Style::Default, settings } ),
+      camera_transform_( camera_transform ),
+      car_color_( car_color ) {
   if( !ImGui::SFML::Init( window_ ) ) {
     std::cerr << "Failed to initialize ImGui with SFML." << std::endl;
     window_.close();
@@ -79,7 +93,7 @@ void Window::drawBestCar( const EvolutionManager& evolution_manager,
   }
 
   // Fixed position on the screen
-  const auto transform = box2dToSFML( width_, height_, scale_, Position( 0, 0 ) );
+  const auto transform = box2dToSFML( width_, height_, scale_ );
   const Position top_left_corner = { -15, 15 };
 
   drawCarDescription( window_, evolution_manager.bestCar()->description_, transform,

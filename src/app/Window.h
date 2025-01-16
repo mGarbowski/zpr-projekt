@@ -1,5 +1,5 @@
 /**
- * @ingroup visualisation
+ * @ingroup app
  * @brief Wrapper for SFML window.
  * @authors Mikolaj Garbowski, Michal Luszczek
  */
@@ -28,10 +28,22 @@ class Window {
                        const ControlPanel& control_panel );
 
  private:
-  Window( unsigned int width, unsigned int height, float scale, sf::ContextSettings settings );
+  /**
+   * @brief Create a matrix for transforming box2d simulation coordinates to SFML window coordinates
+   * @param window_width Width of the SFML window
+   * @param window_height Height of the SFML window
+   * @param scale Scale factor for the transformation
+   * @param tracked_position Position to track in box2d coordinates (the best car position)
+   * @return SFML Transform matrix
+   */
+  static sf::Transform box2dToSFML( int window_width, int window_height, float scale,
+                                    Position tracked_position = { 0, 0 } );
 
+  Window( unsigned int width, unsigned int height, float scale, const sf::ContextSettings& settings,
+          const sf::Transform& camera_transform, sf::Color car_color );
+
+  void drawCar( const CarSimulation& simulation );
   void drawBestCar( const EvolutionManager& evolution_manager, const ControlPanel& control_panel );
-
   void processEvents();
 
   unsigned int width_;
@@ -39,6 +51,8 @@ class Window {
   float scale_;
   sf::RenderWindow window_;
   sf::Clock clock_;
+  sf::Transform camera_transform_;
+  sf::Color car_color_;
 };
 
 #endif  // WINDOW_H
