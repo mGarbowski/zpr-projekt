@@ -17,6 +17,8 @@ set(APP_SOURCES
         EvolutionManagerFactory.h
         Window.cc
         Window.h
+        VisualisationUtils.h
+        VisualisationUtils.cc
 )
 
 set(APP_LIBRARIES
@@ -24,7 +26,6 @@ set(APP_LIBRARIES
         ImGui-SFML::ImGui-SFML
         simulation
         road
-        visualisation
         evolution
 )
 

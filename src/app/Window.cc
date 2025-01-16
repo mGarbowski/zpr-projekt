@@ -10,7 +10,6 @@
 #include <imgui.h>
 #include <iostream>
 
-#include "StaticRoadGenerator.h"
 #include "VisualisationUtils.h"
 
 Window Window::create( const unsigned int width, const unsigned int height, const float scale ) {
