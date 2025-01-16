@@ -9,6 +9,18 @@
 #include <imgui.h>
 #include <succession/SuccessionSchemeFactory.h>
 
+struct SuccessionControlsVisitor {
+  explicit SuccessionControlsVisitor( int max_elite_size ) : max_elite_size_( max_elite_size ) {}
+
+  void operator()( GenerationSuccessionParams& params ) const {}
+
+  void operator()( ElitistSuccessionParams& params ) const {
+    ImGui::SliderInt( "Elite Size", &params.elite_size_, 1, max_elite_size_ );
+  }
+
+  int max_elite_size_;
+};
+
 int ConfigurationPanel::populationSize() const {
   return population_size_;
 }
@@ -120,39 +132,20 @@ void ConfigurationPanel::renderSuccessionControls() {
   if( ImGui::Combo( "Succession Variant", &current_variant, succession_variants,
                     IM_ARRAYSIZE( succession_variants ) ) ) {
     succession_variant_ = static_cast<SuccessionVariant>( current_variant );
+    adjustSuccessionParamsType();
   }
 
-  adjustSuccessionParamsType();
-  switch( succession_variant_ ) {
-    case SuccessionVariant::GENERATION: {
-      break;
-    }
-    case SuccessionVariant::ELITIST: {
-      auto& params = std::get<ElitistSuccessionParams>( succession_params_ );
-      ImGui::SliderInt( "Elite Size", &params.elite_size_, 1, population_size_ );
-      break;
-    }
-  }
+  std::visit( SuccessionControlsVisitor{ population_size_ }, succession_params_ );
 }
 
 void ConfigurationPanel::adjustSuccessionParamsType() {
   switch( succession_variant_ ) {
-    case SuccessionVariant::GENERATION: {
-      try {
-        std::get<GenerationSuccessionParams>( succession_params_ );
-      } catch( std::bad_variant_access error ) {
-        succession_params_ = GenerationSuccessionParams{};
-      }
+    case SuccessionVariant::GENERATION:
+      succession_params_ = GenerationSuccessionParams{};
       break;
-    }
-    case SuccessionVariant::ELITIST: {
-      try {
-        std::get<ElitistSuccessionParams>( succession_params_ );
-      } catch( std::bad_variant_access error ) {
-        succession_params_ = ElitistSuccessionParams{ 1 };
-      }
+    case SuccessionVariant::ELITIST:
+      succession_params_ = ElitistSuccessionParams{ 1 };
       break;
-    }
   }
 }
 
