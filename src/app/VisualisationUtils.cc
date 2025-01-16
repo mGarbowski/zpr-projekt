@@ -5,8 +5,6 @@
 
 #include "VisualisationUtils.h"
 
-
-
 sf::Vector2f asVector( const Position& position ) {
   return sf::Vector2f( position.x_, position.y_ );
 }
@@ -52,16 +50,6 @@ sf::ConvexShape createTriangle( const TriangleRot& triangle, const Position posi
   return shape;
 }
 
-void drawCarChassis( sf::RenderWindow& window, const CarChassis& car_chassis,
-                     const sf::Transform& transform, const sf::Color color ) {
-  const auto position = car_chassis.getPosition();
-  for( int i = 0; i < 8; ++i ) {
-    const auto triangle = car_chassis.getTriangleRot( i );
-    auto shape = createTriangle( triangle, position, color );
-    window.draw( shape, transform );
-  }
-}
-
 void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
                const sf::Transform& transform, const sf::Color color ) {
   auto road_segments = road_model.getSegments();
@@ -70,17 +58,6 @@ void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
     const auto line = createLine( point1, point2, offset, color );
     window.draw( line, transform );
   }
-}
-
-void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulation,
-                        const sf::Transform& transform, sf::Color car_color ) {
-  const auto rear_wheel = createCircle( simulation.getRearWheelCircle(), car_color, car_color );
-  const auto front_wheel = createCircle( simulation.getFrontWheelCircle(), car_color, car_color );
-  auto car_chassis = simulation.getCarChassis();
-
-  drawCarChassis( window, car_chassis, transform, car_color );
-  window.draw( rear_wheel, transform );
-  window.draw( front_wheel, transform );
 }
 
 void drawCarDescription( sf::RenderWindow& window, const CarDescription& description,

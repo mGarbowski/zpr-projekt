@@ -17,8 +17,6 @@
 
 // TODO better file structure, do not pass window and transform everywhere
 
-
-
 /**
  * @ingroup visualisation
  * @brief Convert position to SFML vector
@@ -63,17 +61,6 @@ sf::ConvexShape createTriangle( const TriangleRot& triangle, Position position,
 
 /**
  * @ingroup visualisation
- * @brief Draw car chassis on the SFML window
- * @param window SFML window
- * @param car_chassis car chassis
- * @param transform transformation matrix
- * @param color chassis fill color
- */
-void drawCarChassis( sf::RenderWindow& window, const CarChassis& car_chassis,
-                     const sf::Transform& transform, sf::Color color = sf::Color::White );
-
-/**
- * @ingroup visualisation
  * @brief Draw road on the SFML window
  * @param window SFML window
  * @param road_model model of the road
@@ -83,18 +70,7 @@ void drawCarChassis( sf::RenderWindow& window, const CarChassis& car_chassis,
 void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
                const sf::Transform& transform, sf::Color color = sf::Color::White );
 
-/**
- * @ingroup visualisation
- * @brief Draw car simulation on the SFML window
- * @param window SFML window
- * @param simulation box2d simulation
- * @param transform transformation matrix
- * @param car_color color of the car
- */
-void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulation,
-                        const sf::Transform& transform, sf::Color car_color = sf::Color::White );
-
 void drawCarDescription( sf::RenderWindow& window, const CarDescription& description,
-                   const sf::Transform& transform, sf::Color car_color, Position position );
+                         const sf::Transform& transform, sf::Color car_color, Position position );
 
 #endif  // VISUALISATIONUTILS_H

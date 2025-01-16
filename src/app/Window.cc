@@ -45,15 +45,16 @@ void Window::drawSimulation( const EvolutionManager& evolution_manager,
   if( !control_panel.isDisplayEnabled() ) {
     return;
   }
-  const auto camera_transform = box2dToSFML(
-      width_, height_, scale_, evolution_manager.simulationsManager().getBestCarPosition() );
+  camera_transform_ = box2dToSFML( width_, height_, scale_,
+                                   evolution_manager.simulationsManager().getBestCarPosition() );
+  car_color_ = control_panel.getCarColor();
 
   for( const auto& sim : evolution_manager.simulationsManager().simulations() ) {
-    drawCarSimulation( window_, sim, camera_transform, control_panel.getCarColor() );
+    drawCar( sim );
   }
 
   const auto ground = evolution_manager.simulationsManager().getRoadModel();
-  drawRoad( window_, ground, camera_transform, control_panel.getRoadColor() );
+  drawRoad( window_, ground, camera_transform_, control_panel.getRoadColor() );
   drawBestCar( evolution_manager, control_panel );
 }
 
@@ -86,6 +87,26 @@ Window::Window( const unsigned int width, const unsigned int height, const float
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 }
+
+void Window::drawCar( const CarSimulation& simulation ) {
+  const auto rear_wheel = createCircle( simulation.getRearWheelCircle(), car_color_, car_color_ );
+  const auto front_wheel = createCircle( simulation.getFrontWheelCircle(), car_color_, car_color_ );
+  auto car_chassis = simulation.getCarChassis();
+
+  drawCarChassis( car_chassis );
+  window_.draw( rear_wheel, camera_transform_ );
+  window_.draw( front_wheel, camera_transform_ );
+}
+
+void Window::drawCarChassis( const CarChassis& car_chassis ) {
+  const auto position = car_chassis.getPosition();
+  for( int i = 0; i < 8; ++i ) {
+    const auto triangle = car_chassis.getTriangleRot( i );
+    auto shape = createTriangle( triangle, position, car_color_ );
+    window_.draw( shape, camera_transform_ );
+  }
+}
+
 void Window::drawBestCar( const EvolutionManager& evolution_manager,
                           const ControlPanel& control_panel ) {
   if( !evolution_manager.bestCar().has_value() ) {

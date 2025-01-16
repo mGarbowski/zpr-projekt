@@ -43,6 +43,7 @@ class Window {
           const sf::Transform& camera_transform, sf::Color car_color );
 
   void drawCar( const CarSimulation& simulation );
+  void drawCarChassis( const CarChassis& car_chassis );
   void drawBestCar( const EvolutionManager& evolution_manager, const ControlPanel& control_panel );
   void processEvents();
 
