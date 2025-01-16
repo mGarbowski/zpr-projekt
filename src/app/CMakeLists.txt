@@ -28,7 +28,9 @@ set(APP_LIBRARIES
         evolution
 )
 
-add_executable(app ${APP_SOURCES})
+add_executable(app ${APP_SOURCES}
+        BestCarParamsPanel.cc
+        BestCarParamsPanel.h)
 target_link_libraries(app PRIVATE ${APP_LIBRARIES})
 
 add_library(app-lib ${APP_SOURCES})

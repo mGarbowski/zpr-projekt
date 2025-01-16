@@ -11,6 +11,7 @@
 
 #include "EvolutionManager.h"
 
+#include <algorithm>
 #include <iostream>
 
 #include "PerlinRoadGenerator.h"
@@ -36,6 +37,9 @@ void EvolutionManager::initializeSimulationsForNewGeneration() {
   const auto road = road_generator_->generateRoad();
   simulations_manager_.initializeForPopulation( road, population_ );
 }
+std::optional<BestCar> EvolutionManager::bestCar() const {
+  return best_car_;
+}
 
 std::vector<float> EvolutionManager::calculateFitness() const {
   std::vector<float> fitness;
@@ -47,13 +51,32 @@ std::vector<float> EvolutionManager::calculateFitness() const {
 
 void EvolutionManager::handleEndOfSimulation() {
   std::cout << "Finished generation " << generation_ << std::endl;
-  ++generation_;
 
   const auto fitness = calculateFitness();
+  updateBestCar( fitness );
+
   population_ = evolution_.evolve( population_, fitness );
   for( auto& specimen : population_ ) {
     specimen.clampAttributes();
   }
 
+  ++generation_;
   initializeSimulationsForNewGeneration();
+}
+
+void EvolutionManager::updateBestCar( std::vector<float> fitness ) {
+  const auto best_car_idx =
+      std::distance( fitness.begin(), std::max_element( fitness.begin(), fitness.end() ) );
+  const auto best_fitness = fitness[best_car_idx];
+
+  if( best_car_.has_value() && best_fitness <= best_car_->fitness_ ) {
+    return;
+  }
+
+  const auto simulation = simulations_manager_.simulations()[best_car_idx];
+  const auto description = population_[best_car_idx].carDescription();
+  const auto distance = simulation.getCarChassis().getPosition().x_;
+  const auto iterations = simulation.getTotalSteps();
+
+  best_car_ = BestCar{ description, distance, iterations, best_fitness, generation_ };
 }
