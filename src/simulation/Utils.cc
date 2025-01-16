@@ -12,39 +12,6 @@
 #include <cmath>
 #include <vector>
 
-b2BodyId Utils::createStaticRectangle(b2WorldId world_id, Position position, Size size) {
-  auto body_def = b2DefaultBodyDef();
-  body_def.position = {position.x_, position.y_};
-  const auto body_id = b2CreateBody(world_id, &body_def);
-
-  const b2Polygon box = b2MakeBox(size.width_ / 2, size.height_ / 2);
-  const b2ShapeDef ground_shape_def = b2DefaultShapeDef();
-  b2CreatePolygonShape(body_id, &ground_shape_def, &box);
-
-  return body_id;
-}
-Rect Utils::getRectangleRect(const b2BodyId body_id) {
-  return {getBodyPosition(body_id), getRectangleSize(body_id)};
-}
-RectRot Utils::getRectangleRectRot(const b2BodyId body_id) {
-  return {
-      getBodyPosition(body_id),
-      getRectangleSize(body_id),
-      radToDeg(getBodyAngleRadians(body_id)),
-  };
-}
-Size Utils::getRectangleSize(const b2BodyId body_id) {
-  std::vector<b2ShapeId> shape_ids(5);
-  const auto n_shapes = b2Body_GetShapes(body_id, shape_ids.data(), shape_ids.size());
-  assert(n_shapes == 1);
-
-  const auto polygon = b2Shape_GetPolygon(shape_ids[0]);
-  assert(polygon.count == 4);
-
-  auto width = polygon.vertices[1].x * 2;
-  auto height = polygon.vertices[2].y * 2;
-  return {width, height};
-}
 Position Utils::getBodyPosition(const b2BodyId body_id) {
   auto [x, y] = b2Body_GetPosition(body_id);
   return {x, y};

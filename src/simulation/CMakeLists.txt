@@ -1,11 +1,8 @@
 set(SIMULATION_SOURCES
-        Size.h
-        Rect.h
         CarSimulation.cc
         CarSimulation.h
         Utils.cc
         Utils.h
-        RectRot.h
         CircleRot.h
         CarChassis.h
         CarChassis.cc

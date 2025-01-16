@@ -14,10 +14,6 @@ sf::Transform box2dToSFML( const int window_width, const int window_height, cons
   return transform;
 }
 
-sf::Vector2f asVector( const Size& size ) {
-  return sf::Vector2f( size.width_, size.height_ );
-}
-
 sf::Vector2f asVector( const Position& position ) {
   return sf::Vector2f( position.x_, position.y_ );
 }
