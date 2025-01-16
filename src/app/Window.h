@@ -1,5 +1,5 @@
 /**
- * @ingroup visualisation
+ * @ingroup app
  * @brief Wrapper for SFML window.
  * @authors Mikolaj Garbowski, Michal Luszczek
  */
@@ -28,10 +28,15 @@ class Window {
                        const ControlPanel& control_panel );
 
  private:
-  Window( unsigned int width, unsigned int height, float scale, sf::ContextSettings settings );
+  Window( unsigned int width, unsigned int height, float scale, const sf::ContextSettings& settings,
+          const sf::Transform& camera_transform, sf::Color car_color );
 
-  void drawBestCar( const EvolutionManager& evolution_manager, const ControlPanel& control_panel );
-
+  void drawCar( const CarSimulation& simulation );
+  void drawCarChassis( const CarChassis& car_chassis );
+  void drawBestCar( const EvolutionManager& evolution_manager );
+  void drawCarFromDescription( const CarDescription& description, Position position,
+                               sf::Transform transform );
+  void drawRoad( const RoadModel& road_model, sf::Color color );
   void processEvents();
 
   unsigned int width_;
@@ -39,6 +44,8 @@ class Window {
   float scale_;
   sf::RenderWindow window_;
   sf::Clock clock_;
+  sf::Transform camera_transform_;
+  sf::Color car_color_;
 };
 
 #endif  // WINDOW_H

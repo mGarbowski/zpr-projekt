@@ -1,5 +1,5 @@
 /**
- * @ingroup visualisation
+ * @ingroup app
  * @brief Wrapper for SFML window.
  * @authors Mikolaj Garbowski, Michal Luszczek
  */
@@ -10,13 +10,13 @@
 #include <imgui.h>
 #include <iostream>
 
-#include "StaticRoadGenerator.h"
 #include "VisualisationUtils.h"
 
 Window Window::create( const unsigned int width, const unsigned int height, const float scale ) {
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
-  return Window( width, height, scale, settings );
+  const auto transform = box2dToSFML( width, height, scale );
+  return Window( width, height, scale, settings, transform, sf::Color::White );
 }
 
 Window::~Window() {
@@ -45,24 +45,29 @@ void Window::drawSimulation( const EvolutionManager& evolution_manager,
   if( !control_panel.isDisplayEnabled() ) {
     return;
   }
-  const auto camera_transform = box2dToSFML(
-      width_, height_, scale_, evolution_manager.simulationsManager().getBestCarPosition() );
+  camera_transform_ = box2dToSFML( width_, height_, scale_,
+                                   evolution_manager.simulationsManager().getBestCarPosition() );
+  car_color_ = control_panel.getCarColor();
 
   for( const auto& sim : evolution_manager.simulationsManager().simulations() ) {
-    drawCarSimulation( window_, sim, camera_transform, control_panel.getCarColor() );
+    drawCar( sim );
   }
 
   const auto ground = evolution_manager.simulationsManager().getRoadModel();
-  drawRoad( window_, ground, camera_transform, control_panel.getRoadColor() );
-  drawBestCar( evolution_manager, control_panel );
+  drawRoad( ground, control_panel.getRoadColor() );
+  drawBestCar( evolution_manager );
 }
 
-Window::Window( unsigned int width, unsigned int height, float scale, sf::ContextSettings settings )
+Window::Window( const unsigned int width, const unsigned int height, const float scale,
+                const sf::ContextSettings& settings, const sf::Transform& camera_transform,
+                const sf::Color car_color )
     : width_( width ),
       height_( height ),
       scale_( scale ),
       window_( sf::RenderWindow{
-          { width_, height_ }, "Box2D with ImGui and SFML", sf::Style::Default, settings } ) {
+          { width_, height_ }, "Box2D with ImGui and SFML", sf::Style::Default, settings } ),
+      camera_transform_( camera_transform ),
+      car_color_( car_color ) {
   if( !ImGui::SFML::Init( window_ ) ) {
     std::cerr << "Failed to initialize ImGui with SFML." << std::endl;
     window_.close();
@@ -73,18 +78,74 @@ Window::Window( unsigned int width, unsigned int height, float scale, sf::Contex
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 }
-void Window::drawBestCar( const EvolutionManager& evolution_manager,
-                          const ControlPanel& control_panel ) {
+
+void Window::drawCar( const CarSimulation& simulation ) {
+  const auto rear_wheel = createCircle( simulation.getRearWheelCircle(), car_color_, car_color_ );
+  const auto front_wheel = createCircle( simulation.getFrontWheelCircle(), car_color_, car_color_ );
+  auto car_chassis = simulation.getCarChassis();
+
+  drawCarChassis( car_chassis );
+  window_.draw( rear_wheel, camera_transform_ );
+  window_.draw( front_wheel, camera_transform_ );
+}
+
+void Window::drawCarChassis( const CarChassis& car_chassis ) {
+  const auto position = car_chassis.getPosition();
+  for( int i = 0; i < 8; ++i ) {
+    const auto triangle = car_chassis.getTriangleRot( i );
+    auto shape = createTriangle( triangle, position, car_color_ );
+    window_.draw( shape, camera_transform_ );
+  }
+}
+
+void Window::drawBestCar( const EvolutionManager& evolution_manager ) {
   if( !evolution_manager.bestCar().has_value() ) {
     return;
   }
 
   // Fixed position on the screen
-  const auto transform = box2dToSFML( width_, height_, scale_, Position( 0, 0 ) );
-  const sf::Vector2f top_left_corner = { -15, 15 };
+  const auto transform = box2dToSFML( width_, height_, scale_ );
+  const Position top_left_corner = { -15, 15 };
+  const auto best_car_description = evolution_manager.bestCar()->description_;
+  drawCarFromDescription( best_car_description, top_left_corner, transform );
+}
 
-  drawCarDescription( window_, evolution_manager.bestCar()->description_, transform,
-                      control_panel.getCarColor(), top_left_corner );
+void Window::drawCarFromDescription( const CarDescription& description, const Position position,
+                                     sf::Transform transform ) {
+  sf::CircleShape rear_wheel = createCircle(
+      CircleRot{ position + description.bottomLeft(), description.rearWheelRadius(), 0 },
+      car_color_, car_color_ );
+  sf::CircleShape front_wheel = createCircle(
+      CircleRot{ position + description.bottomRight(), description.frontWheelRadius(), 0 },
+      car_color_, car_color_ );
+  window_.draw( rear_wheel, transform );
+  window_.draw( front_wheel, transform );
+
+  // Chassis triangles
+  std::initializer_list<std::pair<Position, Position>> vertices = {
+      { description.left(), description.topLeft() },
+      { description.topLeft(), description.top() },
+      { description.top(), description.topRight() },
+      { description.topRight(), description.right() },
+      { description.right(), description.bottomRight() },
+      { description.bottomRight(), description.bottom() },
+      { description.bottom(), description.bottomLeft() },
+      { description.bottomLeft(), description.left() } };
+
+  for( auto [b, c] : vertices ) {
+    auto triangle =
+        createTriangle( TriangleRot{ Position{ 0, 0 }, b, c, 0 }, position, car_color_ );
+    window_.draw( triangle, transform );
+  }
+}
+
+void Window::drawRoad( const RoadModel& road_model, const sf::Color color ) {
+  auto road_segments = road_model.getSegments();
+  const auto offset = road_model.getPosition();
+  for( const auto& [point1, point2] : road_segments ) {
+    const auto line = createLine( point1, point2, offset, color );
+    window_.draw( line, camera_transform_ );
+  }
 }
 
 void Window::processEvents() {

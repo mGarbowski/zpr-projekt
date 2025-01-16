@@ -21,7 +21,6 @@ target_link_libraries(app_tests PUBLIC GTest::gtest_main
         ImGui-SFML::ImGui-SFML
         simulation
         road
-        visualisation
         evolution
 )
 include(GoogleTest)
