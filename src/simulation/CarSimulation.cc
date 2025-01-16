@@ -7,7 +7,6 @@
 #include "CarSimulation.h"
 
 #include <box2d/box2d.h>
-#include <iostream>
 
 #include "Utils.h"
 
@@ -92,8 +91,8 @@ RoadModel CarSimulation::getRoadModel() const {
   return road_model_;
 }
 bool CarSimulation::isStuck() const {
-  bool stuck = ( stuck_steps_ > max_stuck_steps_ );
-  bool life_over = ( max_steps_lifespan_ != 0 && total_steps_ > max_steps_lifespan_ );
+  const bool stuck = ( stuck_steps_ > max_stuck_steps_ );
+  const bool life_over = ( max_steps_lifespan_ != 0 && total_steps_ > max_steps_lifespan_ );
   return stuck || life_over;
 }
 int CarSimulation::getTotalSteps() const {
@@ -109,7 +108,7 @@ float CarSimulation::getSpeed() const {
 }
 
 bool CarSimulation::isFinished() const {
-  float car_x = getDistance();
-  float road_end_x = getRoadModel().getEnd().x_;
+  const float car_x = getDistance();
+  const float road_end_x = getRoadModel().getEnd().x_;
   return ( car_x > road_end_x );
 }
