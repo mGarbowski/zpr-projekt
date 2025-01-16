@@ -158,6 +158,8 @@ package app {
 
     EvolutionManager *-- SimulationsManager
     EvolutionManager *-- FitnessFunction
+    EvolutionManager *-- road.RoadGenerator
+    EvolutionManager *-- evolution.Evolution
 
     Window <.. VisualisationUtils
     Window <.. EvolutionManager
