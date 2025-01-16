@@ -14,7 +14,6 @@
 #include <iostream>
 
 #include "PerlinRoadGenerator.h"
-#include "succession/GenerationSuccessionScheme.h"
 
 int EvolutionManager::generation() const {
   return generation_;

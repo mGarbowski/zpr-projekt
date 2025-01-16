@@ -23,7 +23,7 @@ struct RoadGenParams {
 class ConfigurationPanel {
  public:
   explicit ConfigurationPanel()
-      : population_size_( 20 ),
+      : population_size_( 10 ),
         start_evolution_( false ),
         mutation_variant_( MutationVariant::GAUSSIAN ),
         mutation_params_( GaussianMutationParams{ 0.1 } ),

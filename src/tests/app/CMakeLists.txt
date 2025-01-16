@@ -7,6 +7,11 @@ include_directories(${CMAKE_SOURCE_DIR}/src/evolution)
 
 set(APP_TEST_SOURCES
         SimulationsManagerUnitTests.cc
+        TestUtils.cc
+        TestUtils.h
+        FitnessFunctionUnitTest.cc
+        EvolutionManagerUnitTest.cc
+        ControlPanelUnitTest.cc
 )
 add_executable(app_tests ${APP_TEST_SOURCES})
 
