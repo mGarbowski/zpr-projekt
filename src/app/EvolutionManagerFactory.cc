@@ -21,9 +21,8 @@ EvolutionManager EvolutionManagerFactory::create( const ConfigurationPanel& conf
 
   UReproductionScheme reproduction_scheme =
       ReproductionSchemeFactory::create( configuration_panel.reproductionParams(), rng );
-  UMutationScheme mutation_scheme = MutationSchemeFactory::create(
-      configuration_panel.mutationVariant(), configuration_panel.mutationParams(), rng );
-
+  UMutationScheme mutation_scheme =
+      MutationSchemeFactory::create( configuration_panel.mutationParams(), rng );
   USuccessionScheme succession_scheme =
       SuccessionSchemeFactory::create( configuration_panel.successionParams() );
 
