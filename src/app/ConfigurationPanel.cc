@@ -7,7 +7,8 @@
 #include "ConfigurationPanel.h"
 
 #include <imgui.h>
-#include <succession/SuccessionSchemeFactory.h>
+
+#include "succession/SuccessionSchemeFactory.h"
 
 struct SuccessionControlsVisitor {
   explicit SuccessionControlsVisitor( const int max_elite_size )

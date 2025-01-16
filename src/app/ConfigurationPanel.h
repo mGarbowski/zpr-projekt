@@ -7,11 +7,11 @@
 #ifndef CONFIGURATIONPANEL_H
 #define CONFIGURATIONPANEL_H
 
-#include <succession/SuccessionSchemeFactory.h>
 #include <variant>
 
 #include "mutation/MutationSchemeFactory.h"
 #include "reproduction/ReproductionSchemeFactory.h"
+#include "succession/SuccessionSchemeFactory.h"
 
 struct RoadGenParams {
   int length_;
