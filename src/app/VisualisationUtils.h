@@ -70,7 +70,4 @@ sf::ConvexShape createTriangle( const TriangleRot& triangle, Position position,
 void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
                const sf::Transform& transform, sf::Color color = sf::Color::White );
 
-void drawCarDescription( sf::RenderWindow& window, const CarDescription& description,
-                         const sf::Transform& transform, sf::Color car_color, Position position );
-
 #endif  // VISUALISATIONUTILS_H

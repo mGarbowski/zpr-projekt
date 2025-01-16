@@ -59,31 +59,3 @@ void drawRoad( sf::RenderWindow& window, const RoadModel& road_model,
     window.draw( line, transform );
   }
 }
-
-void drawCarDescription( sf::RenderWindow& window, const CarDescription& description,
-                         const sf::Transform& transform, sf::Color car_color, Position position ) {
-  sf::CircleShape rear_wheel = createCircle(
-      CircleRot{ position + description.bottomLeft(), description.rearWheelRadius(), 0 }, car_color,
-      car_color );
-  sf::CircleShape front_wheel = createCircle(
-      CircleRot{ position + description.bottomRight(), description.frontWheelRadius(), 0 },
-      car_color, car_color );
-  window.draw( rear_wheel, transform );
-  window.draw( front_wheel, transform );
-
-  // Chassis triangles
-  std::initializer_list<std::pair<Position, Position>> vertices = {
-      { description.left(), description.topLeft() },
-      { description.topLeft(), description.top() },
-      { description.top(), description.topRight() },
-      { description.topRight(), description.right() },
-      { description.right(), description.bottomRight() },
-      { description.bottomRight(), description.bottom() },
-      { description.bottom(), description.bottomLeft() },
-      { description.bottomLeft(), description.left() } };
-
-  for( auto [b, c] : vertices ) {
-    auto triangle = createTriangle( TriangleRot{ Position{ 0, 0 }, b, c, 0 }, position, car_color );
-    window.draw( triangle, transform );
-  }
-}

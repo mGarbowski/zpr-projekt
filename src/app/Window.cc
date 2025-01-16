@@ -116,9 +116,37 @@ void Window::drawBestCar( const EvolutionManager& evolution_manager,
   // Fixed position on the screen
   const auto transform = box2dToSFML( width_, height_, scale_ );
   const Position top_left_corner = { -15, 15 };
+  const auto best_car_description = evolution_manager.bestCar()->description_;
+  drawCarFromDescription( best_car_description, top_left_corner, transform );
+}
 
-  drawCarDescription( window_, evolution_manager.bestCar()->description_, transform,
-                      control_panel.getCarColor(), top_left_corner );
+void Window::drawCarFromDescription( const CarDescription& description, const Position position,
+                                     sf::Transform transform ) {
+  sf::CircleShape rear_wheel = createCircle(
+      CircleRot{ position + description.bottomLeft(), description.rearWheelRadius(), 0 },
+      car_color_, car_color_ );
+  sf::CircleShape front_wheel = createCircle(
+      CircleRot{ position + description.bottomRight(), description.frontWheelRadius(), 0 },
+      car_color_, car_color_ );
+  window_.draw( rear_wheel, transform );
+  window_.draw( front_wheel, transform );
+
+  // Chassis triangles
+  std::initializer_list<std::pair<Position, Position>> vertices = {
+      { description.left(), description.topLeft() },
+      { description.topLeft(), description.top() },
+      { description.top(), description.topRight() },
+      { description.topRight(), description.right() },
+      { description.right(), description.bottomRight() },
+      { description.bottomRight(), description.bottom() },
+      { description.bottom(), description.bottomLeft() },
+      { description.bottomLeft(), description.left() } };
+
+  for( auto [b, c] : vertices ) {
+    auto triangle =
+        createTriangle( TriangleRot{ Position{ 0, 0 }, b, c, 0 }, position, car_color_ );
+    window_.draw( triangle, transform );
+  }
 }
 
 void Window::processEvents() {
