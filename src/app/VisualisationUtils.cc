@@ -90,16 +90,6 @@ void drawCarSimulation( sf::RenderWindow& window, const CarSimulation& simulatio
   window.draw( front_wheel, transform );
 }
 
-sf::ConvexShape createTriangle( const sf::Vector2f offset, const Position a, const Position b,
-                                const Position c, const sf::Color color ) {
-  sf::ConvexShape shape( 3 );
-  shape.setPoint( 0, offset + sf::Vector2f( a.x_, a.y_ ) );
-  shape.setPoint( 1, offset + sf::Vector2f( b.x_, b.y_ ) );
-  shape.setPoint( 2, offset + sf::Vector2f( c.x_, c.y_ ) );
-  shape.setFillColor( color );
-  return shape;
-}
-
 sf::CircleShape createCircle( const float radius, const sf::Vector2f position,
                               const sf::Color color ) {
   sf::CircleShape circle;
@@ -123,21 +113,15 @@ void drawCarDescription( sf::RenderWindow& window, const CarDescription& descrip
 
   // Chassis triangles
   auto center = Position( 0, 0 );
-  auto t1 =
-      createTriangle( position, center, description.left(), description.topLeft(), car_color );
-  auto t2 = createTriangle( position, center, description.topLeft(), description.top(), car_color );
-  auto t3 =
-      createTriangle( position, center, description.top(), description.topRight(), car_color );
-  auto t4 =
-      createTriangle( position, center, description.topRight(), description.right(), car_color );
-  auto t5 =
-      createTriangle( position, center, description.right(), description.bottomRight(), car_color );
-  auto t6 = createTriangle( position, center, description.bottomRight(), description.bottom(),
-                            car_color );
-  auto t7 =
-      createTriangle( position, center, description.bottom(), description.bottomLeft(), car_color );
-  auto t8 =
-      createTriangle( position, center, description.bottomLeft(), description.left(), car_color );
+  auto pos = Position{position.x, position.y};
+  auto t1 = createTriangle( TriangleRot{center, description.left(), description.topLeft(), 0}, pos, car_color );
+  auto t2 = createTriangle( TriangleRot{center, description.topLeft(), description.top(), 0}, pos, car_color );
+  auto t3 = createTriangle( TriangleRot{center, description.top(), description.topRight(), 0}, pos, car_color );
+  auto t4 = createTriangle( TriangleRot{center, description.topRight(), description.right(), 0}, pos, car_color );
+  auto t5 = createTriangle( TriangleRot{center, description.right(), description.bottomRight(), 0}, pos, car_color );
+  auto t6 = createTriangle( TriangleRot{center, description.bottomRight(), description.bottom(), 0}, pos, car_color );
+  auto t7 = createTriangle( TriangleRot{center, description.bottom(), description.bottomLeft(), 0}, pos, car_color );
+  auto t8 = createTriangle( TriangleRot{center, description.bottomLeft(), description.left(), 0}, pos, car_color );
 
   window.draw( rear_wheel, transform );
   window.draw( front_wheel, transform );
