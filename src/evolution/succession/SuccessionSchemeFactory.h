@@ -22,7 +22,7 @@ using SuccessionParams = std::variant<GenerationSuccessionParams, ElitistSuccess
 
 class SuccessionSchemeFactory {
  public:
-  static USuccessionScheme create( SuccessionVariant variant, SuccessionParams params );
+  static USuccessionScheme create( SuccessionParams params );
 };
 
 #endif  // SUCCESSIONSCHEMEFACTORY_H

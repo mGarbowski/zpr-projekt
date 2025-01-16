@@ -24,8 +24,8 @@ EvolutionManager EvolutionManagerFactory::create( const ConfigurationPanel& conf
   UMutationScheme mutation_scheme = MutationSchemeFactory::create(
       configuration_panel.mutationVariant(), configuration_panel.mutationParams(), rng );
 
-  USuccessionScheme succession_scheme = SuccessionSchemeFactory::create(
-      configuration_panel.successionVariant(), configuration_panel.successionParams() );
+  USuccessionScheme succession_scheme =
+      SuccessionSchemeFactory::create( configuration_panel.successionParams() );
 
   auto evolution = Evolution( std::move( reproduction_scheme ), std::move( mutation_scheme ),
                               std::move( succession_scheme ) );
