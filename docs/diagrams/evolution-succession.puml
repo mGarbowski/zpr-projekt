@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+package succession {
+    class SuccessionScheme {
+        + Population nextGeneration( const Population& previous_population, const Population& mutants, const std::vector<float>& fitness )
+        # virtual Population doNextGeneration( const Population& previous_population, const Population& mutants, const std::vector<float>& fitness ) const = 0
+    }
+
+    class SuccessionSchemeFactory {
+        + {static} USuccessionScheme create( SuccessionParams params )
+    }
+
+    class GenerationSuccessionScheme {
+        # Population doNextGeneration( const Population& previous_population, const Population& mutants, const std::vector<float>& fitness ) const override
+    }
+
+    class ElitistSuccessionScheme {
+        + ElitistSuccessionScheme( int elite_size )
+        # Population doNextGeneration( const Population& previous_population, const Population& mutants, const std::vector<float>& fitness ) const override
+        - int elite_size_
+    }
+
+    SuccessionScheme <|-- GenerationSuccessionScheme
+    SuccessionScheme <|-- ElitistSuccessionScheme
+    SuccessionSchemeFactory <.. SuccessionScheme
+}
+
+@enduml
