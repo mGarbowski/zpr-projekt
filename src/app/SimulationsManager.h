@@ -20,7 +20,6 @@ class SimulationsManager {
         gravity_( 9.81 ),
         computation_limit_( 10000 ) {}
 
-  SimulationsManager( const Road& road_model, int population_size );
   SimulationsManager() = default;
   SimulationsManager( const float gravity, const int computation_limit )
       : live_simulations_count_( 0 ),

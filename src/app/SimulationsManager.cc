@@ -7,17 +7,6 @@
 #include "SimulationsManager.h"
 
 #include <iostream>
-SimulationsManager::SimulationsManager( const Road& road_model, const int population_size ) {
-  std::random_device rd;
-  std::mt19937 gen( rd() );
-
-  for( int i = 0; i < population_size; ++i ) {
-    simulations_.push_back(
-        CarSimulation::create( CarDescription::random( gen ), road_model, gravity_, computation_limit_ ) );
-  }
-
-  live_simulations_count_ = population_size;
-}
 void SimulationsManager::initializeForPopulation( const Road& road_model,
                                                   const Population& population ) {
   // Delete previous simulations
