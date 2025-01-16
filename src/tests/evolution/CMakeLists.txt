@@ -5,7 +5,8 @@ set(EVOLUTION_TEST_SOURCES EvolutionUnitTest.cc
         succession/GenerationSuccessionUnitTest.cc
         TestUtils.cc
         TestUtils.h
-        reproduction/TournamentReproductionSchemeUnitTest.cc reproduction/RandomReproductionSchemeUnitTests.cc)
+        reproduction/TournamentReproductionSchemeUnitTest.cc reproduction/RandomReproductionSchemeUnitTests.cc
+        succession/ElitistSuccessionUnitTest.cc)
 add_executable(evolution_tests ${EVOLUTION_TEST_SOURCES})
 target_link_libraries(evolution_tests PUBLIC evolution GTest::gtest_main)
 
