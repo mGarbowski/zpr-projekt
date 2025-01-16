@@ -25,7 +25,9 @@ set(EVOLUTION_SOURCES Evolution.cc
         reproduction/RandomReproductionScheme.cc
         reproduction/RandomReproductionScheme.h
         succession/ElitistSuccessionScheme.cc
-        succession/ElitistSuccessionScheme.h)
+        succession/ElitistSuccessionScheme.h
+        succession/SuccessionSchemeFactory.cc
+        succession/SuccessionSchemeFactory.h)
 add_library(evolution ${EVOLUTION_SOURCES})
 target_link_libraries(evolution common)
 target_include_directories(evolution INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
