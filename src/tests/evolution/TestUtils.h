@@ -12,4 +12,6 @@ CarDescription givenCarDescription( int i );
 
 Specimen givenSpecimen( int i );
 
+void assertContainsElement( const Population& population, const Specimen& specimen );
+
 #endif  // TESTUTILS_H
