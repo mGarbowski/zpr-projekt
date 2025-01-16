@@ -35,6 +35,8 @@ class CarSimulation {
   bool isFinished() const;
   bool isStuck() const;
   int getTotalSteps() const;
+  float getDistance() const;
+  float getSpeed() const;
 
   void step();
   void destroyWorld();

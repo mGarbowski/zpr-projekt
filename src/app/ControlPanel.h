@@ -18,7 +18,7 @@ class ControlPanel {
         dropdown_1_current_( 0 ),
         dropdown_2_current_( 0 ),
         is_display_enabled_( true ),
-        simulation_speed_percent_( 100 ) {}
+        simulation_speed_percent_( 50 ) {}
 
   bool getRunning() const;
   sf::Color getCarColor() const;

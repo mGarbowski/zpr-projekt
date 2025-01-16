@@ -12,5 +12,6 @@ Population SuccessionScheme::nextGeneration(const Population& previous_populatio
                                             const Population& mutants,
                                             const std::vector<float>& fitness) const {
   assert(previous_population.size() == fitness.size());
+  assert(previous_population.size() == mutants.size());
   return doNextGeneration(previous_population, mutants, fitness);
 }

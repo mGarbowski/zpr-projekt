@@ -75,7 +75,7 @@ void EvolutionManager::updateBestCar( std::vector<float> fitness ) {
 
   const auto simulation = simulations_manager_.simulations()[best_car_idx];
   const auto description = population_[best_car_idx].carDescription();
-  const auto distance = simulation.getCarChassis().getPosition().x_;
+  const auto distance = simulation.getDistance();
   const auto iterations = simulation.getTotalSteps();
 
   best_car_ = BestCar{ description, distance, iterations, best_fitness, generation_ };

@@ -12,19 +12,20 @@
 EvolutionManager EvolutionManagerFactory::create( const ConfigurationPanel& configuration_panel,
                                                   std::mt19937 rng ) {
   auto population = Specimen::createRandomPopulation( configuration_panel.populationSize(), rng );
-  auto fitness_function = FitnessFunction();
+  auto fitness_function =
+      FitnessFunction( configuration_panel.distanceWeight(), configuration_panel.speedWeight() );
   auto simulations_manager = SimulationsManager( configuration_panel.gravity() );
-  auto roadroad_gen_params = configuration_panel.roadGenParams();
+  auto road_gen_params = configuration_panel.roadGenParams();
   auto road_generator = std::make_unique<PerlinRoadGenerator>(
-      roadroad_gen_params.length_, roadroad_gen_params.grid_size_, roadroad_gen_params.layers_,
-      roadroad_gen_params.scale_y_, roadroad_gen_params.scale_x_ );
+      road_gen_params.length_, road_gen_params.grid_size_, road_gen_params.layers_,
+      road_gen_params.scale_y_, road_gen_params.scale_x_ );
 
-  UReproductionScheme reproduction_scheme = ReproductionSchemeFactory::create(
-      configuration_panel.reproductionVariant(), configuration_panel.reproductionParams(), rng );
-  UMutationScheme mutation_scheme = MutationSchemeFactory::create(
-      configuration_panel.mutationVariant(), configuration_panel.mutationParams(), rng );
-
-  USuccessionScheme succession_scheme = std::make_unique<GenerationSuccessionScheme>();
+  UReproductionScheme reproduction_scheme =
+      ReproductionSchemeFactory::create( configuration_panel.reproductionParams(), rng );
+  UMutationScheme mutation_scheme =
+      MutationSchemeFactory::create( configuration_panel.mutationParams(), rng );
+  USuccessionScheme succession_scheme =
+      SuccessionSchemeFactory::create( configuration_panel.successionParams() );
 
   auto evolution = Evolution( std::move( reproduction_scheme ), std::move( mutation_scheme ),
                               std::move( succession_scheme ) );

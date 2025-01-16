@@ -23,8 +23,7 @@ using MutationParams = std::variant<GaussianMutationParams, NoMutationParams>;
 
 class MutationSchemeFactory {
  public:
-  static UMutationScheme create( const MutationVariant variant, const MutationParams params,
-                                 std::mt19937 rng );
+  static UMutationScheme create( MutationParams params, std::mt19937 rng );
 };
 
 #endif  // MUTATIONSCHEMEFACTORY_H

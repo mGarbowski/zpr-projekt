@@ -55,7 +55,7 @@ Position SimulationsManager::getBestCarPosition() const {
   Position best_position = { 0, 0 };
   for( const auto& simulation : simulations_ ) {
     if( !simulation.isStuck() && !simulation.isFinished() &&
-        simulation.getCarChassis().getPosition().x_ > best_position.x_ ) {
+        simulation.getDistance() > best_position.x_ ) {
       best_position = simulation.getCarChassis().getPosition();
     }
   }

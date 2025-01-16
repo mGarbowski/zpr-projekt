@@ -7,7 +7,6 @@
 #include "CarSimulation.h"
 
 #include <box2d/box2d.h>
-#include <iostream>
 
 #include "Utils.h"
 
@@ -65,8 +64,8 @@ CarSimulation CarSimulation::create( const CarDescription& car_description, Road
 
 void CarSimulation::step() {
   b2World_Step( world_id_, time_step_, sub_step_count_ );
-  if( getCarChassis().getPosition().x_ > max_distance_ + min_move_distance_ ) {
-    max_distance_ = getCarChassis().getPosition().x_;
+  if( getDistance() > max_distance_ + min_move_distance_ ) {
+    max_distance_ = getDistance();
     stuck_steps_ = 0;
   } else {
     stuck_steps_++;
@@ -92,16 +91,24 @@ RoadModel CarSimulation::getRoadModel() const {
   return road_model_;
 }
 bool CarSimulation::isStuck() const {
-  bool stuck = ( stuck_steps_ > max_stuck_steps_ );
-  bool life_over = ( max_steps_lifespan_ != 0 && total_steps_ > max_steps_lifespan_ );
+  const bool stuck = ( stuck_steps_ > max_stuck_steps_ );
+  const bool life_over = ( max_steps_lifespan_ != 0 && total_steps_ > max_steps_lifespan_ );
   return stuck || life_over;
 }
 int CarSimulation::getTotalSteps() const {
   return total_steps_;
 }
 
+float CarSimulation::getDistance() const {
+  return getCarChassis().getPosition().x_;
+}
+
+float CarSimulation::getSpeed() const {
+  return getDistance() / ( total_steps_ + 1 );  // Avoid division by 0
+}
+
 bool CarSimulation::isFinished() const {
-  float car_x = getCarChassis().getPosition().x_;
-  float road_end_x = getRoadModel().getEnd().x_;
+  const float car_x = getDistance();
+  const float road_end_x = getRoadModel().getEnd().x_;
   return ( car_x > road_end_x );
 }

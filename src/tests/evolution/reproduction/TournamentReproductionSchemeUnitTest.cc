@@ -20,11 +20,6 @@ std::mt19937 givenRandomEngine() {
   return std::mt19937( 42 );  // Seed for reproducibility
 }
 
-void assertContainsElement( const Population& population, const Specimen& specimen ) {
-  if( std::find( population.begin(), population.end(), specimen ) == population.end() ) {
-    FAIL() << "Population does not contain specimen";
-  }
-}
 
 TEST( TournamentReproductionScheme, tournament_2_reproduction ) {
   const auto random_engine = givenRandomEngine();
