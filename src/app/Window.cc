@@ -79,11 +79,12 @@ void Window::drawBestCar( const EvolutionManager& evolution_manager,
     return;
   }
 
-  auto transform = box2dToSFML( width_, height_, scale_, Position(0, 0) );
+  // Fixed position on the screen
+  const auto transform = box2dToSFML( width_, height_, scale_, Position( 0, 0 ) );
+  const sf::Vector2f top_left_corner = { -15, 15 };
 
-  drawCarModel( window_, evolution_manager.bestCar()->description_, transform,
-                control_panel.getCarColor(), {-15, 15});
-
+  drawCarDescription( window_, evolution_manager.bestCar()->description_, transform,
+                      control_panel.getCarColor(), top_left_corner );
 }
 
 void Window::processEvents() {
