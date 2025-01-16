@@ -44,14 +44,16 @@ float ConfigurationPanel::gravity() const {
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 
+  ImGui::SeparatorText( "Evolution" );
   ImGui::SliderInt( "Population Size", &population_size_, 1, 50 );
 
-  ImGui::Text( "Evolution parameters:" );
   renderReproductionControls();
   renderMutationControls();
   renderSuccessionControls();
 
   renderRoadGeneratorControls();
+
+  ImGui::SeparatorText( "Simulation" );
   renderGravityControl();
 
   if( ImGui::Button( "Start" ) ) {
@@ -62,6 +64,8 @@ void ConfigurationPanel::render() {
 }
 
 void ConfigurationPanel::renderMutationControls() {
+  ImGui::SeparatorText( "Mutation" );
+
   const char* mutation_variants[] = { "Gaussian", "None" };
   int current_variant = static_cast<int>( mutation_variant_ );
   if( ImGui::Combo( "Mutation Variant", &current_variant, mutation_variants,
@@ -76,6 +80,8 @@ void ConfigurationPanel::renderMutationControls() {
 }
 
 void ConfigurationPanel::renderReproductionControls() {
+  ImGui::SeparatorText( "Reproduction" );
+
   const char* reproduction_variants[] = { "Proportional", "Tournament", "Random" };
   int current_variant = static_cast<int>( reproduction_variant_ );
   if( ImGui::Combo( "Reproduction Variant", &current_variant, reproduction_variants,
@@ -173,7 +179,7 @@ void ConfigurationPanel::adjustReproductionParamsType() {
 
 void ConfigurationPanel::renderRoadGeneratorControls() {
   auto& params = road_gen_params_;
-  ImGui::Text( "Road generator parameters:" );
+  ImGui::SeparatorText( "Road generator" );
   ImGui::SliderInt( "Number of points:", &params.length_, 1, 300 );
   ImGui::SliderInt( "Perlin grid size", &params.grid_size_, 1, 500 );
   ImGui::SliderInt( "Perlin Layers", &params.layers_, 1, 50 );
@@ -181,6 +187,5 @@ void ConfigurationPanel::renderRoadGeneratorControls() {
   ImGui::SliderFloat( "X Scale", &params.scale_x_, 1, 15 );
 }
 void ConfigurationPanel::renderGravityControl() {
-  ImGui::Text( "Gravity of the simulation:" );
   ImGui::SliderFloat( "Gravity (in m/s^2):", &gravity_, 0, 20 );
 }
