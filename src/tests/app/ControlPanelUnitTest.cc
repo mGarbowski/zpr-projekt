@@ -3,9 +3,9 @@
 
 namespace ControlPanelUnitTest {
 
-TEST( ControlPanel, delayIsZeroWithDefaultMaxSpeed ) {
+TEST( ControlPanel, defaultDelayIsPositive ) {
   const ControlPanel control_panel;
-  EXPECT_EQ( control_panel.getDelayMicroseconds(), 0 );
+  EXPECT_TRUE( control_panel.getDelayMicroseconds() > 0 );
 }
 
 }  // namespace ControlPanelUnitTest
