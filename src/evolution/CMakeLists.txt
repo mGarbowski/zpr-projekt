@@ -33,7 +33,7 @@ set(EVOLUTION_SOURCES Evolution.cc
         crossover/CrossoverSchemeFactory.cpp
         crossover/CrossoverSchemeFactory.h
         crossover/NoCrossoverScheme.cpp
-        crossover/NoCrossoverScheme.h)
+        crossover/NoCrossoverScheme.h crossover/TwoPointCrossoverScheme.cpp crossover/TwoPointCrossoverScheme.h)
 add_library(evolution ${EVOLUTION_SOURCES})
 target_link_libraries(evolution common)
 target_include_directories(evolution INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
