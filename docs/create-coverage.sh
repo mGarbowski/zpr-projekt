@@ -24,7 +24,7 @@ lcov -c -d . -o "$APP_TEST_COV"
 # Step 4: Combine initial and test coverage data
 lcov -a "$SRC_COV" -a "$APP_TEST_COV" -o "$TOTAL_COV"
 
-lcov --remove "$TOTAL_COV" "*/build/_deps/*" "*/usr/include/c++/11/*" "*/build/_deps/googletest-src/*" --output-file "$TOTAL_COV"
+lcov --remove "$TOTAL_COV" "*/_deps/*" "*/usr/include/c++/11/*" "*/build/_deps/googletest-src/*" --output-file "$TOTAL_COV"
 
 # Step 5: Generate final HTML coverage report
 genhtml "$TOTAL_COV" --output-directory "$OUTPUT_DIR"
