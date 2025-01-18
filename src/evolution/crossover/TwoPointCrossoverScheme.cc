@@ -11,34 +11,40 @@
 Population TwoPointCrossoverScheme::doCrossoverPopulation( const Population& population ) {
   Population new_population;
   new_population.reserve( population.size() );
-  std::uniform_int_distribution<> distribution( 0, population.size() - 1 );
+  std::uniform_real_distribution<float> real_distribution( 0.0, 1.0 );
 
-  while( new_population.size() < population.size() ) {
-    auto parent_1_idx = distribution( random_number_generator_ );
-    auto parent_2_idx = distribution( random_number_generator_ );
-    auto parent_1 = population[parent_1_idx];
-    auto parent_2 = population[parent_2_idx];
-    auto [offspring1, offspring2] =
-        twoPointCrossover( parent_1.attributes(), parent_2.attributes() );
+  for( int parent_1_index = 1; parent_1_index < population.size(); parent_1_index += 2 ) {
+    const auto parent_2_index = parent_1_index - 1;
+    auto parent_1 = population[parent_1_index];
+    auto parent_2 = population[parent_2_index];
+    // check if this pair is to be crossed over
+    if( real_distribution( random_number_generator_ ) < crossover_prob_ ) {
+      auto [offspring1, offspring2] =
+          twoPointCrossover( parent_1.attributes(), parent_2.attributes() );
 
-    auto car_description_1 = CarDescription(
-        Position( offspring1[0], offspring1[1] ), Position( 0, offspring1[2] ),
-        Position( offspring1[3], offspring1[4] ), Position( offspring1[5], 0 ),
-        Position( offspring1[6], offspring1[7] ), Position( 0, offspring1[8] ),
-        Position( offspring1[9], offspring1[10] ), Position( offspring1[11], 0 ), offspring1[12],
-        offspring1[13], offspring1[14], offspring1[15], offspring1[16] );
-
-    new_population.push_back( Specimen( car_description_1 ) );
-    if( new_population.size() < population.size() ) {
+      auto car_description_1 = CarDescription(
+          Position( offspring1[0], offspring1[1] ), Position( 0, offspring1[2] ),
+          Position( offspring1[3], offspring1[4] ), Position( offspring1[5], 0 ),
+          Position( offspring1[6], offspring1[7] ), Position( 0, offspring1[8] ),
+          Position( offspring1[9], offspring1[10] ), Position( offspring1[11], 0 ), offspring1[12],
+          offspring1[13], offspring1[14], offspring1[15], offspring1[16] );
       auto car_description_2 = CarDescription(
           Position( offspring2[0], offspring2[1] ), Position( 0, offspring2[2] ),
           Position( offspring2[3], offspring2[4] ), Position( offspring2[5], 0 ),
           Position( offspring2[6], offspring2[7] ), Position( 0, offspring2[8] ),
-          Position( offspring2[9], offspring2[10] ),
-          Position( offspring2[11], 0 ), offspring2[12], offspring2[13],
-          offspring2[14], offspring2[15], offspring2[16] );
+          Position( offspring2[9], offspring2[10] ), Position( offspring2[11], 0 ), offspring2[12],
+          offspring2[13], offspring2[14], offspring2[15], offspring2[16] );
+
+      new_population.push_back( Specimen( car_description_1 ) );
       new_population.push_back( Specimen( car_description_2 ) );
+    } else {
+      new_population.push_back( parent_1 );
+      new_population.push_back( parent_2 );
     }
+  }
+  // odd number of specimens, one left without a pair
+  if (new_population.size() < population.size()){
+    new_population.push_back(population[population.size()-1]);
   }
   return new_population;
 }
