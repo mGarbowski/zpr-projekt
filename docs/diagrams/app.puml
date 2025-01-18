@@ -21,6 +21,8 @@ package app {
         + ReproductionParams reproductionParams() const
         + SuccessionVariant successionVariant() const
         + SuccessionParams successionParams() const
+        + CrossoverVariant crossoverVariant() const
+        + CrossoverParams crossoverParams() const
         + RoadGenParams roadGenParams() const
         + float gravity() const
         + float distanceWeight() const
@@ -31,9 +33,11 @@ package app {
         - void renderMutationControls()
         - void renderReproductionControls()
         - void renderSuccessionControls()
+        - void renderCrossoverControls()
         - void adjustSuccessionParamsType()
         - void adjustReproductionParamsType()
         - void adjustMutationParamsType()
+        - void adjustCrossoverParamsType()
         - void renderRoadGeneratorControls()
         - void renderSimulationControls()
         - int population_size_
@@ -44,6 +48,8 @@ package app {
         - ReproductionParams reproduction_params_
         - SuccessionVariant succession_variant_
         - SuccessionParams succession_params_
+        - CrossoverVariant crossover_variant_
+        - CrossoverParams crossover_params_
         - float gravity_
         - RoadGenParams road_gen_params_
         - float distance_weight_

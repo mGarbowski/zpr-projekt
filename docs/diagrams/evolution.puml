@@ -4,12 +4,13 @@
 package evolution {
     class Evolution {
         + Evolution( UReproductionScheme reproduction_scheme, UMutationScheme mutation_scheme,
-                       USuccessionScheme succession_scheme )
+                       USuccessionScheme succession_scheme, UCrossoverScheme crossover_scheme )
         + Population evolve( const Population& population, const std::vector<float>& fitness )
 
         - UReproductionScheme reproduction_scheme_
         - UMutationScheme mutation_scheme_
         - USuccessionScheme succession_scheme_
+        - UCrossoverScheme crossover_scheme_
     }
 
     class Specimen {
@@ -26,5 +27,6 @@ package evolution {
     Evolution *-- mutation.MutationScheme
     Evolution *-- reproduction.ReproductionScheme
     Evolution *-- succession.SuccessionScheme
+    Evolution *-- crossover.CrossoverScheme
 }
 @enduml
