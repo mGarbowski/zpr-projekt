@@ -91,11 +91,20 @@ if(LCOV_EXECUTABLE AND GENHTML_EXECUTABLE)
     add_custom_target(coverage
             COMMAND ${CMAKE_COMMAND} -E remove -f coverage.info
             COMMAND ${CMAKE_COMMAND} -E remove_directory coverage_html
+
+            # Capture all coverage data
             COMMAND ${LCOV_EXECUTABLE} --capture --directory . --output-file coverage.info
 
-            COMMAND ${LCOV_EXECUTABLE} --remove coverage.info "*/build/_deps/*" "*/usr/include/c++/11/*"  "*/build/_deps/googletest-src/*" --output-file coverage.info
+            # Remove unwanted paths
+            COMMAND ${LCOV_EXECUTABLE} --remove coverage.info
+            "*/build/_deps/*"
+            "*/usr/include/c++/11/*"
+            "*/build/_deps/googletest-src/*"
+            --output-file coverage_filtered.info
 
-            COMMAND ${GENHTML_EXECUTABLE} coverage.info --output-directory coverage_html
+            # Generate HTML report
+            COMMAND ${GENHTML_EXECUTABLE} coverage_filtered.info --output-directory coverage_html
+
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
             COMMENT "Generating coverage report..."
     )
