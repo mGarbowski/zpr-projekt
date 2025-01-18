@@ -72,6 +72,35 @@ message(STATUS "CMAKE_INSTALL_PREFIX is set to: ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "CMAKE_ARCHIVE_OUTPUT_DIRECTORY is set to: ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
 message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY is set to: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 message(STATUS "----------------------------------------------------")
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    # Enable coverage flags for GCC
+    add_compile_options(-fprofile-arcs -ftest-coverage)
+    add_link_options(-fprofile-arcs -ftest-coverage)
+
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    # Enable coverage flags for Clang
+    add_compile_options(-fprofile-instr-generate -fcoverage-mapping)
+    add_link_options(-fprofile-instr-generate -fcoverage-mapping)
+endif()
+
+# Add custom target for coverage
+find_program(LCOV_EXECUTABLE lcov)
+find_program(GENHTML_EXECUTABLE genhtml)
+
+if(LCOV_EXECUTABLE AND GENHTML_EXECUTABLE)
+    add_custom_target(coverage
+            COMMAND ${CMAKE_COMMAND} -E remove -f coverage.info
+            COMMAND ${CMAKE_COMMAND} -E remove_directory coverage_html
+            COMMAND ${LCOV_EXECUTABLE} --capture --directory . --output-file coverage.info
+            COMMAND ${LCOV_EXECUTABLE} --remove coverage.info "*/build/_deps/googletest-src/*" --output-file coverage.info
+
+            COMMAND ${GENHTML_EXECUTABLE} coverage.info --output-directory coverage_html
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+            COMMENT "Generating coverage report..."
+    )
+else()
+    message(WARNING "lcov or genhtml not found; coverage target will not be available.")
+endif()
 
 add_subdirectory(src/common)
 add_subdirectory(src/tests/common)
