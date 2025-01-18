@@ -22,20 +22,21 @@ Population TwoPointCrossoverScheme::doCrossoverPopulation( const Population& pop
         twoPointCrossover( parent_1.attributes(), parent_2.attributes() );
 
     auto car_description_1 = CarDescription(
-        { offspring1[0], offspring1[1] }, { offspring1[2], offspring1[3] },
-        { offspring1[4], offspring1[5] }, { offspring1[6], offspring1[7] },
-        { offspring1[8], offspring1[9] }, { offspring1[10], offspring1[11] },
-        { offspring1[12], offspring1[13] }, { offspring1[14], offspring1[15] }, offspring1[16],
-        offspring1[17], offspring1[18], offspring1[19], offspring1[20] );
+        Position( offspring1[0], offspring1[1] ), Position( 0, offspring1[2] ),
+        Position( offspring1[3], offspring1[4] ), Position( offspring1[5], 0 ),
+        Position( offspring1[6], offspring1[7] ), Position( 0, offspring1[8] ),
+        Position( offspring1[9], offspring1[10] ), Position( offspring1[11], 0 ), offspring1[12],
+        offspring1[13], offspring1[14], offspring1[15], offspring1[16] );
 
     new_population.push_back( Specimen( car_description_1 ) );
     if( new_population.size() < population.size() ) {
       auto car_description_2 = CarDescription(
-          { offspring2[0], offspring2[1] }, { offspring2[2], offspring2[3] },
-          { offspring2[4], offspring2[5] }, { offspring2[6], offspring2[7] },
-          { offspring2[8], offspring2[9] }, { offspring2[10], offspring2[11] },
-          { offspring2[12], offspring2[13] }, { offspring2[14], offspring2[15] }, offspring2[16],
-          offspring2[17], offspring2[18], offspring2[19], offspring2[20] );
+          Position( offspring2[0], offspring2[1] ), Position( 0, offspring2[2] ),
+          Position( offspring2[3], offspring2[4] ), Position( offspring2[5], 0 ),
+          Position( offspring2[6], offspring2[7] ), Position( 0, offspring2[8] ),
+          Position( offspring2[9], offspring2[10] ),
+          Position( offspring2[11], 0 ), offspring2[12], offspring2[13],
+          offspring2[14], offspring2[15], offspring2[16] );
       new_population.push_back( Specimen( car_description_2 ) );
     }
   }
