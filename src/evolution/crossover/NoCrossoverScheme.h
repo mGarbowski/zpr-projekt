@@ -8,7 +8,7 @@
 #define EVOLUTION_NOCROSSOVERSCHEME_H
 #include "CrossoverScheme.h"
 
-class NoCrossoverScheme {
+class NoCrossoverScheme: public CrossoverScheme {
  protected:
   virtual Population doCrossoverPopulation( const Population& population );
 };
