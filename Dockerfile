@@ -14,6 +14,7 @@ RUN apt install -y libxcursor-dev
 RUN apt install -y libxi-dev
 RUN apt install -y pkg-config
 RUN apt install -y libgl-dev
+RUN apt install -y lcov
 
 # from https://github.com/micromouseonline/cmake-sfml-imgui-project
 RUN apt install -y libxcursor-dev
