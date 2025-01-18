@@ -92,7 +92,8 @@ if(LCOV_EXECUTABLE AND GENHTML_EXECUTABLE)
             COMMAND ${CMAKE_COMMAND} -E remove -f coverage.info
             COMMAND ${CMAKE_COMMAND} -E remove_directory coverage_html
             COMMAND ${LCOV_EXECUTABLE} --capture --directory . --output-file coverage.info
-            COMMAND ${LCOV_EXECUTABLE} --remove coverage.info "*/build/_deps/googletest-src/*" --output-file coverage.info
+
+            COMMAND ${LCOV_EXECUTABLE} --remove coverage.info "*/build/_deps/*" "*/usr/include/c++/11/*"  "*/build/_deps/googletest-src/*" --output-file coverage.info
 
             COMMAND ${GENHTML_EXECUTABLE} coverage.info --output-directory coverage_html
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
