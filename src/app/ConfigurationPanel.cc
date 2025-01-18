@@ -93,6 +93,10 @@ int ConfigurationPanel::computationLimit() const {
   return computation_limit_;
 }
 
+CrossoverVariant ConfigurationPanel::crossoverVariant() const {
+  return crossover_variant_;
+}
+
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 
@@ -102,6 +106,7 @@ void ConfigurationPanel::render() {
   renderFitnessFunctionControls();
 
   renderReproductionControls();
+  renderCrossoverControls();
   renderMutationControls();
   renderSuccessionControls();
 
@@ -211,3 +216,13 @@ void ConfigurationPanel::renderSimulationControls() {
   ImGui::SliderFloat( "Gravity (in m/s^2):", &gravity_, 0, 20 );
   ImGui::SliderInt( "Computation Limit (simulation steps)", &computation_limit_, 1000, 15000 );
 }
+void ConfigurationPanel::renderCrossoverControls() {
+  ImGui::SeparatorText( "Crossover" );
+
+  const char* crossover_variant[] = { "Two point", "None" };
+  int current_variant = static_cast<int>( crossover_variant_ );
+  ImGui::Combo( "Crossover Variant", &current_variant, crossover_variant,
+                    IM_ARRAYSIZE( crossover_variant ) );
+
+}
+
