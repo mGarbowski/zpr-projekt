@@ -41,6 +41,14 @@ struct MutationControlsVisitor {
   }
 };
 
+struct CrossoverControlsVisitor {
+  void operator()( NoCrossoverParams& ) const {}
+
+  void operator()( TwoPointCrossoverParams& params ) const {
+    ImGui::SliderFloat( "Crossover probability", &params.crossover_prob_, 0.01f, 1.0f );
+  }
+};
+
 int ConfigurationPanel::populationSize() const {
   return population_size_;
 }
@@ -93,6 +101,14 @@ int ConfigurationPanel::computationLimit() const {
   return computation_limit_;
 }
 
+CrossoverVariant ConfigurationPanel::crossoverVariant() const {
+  return crossover_variant_;
+}
+
+CrossoverParams ConfigurationPanel::crossoverParams() const {
+  return crossover_params_;
+}
+
 void ConfigurationPanel::render() {
   ImGui::Begin( "Configuration Panel" );
 
@@ -102,6 +118,7 @@ void ConfigurationPanel::render() {
   renderFitnessFunctionControls();
 
   renderReproductionControls();
+  renderCrossoverControls();
   renderMutationControls();
   renderSuccessionControls();
 
@@ -163,6 +180,19 @@ void ConfigurationPanel::renderSuccessionControls() {
   std::visit( SuccessionControlsVisitor{ population_size_ }, succession_params_ );
 }
 
+void ConfigurationPanel::renderCrossoverControls() {
+  ImGui::SeparatorText( "Crossover" );
+
+  const char* crossover_variant[] = { "Two point", "None" };
+  int current_variant = static_cast<int>( crossover_variant_ );
+  if( ImGui::Combo( "Crossover Variant", &current_variant, crossover_variant,
+                    IM_ARRAYSIZE( crossover_variant ) ) ) {
+  crossover_variant_ = static_cast<CrossoverVariant>(current_variant);
+  adjustCrossoverParamsType();
+  }
+  std::visit(CrossoverControlsVisitor{}, crossover_params_);
+}
+
 void ConfigurationPanel::adjustSuccessionParamsType() {
   switch( succession_variant_ ) {
     case SuccessionVariant::GENERATION:
@@ -194,6 +224,16 @@ void ConfigurationPanel::adjustMutationParamsType() {
       break;
     case MutationVariant::GAUSSIAN:
       mutation_params_ = GaussianMutationParams{ 0.1 };
+  }
+}
+
+void ConfigurationPanel::adjustCrossoverParamsType() {
+  switch( crossover_variant_ ) {
+    case CrossoverVariant::NONE:
+      crossover_params_ = NoCrossoverParams{};
+      break;
+    case CrossoverVariant::TWO_POINT:
+      crossover_params_ = TwoPointCrossoverParams{ 0.5 };
   }
 }
 
