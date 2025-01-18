@@ -34,6 +34,7 @@ class ConfigurationPanel {
         succession_variant_( SuccessionVariant::GENERATION ),
         succession_params_( GenerationSuccessionParams{} ),
         crossover_variant_(CrossoverVariant::NONE),
+        crossover_params_(NoCrossoverParams{}),
         gravity_( 9.81 ),
         road_gen_params_( RoadGenParams{ 50, 200, 20, 10, 8 } ),
         distance_weight_( 1.0 ),
@@ -49,6 +50,7 @@ class ConfigurationPanel {
   SuccessionVariant successionVariant() const;
   SuccessionParams successionParams() const;
   CrossoverVariant crossoverVariant() const;
+  CrossoverParams crossoverParams() const;
   RoadGenParams roadGenParams() const;
   float gravity() const;
   float distanceWeight() const;
@@ -66,6 +68,7 @@ class ConfigurationPanel {
   void adjustSuccessionParamsType();
   void adjustReproductionParamsType();
   void adjustMutationParamsType();
+  void adjustCrossoverParamsType();
   void renderRoadGeneratorControls();
   void renderSimulationControls();
 
@@ -78,6 +81,7 @@ class ConfigurationPanel {
   SuccessionVariant succession_variant_;
   SuccessionParams succession_params_;
   CrossoverVariant crossover_variant_;
+  CrossoverParams crossover_params_;
   float gravity_;
   RoadGenParams road_gen_params_;
   float distance_weight_;

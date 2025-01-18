@@ -10,17 +10,18 @@
 #include "NoCrossoverScheme.h"
 #include "TwoPointCrossoverScheme.h"
 
-// Crossover variants have no parameters, so I forgo the visitors.
-UCrossoverScheme CrossoverSchemeFactory::create( CrossoverVariant variant, std::mt19937 rng ) {
-  switch( variant ) {
-    case CrossoverVariant::NONE: {
-      return std::make_unique<NoCrossoverScheme>();
-    }
-    case CrossoverVariant::TWO_POINT: {
-      return std::make_unique<TwoPointCrossoverScheme>( rng );
-    }
-    default: {
-      throw std::invalid_argument( "Invalid crossover scheme selected" );
-    }
+struct CrossoverSchemeFactoryVisitor {
+  std::mt19937& rng_;
+
+  UCrossoverScheme operator()( const TwoPointCrossoverParams& params ) const {
+    return std::make_unique<TwoPointCrossoverScheme>( rng_, params.crossover_prob_ );
   }
+
+  UCrossoverScheme operator()( const NoCrossoverParams& ) const {
+    return std::make_unique<NoCrossoverScheme>();
+  }
+};
+
+UCrossoverScheme CrossoverSchemeFactory::create( CrossoverParams params, std::mt19937 rng ) {
+  return std::visit( CrossoverSchemeFactoryVisitor{ rng }, params );
 }

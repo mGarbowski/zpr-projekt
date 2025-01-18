@@ -28,7 +28,7 @@ EvolutionManager EvolutionManagerFactory::create( const ConfigurationPanel& conf
   USuccessionScheme succession_scheme =
       SuccessionSchemeFactory::create( configuration_panel.successionParams() );
   UCrossoverScheme crossover_scheme =
-      CrossoverSchemeFactory::create( configuration_panel.crossoverVariant(), rng );
+      CrossoverSchemeFactory::create( configuration_panel.crossoverParams(), rng );
 
   auto evolution = Evolution( std::move( reproduction_scheme ), std::move( mutation_scheme ),
                               std::move( succession_scheme ), std::move( crossover_scheme ) );

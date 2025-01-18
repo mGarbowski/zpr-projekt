@@ -41,6 +41,14 @@ struct MutationControlsVisitor {
   }
 };
 
+struct CrossoverControlsVisitor {
+  void operator()( NoCrossoverParams& ) const {}
+
+  void operator()( TwoPointCrossoverParams& params ) const {
+    ImGui::SliderFloat( "Crossover probability", &params.crossover_prob_, 0.01f, 1.0f );
+  }
+};
+
 int ConfigurationPanel::populationSize() const {
   return population_size_;
 }
@@ -95,6 +103,10 @@ int ConfigurationPanel::computationLimit() const {
 
 CrossoverVariant ConfigurationPanel::crossoverVariant() const {
   return crossover_variant_;
+}
+
+CrossoverParams ConfigurationPanel::crossoverParams() const {
+  return crossover_params_;
 }
 
 void ConfigurationPanel::render() {
@@ -168,6 +180,19 @@ void ConfigurationPanel::renderSuccessionControls() {
   std::visit( SuccessionControlsVisitor{ population_size_ }, succession_params_ );
 }
 
+void ConfigurationPanel::renderCrossoverControls() {
+  ImGui::SeparatorText( "Crossover" );
+
+  const char* crossover_variant[] = { "Two point", "None" };
+  int current_variant = static_cast<int>( crossover_variant_ );
+  if( ImGui::Combo( "Crossover Variant", &current_variant, crossover_variant,
+                    IM_ARRAYSIZE( crossover_variant ) ) ) {
+  crossover_variant_ = static_cast<CrossoverVariant>(current_variant);
+  adjustCrossoverParamsType();
+  }
+  std::visit(CrossoverControlsVisitor{}, crossover_params_);
+}
+
 void ConfigurationPanel::adjustSuccessionParamsType() {
   switch( succession_variant_ ) {
     case SuccessionVariant::GENERATION:
@@ -202,6 +227,16 @@ void ConfigurationPanel::adjustMutationParamsType() {
   }
 }
 
+void ConfigurationPanel::adjustCrossoverParamsType() {
+  switch( crossover_variant_ ) {
+    case CrossoverVariant::NONE:
+      crossover_params_ = NoCrossoverParams{};
+      break;
+    case CrossoverVariant::TWO_POINT:
+      crossover_params_ = TwoPointCrossoverParams{ 0.5 };
+  }
+}
+
 void ConfigurationPanel::renderRoadGeneratorControls() {
   auto& params = road_gen_params_;
   ImGui::SeparatorText( "Road generator" );
@@ -216,13 +251,3 @@ void ConfigurationPanel::renderSimulationControls() {
   ImGui::SliderFloat( "Gravity (in m/s^2):", &gravity_, 0, 20 );
   ImGui::SliderInt( "Computation Limit (simulation steps)", &computation_limit_, 1000, 15000 );
 }
-void ConfigurationPanel::renderCrossoverControls() {
-  ImGui::SeparatorText( "Crossover" );
-
-  const char* crossover_variant[] = { "Two point", "None" };
-  int current_variant = static_cast<int>( crossover_variant_ );
-  ImGui::Combo( "Crossover Variant", &current_variant, crossover_variant,
-                    IM_ARRAYSIZE( crossover_variant ) );
-
-}
-
