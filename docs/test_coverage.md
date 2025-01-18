@@ -5,8 +5,15 @@ to generate test coverage:
   cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
   cmake --build build
 ```
-- after files are created in ./bin/Debug:
+- run all tests: 
+```shell
+./bin/Debug/app_tests;
+./bin/Debug/common_tests;
+./bin/Debug/evolution_tests;
+./bin/Debug/road_tests;
+./bin/Debug/simulation_tests
+```
 - run 
 ```shell 
-docs/create_coverage.sh
+./docs/create-coverage.sh 
 ```
