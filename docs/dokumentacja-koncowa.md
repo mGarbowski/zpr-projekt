@@ -136,7 +136,7 @@ Najważniejsze klasy:
 ### Simulation
 Odpowiada za przeprowadzenie symulacji fizycznej jednego pojazdu.
 Najważniejsze klasy:
-- CarSimulation - Reprezentuje symulację pojedynczego samochodu na drodze. Udostępnia informacje o jego stanie, składowych symulacji (kadłub pojazdu, koła pojazdu, model fizyczny drogi) i operacje na świecie symulacji box2D - kolejny krok i .  
+- CarSimulation - Reprezentuje symulację pojedynczego samochodu na drodze. Udostępnia informacje o jego stanie, składowych symulacji (kadłub pojazdu, koła pojazdu, model fizyczny drogi) i operacje na świecie symulacji box2D - kolejny krok i zniszczenie świata.  
 - RoadModel - klasa reprezentująca fizyczną trasę. Przekształca RoadModel na wektor obiektów Box2D do wykorzystania w symulacji jako podłoże.
 
 ![[simulation.png]]
