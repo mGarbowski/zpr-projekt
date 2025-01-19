@@ -11,6 +11,9 @@ na różnych trasach, aby możliwe było wyewoluowanie jak najlepszego pojazdu, 
 losowej trasy, tak aby przeskoczyć konkretną dolinkę. Przed rozpoczęciem realizacji projektu proszę zapoznać się
 z zawartością http://staff.elka.pw.edu.pl/~rbiedrzy/ZPR/index.html.
 
+<div style="page-break-after: always;"></div>
+
+
 ## Ogólny opis rozwiązania
 
 Projekt składa się z aplikacji desktopowej przedstawiającej wizualizację przebiegu symulacji
@@ -37,6 +40,7 @@ Trasa, po której poruszają się pojazdy, generowana jest za pomocą algorytmu 
 
 Dokładne działanie algorytmu ewolucyjnego, funkcji celu i szumu Perlina opisane są w sekcji "[[#Wykorzystane algorytmy]]" 
 
+<div style="page-break-after: always;"></div>
 
 ## Zrealizowane funkcjonalności:
 Udało nam się zrealizować wszystkie zaplanowane funkcjonalności i kilka nie planowanych, które dają użytkownikowi większą kontrolę nad środowiskiem symulacji i ewolucji.
@@ -70,6 +74,9 @@ Udało nam się zrealizować wszystkie zaplanowane funkcjonalności i kilka nie 
 	1. Model najlepszego pojazdu wyświetlany w rogu ekranu
 	2. Genom najlepszego pojazdu wyświetlany w jednym z okien GUI
 
+<div style="page-break-after: always;"></div>
+
+
 ## Architektura
 Program napisany jest w języku C++, z wykorzystaniem bibliotek zewnętrznych Box2d, ImGui i SFML. Do testowania wykorzystujemy bibliotekę Google Test. Budowanie aplikacji automatyzujemy przez Cmake. Repozytorium kodu trzymane jest na Githubie, na którym korzystamy też z narzędzia Github Actions w celu automatycznego testowania aplikacja przy każdej aktualizacji.
 
@@ -83,6 +90,10 @@ Program podzielony jest na następujące moduły:
 - Simulation
 
 ![packages diagram](./diagrams-exported/packages.png)
+
+<div style="page-break-after: always;"></div>
+
+
 ### App
 Odpowiada za program wykonywalny, wyświetlenie symulacji, interfejs użytkownika i konsolidację całego procesu ewolucji i symulacji dla wielu pojazdów jednocześnie. 
 Zawiera punkt wejścia do aplikacji main.cc, który wprawia w ruch cały proces. Korzysta ze wszystkich pozostałych modułów. 
@@ -97,6 +108,9 @@ Najważniejsze klasy:
 
 ![app-diagram](./diagrams-exported/app.png)
 
+<div style="page-break-after: always;"></div>
+
+
 ### Common
 Klasy pomocnicze wspólne dla wszystkich modułów
 Klasy:
@@ -104,6 +118,9 @@ Klasy:
 - Position - reprezentacja pozycji w 2D. 
 
 ![common diagram](./diagrams-exported/common.png)
+
+<div style="page-break-after: always;"></div>
+
 
 ### Evolution
 Moduł dostarczający narzędzia do wykorzystania algorytmu ewolucyjnego. Podzielony na pod-moduły dostarczające wariantów składowych ewolucji:
@@ -123,6 +140,9 @@ Najważniejsze klasy:
 ![evolution diagram](./diagrams-exported/evolution.png)
 
 
+<div style="page-break-after: always;"></div>
+
+
 ### Road
 Moduł dostarczający abstrakcję drogi i mechanizmy jej generacji.
 Najważniejsze klasy:
@@ -132,6 +152,10 @@ Najważniejsze klasy:
 	- PerlinRoadGenerator - generuje losową drogę szumem Perlina o określonych parametrach. Opis algorytmu w sekcji "[[#Wykorzystane algorytmy]]"
 
 ![road diagram](./diagrams-exported/road.png)
+
+<div style="page-break-after: always;"></div>
+
+
 ### Simulation
 Odpowiada za przeprowadzenie symulacji fizycznej jednego pojazdu.
 Najważniejsze klasy:
@@ -139,6 +163,9 @@ Najważniejsze klasy:
 - RoadModel - klasa reprezentująca fizyczną trasę. Przekształca RoadModel na wektor obiektów Box2D do wykorzystania w symulacji jako podłoże.
 
 ![simulation diagram](./diagrams-exported/simulation.png)
+
+<div style="page-break-after: always;"></div>
+
 
 ## Wykorzystane algorytmy
 
@@ -192,6 +219,9 @@ Do określenia jakości stosujemy funkcję celu o wzorze:
 Funkcja celu jest maksymalizowana. 
 
 
+<div style="page-break-after: always;"></div>
+
+
 ### Szum Perlina
 Do generowania punktów drogi wykorzystujemy 1 wymiarowy wariant algorytmu szumu Perlina. Jest to algorytm proceduralnego generowania szumu gradientowego. Wykorzystywany jest on często do generacji naturalnie wyglądających tekstur w grafice komputerowej dzięki płynnym przejściom w wartości gradientu między punktami. Jest również używany w grach komputerowych do generacji naturalnego terenu tak jak w naszym zastosowaniu. 
 Etapy działania:
@@ -218,6 +248,9 @@ Etapy działania:
 	- Ostateczna wysokość drogi w punkcie jest mnożona razy parametr zewnętrzny scale_y. Ostatecznie wysokość drogi w dowolnym punkcie mieści się w zakresie <-scale_y, scale_y>
 
 
+<div style="page-break-after: always;"></div>
+
+
 ## Statystyki kodu
 Statystyki pokrycia generowane są przez narzędzie `lcov`
 Liczba linii kodu: 1857
@@ -230,6 +263,9 @@ Pokrycie kodu testami:
 Najmniej przetestowanym jest moduł app, ponieważ zawiera on wszelkie funkcje odpowiadające za GUI, które są problematyczne lub niemożliwe do objęcia testami jednostkowymi. 
 
 ![coverage](./images/coverage-app.png)
+
+
+<div style="page-break-after: always;"></div>
 
 
 ## Lista zadań
@@ -276,12 +312,18 @@ Najmniej przetestowanym jest moduł app, ponieważ zawiera on wszelkie funkcje o
 |                                    | wyświetlanie wyników po zakończeniu ewolucji                                                 | 3                   | 2                |
 | **SUMA**                           |                                                                                              | **112**             | 113              |
 
+<div style="page-break-after: always;"></div>
+
+
 ## Napotkane problemy i możliwości poprawy
 
 Jednym z największych wyzwań przy pracy nad projektem było zapoznanie się z API wykorzystanych bibliotek, w szczególności na styku SFML i Box2D. Trudności sprawiało nam wydobycie danych na temat obiektów w symulacji silnika fizycznego Box2D i odwzorowanie ich na obiekty kształtów z biblioteki graficznej (SFML) do wyświetlenia na ekranie, ze względu na: różne układy współrzędnych w bibliotekach, tworzenie przez fizyczne obiekty hierarchii i używanie współrzędnych względnych, stosowanie złożonych przekształceń widoku.  
 Problemy udało nam się pomyślnie rozwiązać tworząc odpowiednie abstrakcje rozdzielające odczytywane dane od szczegółów API danej biblioteki.
 
 Rzeczą, którą chcielibyśmy poprawić w przyszłych projektach jest pełne zintegrowanie narzędzi do formatowania, analizy statycznej, pokrycia i tym podobnych z systemem budowania i potokiem CI na samym początku projektu. Przez bardzo długi czas używaliśmy do tego funkcji udostępnianych przez IDE zamiast uniwersalnego rozwiązania. Powodowało to problemy, takie jak niespójność kodu ze stylem kodowania wymaganym przez prowadzącego.
+
+<div style="page-break-after: always;"></div>
+
 
 # Instrukcja użytkownika
 ## Instrukcja budowania i uruchomienia
@@ -336,6 +378,9 @@ Uruchomienie pojedynczego zestawu testów
 ```shell
 ./bin/Debug/evolution_tests
 ```
+
+
+<div style="page-break-after: always;"></div>
 
 
 ## Użycie programu:
