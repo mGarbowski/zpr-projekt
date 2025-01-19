@@ -93,6 +93,12 @@ Uruchomienie pojedynczego zestawu testów
 
 ### Budowanie dokumentacji
 
+Instalacja Doxygen na Ubuntu
+
+```shell
+apt install doxygen
+```
+
 W głównym katalogu projektu
 
 ```shell
