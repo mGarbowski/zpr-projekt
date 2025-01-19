@@ -153,12 +153,12 @@ Sukcesja - Z populacji orginalnej i zmutowanej wybierane są osobniki, z któryc
 Każdy etap jest niezależny od drugiego, dzięki czemu można je dowolnie modyfikować. 
 
 #### Funkcja celu
-Do określenia jakości stosujemy funkcję celu o wzorze:
-dystans * waga dystansu + prędkość * waga prędkości,  gdzie:
-dystans - odległość na osi X pojazdu od punktu startowego w momencie końca życia symulacji
-waga dystansu - parametr, sugerowana 1.0
-prędkość - dystans/(ilość kroków symulacji + 1)
-waga prędkości - parametr, sugeorwana 1000.0, ponieważ przebieg jednej symulacji zajmuje setki lub tysiące kroków, w zależności od długości trasy.
+Do określenia jakości stosujemy funkcję celu o wzorze: 
+```dystans * waga dystansu + prędkość * waga prędkości```,  gdzie:
+- dystans - odległość na osi X pojazdu od punktu startowego w momencie końca życia symulacji
+- waga dystansu - parametr, sugerowana 1.0
+- prędkość - dystans/(ilość kroków symulacji + 1)
+- waga prędkości - parametr, sugeorwana 1000.0, ponieważ przebieg jednej symulacji zajmuje setki lub tysiące kroków, w zależności od długości trasy.
 
 
 #### Szum Perlina
