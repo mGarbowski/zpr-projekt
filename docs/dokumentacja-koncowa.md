@@ -125,7 +125,7 @@ Najważniejsze klasy:
 
 
 ### Road
-Moduł dostarczający . Dostarcza dwie metody generacji drogi - statyczną i losową wykorzystującą algorytm Szumu Perlina.
+Moduł dostarczający abstrakcję drogi i mechanizmy jej generacji.
 Najważniejsze klasy:
 - Road - abstrakcja "drogi" będąca wektorem punktów 2D. Stosowana w CarSimulation, SimulationManager i generatorach drogi
 - RoadGenerator - klasa abstrakcyjna dostarczająca interfejs do generowania drogi. Posiada dwie konkretne implementacje:
