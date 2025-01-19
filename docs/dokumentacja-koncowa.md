@@ -17,15 +17,15 @@ Projekt składa się z aplikacji desktopowej przedstawiającej wizualizację prz
 ewolucji pojazdów 2D oraz interfejsu użytkownika do konfigurowania parametrów symulacji.
 
 Po uruchomieniu użytkownik może dopasować parametry symulacji (np. grawitacja), ewolucji (populacja, rodzaj reprodukcji, krzyżowania, mutacji, sukcesji), generacji drogi (np. długość). 
-Po wystartowaniu symulacji wizualizowane są przebiegi symulacji dla pierwszego pokolenia. Po tym, jak wszystkie pojazdy z obecnego pokolenia dojadą do celu, utkną w miejscu lub wyczerpany zostanie limit obliczeniowy przeprowadzana jest ewolucja i proces jest powtarzany dla nowej populacji.
+Po wystartowaniu symulacji wizualizowane są przebiegi symulacji dla pierwszego pokolenia. Po tym, jak wszystkie pojazdy z obecnego pokolenia dojadą do celu, utkną w miejscu lub wyczerpany zostanie limit obliczeniowy, przeprowadzana jest ewolucja i proces jest powtarzany dla nowej populacji.
 Podczas wizualizacji symulacji w lewym górnym rogu okna wyświetlany jest również model najlepszego pojazdu do tej pory wraz z dodatkowymi informacjami na jego temat.
 
 Ewolucja pojazdów przeprowadzana jest korzystając z algorytmu ewolucyjnego naszego autorstwa z wieloma opcjami customizacji.
 
 Funkcja celu wyliczana jest na podstawie przejechanej odległości i czasu. Wagi tych składowych są możliwe do zmiany w panelu konfiguracyjnym przed rozpoczęciem symulacji.
 
-Pojazd składa się z kadłuba zbudowanego z trójkątów o wspólnym centralnym wierzchołku oraz 2 kół o osiach w zewnętrznych wierzchołkach trójkątów kadłuba, kręcących się ze stałą prędkością kątową. 
-Pojazdy są zdefiniowane przez genom, gdzie genami są:   
+Pojazd składa się z kadłuba zbudowanego z trójkątów o wspólnym centralnym wierzchołku oraz dwóch kół o osiach w zewnętrznych wierzchołkach trójkątów kadłuba, kręcących się ze stałą prędkością kątową. 
+Pojazdy są zdefiniowane przez genom, gdzie genami są:
 położenie zewnętrznych wierzchołków trójkątów kadłuba,
 gęstość kadłuba,
 gęstość koła tylnego,
@@ -33,9 +33,9 @@ gęstość koła przedniego,
 promień koła tylnego,
 promień koła przedniego.
 
-Trasa, po której poruszają się pojazdy generowana jest za pomocą algorytmu Szumu Perlina w 1d. Dla każdego pokolenia jest generowana na nowo, aby uniknąć dopasowywania się osobników do jednej konkretnej trasy.
+Trasa, po której poruszają się pojazdy, generowana jest za pomocą algorytmu Szumu Perlina w 1d. Dla każdego pokolenia jest generowana na nowo, aby uniknąć dopasowywania się osobników do jednej konkretnej trasy.
 
-Dokładne działanie algorytmu ewolucyjnego, funkcji celu i szumu perlina opisane są w sekcji "[[#Wykorzystane algorytmy]]" 
+Dokładne działanie algorytmu ewolucyjnego, funkcji celu i szumu Perlina opisane są w sekcji "[[#Wykorzystane algorytmy]]" 
 
 
 ## Zrealizowane funkcjonalności:
@@ -66,18 +66,18 @@ Udało nam się zrealizować wszystkie zaplanowane funkcjonalności i kilka nie 
 	3. Odległość między punktami definiującymi drogę
 	4. Maksymalna amplituda zmiany wysokości trasy między sąsiednimi punktami
 7. Wystartowanie ewolucji o ustawionych parametrach
-8. Przestawienie wyniku symulacji
+8. Przedstawienie wyniku symulacji
 	1. Model najlepszego pojazdu wyświetlany w rogu ekranu
 	2. Genom najlepszego pojazdu wyświetlany w jednym z okien GUI
 
 
-Największym napotkanym problemem była translacja danych o położeniu i obrocie z obiektów fizycznych do obiektów wyświetlanych przez SFML, ponieważ używają one różnych układów współrzędnych. Próbując nadać obiektowi odpowiednią rotację wbudowanymi metodami SFML poza obracaniem się wokół własnej osi obracał się on również wokół środka układu współrzędnych. Rozwiązaliśmy problem poprzez stworzenie odpowiedniej macierzy transformacji która łączyła przesunięcie na środek układu współrzędnych, obrót o porządany kąt, a następnie przesunięcie na oryginalne współrzędne. 
-Problemu mogliśmy prawdopodobnie uniknąć dokładniej zapoznając się z biblioteką SFML i jej dokumentacją przed wdrożeniem w aplikację. 
+Największym napotkanym problemem była translacja danych o położeniu i obrocie z obiektów fizycznych do obiektów wyświetlanych przez SFML, ponieważ używają one różnych układów współrzędnych. Próbując nadać obiektowi odpowiednią rotację wbudowanymi metodami SFML, poza obracaniem się wokół własnej osi obracał się on również wokół środka układu współrzędnych. Rozwiązaliśmy problem poprzez stworzenie odpowiedniej macierzy transformacji, która łączyła przesunięcie na środek układu współrzędnych, obrót o pożądany kąt, a następnie przesunięcie na oryginalne współrzędne. 
+Problemu mogliśmy prawdopodobnie uniknąć poprzez dokładniejsze zapoznanie się z biblioteką SFML i jej dokumentacją przed wdrożeniem w aplikację. 
 
 
 
 ## Architektura
-Program napisany jest w języku C++,  z wykorzystaniem bibliotek zewnętrznych Box2d, ImGui i SFML. Do testowania wykorzystujemy bibliotekę Google Test. Budowanie aplikacji automatyzujemy przez Cmake. Repozytorium kodu trzymane jest na Githubie, na którym korzystamy też z narzędzia Github Workflows w celu automatycznego testowania aplikacja przy każdej aktualizacji.
+Program napisany jest w języku C++, z wykorzystaniem bibliotek zewnętrznych Box2d, ImGui i SFML. Do testowania wykorzystujemy bibliotekę Google Test. Budowanie aplikacji automatyzujemy przez Cmake. Repozytorium kodu trzymane jest na Githubie, na którym korzystamy też z narzędzia Github Workflows w celu automatycznego testowania aplikacja przy każdej aktualizacji.
 
 Każdy samochód powiązany jest z osobnym "światem" (symulacją) Box2d w celu ułatwienia zarządzaniem tworzenia i przeprowadzania symulacji grupowych.
 
@@ -93,7 +93,7 @@ Program podzielony jest na następujące moduły:
 Odpowiada za program wykonywalny, wyświetlenie symulacji, interfejs użytkownika i konsolidację całego procesu ewolucji i symulacji dla wielu pojazdów jednocześnie. 
 Zawiera punkt wejścia do aplikacji main.cc, który wprawia w ruch cały proces. Korzysta ze wszystkich pozostałych modułów. 
 Najważniejsze klasy:
-- EvolutionManager - skupia w sobie wszystko, co potrzebne do przeprowadzenia cyklu symulacja -> ewolucja -> symulacja. Zwiera manager symulacji fizycznych SimulationManager, schemat przeprowadzanej ewolucji Evolution, aktualną populację, funkcję celu i generator drogi używany podczas rozpoczynania symulacji dla nowej populacji.  
+- EvolutionManager - skupia w sobie wszystko, co potrzebne do przeprowadzenia cyklu symulacja -> ewolucja -> symulacja. Zawiera manager symulacji fizycznych SimulationManager, schemat przeprowadzanej ewolucji Evolution, aktualną populację, funkcję celu i generator drogi używany podczas rozpoczynania symulacji dla nowej populacji.  
 - SimulationManager - zapewnia wygodny interfejs zarządzania wieloma symulacjami fizycznymi pojedynczych pojazdów jednocześnie. Synchronizuje ich przebieg, udostępnia dane o najlepszym pojeździe, informuje zakończeniu wszystkich symulacji. Pojedyncza symulacja pojazdu jest obiektem klasy CarSimulation z modułu Simulation.
 - Window - zapewnia interfejs do wyświetlania całej aplikacji. Do narysowania wszystkich symulacji nałożonych na siebie wykorzystuje dane z EvolutionManagera.
 
@@ -130,7 +130,7 @@ Najważniejsze klasy:
 - Road - abstrakcja "drogi" będąca wektorem punktów 2D. Stosowana w CarSimulation, SimulationManager i generatorach drogi
 - RoadGenerator - klasa abstrakcyjna dostarczająca interfejs do generowania drogi. Posiada dwie konkretne implementacje:
 	- StaticRoadGenerator - zawsze zwraca drogę podaną przy tworzeniu obiektu lub domyślną w przypadku jej braku. Wykorzystywana do testowania.
-	- PerlinRoadGenerator - generuje losową drogę szumem perlina o określonych parametrach. Opis algorytmu w sekcji "[[#Wykorzystane algorytmy]]"
+	- PerlinRoadGenerator - generuje losową drogę szumem Perlina o określonych parametrach. Opis algorytmu w sekcji "[[#Wykorzystane algorytmy]]"
 
 ![[road.png]]
 ### Simulation
@@ -145,10 +145,10 @@ Najważniejsze klasy:
 
 #### Algorytm ewolucyjny:
 Nasza implementacja algorytmu ewolucyjnego składa się z 4 etapów, wykonywanych jeden po drugim:
-Reprodukcja - z orginalnej populacji wybierane są osobniki, które mają być poddane krzyżowaniu i mutacji
+Reprodukcja - z oryginalnej populacji wybierane są osobniki, które mają być poddane krzyżowaniu i mutacji
 Krzyżowanie - genomy kolejnych osobników wybranych w kroku reprodukcji są krzyżowane ze sobą (w zależności od implementacji)
 Mutacja - osobniki będące rezultatem krzyżowania poddawane są mutacji, zmieniane są ich atrybuty
-Sukcesja - Z populacji orginalnej i zmutowanej wybierane są osobniki, z których powstanie nowa populacja do kolejnej iteracji
+Sukcesja - Z populacji oryginalnej i zmutowanej wybierane są osobniki, z których powstanie nowa populacja do kolejnej iteracji
 
 Każdy etap jest niezależny od drugiego, dzięki czemu można je dowolnie modyfikować. 
 
@@ -158,11 +158,11 @@ Do określenia jakości stosujemy funkcję celu o wzorze:
 - dystans - odległość na osi X pojazdu od punktu startowego w momencie końca życia symulacji
 - waga dystansu - parametr, sugerowana 1.0
 - prędkość - dystans/(ilość kroków symulacji + 1)
-- waga prędkości - parametr, sugeorwana 1000.0, ponieważ przebieg jednej symulacji zajmuje setki lub tysiące kroków, w zależności od długości trasy.
+- waga prędkości - parametr, sugerowana 1000.0, ponieważ przebieg jednej symulacji zajmuje setki lub tysiące kroków, w zależności od długości trasy.
 
 
 #### Szum Perlina
-Do generowania punktów drogi wykorzystujemy 1 wymiarowy wariant algorytmu szumu perlina. Jest to algorytm proceduralnego generowania szumu gradientowego. Wykorzystywany jest on często do generacji naturalnie wyglądających tekstur w grafice komputerowej dzięki płynnym przejściom w wartości gradientu między punktami. Jest również używany w grach komputerowych do generacji naturalnego terenu, tak jak w naszym zastosowaniu. 
+Do generowania punktów drogi wykorzystujemy 1 wymiarowy wariant algorytmu szumu Perlina. Jest to algorytm proceduralnego generowania szumu gradientowego. Wykorzystywany jest on często do generacji naturalnie wyglądających tekstur w grafice komputerowej dzięki płynnym przejściom w wartości gradientu między punktami. Jest również używany w grach komputerowych do generacji naturalnego terenu tak jak w naszym zastosowaniu. 
 Etapy działania:
 
 1. **Siatka punktów gradientu**:
@@ -184,7 +184,7 @@ Etapy działania:
 	   - 2^(n-1) dla częstotliwości
 	   - 1/2^(n-1) dla amplitudy
 	- wartości po zsumowaniu oktaw przycinane są z góry i z dołu do określonych wartości (1 i -1)
-	- Ostateczna wysokość drogi w punkcie jest mnożona razy parametr zewnętrzny scale_y. Ostatecznie wysokośc drogi w dowolnym punkcie mieści się w zakresie <-scale_y, scale_y>
+	- Ostateczna wysokość drogi w punkcie jest mnożona razy parametr zewnętrzny scale_y. Ostatecznie wysokość drogi w dowolnym punkcie mieści się w zakresie <-scale_y, scale_y>
 
 
 
