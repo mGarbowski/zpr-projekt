@@ -195,6 +195,7 @@ Do określenia jakości stosujemy funkcję celu o wzorze:
 - waga dystansu - parametr, sugerowana 1.0
 - prędkość - dystans/(ilość kroków symulacji + 1)
 - waga prędkości - parametr, sugerowana 1000.0, ponieważ przebieg jednej symulacji zajmuje setki lub tysiące kroków, w zależności od długości trasy.
+Funkcja celu jest maksymalizowana. 
 
 
 ### Szum Perlina
