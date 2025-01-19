@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+package common {
+    class CarDescription {
+        + {static} CarDescription random( std::mt19937& random_engine )
+        + CarDescription( Position top_left, Position top, ... )
+        + bool operator==( const CarDescription& other ) const
+        + Position topLeft() const
+        + Position top() const
+        + Position topRight() const
+        + Position right() const
+        + Position bottomRight() const
+        + Position bottom() const
+        + Position bottomLeft() const
+        + Position left() const
+        + float bodyDensity() const
+        + float rearWheelDensity() const
+        + float frontWheelDensity() const
+        + float rearWheelRadius() const
+        + float frontWheelRadius() const
+        - Position top_left_
+        - Position top_
+        - Position top_right_
+        - Position right_
+        - Position bottom_right_
+        - Position bottom_
+        - Position bottom_left_
+        - Position left_
+        - float body_density_
+        - float rear_wheel_density_
+        - float front_wheel_density_
+        - float rear_wheel_radius_
+        - float front_wheel_radius_
+    }
+
+    class Position {
+        + Position( const float x, const float y )
+        + bool operator==( const Position& other ) const
+        + Position operator+( const Position& other ) const
+        + std::pair<float, float> asPair() const
+        + std::string toString() const
+        + float x_
+        + float y_
+    }
+}
+@enduml

@@ -1,25 +1,33 @@
 @startuml
 'https://plantuml.com/class-diagram
 package road {
-    class Point {
-        +x: float
-        +y: float
+    class Road {
+        + Road( std::vector<Point> road )
+        - std::vector<Point> points_
     }
 
-    abstract class RoadGenerator {
-        +makeRoad(): vector<Point>
+    class RoadGenerator {
+        + Road generateRoad()
+        # virtual Road generateRoadImpl() const = 0
     }
 
-    class ConstantRoadGenerator {
-        -road: vector<Point>
-        +ConstantRoadGenerator(road: vector<Point>)
+    class StaticRoadGenerator {
+        + StaticRoadGenerator( const std::vector<Point>& points )
+        # Road generateRoadImpl() const override
+        - std::vector<Point> points_
     }
 
-    class PerlinNoiseRoadGenerator
-    class SimplexNoiseRoadGenerator
+    class PerlinRoadGenerator {
+        + PerlinRoadGenerator( int length, int grid_size, int layers, float scale_y, float scale_x )
+        # Road generateRoadImpl() const override
+        - int length_
+        - int grid_size_
+        - int layers_
+        - float scale_y_
+        - float scale_x_
+    }
 
-    RoadGenerator <|-- ConstantRoadGenerator
-    RoadGenerator <|-- PerlinNoiseRoadGenerator
-    RoadGenerator <|-- SimplexNoiseRoadGenerator
+    RoadGenerator <|-- StaticRoadGenerator
+    RoadGenerator <|-- PerlinRoadGenerator
 }
 @enduml

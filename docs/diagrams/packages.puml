@@ -6,6 +6,7 @@ component app
 component evolution
 component road
 component simulation
+component common
 component box2d <<external>>
 component SFML <<external>>
 component ImGUI <<external>>
@@ -20,7 +21,11 @@ app ..> road: use
 app ..> SFML: use
 app ..> ImGUI: use
 
+evolution ..> common: use
+
+simulation ..> common: use
 simulation ..> box2d: use
+simulation ..> road: use
 
 
 

@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package mutation {
+    class MutationScheme {
+        + void mutatePopulation( std::vector<Specimen>& population )
+        + void mutateSpecimen( Specimen& specimen )
+        # virtual void doMutateSpecimen( Specimen& specimen ) = 0
+    }
+
+    class MutationSchemeFactory {
+        + {static} UMutationScheme create( MutationParams params, std::mt19937 rng )
+    }
+
+    class MutationScheme {
+        + void mutatePopulation( std::vector<Specimen>& population )
+        + void mutateSpecimen( Specimen& specimen )
+        # virtual void doMutateSpecimen( Specimen& specimen ) = 0
+    }
+
+    class NoMutationScheme {
+        # virtual void doMutateSpecimen( Specimen& specimen )
+    }
+
+    class GaussianMutationScheme {
+        + GaussianMutationScheme( const double mutation_strength, const std::mt19937& random_number_generator )
+        # void doMutateSpecimen( Specimen& specimen ) override
+        - std::mt19937 random_number_generator_
+        - std::normal_distribution<> normal_distribution_
+    }
+
+    MutationScheme <|-- NoMutationScheme
+    MutationScheme <|-- GaussianMutationScheme
+    MutationSchemeFactory <.. MutationScheme
+}
+
+@enduml
