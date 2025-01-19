@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package crossover {
+    class CrossoverScheme {
+        + Population crossoverPopulation( const Population& population )
+        # virtual Population doCrossoverPopulation( const Population& population ) = 0
+    }
+
+    class CrossoverSchemeFactory {
+        + {static} UCrossoverScheme create( CrossoverParams params, std::mt19937 rng )
+    }
+
+    class NoCrossoverScheme {
+        # Population doCrossoverPopulation( const Population& population ) override
+    }
+
+    class TwoPointCrossover {
+        + TwoPointCrossover( std::mt19937 random_number_generator, const float crossover_prob )
+        # Population doCrossoverPopulation( const Population& population ) override
+        - std::mt19937 random_number_generator_
+        - float crossover_prob_
+        - std::pair<std::vector<float>, std::vector<float>> twoPointCrossover( const std::vector<float>& parent1, const std::vector<float>& parent2 )
+    }
+
+    CrossoverSchemeFactory <.. CrossoverScheme
+    CrossoverScheme <|-- NoCrossoverScheme
+    CrossoverScheme <|-- TwoPointCrossover
+
+}
+
+@enduml

@@ -2,84 +2,31 @@
 'https://plantuml.com/class-diagram
 
 package evolution {
-    class Point {
-        +x: float
-        +y: float
-    }
+    class Evolution {
+        + Evolution( UReproductionScheme reproduction_scheme, UMutationScheme mutation_scheme,
+                       USuccessionScheme succession_scheme, UCrossoverScheme crossover_scheme )
+        + Population evolve( const Population& population, const std::vector<float>& fitness )
 
-    class Genome {
-        -vertices_: array<Point, 8>
-        -rear_wheel_radius_: float
-        -front_wheel_radius_: float
-        -rear_wheel_density_: float
-        -front_wheel_density_: float
-
-        +{static} fromVector(const vector<float>& params): Genome
-        + vector<float> toVector() const
+        - UReproductionScheme reproduction_scheme_
+        - UMutationScheme mutation_scheme_
+        - USuccessionScheme succession_scheme_
+        - UCrossoverScheme crossover_scheme_
     }
 
     class Specimen {
-        -genome_: Genome
-        -rating_: float
+        + {static} Population createRandomPopulation( int population_size, std::mt19937 random_generator )
+        + Specimen( const CarDescription& car_description )
+        + bool operator==( const Specimen& rhs ) const
+        + std::vector<float> attributes() const
+        + CarDescription carDescription() const
+        + std::vector<float>& attributesRef()
+        + void clampAttributes()
+        - std::vector<float> attributes_
     }
 
-    class Evolution
-
-    abstract class ReproductionScheme {
-        +virtual Population nextPopulation(const Population& population) const = 0
-    }
-
-    class RouletteReproduction
-
-    class TournamentReproduction {
-        -tournament_size_: int
-    }
-
-    abstract class MutationScheme {
-        +virtual Specimen mutate(const Specimen& specimen) const = 0
-    }
-
-    class GaussMutation {
-        -vertex_coord_mutation_strength_: float
-        -wheel_radius_mutation_strength_: float
-        -wheel_density_mutation_strength_: float
-    }
-
-    abstract class CrossoverScheme {
-        +virtual crossover(const Genome& genome) const = 0:
-    }
-
-    class OnePointCrossover {
-        -probability: float
-    }
-    class TwoPointCrossover {
-        -probability: float
-    }
-
-    abstract class SuccessionScheme {
-        +virtual vector<Specimen> nextPopulation() const = 0
-    }
-
-    class GenerationSuccession
-
-    class ElitistSuccession {
-        -elite_size: int
-    }
-
-    Evolution *-- ReproductionScheme
-    Evolution *-- MutationScheme
-    Evolution *-- CrossoverScheme
-    Evolution *-- SuccessionScheme
-
-    ReproductionScheme <|-- RouletteReproduction
-    ReproductionScheme <|-- TournamentReproduction
-
-    MutationScheme <|-- GaussMutation
-
-    CrossoverScheme <|-- OnePointCrossover
-    CrossoverScheme <|-- TwoPointCrossover
-
-    SuccessionScheme <|-- GenerationSuccession
-    SuccessionScheme <|-- ElitistSuccession
+    Evolution *-- mutation.MutationScheme
+    Evolution *-- reproduction.ReproductionScheme
+    Evolution *-- succession.SuccessionScheme
+    Evolution *-- crossover.CrossoverScheme
 }
 @enduml

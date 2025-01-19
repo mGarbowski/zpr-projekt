@@ -2,24 +2,97 @@
 'https://plantuml.com/class-diagram
 
 package simulation {
-    class Simulation {
-        -cars: vector<Car>
-        -road: Road
-        +Simulation(vector<Car> cars, Road road)
-        +void step()
-        +bool isFinished() const
+    class CarSimulation {
+        + {static} CarSimulation create( const CarDescription& car_description, const Road road, float gravity, int total_steps_limit)
+        + RoadModel getRoadModel() const
+        + CircleRot getRearWheelCircle() const
+        + CircleRot getFrontWheelCircle() const
+        + CarChassis getCarChassis() const
+        + bool isEndOfRoadReached() const
+        + bool isStuck() const
+        + bool isComputationLimitReached() const
+        + bool isFinished() const
+        + int getTotalSteps() const
+        + float getDistance() const
+        + float getSpeed() const
+        + void step()
+        + void destroyWorld()
+        - CarSimulation( b2WorldId world_id, ...)
+        - b2WorldId world_id_
+        - float time_step_
+        - int sub_step_count_
+        - RoadModel road_model_
+        - b2BodyId rear_wheel_id_
+        - b2BodyId front_wheel_id_
+        - b2JointId rear_joint_id_
+        - b2JointId front_joint_id_
+        - CarChassis car_chassis_
+        - int stuck_steps_
+        - float max_distance_
+        - int max_stuck_steps_
+        - float min_move_distance_
+        - int max_steps_lifespan_
+        - int total_steps_
+        - int total_steps_limit
     }
 
-    class Car {
-        -ID id
-        +float distance() const
-        +float time() const
-        +bool isAlive() const
+    class CarChassis {
+        + {static} CarChassis create( b2WorldId world_id, Position position, const CarDescription& car_description )
+        + b2BodyId bodyId() const
+        + TriangleRot getTriangleRot( int idx ) const
+        + b2Polygon getTriangle( int idx ) const
+        + Position getPosition() const
+        - CarChassis( const b2BodyId body_id )
+        - b2BodyId body_id_
     }
 
-    class Road {
-        -ID id
+    class CircleRot {
+        + CircleRot( const Position& pos, const float radius, float rotation )
+        + Position pos() const
+        + float radius() const
+        + float rotation() const
+        - Position pos_
+        - float radius_
+        - float rotation_
     }
 
+    class TriangleRot {
+        + TriangleRot( const Position& a, const Position& b, const Position& c, const float rotation )
+        + Position a() const
+        + Position b() const
+        + Position c() const
+        + float rotation() const
+        - Position a_
+        - Position b_
+        - Position c_
+        - float rotation_
+    }
+
+    class RoadModel {
+        + {static} RoadModel create( b2WorldId world_id, const Road& road, Position position )
+        + Position getPosition() const
+        + Position getBeginning() const
+        + Position getEnd() const
+        + b2BodyId bodyId() const
+        + std::vector<b2Segment> getSegments() const
+        - RoadModel( const b2BodyId body_id, Position beginning, Position end )
+        - b2BodyId body_id_
+        - Position beginning_
+        - Position end_
+    }
+
+    class Utils {
+        + {static} b2BodyId createDynamicCircle( b2WorldId world_id, Position position, float radius, float density, float friction )
+        + {static} Position getBodyPosition( b2BodyId body_id )
+        + {static} float getBodyAngleRadians( b2BodyId body_id )
+        + {static} float radToDeg( float rad )
+        + {static} CircleRot getCircleRot( b2BodyId id )
+        + {static} float getCircleRadius( b2BodyId id )
+        + {static} b2Vec2 asVec( Position position )
+    }
+
+    CarSimulation <-- CarChassis
+    CarSimulation <-- RoadModel
+    CarSimulation <.. Utils
 }
 @enduml
