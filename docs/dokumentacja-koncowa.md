@@ -96,6 +96,10 @@ Najważniejsze klasy:
 - EvolutionManager - skupia w sobie wszystko, co potrzebne do przeprowadzenia cyklu symulacja -> ewolucja -> symulacja. Zawiera manager symulacji fizycznych SimulationManager, schemat przeprowadzanej ewolucji Evolution, aktualną populację, funkcję celu i generator drogi używany podczas rozpoczynania symulacji dla nowej populacji.  
 - SimulationManager - zapewnia wygodny interfejs zarządzania wieloma symulacjami fizycznymi pojedynczych pojazdów jednocześnie. Synchronizuje ich przebieg, udostępnia dane o najlepszym pojeździe, informuje zakończeniu wszystkich symulacji. Pojedyncza symulacja pojazdu jest obiektem klasy CarSimulation z modułu Simulation.
 - Window - zapewnia interfejs do wyświetlania całej aplikacji. Do narysowania wszystkich symulacji nałożonych na siebie wykorzystuje dane z EvolutionManagera.
+- BestCarParamsPanel - panel GUI z parametrami najlepszego samochodu do tej pory
+- ControlPanel - panel GUI do sterowania przebiegiem symulacji (pauza, spowolnienie itp.)
+- ConfigurationPanel - panel GUI do ustawienia parametrów symulacji przed jej rozpoczęciem
+- DebugInfoPanel - panel GUI z dodatkowymi informacjami o przebiegu symulacji (numer pokolenia, liczba _żywych_ osobników, itd.)
 
 ![app-diagram](./diagrams-exported/app.png)
 
