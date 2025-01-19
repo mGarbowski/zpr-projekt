@@ -1,17 +1,14 @@
 to generate test coverage:
+- delete the ./bin directory
 - compile the program
 ```shell
   rm -rf ./build
   cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
   cmake --build build
 ```
-- run all tests: 
+- run all tests:
 ```shell
-./bin/Debug/app_tests;
-./bin/Debug/common_tests;
-./bin/Debug/evolution_tests;
-./bin/Debug/road_tests;
-./bin/Debug/simulation_tests
+ctest --test-dir build
 ```
 - run 
 ```shell 
