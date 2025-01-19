@@ -281,7 +281,7 @@ Najmniej przetestowanym jest moduł app, ponieważ zawiera on wszelkie funkcje o
 Jednym z największych wyzwań przy pracy nad projektem było zapoznanie się z API wykorzystanych bibliotek, w szczególności na styku SFML i Box2D. Trudności sprawiało nam wydobycie danych na temat obiektów w symulacji silnika fizycznego Box2D i odwzorowanie ich na obiekty kształtów z biblioteki graficznej (SFML) do wyświetlenia na ekranie, ze względu na: różne układy współrzędnych w bibliotekach, tworzenie przez fizyczne obiekty hierarchii i używanie współrzędnych względnych, stosowanie złożonych przekształceń widoku.  
 Problemy udało nam się pomyślnie rozwiązać tworząc odpowiednie abstrakcje rozdzielające odczytywane dane od szczegółów API danej biblioteki.
 
-Rzeczą, którą chcielibyśmy poprawić w przyszłych projektach jest dokładne zestawienie narzędzi do formatowania, analizy statycznej, pokrycia i tym podobnych na samym początku projektu. Przez bardzo długi czas używaliśmy do tego funkcji udostępnianych przez IDE zamiast uniwersalnego rozwiązania. Powodowało to problemy, takie jak niespójność kodu ze stylem kodowania wymaganym przez prowadzącego.
+Rzeczą, którą chcielibyśmy poprawić w przyszłych projektach jest pełne zintegrowanie narzędzi do formatowania, analizy statycznej, pokrycia i tym podobnych z systemem budowania i potokiem CI na samym początku projektu. Przez bardzo długi czas używaliśmy do tego funkcji udostępnianych przez IDE zamiast uniwersalnego rozwiązania. Powodowało to problemy, takie jak niespójność kodu ze stylem kodowania wymaganym przez prowadzącego.
 
 # Instrukcja użytkownika
 ## Instrukcja budowania i uruchomienia
