@@ -71,8 +71,8 @@ Udało nam się zrealizować wszystkie zaplanowane funkcjonalności i kilka nie 
 	2. Genom najlepszego pojazdu wyświetlany w jednym z okien GUI
 
 
-Największym napotkanym problemem była translacja danych o położeniu i obrocie z obiektów fizycznych do obiektów wyświetlanych przez SFML, ponieważ używają one różnych układów współrzędnych. Próbując nadać obiektowi odpowiednią rotację wbudowanymi metodami SFML, poza obracaniem się wokół własnej osi obracał się on również wokół środka układu współrzędnych. Rozwiązaliśmy problem poprzez stworzenie odpowiedniej macierzy transformacji, która łączyła przesunięcie na środek układu współrzędnych, obrót o pożądany kąt, a następnie przesunięcie na oryginalne współrzędne. 
-Problemu mogliśmy prawdopodobnie uniknąć poprzez dokładniejsze zapoznanie się z biblioteką SFML i jej dokumentacją przed wdrożeniem w aplikację. 
+Jednym z największych wyzwań przy pracy nad projektem było zapoznanie się z API wykorzystanych bibliotek, w szczególności na styku SFML i Box2D. Trudności sprawiało nam wydobycie danych na temat obiektów w symulacji silnika fizycznego Box2D i odwzorowanie ich na obiekty kształtów z biblioteki graficznej (SFML) do wyświetlenia na ekranie, ze względu na: różne układy współrzędnych w bibliotekach, tworzenie przez fizyczne obiekty hierarchii i używanie współrzędnych względnych, stosowanie złożonych przekształceń widoku.  
+Problemy udało nam się pomyślnie rozwiązać tworząc odpowiednie abstrakcje rozdzielające odczytywane dane od szczegółów API danej biblioteki.
 
 
 
