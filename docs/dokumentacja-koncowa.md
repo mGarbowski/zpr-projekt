@@ -151,7 +151,38 @@ Krzyżowanie - genomy kolejnych osobników wybranych w kroku reprodukcji są krz
 Mutacja - osobniki będące rezultatem krzyżowania poddawane są mutacji, zmieniane są ich atrybuty
 Sukcesja - Z populacji oryginalnej i zmutowanej wybierane są osobniki, z których powstanie nowa populacja do kolejnej iteracji
 
-Każdy etap jest niezależny od drugiego, dzięki czemu można je dowolnie modyfikować. 
+Każdy etap jest niezależny od drugiego, dzięki czemu można je dowolnie wymieniać. Warianty i parametry są konfigurowane przez użytkownika przed rozpoczęciem symulacji.
+
+#### Reprodukcja
+
+- Proporcjonalna - prawdopodobieństwo wylosowania osobnika jest proporcjonalne do wartości funkcji celu
+- Turniejowa - na każde miejsce w wynikowej populacji losowane jest `n` osobników ze zwracaniem, wybierany jest najlepszy
+    -  `n` jest parametrem użytkownika
+- Losowa - na każde miejsce wynikowej populacji jest losowany ze zwracaniem według rozkładu jednostajnego osobnik z poprzedniej populacji
+    - niezależnie od wartości funkcji celu
+    - odpowiednik _wyłączenia_ reprodukcji
+
+#### Mutacja
+
+- Gaussowska - do każdego atrybutu genomu dodawana jest wartość `s ⋅ N(0,1)`
+    - siła mutacji `s` jest parametrem użytkownika
+- Brak mutacji
+
+#### Krzyżowanie
+
+- Dwupunktowe
+    - przechodzi przez kolejne pary populacji (rodzice)
+    - każda jest poddawana krzyżowaniu z prawdopodobieństwem krzyżowania `p` (parametr użytkownika)
+    - losowane są 2 punkty podziału
+    - powstają 2 osobniki potomne przez wymianę fragmentu genomu między punktami podziału pomiędzy rodzicami
+- Brak krzyżowania
+
+#### Sukcesja
+
+- Generacyjna - następną populacją jest populacja po krzyżowaniu i mutacji
+- Elitarna - następną populacją jest `n` najlepszych osobników poprzedniej populacji i `m−n` mutantów
+    - rozmiar elity `n` jest parametrem użytkownika
+    - `m` - rozmiar poprzedniej populacji
 
 ### Funkcja celu
 Do określenia jakości stosujemy funkcję celu o wzorze: 
@@ -173,7 +204,7 @@ Etapy działania:
 2. **Obliczanie wartości szumu**:
    - Dla każdego punktu na osi X, gdzie chcemy określić pozycję drogi w 2D:
      - Identyfikujemy dwa najbliższe punkty gradientu na siatce (lewy i prawy).
-     - Obliczamy odległość od interesującego nas punktu do tych punktów gradientu.
+     - Obliczamy odległość od interesującego nas punktu do tych punktów siatki.
      - Dla każdej z tych odległości wykonujemy iloczyn z gradientem przypisanym do wierzchołka siatki, co daje wartość wpływu danego punktu siatki na ostateczną wysokość poszukiwanego punktu.
 
 3. **Interpolacja wyników**:
