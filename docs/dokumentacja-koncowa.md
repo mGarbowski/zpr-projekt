@@ -69,6 +69,18 @@ Udało nam się zrealizować wszystkie zaplanowane funkcjonalności i kilka nie 
 	2. Genom najlepszego pojazdu wyświetlany w jednym z okien GUI
 
 
+Największym napotkanym problemem była translacja danych o położeniu i obrocie z obiektów fizycznych do obiektów wyświetlanych przez SFML, ponieważ używają one różnych układów współrzędnych. Próbując nadać obiektowi odpowiednią rotację wbudowanymi metodami SFML poza obracaniem się wokół własnej osi obracał się on również wokół środka układu współrzędnych. Rozwiązaliśmy problem poprzez stworzenie odpowiedniej macierzy transformacji która łączyła przesunięcie na środek układu współrzędnych, obrót o porządany kąt, a następnie przesunięcie na oryginalne współrzędne. 
+Problemu mogliśmy prawdopodobnie uniknąć dokładniej zapoznając się z biblioteką SFML i jej dokumentacją przed wdrożeniem w aplikację. 
+
+
+
+## Architektura
+Program napisany jest w języku C++,  z wykorzystaniem bibliotek Box2d, ImGui i SFML. Do testowania wykorzystujemy bibliotekę Google Test.
+Budowanie aplikacji automatyzujemy przez Cmake.
+
+
+
+
 
 ## Lista zadań
 | Grupa                              | Zadanie                                                                                      | Czas zaplanowany[h] | Czas Rzeczywisty |
