@@ -20,7 +20,7 @@ Po uruchomieniu użytkownik może dopasować parametry symulacji (np. grawitacja
 Po wystartowaniu symulacji wizualizowane są przebiegi symulacji dla pierwszego pokolenia. Po tym, jak wszystkie pojazdy z obecnego pokolenia dojadą do celu, utkną w miejscu lub wyczerpany zostanie limit obliczeniowy przeprowadzana jest ewolucja i proces jest powtarzany dla nowej populacji.
 Podczas wizualizacji symulacji w lewym górnym rogu okna wyświetlany jest również model najlepszego pojazdu do tej pory wraz z dodatkowymi informacjami na jego temat.
 
-Ewolucja pojazdów przeprowadzana jest korzystając z algorytmu ewolucyjnego naszego autorstwa z wieloma opcjami customizacji. 
+Ewolucja pojazdów przeprowadzana jest korzystając z algorytmu ewolucyjnego naszego autorstwa z wieloma opcjami customizacji.
 
 Funkcja celu wyliczana jest na podstawie przejechanej odległości i czasu. Wagi tych składowych są możliwe do zmiany w panelu konfiguracyjnym przed rozpoczęciem symulacji.
 
@@ -34,6 +34,8 @@ promień koła tylnego,
 promień koła przedniego.
 
 Trasa, po której poruszają się pojazdy generowana jest za pomocą algorytmu Szumu Perlina w 1d. Dla każdego pokolenia jest generowana na nowo, aby uniknąć dopasowywania się osobników do jednej konkretnej trasy.
+
+Dokładne działanie algorytmu ewolucyjnego, funkcji celu i szumu perlina opisane są w sekcji "[[#Wykorzystane algorytmy]]" 
 
 
 ## Zrealizowane funkcjonalności:
@@ -75,9 +77,51 @@ Problemu mogliśmy prawdopodobnie uniknąć dokładniej zapoznając się z bibli
 
 
 ## Architektura
-Program napisany jest w języku C++,  z wykorzystaniem bibliotek Box2d, ImGui i SFML. Do testowania wykorzystujemy bibliotekę Google Test.
-Budowanie aplikacji automatyzujemy przez Cmake.
+Program napisany jest w języku C++,  z wykorzystaniem bibliotek zewnętrznych Box2d, ImGui i SFML. Do testowania wykorzystujemy bibliotekę Google Test. Budowanie aplikacji automatyzujemy przez Cmake. Repozytorium kodu trzymane jest na Githubie, na którym korzystamy też z narzędzia Github Workflows w celu automatycznego testowania aplikacja przy każdej aktualizacji.
 
+Każdy samochód powiązany jest z osobnym "światem" (symulacją) Box2d w celu ułatwienia zarządzaniem tworzenia i przeprowadzania symulacji grupowych.
+Program podzielony jest na następujące moduły:
+### App
+Odpowiada za program wykonywalny, wyświetlenie symulacji, interfejs użytkownika i konsolidację całego procesu ewolucji i symulacji dla wielu pojazdów jednocześnie. 
+Zawiera punkt wejścia do aplikacji main.cc, który wprawia w ruch cały proces. Korzysta ze wszystkich pozostałych modułów. 
+Najważniejsze klasy:
+- EvolutionManager - skupia w sobie wszystko, co potrzebne do przeprowadzenia cyklu symulacja -> ewolucja -> symulacja. Zwiera manager symulacji fizycznych SimulationManager, schemat przeprowadzanej ewolucji Evolution, aktualną populację, funkcję celu i generator drogi używany podczas rozpoczynania symulacji dla nowej populacji.  
+- SimulationManager - zapewnia wygodny interfejs zarządzania wieloma symulacjami fizycznymi pojedynczych pojazdów jednocześnie. Synchronizuje ich przebieg, udostępnia dane o najlepszym pojeździe, informuje zakończeniu wszystkich symulacji. Pojedyncza symulacja pojazdu jest obiektem klasy CarSimulation z modułu Simulation.
+- Window - zapewnia interfejs do wyświetlania całej aplikacji. Do narysowania wszystkich symulacji nałożonych na siebie wykorzystuje dane z EvolutionManagera.
+
+### Common
+Klasy pomocnicze wspólne dla wszystkich modułów
+Klasy:
+- CarDescription - definicja opisu pojazdu. Ułatwia przekazywanie informacji o pojazdach między modułami.
+- Position - reprezentacja pozycji w 2D. 
+
+### Evolution
+Moduł dostarczający narzędzia do wykorzystania algorytmu ewolucyjnego. Podzielony na pod-moduły dostarczające wariantów składowych ewolucji:
+- Crossover - dostarcza wariantów krzyżowania
+- Mutation - dostarcza wariantów mutacji
+- Reproduction - dostarcza wariantów reprodukcji
+- Succession - dostarcza wariantów sukcesji
+Do łatwego tworzenia różnych wariantów poszczególnych składowych i zapewnienia jednolitego interfejsu używamy wzorca fabryki. Każda składowa ma swoją fabrykę. Każda fabryka używa wzorca wizytatora do tworzenia odpowiedniego wariantu klasy na podstawie typu podanych parametrów.
+Najważniejsze klasy:
+- Evolution - konsolidacja wszystkich składowych algorytmu ewolucyjnego, pozwala na wygenerowanie nowej populacji pojazdów na podstawie aktualnej populacji i wartości funkcji celu dla każdego osobnika. Korzysta z klas ReproductionScheme, CrossoverScheme, MutationScheme i SuccessionScheme do przeprowadzenia ewolucji. 
+
+### Road
+Moduł dostarczający . Dostarcza dwie metody generacji drogi - statyczną i losową wykorzystującą algorytm Szumu Perlina.
+Najważniejsze klasy:
+- Road - abstrakcja "drogi" będąca wektorem punktów 2D. Stosowana w CarSimulation, SimulationManager i generatorach drogi
+- RoadGenerator - klasa abstrakcyjna dostarczająca interfejs do generowania drogi. Posiada dwie konkretne implementacje:
+	- StaticRoadGenerator - zawsze zwraca drogę podaną przy tworzeniu obiektu lub domyślną w przypadku jej braku. Wykorzystywana do testowania.
+	- PerlinRoadGenerator - generuje losową drogę szumem perlina o określonych parametrach. Opis algorytmu w sekcji "[[#Wykorzystane algorytmy]]"
+
+### Simulation
+Odpowiada za przeprowadzenie symulacji fizycznej jednego pojazdu.
+Najważniejsze klasy:
+- CarSimulation - Reprezentuje symulację pojedynczego samochodu na drodze. Udostępnia informacje o jego stanie, składowych symulacji (kadłub pojazdu, koła pojazdu, model fizyczny drogi) i operacje na świecie symulacji box2D - kolejny krok i .  
+- RoadModel - klasa reprezentująca fizyczną trasę. Przekształca RoadModel na wektor obiektów Box2D do wykorzystania w symulacji jako podłoże.
+
+
+
+## Wykorzystane algorytmy
 
 
 
