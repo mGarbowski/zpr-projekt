@@ -193,6 +193,9 @@ Każdy etap jest niezależny od drugiego, dzięki czemu można je dowolnie wymie
     - siła mutacji `s` jest parametrem użytkownika
 - Brak mutacji
 
+<div style="page-break-after: always;"></div>
+
+
 #### Krzyżowanie
 
 - Dwupunktowe
