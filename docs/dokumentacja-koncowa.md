@@ -224,47 +224,60 @@ Etapy działania:
 	- Ostateczna wysokość drogi w punkcie jest mnożona razy parametr zewnętrzny scale_y. Ostatecznie wysokość drogi w dowolnym punkcie mieści się w zakresie <-scale_y, scale_y>
 
 
+## Statystyki kodu
+Statystyki pokrycia generowane są przez narzędzie `lcov`
+Liczba linii kodu: 1857
+Liczba testów: 51
+Pokrycie kodu testami: 
+- linii kodu : 75.8%
+- funkcji: 82.3%
+![coverage](./images/coverage-all.png)
+
+Najmniej przetestowanym jest moduł app, ponieważ zawiera on wszelkie funkcje odpowiadające za GUI, które są problematyczne lub niemożliwe do objęcia testami jednostkowymi. 
+
+![coverage](./images/coverage-app.png)
+
 
 ## Lista zadań
 | Grupa                              | Zadanie                                                                                      | Czas zaplanowany[h] | Czas Rzeczywisty |
 | ---------------------------------- | -------------------------------------------------------------------------------------------- | ------------------- | ---------------- |
-| Dobór bibliotek                    | silnik fizyczny                                                                              | 1                   |                  |
-|                                    | renderowanie grafiki                                                                         | 1                   |                  |
-|                                    | gui                                                                                          | 1                   |                  |
-|                                    | testy                                                                                        | 1                   |                  |
-| Zamodelowanie hierarchii klas      | podział programu na moduły                                                                   | 3                   |                  |
-|                                    | przygotowanie diagramów UML                                                                  | 3                   |                  |
-| Przygotowanie minimalnej aplikacji | zapoznanie się z możliwościami silnika fizycznego                                            | 3                   |                  |
-|                                    | zapoznanie się z biblioteką do GUI                                                           | 3                   |                  |
-|                                    | zapoznanie się z biblioteką do renderowania grafiki                                          | 4                   |                  |
-|                                    | uproszczony model ewolucji                                                                   | 2                   |                  |
-|                                    | uproszczony model samochodu                                                                  | 2                   |                  |
-|                                    | uproszczony model trasy                                                                      | 2                   |                  |
-|                                    | uproszczone sterowanie symulacją z GUI                                                       | 2                   |                  |
-|                                    | integracja modelu ewolucji z GUI                                                             | 3                   |                  |
-|                                    | integracja silnika fizycznego z GUI                                                          | 5                   |                  |
-|                                    | integracja silnika fizycznego z uproszczonym modelem ewolucji                                | 4                   |                  |
-| Zestawienie potoku CI              | dla Ubuntu                                                                                   | 2                   |                  |
-|                                    | dla Windowsa                                                                                 | 3                   |                  |
-|                                    | zestawienie narzędzi do analizy statycznej, formatowania kodu                                | 2                   |                  |
-| Generowanie trasy                  | wybór i implementacja algorytmu                                                              | 3                   |                  |
-|                                    | wygenerowanie modelu trasy w silniku fizycznym                                               | 3                   |                  |
-| Oprogramowanie ewolucji            | zamodelowanie genomu                                                                         | 2                   |                  |
-|                                    | implementacja algorytmu ewolucyjnego z możliwością wymiany wariantów algorytmu               | 3                   |                  |
-|                                    | implementacja funkcji celu                                                                   | 1                   |                  |
-|                                    | implementacja wariantów krzyżowania                                                          | 3                   |                  |
-|                                    | implementacja wariantów mutacji                                                              | 3                   |                  |
-|                                    | implementacja wariantów reprodukcji                                                          | 3                   |                  |
-|                                    | implementacja wariantów selekcji                                                             | 3                   |                  |
-| Symulacja przejazdu                | generowanie modelu fizycznego samochodu na podstawie genomu                                  | 5                   |                  |
-|                                    | symulowanie oddzielnych przejazdów po jednej trasie                                          | 10                  |                  |
-|                                    | pobranie parametrów dla wszystkich osobników: dystans, czas                                  | 2                   |                  |
-| Wizualizacja iteracji ewolucji     | wyświetlanie trasy                                                                           | 2                   |                  |
-|                                    | wyświetlanie pojazdów                                                                        | 4                   |                  |
-|                                    | podążanie kamerą za najdalej położonym pojazdem                                              | 3                   |                  |
-| GUI                                | wyświetlanie parametrów liczbowych symulacji w czasie rzeczywistym: numer pokolenia, dystans | 2                   |                  |
-|                                    | kontrolki do wyboru parametrów dla każdego wariantu składowych algorytmu ewolucyjnego        | 4                   |                  |
-|                                    | kontrolki do wyboru parametrów symulacji: parametry generatora trasy, grawitacja             | 2                   |                  |
-|                                    | sterowanie przebiegiem symulacji: start, stop                                                | 4                   |                  |
-|                                    | wyświetlanie wyników po zakończeniu ewolucji                                                 | 3                   |                  |
-| **SUMA**                           |                                                                                              | **112**             |                  |
+| Dobór bibliotek                    | silnik fizyczny                                                                              | 1                   | 1                |
+|                                    | renderowanie grafiki                                                                         | 1                   | 1                |
+|                                    | gui                                                                                          | 1                   | 1                |
+|                                    | testy                                                                                        | 1                   | 1                |
+| Zamodelowanie hierarchii klas      | podział programu na moduły                                                                   | 3                   | 2                |
+|                                    | przygotowanie diagramów UML                                                                  | 3                   | 2                |
+| Przygotowanie minimalnej aplikacji | zapoznanie się z możliwościami silnika fizycznego                                            | 3                   | 8                |
+|                                    | zapoznanie się z biblioteką do GUI                                                           | 3                   | 1                |
+|                                    | zapoznanie się z biblioteką do renderowania grafiki                                          | 4                   | 3                |
+|                                    | uproszczony model ewolucji                                                                   | 2                   | -                |
+|                                    | uproszczony model samochodu                                                                  | 2                   | 4                |
+|                                    | uproszczony model trasy                                                                      | 2                   | 2                |
+|                                    | uproszczone sterowanie symulacją z GUI                                                       | 2                   | 2                |
+|                                    | integracja modelu ewolucji z GUI                                                             | 3                   | 2                |
+|                                    | integracja silnika fizycznego z GUI                                                          | 5                   | 10               |
+|                                    | integracja silnika fizycznego z uproszczonym modelem ewolucji                                | 4                   | 4                |
+| Zestawienie potoku CI              | dla Ubuntu                                                                                   | 2                   | 2                |
+|                                    | dla Windowsa                                                                                 | 3                   | 2                |
+|                                    | zestawienie narzędzi do analizy statycznej, formatowania kodu                                | 2                   | 2                |
+| Generowanie trasy                  | wybór i implementacja algorytmu                                                              | 3                   | 4                |
+|                                    | wygenerowanie modelu trasy w silniku fizycznym                                               | 3                   | 5                |
+| Oprogramowanie ewolucji            | zamodelowanie genomu                                                                         | 2                   | 1                |
+|                                    | implementacja algorytmu ewolucyjnego z możliwością wymiany wariantów algorytmu               | 3                   | 2                |
+|                                    | implementacja funkcji celu                                                                   | 1                   | 2                |
+|                                    | implementacja wariantów krzyżowania                                                          | 3                   | 5                |
+|                                    | implementacja wariantów mutacji                                                              | 3                   | 3                |
+|                                    | implementacja wariantów reprodukcji                                                          | 3                   | 3                |
+|                                    | implementacja wariantów selekcji                                                             | 3                   | 2                |
+| Symulacja przejazdu                | generowanie modelu fizycznego samochodu na podstawie genomu                                  | 5                   | 3                |
+|                                    | symulowanie oddzielnych przejazdów po jednej trasie                                          | 10                  | 11               |
+|                                    | pobranie parametrów dla wszystkich osobników: dystans, czas                                  | 2                   | 1                |
+| Wizualizacja iteracji ewolucji     | wyświetlanie trasy                                                                           | 2                   | 2                |
+|                                    | wyświetlanie pojazdów                                                                        | 4                   | 5                |
+|                                    | podążanie kamerą za najdalej położonym pojazdem                                              | 3                   | 2                |
+| GUI                                | wyświetlanie parametrów liczbowych symulacji w czasie rzeczywistym: numer pokolenia, dystans | 2                   | 2                |
+|                                    | kontrolki do wyboru parametrów dla każdego wariantu składowych algorytmu ewolucyjnego        | 4                   | 4                |
+|                                    | kontrolki do wyboru parametrów symulacji: parametry generatora trasy, grawitacja             | 2                   | 3                |
+|                                    | sterowanie przebiegiem symulacji: start, stop                                                | 4                   | 1                |
+|                                    | wyświetlanie wyników po zakończeniu ewolucji                                                 | 3                   | 2                |
+| **SUMA**                           |                                                                                              | **112**             | 113              |
