@@ -70,12 +70,6 @@ Udało nam się zrealizować wszystkie zaplanowane funkcjonalności i kilka nie 
 	1. Model najlepszego pojazdu wyświetlany w rogu ekranu
 	2. Genom najlepszego pojazdu wyświetlany w jednym z okien GUI
 
-
-Jednym z największych wyzwań przy pracy nad projektem było zapoznanie się z API wykorzystanych bibliotek, w szczególności na styku SFML i Box2D. Trudności sprawiało nam wydobycie danych na temat obiektów w symulacji silnika fizycznego Box2D i odwzorowanie ich na obiekty kształtów z biblioteki graficznej (SFML) do wyświetlenia na ekranie, ze względu na: różne układy współrzędnych w bibliotekach, tworzenie przez fizyczne obiekty hierarchii i używanie współrzędnych względnych, stosowanie złożonych przekształceń widoku.  
-Problemy udało nam się pomyślnie rozwiązać tworząc odpowiednie abstrakcje rozdzielające odczytywane dane od szczegółów API danej biblioteki.
-
-
-
 ## Architektura
 Program napisany jest w języku C++, z wykorzystaniem bibliotek zewnętrznych Box2d, ImGui i SFML. Do testowania wykorzystujemy bibliotekę Google Test. Budowanie aplikacji automatyzujemy przez Cmake. Repozytorium kodu trzymane jest na Githubie, na którym korzystamy też z narzędzia Github Actions w celu automatycznego testowania aplikacja przy każdej aktualizacji.
 
@@ -281,3 +275,12 @@ Najmniej przetestowanym jest moduł app, ponieważ zawiera on wszelkie funkcje o
 |                                    | sterowanie przebiegiem symulacji: start, stop                                                | 4                   | 1                |
 |                                    | wyświetlanie wyników po zakończeniu ewolucji                                                 | 3                   | 2                |
 | **SUMA**                           |                                                                                              | **112**             | 113              |
+
+## Napotkane problemy i możliwości poprawy
+
+Jednym z największych wyzwań przy pracy nad projektem było zapoznanie się z API wykorzystanych bibliotek, w szczególności na styku SFML i Box2D. Trudności sprawiało nam wydobycie danych na temat obiektów w symulacji silnika fizycznego Box2D i odwzorowanie ich na obiekty kształtów z biblioteki graficznej (SFML) do wyświetlenia na ekranie, ze względu na: różne układy współrzędnych w bibliotekach, tworzenie przez fizyczne obiekty hierarchii i używanie współrzędnych względnych, stosowanie złożonych przekształceń widoku.  
+Problemy udało nam się pomyślnie rozwiązać tworząc odpowiednie abstrakcje rozdzielające odczytywane dane od szczegółów API danej biblioteki.
+
+Rzeczą, którą chcielibyśmy poprawić w przyszłych projektach jest dokładne zestawienie narzędzi do formatowania, analizy statycznej, pokrycia i tym podobnych na samym początku projektu. Przez bardzo długi czas używaliśmy do tego funkcji udostępnianych przez IDE zamiast uniwersalnego rozwiązania. Powodowało to problemy, takie jak niespójność kodu ze stylem kodowania wymaganym przez prowadzącego.
+
+
