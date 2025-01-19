@@ -62,7 +62,8 @@ apt install -y build-essential \
    libflac-dev \
    libvorbis-dev \
    libgl1-mesa-dev \
-   libegl1-mesa-dev
+   libegl1-mesa-dev \
+   lcov
 ```
 
 ### Budowanie i uruchomienie aplikacji
