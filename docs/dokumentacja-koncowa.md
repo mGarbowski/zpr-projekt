@@ -77,7 +77,7 @@ Problemu mogliśmy prawdopodobnie uniknąć poprzez dokładniejsze zapoznanie si
 
 
 ## Architektura
-Program napisany jest w języku C++, z wykorzystaniem bibliotek zewnętrznych Box2d, ImGui i SFML. Do testowania wykorzystujemy bibliotekę Google Test. Budowanie aplikacji automatyzujemy przez Cmake. Repozytorium kodu trzymane jest na Githubie, na którym korzystamy też z narzędzia Github Workflows w celu automatycznego testowania aplikacja przy każdej aktualizacji.
+Program napisany jest w języku C++, z wykorzystaniem bibliotek zewnętrznych Box2d, ImGui i SFML. Do testowania wykorzystujemy bibliotekę Google Test. Budowanie aplikacji automatyzujemy przez Cmake. Repozytorium kodu trzymane jest na Githubie, na którym korzystamy też z narzędzia Github Actions w celu automatycznego testowania aplikacja przy każdej aktualizacji.
 
 Każdy samochód powiązany jest z osobnym "światem" (symulacją) Box2d w celu ułatwienia zarządzaniem tworzenia i przeprowadzania symulacji grupowych.
 
