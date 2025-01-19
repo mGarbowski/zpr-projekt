@@ -144,7 +144,7 @@ Najważniejsze klasy:
 
 ## Wykorzystane algorytmy
 
-#### Algorytm ewolucyjny:
+### Algorytm ewolucyjny:
 Nasza implementacja algorytmu ewolucyjnego składa się z 4 etapów, wykonywanych jeden po drugim:
 Reprodukcja - z oryginalnej populacji wybierane są osobniki, które mają być poddane krzyżowaniu i mutacji
 Krzyżowanie - genomy kolejnych osobników wybranych w kroku reprodukcji są krzyżowane ze sobą (w zależności od implementacji)
@@ -153,7 +153,7 @@ Sukcesja - Z populacji oryginalnej i zmutowanej wybierane są osobniki, z który
 
 Każdy etap jest niezależny od drugiego, dzięki czemu można je dowolnie modyfikować. 
 
-#### Funkcja celu
+### Funkcja celu
 Do określenia jakości stosujemy funkcję celu o wzorze: 
 ```dystans * waga dystansu + prędkość * waga prędkości```,  gdzie:
 - dystans - odległość na osi X pojazdu od punktu startowego w momencie końca życia symulacji
@@ -162,7 +162,7 @@ Do określenia jakości stosujemy funkcję celu o wzorze:
 - waga prędkości - parametr, sugerowana 1000.0, ponieważ przebieg jednej symulacji zajmuje setki lub tysiące kroków, w zależności od długości trasy.
 
 
-#### Szum Perlina
+### Szum Perlina
 Do generowania punktów drogi wykorzystujemy 1 wymiarowy wariant algorytmu szumu Perlina. Jest to algorytm proceduralnego generowania szumu gradientowego. Wykorzystywany jest on często do generacji naturalnie wyglądających tekstur w grafice komputerowej dzięki płynnym przejściom w wartości gradientu między punktami. Jest również używany w grach komputerowych do generacji naturalnego terenu tak jak w naszym zastosowaniu. 
 Etapy działania:
 
