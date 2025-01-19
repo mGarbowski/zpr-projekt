@@ -123,6 +123,48 @@ Najważniejsze klasy:
 
 ## Wykorzystane algorytmy
 
+#### Algorytm ewolucyjny:
+Nasza implementacja algorytmu ewolucyjnego składa się z 4 etapów, wykonywanych jeden po drugim:
+Reprodukcja - z orginalnej populacji wybierane są osobniki, które mają być poddane krzyżowaniu i mutacji
+Krzyżowanie - genomy kolejnych osobników wybranych w kroku reprodukcji są krzyżowane ze sobą (w zależności od implementacji)
+Mutacja - osobniki będące rezultatem krzyżowania poddawane są mutacji, zmieniane są ich atrybuty
+Sukcesja - Z populacji orginalnej i zmutowanej wybierane są osobniki, z których powstanie nowa populacja do kolejnej iteracji
+
+Każdy etap jest niezależny od drugiego, dzięki czemu można je dowolnie modyfikować. 
+
+#### Funkcja celu
+Do określenia jakości stosujemy funkcję celu o wzorze:
+dystans * waga dystansu + prędkość * waga prędkości,  gdzie:
+dystans - odległość na osi X pojazdu od punktu startowego w momencie końca życia symulacji
+waga dystansu - parametr, sugerowana 1.0
+prędkość - dystans/(ilość kroków symulacji + 1)
+waga prędkości - parametr, sugeorwana 1000.0, ponieważ przebieg jednej symulacji zajmuje setki lub tysiące kroków, w zależności od długości trasy.
+
+
+#### Szum Perlina
+Do generowania punktów drogi wykorzystujemy 1 wymiarowy wariant algorytmu szumu perlina. Jest to algorytm proceduralnego generowania szumu gradientowego. Wykorzystywany jest on często do generacji naturalnie wyglądających tekstur w grafice komputerowej dzięki płynnym przejściom w wartości gradientu między punktami. Jest również używany w grach komputerowych do generacji naturalnego terenu, tak jak w naszym zastosowaniu. 
+Etapy działania:
+
+1. **Siatka punktów gradientu**:
+   - Generujemy siatkę punktów rozmieszczonych w równych odstępach wzdłuż osi X.
+   - Każdemu z tych punktów przypisujemy losowy gradient skierowany w górę lub w dół o długości 1. Można interpretować to jako wysokość drogi w danym punkcie
+
+2. **Obliczanie wartości szumu**:
+   - Dla każdego punktu na osi X, gdzie chcemy określić pozycję drogi w 2D:
+     - Identyfikujemy dwa najbliższe punkty gradientu na siatce (lewy i prawy).
+     - Obliczamy odległość od interesującego nas punktu do tych punktów gradientu.
+     - Dla każdej z tych odległości wykonujemy iloczyn z gradientem przypisanym do wierzchołka siatki, co daje wartość wpływu danego punktu siatki na ostateczną wysokość poszukiwanego punktu.
+
+3. **Interpolacja wyników**:
+   - Wpływy z dwóch sąsiednich punktów gradientu są interpolowane za pomocą funkcji wygładzającej smoothstep.
+
+4. **Sumowanie oktaw**:
+	- Generujemy N oktaw, które nakładamy na siebie.
+	- Każda oktawa ma dwa parametry: częstotliwość i amplitudę. Wartość tych parametrów dla oktawy n jest równa:
+	   - 2^(n-1) dla częstotliwości
+	   - 1/2^(n-1) dla amplitudy
+	- wartości po zsumowaniu oktaw przycinane są z góry i z dołu do określonych wartości (1 i -1)
+	- Ostateczna wysokość drogi w punkcie jest mnożona razy parametr zewnętrzny scale_y. Ostatecznie wysokośc drogi w dowolnym punkcie mieści się w zakresie <-scale_y, scale_y>
 
 
 
