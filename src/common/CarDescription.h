@@ -2,6 +2,11 @@
  * @ingroup common
  * @brief Holds all parameters required to construct a car.
  * @authors Mikolaj Garbowski, Michal Luszczek
+ *
+ * A car is defined by
+ *   - 8 vertices of its chassis
+ *   - size of its wheels
+ *   - density of its wheels
  */
 
 #ifndef CARDESCRIPTION_H
