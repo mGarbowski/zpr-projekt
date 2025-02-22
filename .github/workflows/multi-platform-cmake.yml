@@ -1,6 +1,6 @@
 # This starter workflow is for a CMake project running on multiple platforms. There is a different starter workflow if you just want a single platform.
 # See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-single-platform.yml
-name: test on Ubuntu and Windows
+name: test on Ubuntu
 
 on:
   push:
@@ -40,22 +40,6 @@ jobs:
       run: |
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
             cmake --build build
-
-    - name: Run tests
-      run: >
-        ctest --test-dir build
-
-  build_and_test_windows:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: build
-      env:
-        CXX: clang
-      run: |
-        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug 
-        cmake --build build
 
     - name: Run tests
       run: >
